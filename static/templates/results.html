@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+{% load bootstrap3 %}
+{% load static %}
+{% load staticfiles %}
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% block pagetitle %}Results{% endblock %}
+
+{% block head %}
+
+            <!--<link rel="stylesheet" type="text/css" href="{% static 'admin/css/global.css' %}"/>-->
+
+            <!--<script type="text/javascript" src="/admin/jsi18n/"></script>-->
+            <!--<script type="text/javascript" src="{% static 'admin/js/core.js' %}"></script>-->
+            <!--<script type="text/javascript" src="{% static 'admin/js/admin/RelatedObjectLookups.js' %}"></script>-->
+            <!--<script type="text/javascript" src="{% static 'admin/js/jquery.js' %}"></script>-->
+            <!--<script type="text/javascript" src="{% static 'admin/js/jquery.init.js' %}"></script>-->
+            <!--<script type="text/javascript" src="{% static 'admin/js/actions.js' %}"></script>-->
+            <!--<script type="text/javascript" src="{% static 'admin/js/calendar.js' %}"></script>-->
+            <!--<script type="text/javascript" src="/static/admin/js/admin/DateTimeShortcuts.js"></script>-->
+            <!--<script src="//code.jquery.com/jquery-1.10.2.js"></script>-->
+            <script>
+                $(document).ready(function() {
+                    $('#my_option').each(function() {
+                        var option = $(this).val();
+
+                        if (option === '1'){
+                            $('#mytab a[href="#3"]').parent().removeClass("hide");
+//                            alert(option);
+                        }
+                        if (option === '2'){
+                            $('#mytab a[href="#4"]').parent().removeClass("hide");
+//                            alert(option);
+                        }
+                        if (option === '3'){
+                            $('#mytab a[href="#5"]').parent().removeClass("hide");
+//                            alert(option);
+                        }
+                        if (option === '4'){
+                            $('#mytab a[href="#6"]').parent().removeClass("hide");
+//                            alert(option);
+                        }
+                    });
+                });
+            </script>
+            <script>
+                $(document).ready(function() {
+                    $('#id_diag-diagnosis_option').change(function () {
+                        var value = $(this).val()
+//                        alert(value)
+                        if (value === 'b-thalassaemia syndromes' | value === 'a-thalassaemia syndromes' | value==='Other haemoglobin variants' | value==='Sickle cell syndromes' ){
+                            $('#mytab a[href="#3"]').parent().removeClass("hide");
+                            $('#mytab a[href="#4"]').parent().addClass("hide");
+                            $('#mytab a[href="#5"]').parent().addClass("hide");
+                            $('#mytab a[href="#6"]').parent().addClass("hide");
+                        }
+                        if (value === 'Rare cell enzyme disorders'){
+                            $('#mytab a[href="#3"]').parent().addClass("hide");
+                            $('#mytab a[href="#4"]').parent().removeClass("hide");
+                            $('#mytab a[href="#5"]').parent().addClass("hide");
+                            $('#mytab a[href="#6"]').parent().addClass("hide");
+                        }
+
+                        if (value === 'Rare cell membrane disorders'){
+                            $('#mytab a[href="#3"]').parent().addClass("hide");
+                            $('#mytab a[href="#4"]').parent().addClass("hide");
+                            $('#mytab a[href="#5"]').parent().removeClass("hide");
+                            $('#mytab a[href="#6"]').parent().addClass("hide");
+                        }
+
+                        if (value === 'Congenital desyrythropoietic anaemias'){
+                            $('#mytab a[href="#3"]').parent().addClass("hide");
+                            $('#mytab a[href="#4"]').parent().addClass("hide");
+                            $('#mytab a[href="#5"]').parent().addClass("hide");
+                            $('#mytab a[href="#6"]').parent().removeClass("hide");
+                        }
+
+                    });
+                });
+            </script>
+            {{frm.media}}
+{% endblock %}
+
+{%block jumbotron_title %}Results and update{% endblock %}
+{%block jumbotron_info %}Write here more details{% endblock %}
+{% block content %}
+
+<!-- Nav tabs -->
+<!--<ul class="nav nav-tabs">-->
+    <!--<li class="active"><a href="#demographics" role="tab" data-toggle="tab">Demographics</a></li>-->
+    <!--<li><a href="#diagnosis" role="tab" data-toggle="tab">Diagnosis</a></li>-->
+    <!--<li><a href="#a_b_sickle" role="tab" data-toggle="tab">A_b_sickle</a></li>-->
+    <!--<li><a href="#settings" role="tab" data-toggle="tab">Settings</a></li>-->
+<!--</ul>-->
+<!--<div class="tab-content">-->
+
+    <!-- Tab panes -->
+<input type="hidden" id="my_option" name='diagnosis_option' value="{{diag_option}}" />
+
+<form class="form-horizontal" method="post" id="input">
+    {% csrf_token %}
+
+    <div class="tab-pane" id="mytab">
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a href="#1" data-toggle="tab">Demographics</a>
+            </li>
+            <li>
+                <a href="#2" data-toggle="tab">Diagnosis</a>
+            </li>
+            <li class="hide">
+                <a href="#3" data-toggle="tab">b-thalassaemia/a-thalassaemia/Sickle cell syndromes</a>
+            </li>
+            <li class="hide">
+                <a href="#4" data-toggle="tab">Rare cell enzyme disorders</a>
+            </li>
+            <li class="hide">
+                <a href="#5" data-toggle="tab">Rare cell membrane disorders</a>
+            </li>
+            <li class="hide">
+                <a href="#6" data-toggle="tab">Congenital desyrythropoietic anaemias</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane fade in active" id="1">
+                <!--<input type="hidden" name="form_id" value="demographics">-->
+                <div class="container"> {%crispy frm%}</div>
+
+            </div>
+            <div class="tab-pane fade" id="2">
+                <!-- form controls to be continued here -->
+                <!--<input type="hidden" name="form_id" value="diagnosis">-->
+                <div class="container">{%crispy frm_d%}</div>
+            </div>
+            <div class="tab-pane" id="3">
+                <!-- form controls to be continued here -->
+                <!--<input type="hidden" name="form_id" value="a_b_s">-->
+                <div class="container"> {%crispy frm_a_b_s%}</div>
+            </div>
+             <div class="tab-pane" id="4">
+                <!-- form controls to be continued here -->
+                <!--<input type="hidden" name="form_id" value="a_b_s">-->
+                <div class="container"> {%crispy frm_rc_enz%}</div>
+            </div>
+            <div class="tab-pane" id="5">
+                <!-- form controls to be continued here -->
+                <!--<input type="hidden" name="form_id" value="a_b_s">-->
+                <div class="container"> {%crispy frm_rc_mbr%}</div>
+            </div>
+            <div class="tab-pane" id="6">
+                <!-- form controls to be continued here -->
+                <!--<input type="hidden" name="form_id" value="a_b_s">-->
+                <div class="container"> {%crispy frm_cong_dys%}</div>
+            </div>
+        </div>
+    </div>
+    <!--<input type="submit" name='submit' value="Submit">-->
+</form>
+
+
+{% endblock %}

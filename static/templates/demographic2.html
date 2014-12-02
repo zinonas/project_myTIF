@@ -1,0 +1,75 @@
+<!--{% load crispy_forms_tags %}-->
+{# Load the tag library #}
+{% load bootstrap3 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+
+<!DOCTYPE html>
+    <html>
+        <head>
+            
+        </head>    
+    
+        <body>
+           <nav class="navbar navbar-default" role="navigation" >
+                <div class="container-fluid">
+                  <!-- Brand and toggle get grouped for better mobile display -->
+                  <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                      <span class="sr-only">Toggle navigation</span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Thalassemia Centre</a>
+                  </div>
+              
+                  <!-- Collect the nav links, forms, and other content for toggling -->
+                  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+                    <ul class="nav navbar-nav">
+                      <li class="active"><a href="#">Demographic</a></li>
+                    </ul>
+                    
+                    <form class="navbar-form navbar-left" role="search">
+                      <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                      </div>
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+
+                  </div><!-- /.navbar-collapse -->
+                </div><!-- /.container-fluid -->
+              </nav>
+           
+           
+           
+           
+           
+           
+           
+           
+           
+            <nav class="navbar navbar-default" role="navigation">
+                  <div class="container-fluid">
+                    {# Display a form #}
+                    <h1>Demographics</h1>
+                        <br>
+                        <br>
+                         <form action="" method="post" class="form">
+                           {% csrf_token %}
+                           {% bootstrap_form form layout='inline'%}
+                           {% buttons %}
+                             <button type="submit" class="btn btn-primary">
+                               Submit
+                             </button>
+                           {% endbuttons %}
+                         </form>
+                  </div>    
+            </nav>    
+        </body>
+    
+
+    </html>
