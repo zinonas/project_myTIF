@@ -7,6 +7,9 @@ from .models import A_b_sickle_thal
 from .models import Redcell_enzyme_dis
 from .models import Redcell_membrane_dis
 from .models import Cong_dyseryth_anaemia
+from .models import icd_10
+from .models import Pregnancy
+from .models import Clinical_data
 
 class DemographicsAdmin(admin.ModelAdmin):
     class Meta:
@@ -31,10 +34,25 @@ class redcell_memb_Admin(admin.ModelAdmin):
 class cong_dyserAdmin(admin.ModelAdmin):
     class Meta:
         model = Cong_dyseryth_anaemia
-        
+
+class icd10Admin (admin.ModelAdmin):
+    class Meta:
+        model = icd_10
+
+class pregnancyAdmin (admin.ModelAdmin):
+    class Meta:
+        model = Pregnancy
+
+class clinical_dataAdmin (admin.ModelAdmin):
+    class Meta:
+        model = Clinical_data
+
 admin.site.register(Demographic, DemographicsAdmin)
 admin.site.register(Diagnosis, DiagnosisAdmin)
 admin.site.register(A_b_sickle_thal,a_b_sickle_Admin)
 admin.site.register(Redcell_enzyme_dis,redcell_enzAdmin)
 admin.site.register(Redcell_membrane_dis,redcell_memb_Admin)
 admin.site.register(Cong_dyseryth_anaemia,cong_dyserAdmin)
+admin.site.register(icd_10, icd10Admin)
+admin.site.register(Pregnancy,pregnancyAdmin)
+admin.site.register(Clinical_data,clinical_dataAdmin)

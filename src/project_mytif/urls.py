@@ -19,6 +19,9 @@ urlpatterns = patterns('',
     url(r'^input/', 'eReg.views.input', name='input'),
     url(r'^search/', 'eReg.views.search', name='search'),
     url(r'^results/', 'eReg.views.results', name='results'),
+    url(r'^search_patient_card/', 'eReg.views.search_patient_card', name='search_patient_card'),
+    url(r'^results_patient_card/', 'eReg.views.results_patient_card', name='results_patient_card'),
+    url(r'statistics/','eReg.views.statistics', name='statistics'),
     # url(r'^input/', 'eReg.views.icd_10_view', name='icd_10_view'),
     # url(r'^input/', 'eReg.views.icd_10_view', name='icd_10_view'),
     url(r'^login/', 'eReg.views.login', name='login'),
@@ -26,6 +29,7 @@ urlpatterns = patterns('',
     url(r'^admin/jsi18n/', 'django.views.i18n.javascript_catalog'),
     url(r'^autocomplete/', include('autocomplete_light.urls')),
     url(r'^admin/', include(admin.site.urls)),
+
 )
 
 #if DEBUG is true 

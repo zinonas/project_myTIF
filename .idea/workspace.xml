@@ -4,10 +4,58 @@
     <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/eReg/models.py" line="119" />
+    <bookmark url="file://$PROJECT_DIR$/src/eReg/models.py" line="442" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3dc3b258-7aa6-4de1-9034-27e990e0e1b6" name="Default" comment="" />
+    <list default="true" id="3dc3b258-7aa6-4de1-9034-27e990e0e1b6" name="Default" comment="">
+      <change type="DELETED" beforePath="C:\Users\zinwnas\PycharmProjects\project_myTIF\.hgignore" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\zinwnas\PycharmProjects\project_myTIF\.idea\.name" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\zinwnas\PycharmProjects\project_myTIF\.idea\dataSources.ids" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\zinwnas\PycharmProjects\project_myTIF\.idea\dataSources.xml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/admin/img/changelist-bg.gif" afterPath="$PROJECT_DIR$/static/admin/img/changelist-bg.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/admin/img/default-bg-reverse.gif" afterPath="$PROJECT_DIR$/static/admin/img/default-bg-reverse.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/admin/img/default-bg.gif" afterPath="$PROJECT_DIR$/static/admin/img/default-bg.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/admin/img/icon_searchbox.png" afterPath="$PROJECT_DIR$/static/admin/img/icon_searchbox.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/admin/img/inline-delete-8bit.png" afterPath="$PROJECT_DIR$/static/admin/img/inline-delete-8bit.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/admin/img/inline-delete.png" afterPath="$PROJECT_DIR$/static/admin/img/inline-delete.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/admin/img/inline-restore-8bit.png" afterPath="$PROJECT_DIR$/static/admin/img/inline-restore-8bit.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/admin/img/inline-restore.png" afterPath="$PROJECT_DIR$/static/admin/img/inline-restore.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/admin/img/inline-splitter-bg.gif" afterPath="$PROJECT_DIR$/static/admin/img/inline-splitter-bg.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/admin/img/nav-bg-reverse.gif" afterPath="$PROJECT_DIR$/static/admin/img/nav-bg-reverse.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/admin/img/nav-bg.gif" afterPath="$PROJECT_DIR$/static/admin/img/nav-bg.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/admin/js/admin/DateTimeShortcuts.js" afterPath="$PROJECT_DIR$/static/admin/js/admin/DateTimeShortcuts.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/admin/js/admin/RelatedObjectLookups.js" afterPath="$PROJECT_DIR$/static/admin/js/admin/RelatedObjectLookups.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/admin/js/SelectBox.js" afterPath="$PROJECT_DIR$/static/admin/js/SelectBox.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/admin/js/SelectFilter2.js" afterPath="$PROJECT_DIR$/static/admin/js/SelectFilter2.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/admin/js/actions.js" afterPath="$PROJECT_DIR$/static/admin/js/actions.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/admin/js/actions.min.js" afterPath="$PROJECT_DIR$/static/admin/js/actions.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eReg/admin.py" afterPath="$PROJECT_DIR$/src/eReg/admin.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/admin/css/base.css" afterPath="$PROJECT_DIR$/static/admin/css/base.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/templates/base.html" afterPath="$PROJECT_DIR$/static/templates/base.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/admin/js/calendar.js" afterPath="$PROJECT_DIR$/static/admin/js/calendar.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/admin/js/collapse.min.js" afterPath="$PROJECT_DIR$/static/admin/js/collapse.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/admin/js/core.js" afterPath="$PROJECT_DIR$/static/admin/js/core.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/admin/css/forms.css" afterPath="$PROJECT_DIR$/static/admin/css/forms.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eReg/forms.py" afterPath="$PROJECT_DIR$/src/eReg/forms.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/templates/index.html" afterPath="$PROJECT_DIR$/static/templates/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/admin/js/inlines.min.js" afterPath="$PROJECT_DIR$/static/admin/js/inlines.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/templates/input.html" afterPath="$PROJECT_DIR$/static/templates/input.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/templates/login.html" afterPath="$PROJECT_DIR$/static/templates/login.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eReg/models.py" afterPath="$PROJECT_DIR$/src/eReg/models.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/admin/js/prepopulate.js" afterPath="$PROJECT_DIR$/static/admin/js/prepopulate.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/admin/js/prepopulate.min.js" afterPath="$PROJECT_DIR$/static/admin/js/prepopulate.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/project_myTIF.iml" afterPath="$PROJECT_DIR$/.idea/project_myTIF.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/templates/results.html" afterPath="$PROJECT_DIR$/static/templates/results.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/templates/search.html" afterPath="$PROJECT_DIR$/static/templates/search.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/project_mytif/settings.py" afterPath="$PROJECT_DIR$/src/project_mytif/settings.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/admin/js/urlify.js" afterPath="$PROJECT_DIR$/static/admin/js/urlify.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/project_mytif/urls.py" afterPath="$PROJECT_DIR$/src/project_mytif/urls.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eReg/views.py" afterPath="$PROJECT_DIR$/src/eReg/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/admin/css/widgets.css" afterPath="$PROJECT_DIR$/static/admin/css/widgets.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    </list>
     <ignored path="project_myTIF.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -29,11 +77,39 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
+      <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/eReg/views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-5.151515" vertical-offset="7718" max-vertical-offset="11628">
+              <caret line="511" column="0" selection-start-line="511" selection-start-column="0" selection-end-line="511" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+                <element signature="e#1572#1607#0" expanded="false" />
+                <element signature="e#14676#16782#0" expanded="false" />
+                <element signature="e#26942#29087#0" expanded="false" />
+                <element signature="e#41586#41624#0" expanded="false" />
+                <element signature="e#41655#46104#0" expanded="false" />
+                <element signature="e#46130#46703#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="settings.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/project_mytif/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="918" max-vertical-offset="3264">
+              <caret line="42" column="11" selection-start-line="42" selection-start-column="11" selection-end-line="42" selection-end-column="11" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="forms.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/eReg/forms.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-13.909091" vertical-offset="0" max-vertical-offset="6137">
-              <caret line="27" column="27" selection-start-line="26" selection-start-column="16" selection-end-line="27" selection-end-column="27" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="357" max-vertical-offset="18207">
+              <caret line="539" column="135" selection-start-line="539" selection-start-column="135" selection-end-line="539" selection-end-column="135" />
               <folding>
                 <element signature="e#0#24#0" expanded="true" />
               </folding>
@@ -41,65 +117,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="base.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/templates/base.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-13.076923" vertical-offset="0" max-vertical-offset="1955">
-              <caret line="20" column="19" selection-start-line="20" selection-start-column="19" selection-end-line="20" selection-end-column="19" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="login.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/templates/login.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.8846154" vertical-offset="1750" max-vertical-offset="2822">
-              <caret line="115" column="81" selection-start-line="115" selection-start-column="81" selection-end-line="115" selection-end-column="81" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/templates/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-9.807693" vertical-offset="0" max-vertical-offset="867">
-              <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+            <state vertical-scroll-proportion="-9.807693" vertical-offset="255" max-vertical-offset="1088">
+              <caret line="30" column="1" selection-start-line="30" selection-start-column="1" selection-end-line="30" selection-end-column="1" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="input.html" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/static/templates/input.html">
+      <file leaf-file-name="search.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/templates/search.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.52880186" vertical-offset="1530" max-vertical-offset="3417">
-              <caret line="117" column="49" selection-start-line="117" selection-start-column="49" selection-end-line="117" selection-end-column="49" />
+            <state vertical-scroll-proportion="-0.0" vertical-offset="1360" max-vertical-offset="2142">
+              <caret line="80" column="29" selection-start-line="80" selection-start-column="23" selection-end-line="80" selection-end-column="29" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/eReg/views.py">
+      <file leaf-file-name="results_patient_card.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/templates/results_patient_card.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-33.939392" vertical-offset="2739" max-vertical-offset="7650">
-              <caret line="227" column="0" selection-start-line="227" selection-start-column="0" selection-end-line="227" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#114#0" expanded="true" />
-                <marker date="1417189215940" expanded="true" signature="12983:13017" placeholder="SELECT * fro..." />
-                <marker date="1417189215940" expanded="true" signature="12983:13015" placeholder="SELECT * fro..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="results.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/templates/results.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-24.23077" vertical-offset="288" max-vertical-offset="2907">
-              <caret line="54" column="176" selection-start-line="54" selection-start-column="176" selection-end-line="54" selection-end-column="176" />
+            <state vertical-scroll-proportion="-15.384615" vertical-offset="1096" max-vertical-offset="4573">
+              <caret line="88" column="62" selection-start-line="88" selection-start-column="62" selection-end-line="88" selection-end-column="62" />
               <folding />
             </state>
           </provider>
@@ -108,11 +150,21 @@
       <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/eReg/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.69697" vertical-offset="784" max-vertical-offset="4590">
-              <caret line="63" column="63" selection-start-line="63" selection-start-column="63" selection-end-line="63" selection-end-column="63" />
+            <state vertical-scroll-proportion="88.09091" vertical-offset="5763" max-vertical-offset="10982">
+              <caret line="168" column="54" selection-start-line="168" selection-start-column="54" selection-end-line="168" selection-end-column="54" />
               <folding>
-                <element signature="e#0#28#0" expanded="true" />
+                <element signature="e#25#53#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="input.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/templates/input.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-2.6153846" vertical-offset="1751" max-vertical-offset="6205">
+              <caret line="107" column="38" selection-start-line="107" selection-start-column="22" selection-end-line="107" selection-end-column="38" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -120,11 +172,19 @@
       <file leaf-file-name="urls.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/project_mytif/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="697">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#51#0" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="0.0" vertical-offset="20" max-vertical-offset="680">
+              <caret line="23" column="67" selection-start-line="23" selection-start-column="67" selection-end-line="23" selection-end-column="67" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="results.html" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/static/templates/results.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.45249596" vertical-offset="1147" max-vertical-offset="5678">
+              <caret line="84" column="26" selection-start-line="84" selection-start-column="26" selection-end-line="84" selection-end-column="26" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -136,27 +196,36 @@
       <setting name="OPEN_NEW_TAB" value="true" />
     </FindUsagesManager>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/static/templates/demo.html" />
         <option value="$PROJECT_DIR$/static/templates/demographic.html" />
         <option value="$PROJECT_DIR$/static/templates/test.html" />
-        <option value="$PROJECT_DIR$/src/eReg/admin.py" />
         <option value="$PROJECT_DIR$/static/admin/js/jquery.min.js" />
         <option value="$PROJECT_DIR$/static/templates/login.html.py" />
         <option value="$PROJECT_DIR$/static/admin/css/my_login.css" />
+        <option value="$PROJECT_DIR$/src/eReg/__init__.py" />
+        <option value="$PROJECT_DIR$/static/templates/search_patient_card.html" />
+        <option value="$PROJECT_DIR$/static/css/base.css" />
+        <option value="$PROJECT_DIR$/static/templates/search.html" />
         <option value="$PROJECT_DIR$/static/templates/index.html" />
         <option value="$PROJECT_DIR$/static/templates/login.html" />
-        <option value="$PROJECT_DIR$/src/project_mytif/settings.py" />
-        <option value="$PROJECT_DIR$/static/templates/search.html" />
+        <option value="$PROJECT_DIR$/src/eReg/admin.py" />
         <option value="$PROJECT_DIR$/src/project_mytif/urls.py" />
         <option value="$PROJECT_DIR$/static/templates/base.html" />
-        <option value="$PROJECT_DIR$/static/templates/results.html" />
+        <option value="$PROJECT_DIR$/static/templates/base_empty.html" />
+        <option value="$PROJECT_DIR$/src/project_mytif/settings.py" />
+        <option value="$PROJECT_DIR$/static/templates/statistics.html" />
+        <option value="$PROJECT_DIR$/static/templates/results_patient_card.html" />
         <option value="$PROJECT_DIR$/src/eReg/models.py" />
         <option value="$PROJECT_DIR$/src/eReg/forms.py" />
-        <option value="$PROJECT_DIR$/src/eReg/views.py" />
         <option value="$PROJECT_DIR$/static/templates/input.html" />
+        <option value="$PROJECT_DIR$/src/eReg/views.py" />
+        <option value="$PROJECT_DIR$/static/templates/results.html" />
       </list>
     </option>
   </component>
@@ -166,7 +235,7 @@
     <option name="width" value="1938" />
     <option name="height" value="1050" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
     <OptionsSetting value="true" id="Remove" />
     <OptionsSetting value="true" id="Checkout" />
@@ -264,7 +333,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
+              <option name="myItemId" value="media" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -279,10 +348,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bootstrap3" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -304,7 +369,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="bootstrap3" />
+              <option name="myItemId" value="admin" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -386,6 +451,11 @@
     <property name="recentsLimit" value="5" />
     <property name="LayoutCode.rearrangeEntriesPython" value="false" />
     <property name="LayoutCode.rearrangeEntriesHTML" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -395,15 +465,15 @@
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\zinwnas\PycharmProjects\project_myTIF\static\templates" />
-      <recent name="C:\Users\zinwnas\PycharmProjects\project_myTIF\src\eReg" />
       <recent name="C:\Users\zinwnas\PycharmProjects\project_myTIF\static\media" />
+      <recent name="C:\Users\zinwnas\PycharmProjects\project_myTIF\src\eReg" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\zinwnas\PycharmProjects\project_myTIF\static\media" />
+      <recent name="C:\Users\zinwnas\PycharmProjects\project_myTIF\static\img" />
       <recent name="C:\Users\zinwnas\PycharmProjects\project_myTIF\static\css" />
       <recent name="C:\Users\zinwnas\PycharmProjects\project_myTIF\static\admin\js" />
       <recent name="C:\Users\zinwnas\PycharmProjects\project_myTIF\static\admin\admin\js" />
-      <recent name="C:\Users\zinwnas\PycharmProjects\project_myTIF\static\admin\admin\js\admin" />
-      <recent name="C:\Users\zinwnas\PycharmProjects\project_myTIF\static\js" />
     </key>
   </component>
   <component name="RunManager" selected="JavaScript Debug.demographic.html">
@@ -589,16 +659,36 @@
     </task>
     <servers />
   </component>
+  <component name="TodoView" selected-index="0">
+    <todo-panel id="selected-file">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+    <todo-panel id="default-changelist">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+  </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1050" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23170732" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3291714" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32994652" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.165625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16042781" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.399137" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.399137" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -606,12 +696,34 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32991362" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.399137" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+    </layout>
+    <layout-to-restore>
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14301552" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32994652" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32991362" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.399137" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.399137" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3291714" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1540107" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.399137" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-    </layout>
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+    </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -631,59 +743,16 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="7" />
+      <option name="time" value="9" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/eReg/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="340" max-vertical-offset="1632">
-          <caret line="20" column="53" selection-start-line="20" selection-start-column="53" selection-end-line="20" selection-end-column="53" />
-          <folding>
-            <element signature="e#0#24#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/project_mytif/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1146" max-vertical-offset="3026">
-          <caret line="113" column="52" selection-start-line="113" selection-start-column="52" selection-end-line="113" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/eReg/admin.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="68" max-vertical-offset="323">
-          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/project_mytif/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="238" max-vertical-offset="476">
-          <caret line="14" column="4" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/eReg/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="340">
-          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#114#0" expanded="true" />
-            <marker date="1417189215940" expanded="true" signature="12983:13017" placeholder="SELECT * fro..." />
-            <marker date="1417189215940" expanded="true" signature="12983:13015" placeholder="SELECT * fro..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/eReg/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="17" max-vertical-offset="748">
           <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="56" />
           <folding>
-            <element signature="e#0#28#0" expanded="true" />
+            <element signature="e#25#53#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -692,9 +761,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1156">
           <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#24#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -724,9 +790,13 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="340">
           <caret line="0" column="13" selection-start-line="0" selection-start-column="13" selection-end-line="0" selection-end-column="13" />
           <folding>
-            <element signature="e#0#114#0" expanded="true" />
-            <marker date="1417189215940" expanded="true" signature="12983:13017" placeholder="SELECT * fro..." />
-            <marker date="1417189215940" expanded="true" signature="12983:13015" placeholder="SELECT * fro..." />
+            <element signature="e#0#39#0" expanded="true" />
+            <element signature="e#1572#1607#0" expanded="false" />
+            <element signature="e#14676#16782#0" expanded="false" />
+            <element signature="e#26942#29087#0" expanded="false" />
+            <element signature="e#41586#41624#0" expanded="false" />
+            <element signature="e#41655#46104#0" expanded="false" />
+            <element signature="e#46130#46703#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -736,7 +806,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="170" max-vertical-offset="714">
           <caret line="10" column="4" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="17" />
           <folding>
-            <element signature="e#0#28#0" expanded="true" />
+            <element signature="e#25#53#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -745,9 +815,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1156">
           <caret line="14" column="64" selection-start-line="14" selection-start-column="64" selection-end-line="14" selection-end-column="64" />
-          <folding>
-            <element signature="e#0#24#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -770,9 +837,13 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="340">
           <caret line="0" column="13" selection-start-line="0" selection-start-column="13" selection-end-line="0" selection-end-column="13" />
           <folding>
-            <element signature="e#0#114#0" expanded="true" />
-            <marker date="1417189215940" expanded="true" signature="12983:13017" placeholder="SELECT * fro..." />
-            <marker date="1417189215940" expanded="true" signature="12983:13015" placeholder="SELECT * fro..." />
+            <element signature="e#0#39#0" expanded="true" />
+            <element signature="e#1572#1607#0" expanded="false" />
+            <element signature="e#14676#16782#0" expanded="false" />
+            <element signature="e#26942#29087#0" expanded="false" />
+            <element signature="e#41586#41624#0" expanded="false" />
+            <element signature="e#41655#46104#0" expanded="false" />
+            <element signature="e#46130#46703#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -782,7 +853,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="170" max-vertical-offset="714">
           <caret line="10" column="4" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="17" />
           <folding>
-            <element signature="e#0#28#0" expanded="true" />
+            <element signature="e#25#53#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -791,9 +862,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1156">
           <caret line="14" column="64" selection-start-line="14" selection-start-column="64" selection-end-line="14" selection-end-column="64" />
-          <folding>
-            <element signature="e#0#24#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -809,9 +877,13 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="340">
           <caret line="0" column="13" selection-start-line="0" selection-start-column="13" selection-end-line="0" selection-end-column="13" />
           <folding>
-            <element signature="e#0#114#0" expanded="true" />
-            <marker date="1417189215940" expanded="true" signature="12983:13017" placeholder="SELECT * fro..." />
-            <marker date="1417189215940" expanded="true" signature="12983:13015" placeholder="SELECT * fro..." />
+            <element signature="e#0#39#0" expanded="true" />
+            <element signature="e#1572#1607#0" expanded="false" />
+            <element signature="e#14676#16782#0" expanded="false" />
+            <element signature="e#26942#29087#0" expanded="false" />
+            <element signature="e#41586#41624#0" expanded="false" />
+            <element signature="e#41655#46104#0" expanded="false" />
+            <element signature="e#46130#46703#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -821,7 +893,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="170" max-vertical-offset="714">
           <caret line="10" column="4" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="17" />
           <folding>
-            <element signature="e#0#28#0" expanded="true" />
+            <element signature="e#25#53#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -882,24 +954,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/css/base.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="14382">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/templates/test.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-3.2692308" vertical-offset="0" max-vertical-offset="510">
           <caret line="5" column="23" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/eReg/admin.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="782">
-          <caret line="0" column="32" selection-start-line="0" selection-start-column="32" selection-end-line="0" selection-end-column="32" />
         </state>
       </provider>
     </entry>
@@ -952,108 +1010,159 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/project_mytif/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="330" max-vertical-offset="3247">
-          <caret line="40" column="25" selection-start-line="40" selection-start-column="25" selection-end-line="40" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/templates/search.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.39170507" vertical-offset="0" max-vertical-offset="2142">
-          <caret line="20" column="28" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/Python27/Lib/site-packages/autocomplete_light/templates/autocomplete_light/static.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="894">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/project_mytif/urls.py">
+    <entry file="file://$PROJECT_DIR$/src/eReg/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="697">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="102">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#51#0" expanded="true" />
-          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/css/base.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.090909" vertical-offset="0" max-vertical-offset="14382">
+          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/templates/search_patient_card.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1442" max-vertical-offset="2142">
+          <caret line="106" column="55" selection-start-line="106" selection-start-column="55" selection-end-line="106" selection-end-column="55" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/templates/login.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.8846154" vertical-offset="1750" max-vertical-offset="2822">
-          <caret line="115" column="81" selection-start-line="115" selection-start-column="81" selection-end-line="115" selection-end-column="81" />
-          <folding />
+        <state vertical-scroll-proportion="-17.653847" vertical-offset="1428" max-vertical-offset="2822">
+          <caret line="111" column="82" selection-start-line="111" selection-start-column="82" selection-end-line="111" selection-end-column="82" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/templates/results.html">
+    <entry file="file://$PROJECT_DIR$/src/eReg/admin.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-24.23077" vertical-offset="288" max-vertical-offset="2907">
-          <caret line="54" column="176" selection-start-line="54" selection-start-column="176" selection-end-line="54" selection-end-column="176" />
-          <folding />
+        <state vertical-scroll-proportion="0.0" vertical-offset="415" max-vertical-offset="1071">
+          <caret line="57" column="53" selection-start-line="57" selection-start-column="53" selection-end-line="57" selection-end-column="53" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/eReg/models.py">
+    <entry file="file://$PROJECT_DIR$/static/templates/base_empty.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.69697" vertical-offset="784" max-vertical-offset="4590">
-          <caret line="63" column="63" selection-start-line="63" selection-start-column="63" selection-end-line="63" selection-end-column="63" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/eReg/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.909091" vertical-offset="0" max-vertical-offset="6137">
-          <caret line="27" column="27" selection-start-line="26" selection-start-column="16" selection-end-line="27" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#24#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/eReg/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-33.939392" vertical-offset="2739" max-vertical-offset="7650">
-          <caret line="227" column="0" selection-start-line="227" selection-start-column="0" selection-end-line="227" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#114#0" expanded="true" />
-            <marker date="1417189215940" expanded="true" signature="12983:13017" placeholder="SELECT * fro..." />
-            <marker date="1417189215940" expanded="true" signature="12983:13015" placeholder="SELECT * fro..." />
-          </folding>
+        <state vertical-scroll-proportion="0.0" vertical-offset="1737" max-vertical-offset="2822">
+          <caret line="116" column="52" selection-start-line="116" selection-start-column="52" selection-end-line="116" selection-end-column="52" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/templates/base.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.076923" vertical-offset="0" max-vertical-offset="1955">
-          <caret line="20" column="19" selection-start-line="20" selection-start-column="19" selection-end-line="20" selection-end-column="19" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="1479" max-vertical-offset="2856">
+          <caret line="116" column="52" selection-start-line="116" selection-start-column="29" selection-end-line="116" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/templates/statistics.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.2692308" vertical-offset="1471" max-vertical-offset="2193">
+          <caret line="90" column="92" selection-start-line="90" selection-start-column="92" selection-end-line="90" selection-end-column="92" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/templates/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.807693" vertical-offset="0" max-vertical-offset="867">
-          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+        <state vertical-scroll-proportion="-9.807693" vertical-offset="255" max-vertical-offset="1088">
+          <caret line="30" column="1" selection-start-line="30" selection-start-column="1" selection-end-line="30" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/eReg/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="88.09091" vertical-offset="5763" max-vertical-offset="10982">
+          <caret line="168" column="54" selection-start-line="168" selection-start-column="54" selection-end-line="168" selection-end-column="54" />
+          <folding>
+            <element signature="e#25#53#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/project_mytif/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3264">
+          <caret line="42" column="11" selection-start-line="42" selection-start-column="11" selection-end-line="42" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/eReg/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="357" max-vertical-offset="18207">
+          <caret line="539" column="135" selection-start-line="539" selection-start-column="135" selection-end-line="539" selection-end-column="135" />
+          <folding>
+            <element signature="e#0#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/project_mytif/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="20" max-vertical-offset="680">
+          <caret line="23" column="67" selection-start-line="23" selection-start-column="67" selection-end-line="23" selection-end-column="67" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/templates/input.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.52880186" vertical-offset="1530" max-vertical-offset="3417">
-          <caret line="117" column="49" selection-start-line="117" selection-start-column="49" selection-end-line="117" selection-end-column="49" />
+        <state vertical-scroll-proportion="-2.6153846" vertical-offset="1751" max-vertical-offset="6205">
+          <caret line="107" column="38" selection-start-line="107" selection-start-column="22" selection-end-line="107" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/templates/search.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1360" max-vertical-offset="2142">
+          <caret line="80" column="29" selection-start-line="80" selection-start-column="23" selection-end-line="80" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/templates/results_patient_card.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-15.384615" vertical-offset="1096" max-vertical-offset="4573">
+          <caret line="88" column="62" selection-start-line="88" selection-start-column="62" selection-end-line="88" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/eReg/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.151515" vertical-offset="7718" max-vertical-offset="11628">
+          <caret line="511" column="0" selection-start-line="511" selection-start-column="0" selection-end-line="511" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+            <element signature="e#1572#1607#0" expanded="false" />
+            <element signature="e#14676#16782#0" expanded="false" />
+            <element signature="e#26942#29087#0" expanded="false" />
+            <element signature="e#41586#41624#0" expanded="false" />
+            <element signature="e#41655#46104#0" expanded="false" />
+            <element signature="e#46130#46703#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/templates/results.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.45249596" vertical-offset="1147" max-vertical-offset="5678">
+          <caret line="84" column="26" selection-start-line="84" selection-start-column="26" selection-end-line="84" selection-end-column="26" />
           <folding />
         </state>
       </provider>

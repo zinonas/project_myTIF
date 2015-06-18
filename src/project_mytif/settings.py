@@ -50,6 +50,7 @@ INSTALLED_APPS = (
     'bootstrap3',
     'pagination',
     'bootstrap3_datetime',
+    'chartit',
 )
 
 MIDDLEWARE_CLASSES = (

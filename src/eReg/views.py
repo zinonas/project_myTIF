@@ -1,14 +1,18 @@
+from django.db.models import Sum, Count
 from django.shortcuts import render, render_to_response, RequestContext, HttpResponse, get_object_or_404, redirect
 import django.http
-from .forms import DemographicForm, DiagnosisForm, A_b_sickle_thalForm, Redcell_enzyme_disForm, Redcell_membrane_disForm,Cong_dyseryth_anaemiaForm
+from .forms import DemographicForm, DiagnosisForm, A_b_sickle_thalForm, Redcell_enzyme_disForm, Redcell_membrane_disForm,Cong_dyseryth_anaemiaForm, UserCreationForm, ClinicalDataForm, OutcomeMeasuresForm, LifeEventsForm
 from django.template import RequestContext
+from collections import OrderedDict
+from django.http import HttpResponseRedirect
 from django.views.generic import TemplateView
 import json
 from django.contrib import messages
 import traceback
 from django.forms.models import formset_factory
 from django.forms.models import inlineformset_factory
-from models import Demographic, Diagnosis, A_b_sickle_thal,Redcell_enzyme_dis, Redcell_membrane_dis, Cong_dyseryth_anaemia, icd_10
+from django.contrib.auth.models import User
+from models import Demographic, Diagnosis, A_b_sickle_thal,Redcell_enzyme_dis, Redcell_membrane_dis, Cong_dyseryth_anaemia, icd_10, Clinical_data, Life_events, Outcome_measures
 from django.core import serializers
 import json
 from django.db import transaction
@@ -20,7 +24,12 @@ from django.contrib import auth
 from django.contrib.auth import logout
 import autocomplete_light
 autocomplete_light.autodiscover()
-
+from django.core.cache import cache
+from datetime import date
+from django.utils import formats
+import collections
+from chartit import PivotDataPool, PivotChart
+import ast
 
 @login_required(login_url='/login')
 def home(request):
@@ -30,6 +39,8 @@ def home(request):
 def input(request):
 
     context = RequestContext(request)
+    print context
+    ret = cache.get('input-rendered')
 
     #diagnosis option for saving purposes. In order to save only specific tables in db.
     diag_option = 0
@@ -41,6 +52,11 @@ def input(request):
         my_redcell_enzyme = Redcell_enzyme_disForm(request.POST, prefix='rc_enz')
         my_redcell_membrane= Redcell_membrane_disForm(request.POST, prefix='rc_mbr')
         my_cong_dys = Cong_dyseryth_anaemiaForm(request.POST, prefix='cong_dys')
+        my_cln_dt = ClinicalDataForm(request.POST, prefix='cln_dt')
+        my_out_mes = OutcomeMeasuresForm(request.POST, prefix='out_mes')
+        my_life_ev = LifeEventsForm(request.POST, prefix='life_ev')
+
+        print "POST"
 
         if request.is_ajax() and 'code' in request.POST:
             with transaction.atomic():
@@ -50,7 +66,7 @@ def input(request):
                 print 'data =', data
                 return HttpResponse(data)
 
-        if my_demographics.is_valid() and my_diagnosis.is_valid() and my_a_b_sickle.is_valid and my_redcell_enzyme.is_valid() and my_redcell_membrane.is_valid() and my_cong_dys.is_valid():
+        if my_demographics.is_valid() and my_diagnosis.is_valid() and my_a_b_sickle.is_valid and my_redcell_enzyme.is_valid() and my_redcell_membrane.is_valid() and my_cong_dys.is_valid() and my_cln_dt.is_valid() and my_out_mes.is_valid() and my_life_ev.is_valid():
 
             entry = '"{Demographic":['
             for formfield in my_demographics:
@@ -71,6 +87,7 @@ def input(request):
                 dia_id = formfield.name
                 #print formfield.id_for_label
                 entry+='{"fieldName":"'+ str(dia_id) + '",'
+                print "HERE I HAVE dia_val=", formfield.value()
                 dia_val= str(formfield.value())
                 if (dia_val == 'b-thalassaemia syndromes' or dia_val=='a-thalassaemia syndromes' or dia_val=='Sickle cell syndromes' or dia_val=='Other haemoglobin variants'):
                     diag_option = 1
@@ -80,12 +97,24 @@ def input(request):
                     diag_option = 3
                 elif (dia_val == 'Congenital desyrythropoietic anaemias'):
                     diag_option = 4
+                elif(('b-thalassaemia syndromes' in dia_val or 'a-thalassaemia syndromes' in dia_val or 'Sickle cell syndromes' in dia_val or 'Other haemoglobin variants' in dia_val) and 'Rare cell enzyme disorders' in dia_val):
+                    diag_option = 12
+                elif(('b-thalassaemia syndromes' in dia_val or 'a-thalassaemia syndromes' in dia_val or 'Sickle cell syndromes' in dia_val or 'Other haemoglobin variants' in dia_val) and 'Rare cell membrane disorders' in dia_val):
+                    diag_option = 13
+                elif(('b-thalassaemia syndromes' in dia_val or 'a-thalassaemia syndromes' in dia_val or 'Sickle cell syndromes' in dia_val or 'Other haemoglobin variants' in dia_val) and 'Congenital desyrythropoietic anaemias' in dia_val):
+                    diag_option = 14
+                elif('Rare cell enzyme disorders' in dia_val and 'Rare cell membrane disorders' in dia_val):
+                    diag_option = 23
+                elif('Rare cell enzyme disorders' in dia_val and 'Congenital desyrythropoietic anaemias' in dia_val):
+                    diag_option = 24
+                elif('Rare cell membrane disorders' in dia_val and 'Congenital desyrythropoietic anaemias' in dia_val):
+                    diag_option = 34
                 #print type(de_val)
                 entry+='"fieldValue":"'+str(dia_val) + '"},'
             entry = entry[:-1]
             #entry +='],'
             #print entry
-            #print diag_option
+            print "diagnosis option=", diag_option
             #
             # if (diag_option == 1):
             #     entry +='],"A_b_sickle_thal":['
@@ -166,6 +195,18 @@ def input(request):
             my_cong_dys_object.patient = my_demographics_object
             my_cong_dys_object.save()
 
+            my_cln_dt_object = my_cln_dt.save(commit=False)
+            my_cln_dt_object.patient = my_demographics_object
+            my_cln_dt_object.save()
+
+            my_out_mes_object = my_out_mes.save(commit=False)
+            my_out_mes_object.patient = my_demographics_object
+            my_out_mes_object.save()
+
+            my_life_ev_object = my_life_ev.save(commit=False)
+            my_life_ev_object.patient = my_demographics_object
+            my_life_ev_object.save()
+
 
         # submitted = request.POST.get('form_id', '')
         # print submitted
@@ -214,7 +255,8 @@ def input(request):
         #     if my_a_b_sickle.is_valid():
         #         my_a_b_sickle.save()
 
-        # else:
+        else:
+            print "No valid"
         #     raise ValueError('No form specified !')
     else:
         diag_option=0
@@ -224,9 +266,14 @@ def input(request):
         my_redcell_enzyme = Redcell_enzyme_disForm(prefix='rc_enz')
         my_redcell_membrane= Redcell_membrane_disForm(prefix='rc_mbr')
         my_cong_dys = Cong_dyseryth_anaemiaForm(prefix='cong_dys')
+        my_cln_dt= ClinicalDataForm(prefix='cln_dt')
+        my_out_mes = OutcomeMeasuresForm(prefix='out_mes')
+        my_life_ev = LifeEventsForm(prefix='life_ev')
 
-
-    return render_to_response('input.html', {'frm':my_demographics, 'frm_d': my_diagnosis, 'frm_a_b_s': my_a_b_sickle, 'frm_rc_enz': my_redcell_enzyme, 'frm_rc_mbr': my_redcell_membrane, 'frm_cong_dys': my_cong_dys, 'diag_option': diag_option}, context)
+    #if ret is None:
+    #    ret = render_to_response('input.html', {'frm':my_demographics, 'frm_d': my_diagnosis, 'frm_a_b_s': my_a_b_sickle, 'frm_rc_enz': my_redcell_enzyme, 'frm_rc_mbr': my_redcell_membrane, 'frm_cong_dys': my_cong_dys, 'diag_option': diag_option, 'frm_cln_dt': my_cln_dt, 'frm_out_mes': my_out_mes, 'frm_life_ev': my_life_ev,}, context)
+    #    cache.set('input-rendered', ret)
+    return render_to_response('input.html', {'frm':my_demographics, 'frm_d': my_diagnosis, 'frm_a_b_s': my_a_b_sickle, 'frm_rc_enz': my_redcell_enzyme, 'frm_rc_mbr': my_redcell_membrane, 'frm_cong_dys': my_cong_dys, 'diag_option': diag_option, 'frm_cln_dt': my_cln_dt, 'frm_out_mes': my_out_mes, 'frm_life_ev': my_life_ev,}, context)
         # submitted = request.POST.get('form_id', '')
         #
         # if submitted == 'demographics':
@@ -271,11 +318,13 @@ def search(request):
         my_redcell_enzyme = Redcell_enzyme_disForm(request.POST, prefix='rc_enz')
         my_redcell_membrane= Redcell_membrane_disForm(request.POST, prefix='rc_mbr')
         my_cong_dys = Cong_dyseryth_anaemiaForm(request.POST, prefix='cong_dys')
+        my_cln_dt= ClinicalDataForm(request.POST, prefix='cln_dt')
 
         if 'id' in request.POST and request.POST['id']:
             with transaction.atomic():
                 id = request.POST['id']
                 patient = Demographic.objects.filter(patient_id__icontains=id)
+                print patient
                 print patient.count()
                 # books = Book.objects.filter(title__icontains=q)
                 return render(request, 'search.html',
@@ -324,6 +373,11 @@ def results(request):
             r_c_e_patient = Redcell_enzyme_dis.objects.get(patient=myid)
             r_c_m_patient = Redcell_membrane_dis.objects.get(patient=myid)
             c_d_a_patient = Cong_dyseryth_anaemia.objects.get(patient=myid)
+            cln_dt_patient= Clinical_data.objects.get(patient=myid)
+            out_mes_patient = Outcome_measures.objects.get(patient=myid)
+            life_ev_patient = Life_events.objects.get(patient=myid)
+
+
 
         if (diag_val == 'b-thalassaemia syndromes' or diag_val == 'a-thalassaemia syndromes' or diag_val == 'Sickle cell syndromes' or diag_val == 'Other haemoglobin variants'):
             diag_option = 1
@@ -333,16 +387,33 @@ def results(request):
             diag_option = 3
         elif (diag_val == 'Congenital desyrythropoietic anaemias'):
             diag_option = 4
+        elif(('b-thalassaemia syndromes' in diag_val or 'a-thalassaemia syndromes' in diag_val or 'Sickle cell syndromes' in diag_val or 'Other haemoglobin variants' in diag_val) and 'Rare cell enzyme disorders' in diag_val):
+            diag_option = 12
+        elif(('b-thalassaemia syndromes' in diag_val or 'a-thalassaemia syndromes' in diag_val or 'Sickle cell syndromes' in diag_val or 'Other haemoglobin variants' in diag_val) and 'Rare cell membrane disorders' in diag_val):
+            diag_option = 13
+        elif(('b-thalassaemia syndromes' in diag_val or 'a-thalassaemia syndromes' in diag_val or 'Sickle cell syndromes' in diag_val or 'Other haemoglobin variants' in diag_val) and 'Congenital desyrythropoietic anaemias' in diag_val):
+            diag_option = 14
+        elif('Rare cell enzyme disorders' in diag_val and 'Rare cell membrane disorders' in diag_val):
+            diag_option = 23
+        elif('Rare cell enzyme disorders' in diag_val and 'Congenital desyrythropoietic anaemias' in diag_val):
+            diag_option = 24
+        elif('Rare cell membrane disorders' in diag_val and 'Congenital desyrythropoietic anaemias' in diag_val):
+            diag_option = 34
 
         my_demographics = DemographicForm(request.POST or None, prefix="demo", instance=patient)
         my_diagnosis = DiagnosisForm(request.POST or None,prefix='diag', instance=diag_patient)
+        my_diagnosis.diagnosis_option = diag_val
+        print "VALUE=", diag_val
         my_a_b_sickle= A_b_sickle_thalForm(request.POST or None,prefix='a_b_s', instance=a_b_s_patient)
         my_redcell_enzyme = Redcell_enzyme_disForm(request.POST or None, prefix='rc_enz', instance=r_c_e_patient)
         my_redcell_membrane= Redcell_membrane_disForm(request.POST or None, prefix='rc_mbr',instance=r_c_m_patient)
         my_cong_dys = Cong_dyseryth_anaemiaForm(request.POST or None, prefix='cong_dys', instance=c_d_a_patient)
+        my_cln_dt = ClinicalDataForm(request.POST or None, prefix='cln_dt', instance=cln_dt_patient)
+        my_out_mes = OutcomeMeasuresForm(request.POST, prefix='out_mes', instance= out_mes_patient)
+        my_life_ev = LifeEventsForm(request.POST, prefix='life_ev', instance = life_ev_patient)
 
         print "HERE FIRST IF"
-        if my_demographics.is_valid() and my_diagnosis.is_valid() and (my_a_b_sickle.is_valid or my_redcell_enzyme.is_valid() or my_redcell_membrane.is_valid() or my_cong_dys.is_valid()):
+        if my_demographics.is_valid() and my_diagnosis.is_valid() and my_cln_dt.is_valid() and my_out_mes.is_valid() and my_life_ev.is_valid() and (my_a_b_sickle.is_valid or my_redcell_enzyme.is_valid() or my_redcell_membrane.is_valid() or my_cong_dys.is_valid()):
             print "HERE SECOND IF"
 
             my_demographics_object = my_demographics.save()
@@ -367,6 +438,18 @@ def results(request):
             my_cong_dys_object.patient = my_demographics_object
             my_cong_dys_object.save()
 
+            my_cln_dt_object = my_cln_dt.save(commit=False)
+            my_cln_dt_object.patient = my_demographics_object
+            my_cln_dt_object.save()
+
+            my_out_mes_object = my_out_mes.save(commit=False)
+            my_out_mes_object.patient = my_demographics_object
+            my_out_mes_object.save()
+
+            my_life_ev_object = my_life_ev.save(commit=False)
+            my_life_ev_object.patient = my_demographics_object
+            my_life_ev_object.save()
+
 
 
     else:
@@ -380,6 +463,13 @@ def results(request):
             r_c_e_patient = Redcell_enzyme_dis.objects.get(patient=myid)
             r_c_m_patient = Redcell_membrane_dis.objects.get(patient=myid)
             c_d_a_patient = Cong_dyseryth_anaemia.objects.get(patient=myid)
+            cln_dt_patient= Clinical_data.objects.get(patient=myid)
+            out_mes_patient = Outcome_measures.objects.get(patient=myid)
+            life_ev_patient = Life_events.objects.get(patient=myid)
+
+
+            str_diag_val =ast.literal_eval(diag_val)
+            print "diagnosis value=", str_diag_val[0], " ", str_diag_val[1]
         #     data = serializers.serialize('json', patient)
         #     diag_data = serializers.serialize('json', diag_patient)
         #
@@ -401,7 +491,257 @@ def results(request):
             diag_option = 3
         elif (diag_val == 'Congenital desyrythropoietic anaemias'):
             diag_option = 4
+        elif(('b-thalassaemia syndromes' in diag_val or 'a-thalassaemia syndromes' in diag_val or 'Sickle cell syndromes' in diag_val or 'Other haemoglobin variants' in diag_val) and 'Rare cell enzyme disorders' in diag_val):
+            diag_option = 12
+        elif(('b-thalassaemia syndromes' in diag_val or 'a-thalassaemia syndromes' in diag_val or 'Sickle cell syndromes' in diag_val or 'Other haemoglobin variants' in diag_val) and 'Rare cell membrane disorders' in diag_val):
+            diag_option = 13
+        elif(('b-thalassaemia syndromes' in diag_val or 'a-thalassaemia syndromes' in diag_val or 'Sickle cell syndromes' in diag_val or 'Other haemoglobin variants' in diag_val) and 'Congenital desyrythropoietic anaemias' in diag_val):
+            diag_option = 14
+        elif('Rare cell enzyme disorders' in diag_val and 'Rare cell membrane disorders' in diag_val):
+            diag_option = 23
+        elif('Rare cell enzyme disorders' in diag_val and 'Congenital desyrythropoietic anaemias' in diag_val):
+            diag_option = 24
+        elif('Rare cell membrane disorders' in diag_val and 'Congenital desyrythropoietic anaemias' in diag_val):
+            diag_option = 34
 
+        print "diag_option=", diag_option
+        my_demographics = DemographicForm(prefix="demo",instance=patient)
+        # my_demographics = DemographicForm(initial=form_data,)
+
+        # my_demographics = DemographicForm(prefix='demo')
+
+        my_diagnosis = DiagnosisForm(prefix='diag', instance=diag_patient)
+        my_diagnosis.diagnosis_option = diag_val
+        my_a_b_sickle= A_b_sickle_thalForm(request.POST or None,prefix='a_b_s', instance=a_b_s_patient)
+        my_redcell_enzyme = Redcell_enzyme_disForm(request.POST or None, prefix='rc_enz', instance=r_c_e_patient)
+        my_redcell_membrane= Redcell_membrane_disForm(request.POST or None, prefix='rc_mbr',instance=r_c_m_patient)
+        my_cong_dys = Cong_dyseryth_anaemiaForm(request.POST or None, prefix='cong_dys', instance=c_d_a_patient)
+        my_cln_dt = ClinicalDataForm(request.POST or None, prefix='cln_dt', instance=cln_dt_patient)
+        my_out_mes = OutcomeMeasuresForm(request.POST, prefix='out_mes', instance= out_mes_patient)
+        my_life_ev = LifeEventsForm(request.POST, prefix='life_ev', instance = life_ev_patient)
+
+
+    return render_to_response('results.html', {'frm':my_demographics, 'frm_d': my_diagnosis, 'frm_a_b_s': my_a_b_sickle, 'frm_rc_enz': my_redcell_enzyme, 'frm_rc_mbr': my_redcell_membrane, 'frm_cong_dys': my_cong_dys, 'diag_option': diag_option, 'frm_cln_dt':my_cln_dt, 'frm_out_mes': my_out_mes, 'frm_life_ev': my_life_ev}, context)
+
+
+@login_required(login_url='/login')
+def search_patient_card(request):
+    context = RequestContext(request)
+    value=0
+    if request.method == "POST":
+        value = 1
+        my_demographics = DemographicForm(request.POST, prefix="demo")
+        my_diagnosis = DiagnosisForm(request.POST, prefix='diag')
+        my_a_b_sickle= A_b_sickle_thalForm(request.POST,prefix='a_b_s')
+        my_redcell_enzyme = Redcell_enzyme_disForm(request.POST, prefix='rc_enz')
+        my_redcell_membrane= Redcell_membrane_disForm(request.POST, prefix='rc_mbr')
+        my_cong_dys = Cong_dyseryth_anaemiaForm(request.POST, prefix='cong_dys')
+        my_cln_dt= ClinicalDataForm(request.POST, prefix='cln_dt')
+
+        if 'id' in request.POST and request.POST['id']:
+            with transaction.atomic():
+                id = request.POST['id']
+                patient = Demographic.objects.filter(patient_id__icontains=id)
+                print patient
+                print patient.count()
+                # books = Book.objects.filter(title__icontains=q)
+                return render(request, 'search_patient_card.html',
+                    {'patient': patient, 'query': id, 'option':value})
+
+    # if request.is_ajax() and request.method == "POST":
+    #     myid= request.POST.get("sentence","")
+    #     #response_data=fil(sentence)
+    #     print myid
+    #     patient = Demographic.objects.select_for_update().filter(patient_id = myid)
+    #     data = serializers.serialize('json', patient)
+    #     json_data = json.loads(data)[0]
+    #     form_data = json_data['fields']
+    #     print form_data
+    #     my_demographics = DemographicForm(initial=form_data)
+    #     print my_demographics
+    #     # new_d = serializers.deserialize("json", data)
+    #     # print new_d
+    #     # myp = Demographic.objects.raw('SELECT * from `eReg_demographic`')
+    #     # for p in myp:
+    #     #     print p
+    #     # my_data = json.loads(data)
+    #
+    #     for pat in patient:
+    #         print pat.given_name
+
+        return redirect('results_patient_card.html', {'frm':my_demographics, 'option': value}, context)
+    else:
+        return render_to_response('search_patient_card.html', {'option': value}, context)
+
+
+@login_required(login_url='/login')
+def results_patient_card(request):
+
+    context = RequestContext(request)
+    myid = request.GET.get('id', '')
+    #diagnosis option for saving purposes. In order to save only specific tables in db.
+    diag_option = 0
+    print "my id", myid
+    if request.method == 'POST':
+        with transaction.atomic():
+            print "HERE ELSE"
+            patient = Demographic.objects.get(patient_id=myid)
+            diag_patient = Diagnosis.objects.get(patient=myid)
+            diag_val = diag_patient.diagnosis_option
+            a_b_s_patient = A_b_sickle_thal.objects.get(patient=myid)
+            r_c_e_patient = Redcell_enzyme_dis.objects.get(patient=myid)
+            r_c_m_patient = Redcell_membrane_dis.objects.get(patient=myid)
+            c_d_a_patient = Cong_dyseryth_anaemia.objects.get(patient=myid)
+            cln_dt_patient= Clinical_data.objects.get(patient=myid)
+            out_mes_patient = Outcome_measures.objects.get(patient=myid)
+            life_ev_patient = Life_events.objects.get(patient=myid)
+
+        if (diag_val == 'b-thalassaemia syndromes' or diag_val == 'a-thalassaemia syndromes' or diag_val == 'Sickle cell syndromes' or diag_val == 'Other haemoglobin variants'):
+            diag_option = 1
+        elif (diag_val == 'Rare cell enzyme disorders'):
+            diag_option = 2
+        elif (diag_val == 'Rare cell membrane disorders'):
+            diag_option = 3
+        elif (diag_val == 'Congenital desyrythropoietic anaemias'):
+            diag_option = 4
+        elif(('b-thalassaemia syndromes' in diag_val or 'a-thalassaemia syndromes' in diag_val or 'Sickle cell syndromes' in diag_val or 'Other haemoglobin variants' in diag_val) and 'Rare cell enzyme disorders' in diag_val):
+            diag_option = 12
+        elif(('b-thalassaemia syndromes' in diag_val or 'a-thalassaemia syndromes' in diag_val or 'Sickle cell syndromes' in diag_val or 'Other haemoglobin variants' in diag_val) and 'Rare cell membrane disorders' in diag_val):
+            diag_option = 13
+        elif(('b-thalassaemia syndromes' in diag_val or 'a-thalassaemia syndromes' in diag_val or 'Sickle cell syndromes' in diag_val or 'Other haemoglobin variants' in diag_val) and 'Congenital desyrythropoietic anaemias' in diag_val):
+            diag_option = 14
+        elif('Rare cell enzyme disorders' in diag_val and 'Rare cell membrane disorders' in diag_val):
+            diag_option = 23
+        elif('Rare cell enzyme disorders' in diag_val and 'Congenital desyrythropoietic anaemias' in diag_val):
+            diag_option = 24
+        elif('Rare cell membrane disorders' in diag_val and 'Congenital desyrythropoietic anaemias' in diag_val):
+            diag_option = 34
+
+        my_demographics = DemographicForm(request.POST or None, prefix="demo", instance=patient)
+        my_diagnosis = DiagnosisForm(request.POST or None,prefix='diag', instance=diag_patient)
+        my_a_b_sickle= A_b_sickle_thalForm(request.POST or None,prefix='a_b_s', instance=a_b_s_patient)
+        my_redcell_enzyme = Redcell_enzyme_disForm(request.POST or None, prefix='rc_enz', instance=r_c_e_patient)
+        my_redcell_membrane= Redcell_membrane_disForm(request.POST or None, prefix='rc_mbr',instance=r_c_m_patient)
+        my_cong_dys = Cong_dyseryth_anaemiaForm(request.POST or None, prefix='cong_dys', instance=c_d_a_patient)
+        my_cln_dt = ClinicalDataForm(request.POST or None, prefix='cln_dt', instance=cln_dt_patient)
+        my_out_mes = OutcomeMeasuresForm(request.POST, prefix='out_mes', instance= out_mes_patient)
+        my_life_ev = LifeEventsForm(request.POST, prefix='life_ev', instance = life_ev_patient)
+
+        print "HERE FIRST IF"
+        if my_demographics.is_valid() and my_diagnosis.is_valid() and my_cln_dt.is_valid() and my_out_mes.is_valid() and my_life_ev.is_valid()  and (my_a_b_sickle.is_valid or my_redcell_enzyme.is_valid() or my_redcell_membrane.is_valid() or my_cong_dys.is_valid()):
+            print "HERE SECOND IF"
+            print my_demographics.given_name
+            my_demographics_object = my_demographics.save()
+
+            my_diagnosis_object = my_diagnosis.save(commit=False)
+            my_diagnosis_object.patient = my_demographics_object
+            my_diagnosis_object.save()
+
+            my_a_b_sickle_object = my_a_b_sickle.save(commit=False)
+            my_a_b_sickle_object.patient = my_demographics_object
+            my_a_b_sickle_object.save()
+
+            my_redcell_enzyme_object = my_redcell_enzyme.save(commit=False)
+            my_redcell_enzyme_object.patient = my_demographics_object
+            my_redcell_enzyme_object.save()
+
+            my_redcell_membrane_object = my_redcell_membrane.save(commit=False)
+            my_redcell_membrane_object.patient = my_demographics_object
+            my_redcell_membrane_object.save()
+
+            my_cong_dys_object = my_cong_dys.save(commit=False)
+            my_cong_dys_object.patient = my_demographics_object
+            my_cong_dys_object.save()
+
+            my_cln_dt_object = my_cln_dt.save(commit=False)
+            my_cln_dt_object.patient = my_demographics_object
+            my_cln_dt_object.save()
+
+            my_out_mes_object = my_out_mes.save(commit=False)
+            my_out_mes_object.patient = my_demographics_object
+            my_out_mes_object.save()
+
+            my_life_ev_object = my_life_ev.save(commit=False)
+            my_life_ev_object.patient = my_demographics_object
+            my_life_ev_object.save()
+
+
+
+    else:
+        diag_option=0
+        with transaction.atomic():
+            print "HERE ELSE"
+            patient = Demographic.objects.get(patient_id=myid)
+            diag_patient = Diagnosis.objects.get(patient=myid)
+            diag_val = diag_patient.diagnosis_option
+            a_b_s_patient = A_b_sickle_thal.objects.get(patient=myid)
+            r_c_e_patient = Redcell_enzyme_dis.objects.get(patient=myid)
+            r_c_m_patient = Redcell_membrane_dis.objects.get(patient=myid)
+            c_d_a_patient = Cong_dyseryth_anaemia.objects.get(patient=myid)
+            cln_dt_patient=Clinical_data.objects.get(patient=myid)
+            out_mes_patient = Outcome_measures.objects.get(patient=myid)
+            life_ev_patient = Life_events.objects.get(patient=myid)
+
+            sum_card_one=OrderedDict()
+            sum_card_one['Demographics']= 'title'
+            sum_card_one[patient._meta.get_field('given_name').verbose_name.title()]= patient.given_name
+            sum_card_one[patient._meta.get_field('surname').verbose_name.title()]= patient.surname
+            sum_card_one[patient._meta.get_field('patient_id').verbose_name.title()]=patient.patient_id
+            sum_card_one[patient._meta.get_field('national_health_care_pat_id').verbose_name.title()]=patient.national_health_care_pat_id
+            sum_card_one[patient._meta.get_field('date_of_birth').verbose_name.title()]=patient.date_of_birth
+            sum_card_one[patient._meta.get_field('blood_group').verbose_name.title()]= patient.blood_group
+            sum_card_one['Diagnosis']= 'title'
+            sum_card_one[diag_patient._meta.get_field('diagnosis_option').verbose_name.title()]= diag_patient.diagnosis_option
+            if "thal" in diag_patient.diagnosis_option:
+                sum_card_one[a_b_s_patient._meta.get_field('mol_diag_b_thal_seq_anal_a_gene').verbose_name.title()]=a_b_s_patient.mol_diag_b_thal_seq_anal_a_gene
+                sum_card_one[a_b_s_patient._meta.get_field('mol_diag_b_thal_seq_anal_b_gene').verbose_name.title()]=a_b_s_patient.mol_diag_b_thal_seq_anal_b_gene
+                sum_card_one[a_b_s_patient._meta.get_field('mol_diag_b_thal_seq_anal_g_gene').verbose_name.title()]=a_b_s_patient.mol_diag_b_thal_seq_anal_g_gene
+            sum_card_one[diag_patient._meta.get_field('diagnosis_circumstances').verbose_name.title()]=diag_patient.diagnosis_circumstances
+            sum_card_one[diag_patient._meta.get_field('diagnosis_circumstances_date').verbose_name.title()]=diag_patient.diagnosis_circumstances_date
+
+            # sum_card_one = { patient._meta.get_field('given_name').verbose_name.title():patient.given_name,
+            #                  patient._meta.get_field('surname').verbose_name.title():patient.surname,
+            #                  patient._meta.get_field('national_health_care_pat_id').verbose_name.title():patient.national_health_care_pat_id,
+            #                  patient._meta.get_field('patient_id').verbose_name.title():patient.patient_id,
+            #                  patient._meta.get_field('date_of_birth').verbose_name.title():patient.date_of_birth,
+            #                  diag_patient._meta.get_field('diagnosis_option').verbose_name.title(): diag_patient.diagnosis_option
+            # }
+
+            print type(sum_card_one)
+            formOne = UserCreationForm(request.POST or None, extra=sum_card_one, initial=sum_card_one)
+        #     data = serializers.serialize('json', patient)
+        #     diag_data = serializers.serialize('json', diag_patient)
+        #
+        #     json_data = json.loads(data)[0]
+        #     json_diag_data = json.loads(diag_data)[0]
+        #
+        #     # print "here", json_data
+        #     form_data = json_data['fields']
+        #     form_diag_data = json_diag_data['fields']
+        #     diag_val= form_diag_data['diagnosis_option']
+        #     form_data['patient_id'] = myid
+        # # print form_data
+        # #
+        if (diag_val == 'b-thalassaemia syndromes' or diag_val == 'a-thalassaemia syndromes' or diag_val == 'Sickle cell syndromes' or diag_val == 'Other haemoglobin variants'):
+            diag_option = 1
+        elif (diag_val == 'Rare cell enzyme disorders'):
+            diag_option = 2
+        elif (diag_val == 'Rare cell membrane disorders'):
+            diag_option = 3
+        elif (diag_val == 'Congenital desyrythropoietic anaemias'):
+            diag_option = 4
+        elif(('b-thalassaemia syndromes' in diag_val or 'a-thalassaemia syndromes' in diag_val or 'Sickle cell syndromes' in diag_val or 'Other haemoglobin variants' in diag_val) and 'Rare cell enzyme disorders' in diag_val):
+            diag_option = 12
+        elif(('b-thalassaemia syndromes' in diag_val or 'a-thalassaemia syndromes' in diag_val or 'Sickle cell syndromes' in diag_val or 'Other haemoglobin variants' in diag_val) and 'Rare cell membrane disorders' in diag_val):
+            diag_option = 13
+        elif(('b-thalassaemia syndromes' in diag_val or 'a-thalassaemia syndromes' in diag_val or 'Sickle cell syndromes' in diag_val or 'Other haemoglobin variants' in diag_val) and 'Congenital desyrythropoietic anaemias' in diag_val):
+            diag_option = 14
+        elif('Rare cell enzyme disorders' in diag_val and 'Rare cell membrane disorders' in diag_val):
+            diag_option = 23
+        elif('Rare cell enzyme disorders' in diag_val and 'Congenital desyrythropoietic anaemias' in diag_val):
+            diag_option = 24
+        elif('Rare cell membrane disorders' in diag_val and 'Congenital desyrythropoietic anaemias' in diag_val):
+            diag_option = 34
         my_demographics = DemographicForm(prefix="demo",instance=patient)
         # my_demographics = DemographicForm(initial=form_data,)
 
@@ -411,15 +751,151 @@ def results(request):
         my_redcell_enzyme = Redcell_enzyme_disForm(request.POST or None, prefix='rc_enz', instance=r_c_e_patient)
         my_redcell_membrane= Redcell_membrane_disForm(request.POST or None, prefix='rc_mbr',instance=r_c_m_patient)
         my_cong_dys = Cong_dyseryth_anaemiaForm(request.POST or None, prefix='cong_dys', instance=c_d_a_patient)
+        my_cln_dt = ClinicalDataForm(request.POST or None, prefix='cln_dt', instance=cln_dt_patient)
+        my_out_mes = OutcomeMeasuresForm(request.POST, prefix='out_mes', instance= out_mes_patient)
+        my_life_ev = LifeEventsForm(request.POST, prefix='life_ev', instance = life_ev_patient)
 
 
-    return render_to_response('results.html', {'frm':my_demographics, 'frm_d': my_diagnosis, 'frm_a_b_s': my_a_b_sickle, 'frm_rc_enz': my_redcell_enzyme, 'frm_rc_mbr': my_redcell_membrane, 'frm_cong_dys': my_cong_dys, 'diag_option': diag_option}, context)
+    return render_to_response('results_patient_card.html', {'frm':formOne, 'frm_d': my_diagnosis, 'frm_a_b_s': my_a_b_sickle, 'frm_rc_enz': my_redcell_enzyme, 'frm_rc_mbr': my_redcell_membrane, 'frm_cong_dys': my_cong_dys, 'diag_option': diag_option, 'frm_cln_dt': my_cln_dt, 'frm_out_mes': my_out_mes, 'frm_life_ev': my_life_ev}, context)
 
 
 
 def test(request):
     return render_to_response('test.html')
 
+def statistics(request):
+    context = RequestContext(request)
+    today = date.today()
+    days_in_year = 365.2425
+
+    total_num = Demographic.objects.all()
+    for e in total_num:
+        t = Demographic.objects.get(patient_id=e.patient_id)
+        t.age = ((date.today() - e.date_of_birth).days / days_in_year)
+        t.save()
+
+    #print "COUNTER:", total_num._meta.get_field('gender')
+    females = Demographic.objects.filter(gender__startswith='F')
+    males = Demographic.objects.filter(gender__startswith='M')
+    date_of_birth = Demographic.objects.all().values_list('date_of_birth')
+    #print date_of_birth[0][0]
+    x = date_of_birth.count()
+
+    months_in_year = 12
+    age_dist=[]
+    for i in range(0,x):
+        age = ((date.today() - date_of_birth[i][0]).days / days_in_year)
+        age_dist.append(int(age))
+        #print age
+        #years
+        if age > 1:
+            print date_of_birth[i][0]
+            print 'age', int(age), 'years'
+
+        #months
+        elif age > 0.0833 :
+            print date_of_birth[i][0]
+            print 'age', int(((date.today() - date_of_birth[i][0]).days / days_in_year)*12), 'months'
+        else:
+            print date_of_birth[i][0]
+            print 'age', (date.today() - date_of_birth[i][0]).days, 'days'
+
+    age_dist=sorted(age_dist)
+    #Find frequencies of elements
+    freq_age_dist = collections.Counter(age_dist)
+    print "FREQ:", freq_age_dist
+
+    print 'total count', total_num.count()
+    print 'females', females.count()
+    print 'males', males.count()
+    print 'birthdays', age_dist
+    print "COUNT:", Count(age_dist)
+
+    age_dict={}
+    for i in freq_age_dist:
+        age_dict[str(i)+'i']=freq_age_dist[i]
+    print "DICT", age_dict
+    ds = PivotDataPool(
+        series=[
+            {'options': {
+                'source':Demographic.objects.all(),
+                'categories':['gender'] },
+                'terms':{
+                    'sex_count':Count('gender'),
+
+                    }
+            }
+        ]
+    )
+
+    pvcht = PivotChart(
+        datasource=ds,
+        series_options =
+              [{'options':{
+                'type': 'column',
+                #'stacking': True
+                },
+                'terms':[
+                'sex_count']}],
+         chart_options =
+              {'title': {
+                   'text': 'Sex distribution'},
+               'xAxis': {
+                    'title': {
+                       'text': 'Sex'}}}
+    )
+
+    ds_age = PivotDataPool(
+        series=[
+            {'options': {
+                'source':Demographic.objects.all(),
+                'categories':['age'] },
+                'terms':{
+                    'age_count': Count('age'),
+                    }
+            }
+        ],
+
+    )
+
+    pvcht_age = PivotChart(
+        datasource=ds_age,
+        series_options =
+              [{'options':{
+                'type': 'column',
+                #'stacking': True
+                },
+                'terms':[
+                'age_count']}],
+         chart_options =
+              {'title': {
+                   'text': 'Age distribution'},
+               'xAxis': {
+                    'title': {
+                       'text': 'Age distribution'}}}
+    )
+    value=0
+    if request.method == "POST":
+        value = 1
+
+        #my_diagnosis = DiagnosisForm(request.POST, prefix='diag')
+        #my_a_b_sickle= A_b_sickle_thalForm(request.POST,prefix='a_b_s')
+        #my_redcell_enzyme = Redcell_enzyme_disForm(request.POST, prefix='rc_enz')
+        #my_redcell_membrane= Redcell_membrane_disForm(request.POST, prefix='rc_mbr')
+        #my_cong_dys = Cong_dyseryth_anaemiaForm(request.POST, prefix='cong_dys')
+        #my_cln_dt= ClinicalDataForm(request.POST, prefix='cln_dt')
+
+        # if 'id' in request.POST and request.POST['id']:
+        #     with transaction.atomic():
+        #         id = request.POST['id']
+        #         patient = Demographic.objects.filter(patient_id__icontains=id)
+        #         print patient
+        #         print patient.count()
+        #         # books = Book.objects.filter(title__icontains=q)
+        #         return render(request, 'search.html',
+        #             {'patient': patient, 'query': id, 'option':value})
+
+    return render_to_response('statistics.html', {'total_num': total_num.count(),'females': females.count(), 'males': males.count(), 'age_values': freq_age_dist.keys(),'age_freq':freq_age_dist.values(),'charts':[pvcht, pvcht_age]}, context)
 
 def login(request):
     context = RequestContext(request)
@@ -431,8 +907,9 @@ def login(request):
 
     if user is not None:
         auth.login(request, user)
+        #user = User.objects.get(username=username)
         print 'login'
-        return render_to_response('index.html', context)
+        return redirect('eReg.views.home')
 
     else:
         print 'no login'
