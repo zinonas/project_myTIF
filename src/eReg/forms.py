@@ -314,6 +314,7 @@ class ClinicalDataForm(forms.ModelForm):
         self.fields['current_treatment_chelation_start']= forms.DateField(label=('Start of chelation therapy'),required=False,
         widget=DateTimePicker(options={"format": "YYYY",
                                        "pickTime": False,
+                                       "viewMode": 'years',
                                        "startDate": "1900"}))
 
         self.fields['current_treatment_bone_marrow_date']= forms.DateField(label=('Date of occurrence'),required=False,
@@ -342,10 +343,16 @@ class ClinicalDataForm(forms.ModelForm):
             #     #'diagnosis_circumstances_caring_year',
             #     ),
             Fieldset(
-                '<h2>Diagnostic tests</h2>',
-                'clinical_data_date_of_examination',
-                'clinical_data_weight',
-                'clinical_data_height',
+                '<b>Diagnostic tests</b>',
+                Div(
+                     Div('clinical_data_date_of_examination',css_class='col-md-6'),
+                     css_class='row',
+                     ),
+                Div(
+                     Div('clinical_data_weight',css_class='col-md-6'),
+                     Div('clinical_data_height',css_class='col-md-5'),
+                     css_class='row',
+                     ),
                 Div(
                     #HTML(u'<div class="col-md-2"></div>'),
                     Div('clinical_data_cholelithiasis',css_class='col-md-6'),

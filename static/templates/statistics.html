@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+{% load bootstrap3 %}
+{% load static %}
+{% load staticfiles %}
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load pagination_tags %}
+{% block pagetitle %}Inputs{% endblock %}
+
+
+{% block head %}
+            <script>
+                function load_page(id){
+                    alert(id);
+                    $.ajax({
+                        url: "/results",
+                        type: "post",
+                        data: {
+                            csrfmiddlewaretoken: '{{ csrf_token }}',
+                            sentence: id
+                        },
+                        async: true,
+                        success: function (response){
+                            alert(response)
+                            window.location.href = response.redirect
+
+                        }
+                    })
+                }
+            </script>
+            <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+            <script src ="http://code.highcharts.com/highcharts.js"></script>
+
+            {% load chartit %}
+            {{ charts|load_charts:"one, two" }}
+
+
+
+
+            <!--<link rel="stylesheet" type="text/css" href="{% static 'admin/css/global.css' %}"/>-->
+
+
+            <!--<script>-->
+                <!--$(document).ready(function() {-->
+                    <!--$('#id_diag-diagnosis_option').change(function () {-->
+                        <!--var value = $(this).val()-->
+<!--//                        alert(value)-->
+                        <!--if (value === 'b-thalassaemia syndromes' | value === 'a-thalassaemia syndromes' | value==='Other haemoglobin variants' ){-->
+                            <!--$('#mytab a[href="#3"]').parent().removeClass("hide");-->
+                            <!--$('#mytab a[href="#4"]').parent().addClass("hide");-->
+                            <!--$('#mytab a[href="#5"]').parent().addClass("hide");-->
+                            <!--$('#mytab a[href="#6"]').parent().addClass("hide");-->
+                        <!--}-->
+                        <!--if (value === 'Rare cell enzyme disorders'){-->
+                            <!--$('#mytab a[href="#3"]').parent().addClass("hide");-->
+                            <!--$('#mytab a[href="#4"]').parent().removeClass("hide");-->
+                            <!--$('#mytab a[href="#5"]').parent().addClass("hide");-->
+                            <!--$('#mytab a[href="#6"]').parent().addClass("hide");-->
+                        <!--}-->
+
+                        <!--if (value === 'Rare cell membrane disorders'){-->
+                            <!--$('#mytab a[href="#3"]').parent().addClass("hide");-->
+                            <!--$('#mytab a[href="#4"]').parent().addClass("hide");-->
+                            <!--$('#mytab a[href="#5"]').parent().removeClass("hide");-->
+                            <!--$('#mytab a[href="#6"]').parent().addClass("hide");-->
+                        <!--}-->
+
+                        <!--if (value === 'Congenital desyrythropoietic anaemias'){-->
+                            <!--$('#mytab a[href="#3"]').parent().addClass("hide");-->
+                            <!--$('#mytab a[href="#4"]').parent().addClass("hide");-->
+                            <!--$('#mytab a[href="#5"]').parent().addClass("hide");-->
+                            <!--$('#mytab a[href="#6"]').parent().removeClass("hide");-->
+                        <!--}-->
+
+                    <!--});-->
+                <!--});-->
+            <!--</script>-->
+{% endblock %}
+
+{%block jumbotron_title %}Analytics{% endblock %}
+{%block jumbotron_info %}You have the option to update patient's data or add new.{% endblock %}
+
+{% block content %}
+
+<h2>Statistics</h2>
+
+<p>Total number of patients: {{ total_num }}</p>
+<center><div id="one" style="width: 50%; height: auto " > Chart will be rendered here </div>
+</br>
+<div id="two"style="width: 50%; height: auto "> Chart will be rendered here </div></center>
+
+<p>Number of males: {{ males }}</p>
+<p>Number of females: {{ females }}</p>
+<!--<p>Age distribution: {{ age_values }}</p>
+<p>Age frequency: {{ age_freq }}</p>-->
+
+{% if option == 1 %}
+    <p>You searched for: <strong>{{ query }}</strong></p>
+
+    {% if patient %}
+        <p>Found {{ patient|length }} patient{{ patient|pluralize }}.</p>
+        <div class="table-responsive">
+        <table id="selected_p" class="table table-striped table-bordered">
+            {% for pat in patient %}
+
+            <tr class="active">
+                <td width="5px">{{forloop.counter}}</td>
+                <td class="tab-content"><a href="{% url 'results'%}?id={{pat.patient_id}}" target=_blank >{{pat.given_name}}  {{pat.surname}} </a></td>
+            </tr>
+                <!--<li><a href="void::javascript()" onclick='load_page({{pat.patient_id}})'>{{pat.given_name}}  {{pat.surname}} </a></li>-->
+            {% endfor %}
+        </table>
+            </div>
+    {% else %}
+        <p>No patient matched your search criteria.</p>
+    {% endif %}
+
+{% endif %}
+
+{% endblock %}

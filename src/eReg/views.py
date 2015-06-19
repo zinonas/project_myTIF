@@ -580,7 +580,7 @@ def results_patient_card(request):
     context = RequestContext(request)
     myid = request.GET.get('id', '')
     #diagnosis option for saving purposes. In order to save only specific tables in db.
-    diag_option = 0
+    diag_option = ''
     print "my id", myid
     if request.method == 'POST':
         with transaction.atomic():
@@ -596,26 +596,23 @@ def results_patient_card(request):
             out_mes_patient = Outcome_measures.objects.get(patient=myid)
             life_ev_patient = Life_events.objects.get(patient=myid)
 
-        if (diag_val == 'b-thalassaemia syndromes' or diag_val == 'a-thalassaemia syndromes' or diag_val == 'Sickle cell syndromes' or diag_val == 'Other haemoglobin variants'):
-            diag_option = 1
-        elif (diag_val == 'Rare cell enzyme disorders'):
-            diag_option = 2
-        elif (diag_val == 'Rare cell membrane disorders'):
-            diag_option = 3
-        elif (diag_val == 'Congenital desyrythropoietic anaemias'):
-            diag_option = 4
-        elif(('b-thalassaemia syndromes' in diag_val or 'a-thalassaemia syndromes' in diag_val or 'Sickle cell syndromes' in diag_val or 'Other haemoglobin variants' in diag_val) and 'Rare cell enzyme disorders' in diag_val):
-            diag_option = 12
-        elif(('b-thalassaemia syndromes' in diag_val or 'a-thalassaemia syndromes' in diag_val or 'Sickle cell syndromes' in diag_val or 'Other haemoglobin variants' in diag_val) and 'Rare cell membrane disorders' in diag_val):
-            diag_option = 13
-        elif(('b-thalassaemia syndromes' in diag_val or 'a-thalassaemia syndromes' in diag_val or 'Sickle cell syndromes' in diag_val or 'Other haemoglobin variants' in diag_val) and 'Congenital desyrythropoietic anaemias' in diag_val):
-            diag_option = 14
-        elif('Rare cell enzyme disorders' in diag_val and 'Rare cell membrane disorders' in diag_val):
-            diag_option = 23
-        elif('Rare cell enzyme disorders' in diag_val and 'Congenital desyrythropoietic anaemias' in diag_val):
-            diag_option = 24
-        elif('Rare cell membrane disorders' in diag_val and 'Congenital desyrythropoietic anaemias' in diag_val):
-            diag_option = 34
+        # if (diag_val == 'b-thalassaemia syndromes' or diag_val == 'a-thalassaemia syndromes' or diag_val == 'Sickle cell syndromes' or diag_val == 'Other haemoglobin variants'):
+        #     diag_option = ='1'
+        # elif (diag_val == 'Rare cell enzyme disorders'):
+        #     diag_option = 2
+        # elif (diag_val == 'Rare cell membrane disorders'):
+        #     diag_option = 3
+        # elif (diag_val == 'Congenital desyrythropoietic anaemias'):
+        #     diag_option = 4
+        if(('b-thalassaemia syndromes' in diag_val or 'a-thalassaemia syndromes' in diag_val or 'Sickle cell syndromes' in diag_val or 'Other haemoglobin variants' in diag_val)):
+            diag_option = diag_option +'1'
+        if('Rare cell enzyme disorders' in diag_val):
+            diag_option = diag_option +'2'
+        if('Rare cell membrane' in diag_val):
+            diag_option = diag_option +'3'
+        if('Congenital desyrythropoietic anaemias' in diag_val):
+            diag_option = diag_option +'4'
+
 
         my_demographics = DemographicForm(request.POST or None, prefix="demo", instance=patient)
         my_diagnosis = DiagnosisForm(request.POST or None,prefix='diag', instance=diag_patient)
@@ -668,7 +665,7 @@ def results_patient_card(request):
 
 
     else:
-        diag_option=0
+        diag_option=''
         with transaction.atomic():
             print "HERE ELSE"
             patient = Demographic.objects.get(patient_id=myid)
@@ -691,7 +688,16 @@ def results_patient_card(request):
             sum_card_one[patient._meta.get_field('date_of_birth').verbose_name.title()]=patient.date_of_birth
             sum_card_one[patient._meta.get_field('blood_group').verbose_name.title()]= patient.blood_group
             sum_card_one['Diagnosis']= 'title'
-            sum_card_one[diag_patient._meta.get_field('diagnosis_option').verbose_name.title()]= diag_patient.diagnosis_option
+            #sum_card_one[diag_patient._meta.get_field('diagnosis_option').verbose_name.title()]= diag_patient.diagnosis_option
+
+
+            str_diag_val =ast.literal_eval(diag_val)
+
+            for x in range(0, len(str_diag_val)):
+                #print "diagnosis value=", str_diag_val[x]
+                new_string = 'Diagnosis option ' + str(x+1)
+                sum_card_one[new_string]= str_diag_val[x]
+            print sum_card_one['Diagnosis option 1']
             if "thal" in diag_patient.diagnosis_option:
                 sum_card_one[a_b_s_patient._meta.get_field('mol_diag_b_thal_seq_anal_a_gene').verbose_name.title()]=a_b_s_patient.mol_diag_b_thal_seq_anal_a_gene
                 sum_card_one[a_b_s_patient._meta.get_field('mol_diag_b_thal_seq_anal_b_gene').verbose_name.title()]=a_b_s_patient.mol_diag_b_thal_seq_anal_b_gene
@@ -722,26 +728,14 @@ def results_patient_card(request):
         #     form_data['patient_id'] = myid
         # # print form_data
         # #
-        if (diag_val == 'b-thalassaemia syndromes' or diag_val == 'a-thalassaemia syndromes' or diag_val == 'Sickle cell syndromes' or diag_val == 'Other haemoglobin variants'):
-            diag_option = 1
-        elif (diag_val == 'Rare cell enzyme disorders'):
-            diag_option = 2
-        elif (diag_val == 'Rare cell membrane disorders'):
-            diag_option = 3
-        elif (diag_val == 'Congenital desyrythropoietic anaemias'):
-            diag_option = 4
-        elif(('b-thalassaemia syndromes' in diag_val or 'a-thalassaemia syndromes' in diag_val or 'Sickle cell syndromes' in diag_val or 'Other haemoglobin variants' in diag_val) and 'Rare cell enzyme disorders' in diag_val):
-            diag_option = 12
-        elif(('b-thalassaemia syndromes' in diag_val or 'a-thalassaemia syndromes' in diag_val or 'Sickle cell syndromes' in diag_val or 'Other haemoglobin variants' in diag_val) and 'Rare cell membrane disorders' in diag_val):
-            diag_option = 13
-        elif(('b-thalassaemia syndromes' in diag_val or 'a-thalassaemia syndromes' in diag_val or 'Sickle cell syndromes' in diag_val or 'Other haemoglobin variants' in diag_val) and 'Congenital desyrythropoietic anaemias' in diag_val):
-            diag_option = 14
-        elif('Rare cell enzyme disorders' in diag_val and 'Rare cell membrane disorders' in diag_val):
-            diag_option = 23
-        elif('Rare cell enzyme disorders' in diag_val and 'Congenital desyrythropoietic anaemias' in diag_val):
-            diag_option = 24
-        elif('Rare cell membrane disorders' in diag_val and 'Congenital desyrythropoietic anaemias' in diag_val):
-            diag_option = 34
+        if(('b-thalassaemia syndromes' in diag_val or 'a-thalassaemia syndromes' in diag_val or 'Sickle cell syndromes' in diag_val or 'Other haemoglobin variants' in diag_val)):
+            diag_option = diag_option +'1'
+        if('Rare cell enzyme disorders' in diag_val):
+            diag_option = diag_option +'2'
+        if('Rare cell membrane' in diag_val):
+            diag_option = diag_option +'3'
+        if('Congenital desyrythropoietic anaemias' in diag_val):
+            diag_option = diag_option +'4'
         my_demographics = DemographicForm(prefix="demo",instance=patient)
         # my_demographics = DemographicForm(initial=form_data,)
 

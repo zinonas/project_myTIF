@@ -1,0 +1,286 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+{% load bootstrap3 %}
+{% load static %}
+{% load staticfiles %}
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% block pagetitle %}Patient card{% endblock %}
+
+{% block head %}
+
+            <!--<link rel="stylesheet" type="text/css" href="{% static 'admin/css/global.css' %}"/>-->
+
+            <!--<script type="text/javascript" src="/admin/jsi18n/"></script>-->
+            <!--<script type="text/javascript" src="{% static 'admin/js/core.js' %}"></script>-->
+            <!--<script type="text/javascript" src="{% static 'admin/js/admin/RelatedObjectLookups.js' %}"></script>-->
+            <!--<script type="text/javascript" src="{% static 'admin/js/jquery.js' %}"></script>-->
+            <!--<script type="text/javascript" src="{% static 'admin/js/jquery.init.js' %}"></script>-->
+            <!--<script type="text/javascript" src="{% static 'admin/js/actions.js' %}"></script>-->
+            <!--<script type="text/javascript" src="{% static 'admin/js/calendar.js' %}"></script>-->
+            <!--<script type="text/javascript" src="/static/admin/js/admin/DateTimeShortcuts.js"></script>-->
+            <!--<script src="//code.jquery.com/jquery-1.10.2.js"></script>-->
+           <script>
+               function reply_click(clicked_id){
+//                   alert(clicked_id)
+                        if (clicked_id=="diag_One"){
+                            $('#mytab a[href="#2"]').parent().removeClass("hide");
+//
+//                            alert(option);
+                        }
+                        if (clicked_id=="diag_Two"){
+                            $('#mytab a[href="#4"]').parent().removeClass("hide");
+//                            alert(option);
+                        }
+                        if (clicked_id=="diag_Three"){
+                            $('#mytab a[href="#3"]').parent().removeClass("hide");
+//                            alert(option);
+                        }
+                        if (clicked_id=="diag_Four"){
+                            $('#mytab a[href="#5"]').parent().removeClass("hide");
+//                            alert(option);
+                        }
+               }
+           </script>
+            <!--<script>-->
+                <!--$(document).ready(function() {-->
+                     <!--$('#my_option').each(function() {-->
+                        <!--var option = $(this).val();-->
+<!--//                        alert(option)-->
+                        <!--if (option.indexOf('1') >= 0){-->
+                            <!--$('#mytab a[href="#2"]').parent().removeClass("hide");-->
+<!--//                            alert(option);-->
+                        <!--}-->
+                        <!--if (option.indexOf('2') >= 0){-->
+                            <!--$('#mytab a[href="#3"]').parent().removeClass("hide");-->
+<!--//                            alert(option);-->
+                        <!--}-->
+                        <!--if (option.indexOf('3') >= 0){-->
+                            <!--$('#mytab a[href="#4"]').parent().removeClass("hide");-->
+<!--//                            alert(option);-->
+                        <!--}-->
+                        <!--if (option.indexOf('4') >= 0){-->
+                            <!--$('#mytab a[href="#5"]').parent().removeClass("hide");-->
+<!--//                            alert(option);-->
+                        <!--}-->
+                    <!--});-->
+                <!--});-->
+            <!--</script>-->
+            <!--<script>-->
+                <!--$(document).ready(function() {-->
+                    <!--$('#id_diag-diagnosis_option').change(function () {-->
+                        <!--var value = String($(this).val())-->
+                        <!--var after = value.split(",").join(", ")-->
+
+                        <!--alert(after)-->
+                        <!--if (value == 'b-thalassaemia syndromes' | value == 'a-thalassaemia syndromes' | value=='Other haemoglobin variants' | value=='Sickle cell syndromes' ){-->
+                            <!--$('#mytab a[href="#3"]').parent().removeClass("hide");-->
+                            <!--$('#mytab a[href="#4"]').parent().addClass("hide");-->
+                            <!--$('#mytab a[href="#5"]').parent().addClass("hide");-->
+                            <!--$('#mytab a[href="#6"]').parent().addClass("hide");-->
+                        <!--}-->
+
+
+
+                       <!--else if (value == 'Rare cell enzyme disorders'){-->
+                            <!--$('#mytab a[href="#3"]').parent().addClass("hide");-->
+                            <!--$('#mytab a[href="#4"]').parent().removeClass("hide");-->
+                            <!--$('#mytab a[href="#5"]').parent().addClass("hide");-->
+                            <!--$('#mytab a[href="#6"]').parent().addClass("hide");-->
+                        <!--}-->
+
+
+
+                       <!--else if (value == 'Rare cell membrane disorders'){-->
+                            <!--$('#mytab a[href="#3"]').parent().addClass("hide");-->
+                            <!--$('#mytab a[href="#4"]').parent().addClass("hide");-->
+                            <!--$('#mytab a[href="#5"]').parent().removeClass("hide");-->
+                            <!--$('#mytab a[href="#6"]').parent().addClass("hide");-->
+                       <!--}-->
+
+
+                       <!--else if (value == 'Congenital dyserythropoietic anaemias'){-->
+                            <!--$('#mytab a[href="#3"]').parent().addClass("hide");-->
+                            <!--$('#mytab a[href="#4"]').parent().addClass("hide");-->
+                            <!--$('#mytab a[href="#5"]').parent().addClass("hide");-->
+                            <!--$('#mytab a[href="#6"]').parent().removeClass("hide");-->
+                       <!--}-->
+
+                       <!--else if ((after.indexOf('b-thalassaemia syndromes') >= 0 | after.indexOf('a-thalassaemia syndromes') >= 0 | after.indexOf('Other haemoglobin variants') >= 0 | after.indexOf('Sickle cell syndromes') >= 0) && after.indexOf('Rare cell enzyme disorders') >= 0) {-->
+                           <!--//alert("here")-->
+                           <!--$('#mytab a[href="#3"]').parent().removeClass("hide");-->
+                           <!--$('#mytab a[href="#4"]').parent().removeClass("hide");-->
+                           <!--$('#mytab a[href="#5"]').parent().addeClass("hide");-->
+                           <!--$('#mytab a[href="#6"]').parent().addClass("hide");-->
+                       <!--}-->
+
+                       <!--else if ((after.indexOf('b-thalassaemia syndromes') >= 0 | after.indexOf('a-thalassaemia syndromes') >= 0 | after.indexOf('Other haemoglobin variants') >= 0 | after.indexOf('Sickle cell syndromes') >= 0) && after.indexOf('Rare cell membrane disorders') >= 0) {-->
+                           <!--//alert("here")-->
+                           <!--$('#mytab a[href="#3"]').parent().removeClass("hide");-->
+                           <!--$('#mytab a[href="#4"]').parent().addClass("hide");-->
+                           <!--$('#mytab a[href="#5"]').parent().removeClass("hide");-->
+                           <!--$('#mytab a[href="#6"]').parent().addClass("hide");-->
+                       <!--}-->
+
+                       <!--else if ((after.indexOf('b-thalassaemia syndromes') >= 0 | after.indexOf('a-thalassaemia syndromes') >= 0 | after.indexOf('Other haemoglobin variants') >= 0 | after.indexOf('Sickle cell syndromes') >= 0) && after.indexOf('Congenital dyserythropoietic anaemias') >= 0) {-->
+                           <!--//alert("here")-->
+                           <!--$('#mytab a[href="#3"]').parent().removeClass("hide");-->
+                           <!--$('#mytab a[href="#4"]').parent().addClass("hide");-->
+                           <!--$('#mytab a[href="#5"]').parent().addClass("hide");-->
+                           <!--$('#mytab a[href="#6"]').parent().removeClass("hide");-->
+                       <!--}-->
+
+                       <!--else if ( after.indexOf('Rare cell membrane disorders') >= 0 && after.indexOf('Rare cell enzyme disorders') >= 0) {-->
+                           <!--//alert("here")-->
+                           <!--$('#mytab a[href="#3"]').parent().addClass("hide");-->
+                           <!--$('#mytab a[href="#4"]').parent().removeClass("hide");-->
+                           <!--$('#mytab a[href="#5"]').parent().removeClass("hide");-->
+                           <!--$('#mytab a[href="#6"]').parent().addClass("hide");-->
+                       <!--}-->
+
+                       <!--else if ( after.indexOf('Rare cell membrane disorders') >= 0 && after.indexOf('Congenital dyserythropoietic anaemias') >= 0) {-->
+                           <!--//alert("here")-->
+                           <!--$('#mytab a[href="#3"]').parent().addClass("hide");-->
+                           <!--$('#mytab a[href="#4"]').parent().addClass("hide");-->
+                           <!--$('#mytab a[href="#5"]').parent().removeClass("hide");-->
+                           <!--$('#mytab a[href="#6"]').parent().removeClass("hide");-->
+                       <!--}-->
+
+                       <!--else if ( after.indexOf('Rare cell enzyme disorders') >= 0 && after.indexOf('Congenital dyserythropoietic anaemias') >= 0) {-->
+                           <!--//alert("here")-->
+                           <!--$('#mytab a[href="#3"]').parent().addClass("hide");-->
+                           <!--$('#mytab a[href="#4"]').parent().removeClass("hide");-->
+                           <!--$('#mytab a[href="#5"]').parent().addClass("hide");-->
+                           <!--$('#mytab a[href="#6"]').parent().removeClass("hide");-->
+                       <!--}-->
+
+                    <!--});-->
+                <!--});-->
+            <!--</script>-->
+            {{frm.media}}
+{% endblock %}
+
+{%block jumbotron_title %}Patient Card{% endblock %}
+{%block jumbotron_info %}Write here more details{% endblock %}
+{% block content %}
+
+<!-- Nav tabs -->
+<!--<ul class="nav nav-tabs">-->
+    <!--<li class="active"><a href="#demographics" role="tab" data-toggle="tab">Demographics</a></li>-->
+    <!--<li><a href="#diagnosis" role="tab" data-toggle="tab">Diagnosis</a></li>-->
+    <!--<li><a href="#a_b_sickle" role="tab" data-toggle="tab">A_b_sickle</a></li>-->
+    <!--<li><a href="#settings" role="tab" data-toggle="tab">Settings</a></li>-->
+<!--</ul>-->
+<!--<div class="tab-content">-->
+
+    <!-- Tab panes -->
+<input type="hidden" id="my_option" name='diagnosis_option' value="{{diag_option}}" />
+
+<form class="form-horizontal" method="post" id="input">
+    {% csrf_token %}
+
+    <div class="tab-pane" id="mytab">
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a href="#1" data-toggle="tab">Summary Card</a>
+            </li>
+            <!--<li>-->
+                <!--<a href="#2" data-toggle="tab">Summary Card 2</a>-->
+            <!--</li>-->
+            <li class="hide">
+                <a href="#2" data-toggle="tab">Haemoglobin disorders diagnostic tests</a>
+            </li>
+            <li class="hide">
+                <a href="#3" data-toggle="tab">Rare cell enzyme disorders</a>
+            </li>
+            <li class="hide">
+                <a href="#4" data-toggle="tab">Rare cell membrane disorders</a>
+            </li>
+            <li class="hide">
+                <a href="#5" data-toggle="tab">Congenital desyrythropoietic anaemias</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane fade in active" id="1">
+                <!--<input type="hidden" name="form_id" value="demographics">-->
+                <div class="container"><table class="table table-hover">
+                    {% for field in frm %}
+                        {% if field.value == 'title' %}
+                            <tr><th><h2>{{ field.label_tag }}</h2></th><td></td></tr>
+                        {% else %}
+                              {% if 'Other haemoglobin variants' in field.value or 'b-thalassaemia syndromes' in field.value or 'a-thalassaemia syndromes' in field.value or 'Sickle cell syndromes' in field.value%}
+                                  <tr><th>{{ field.label_tag }}</th><td><a id="diag_One" onclick="reply_click(this.id)">{{ field.value }}</a></td></tr>
+
+                                {% elif 'Rare cell membrane disorders' in field.value%}
+                                  <tr><th>{{ field.label_tag }}</th><td><a id="diag_Two" onclick="reply_click(this.id)">{{ field.value }}</a></td></tr>
+                                {% elif 'Rare cell enzyme disorders' in field.value%}
+
+                                  <tr><th>{{ field.label_tag }}</th><td><a id="diag_Three" onclick="reply_click(this.id)">{{ field.value }}</a></td></tr>
+                                {% elif 'Congenital dyserythropoietic anaemias' in field.value%}
+
+                                  <tr><th>{{ field.label_tag }}</th><td><a id="diag_Four" onclick="reply_click(this.id)">{{ field.value }}</a></td></tr>
+
+                            {% else %}
+                                <tr><th>{{ field.label_tag }}</th><td>{{ field.value }}</td></tr>
+                            {% endif %}
+                    {% endif %}
+                    {% endfor %}
+                </table>
+
+            </div>
+        </div>
+        <div class="tab-pane fade" id="2">
+                <!-- form controls to be continued here -->
+                <!--<input type="hidden" name="form_id" value="diagnosis">-->
+                <div class="container"><table class="table table-hover">
+                    {%for field in frm_a_b_s%}
+                        <tr><th>{{ field.label_tag }}</th><td>{{ field.value }}</td></tr>
+                    {%endfor%}
+                </table></div>
+        </div>
+
+
+
+                    <!--<div class="tab-pane" id="3">-->
+                <!--&lt;!&ndash; form controls to be continued here &ndash;&gt;-->
+                <!--&lt;!&ndash;<input type="hidden" name="form_id" value="a_b_s">&ndash;&gt;-->
+                <!--<div class="container"> {%crispy frm_a_b_s%}</div>-->
+            <!--</div>-->
+        <div class="tab-pane" id="3">
+                <!-- form controls to be continued here -->
+                <!--<input type="hidden" name="form_id" value="a_b_s">-->
+                <div class="container"><table class="table table-hover">
+                    {% for field in frm_rc_enz %}
+                        <tr><th>{{ field.label_tag }}</th><td>{{ field.value }}</td></tr>
+                    {%endfor%}
+                </table></div>
+        </div>
+        <div class="tab-pane" id="4">
+                <!-- form controls to be continued here -->
+                <!--<input type="hidden" name="form_id" value="a_b_s">-->
+                 <div class="container"><table class="table table-hover">
+                    {% for field in frm_rc_mbr %}
+                        <tr><th>{{ field.label_tag }}</th><td>{{ field.value }}</td></tr>
+                    {%endfor%}
+                </table></div>
+        </div>
+        <div class="tab-pane" id="5">
+                <!-- form controls to be continued here -->
+                <!--<input type="hidden" name="form_id" value="a_b_s">-->
+
+                <div class="container"><table class="table table-hover">
+                    {% for field in frm_cong_dys%}
+                        <tr><th>{{ field.label_tag }}</th><td>{{ field.value }}</td></tr>
+                    {%endfor%}
+                </table></div>
+        </div>
+        </div>
+    </div>
+    <!--<input type="submit" name='submit' value="Submit">-->
+</form>
+
+
+{% endblock %}
