@@ -98,16 +98,40 @@
                     });
                 });
             </script>
+            <!--<script>-->
+                <!--$(document).ready(function() {-->
+                    <!--$('#').each(function() {-->
+                        <!--var option = $(this).val();-->
+                        <!--alert (option)-->
+                    <!--});-->
+                <!--});-->
+            <!--</script>-->
 
             <script>
                 $(document).ready(function() {
                     //var id = $(':checkbox').val()
                     //alert(id)
                     //$('#id_diag-diagnosis_option_').change(function () {
+                    $("#id_diag-comment_1").parent().addClass("hide")
+                    $("#id_diag-comment_2").parent().addClass("hide")
+                    $("#id_diag-comment_3").parent().addClass("hide")
+                    $("#id_diag-comment_4").parent().addClass("hide")
+                    $("#id_diag-comment_5").parent().addClass("hide")
+                    $("#id_diag-comment_6").parent().addClass("hide")
+                    $("#id_diag-comment_7").parent().addClass("hide")
+
+//                    var checkboxes =choices_table.getElementsByTagName('input');
+//                    for (var i = checkboxes.length; i >0; i--)
+//                    {
+//                        alert (i)
+//                        checkboxes[i].parent().addClass("hide")
+//                    }
 
                     $('input:checkbox').change(function () {
                         var value = String($(this).val())
 
+
+//                        alert(value)
                         var uncheckedValues = $('input:checkbox:not(:checked)').map(function() {
                         return this.value;
                         }).get();
@@ -123,6 +147,18 @@
 
                         if (value == 'b-thalassaemia syndromes' | value == 'a-thalassaemia syndromes' | value=='Other haemoglobin variants' | value=='Sickle cell syndromes' ){
                             $('#mytab a[href="#3"]').parent().removeClass("hide");
+                            if (value == 'b-thalassaemia syndromes') {
+                                $("#id_diag-comment_5").parent().addClass("show")
+                                $("#id_diag-comment_6").parent().addClass("show")
+                                $("#id_diag-comment_7").parent().addClass("show")
+                            }
+                            if (value == 'a-thalassaemia syndromes') {
+                                $("#id_diag-comment_1").parent().addClass("show")
+                                $("#id_diag-comment_2").parent().addClass("show")
+                                $("#id_diag-comment_3").parent().addClass("show")
+                                $("#id_diag-comment_4").parent().addClass("show")
+                            }
+//                            alert(value)
                             //$('#mytab a[href="#4"]').parent().addClass("hide");
                             //$('#mytab a[href="#5"]').parent().addClass("hide");
                             //$('#mytab a[href="#6"]').parent().addClass("hide");
@@ -202,7 +238,20 @@
                        }
                        if (uncheckedValues.indexOf('b-thalassaemia syndromes') >= 0 && uncheckedValues.indexOf('a-thalassaemia syndromes') >= 0 && uncheckedValues.indexOf('Other haemoglobin variants') >= 0 && uncheckedValues.indexOf('Sickle cell syndromes') >= 0 ) {
                             $('#mytab a[href="#3"]').parent().addClass("hide");
+
                         }
+                       if (uncheckedValues.indexOf('b-thalassaemia syndromes') >= 0) {
+                               $("#id_diag-comment_5").parent().removeClass("show")
+                               $("#id_diag-comment_6").parent().removeClass("show")
+                               $("#id_diag-comment_7").parent().removeClass("show")
+                           }
+
+                       if (uncheckedValues.indexOf('a-thalassaemia syndromes') >= 0) {
+                                $("#id_diag-comment_1").parent().removeClass("show")
+                                $("#id_diag-comment_2").parent().removeClass("show")
+                                $("#id_diag-comment_3").parent().removeClass("show")
+                                $("#id_diag-comment_4").parent().removeClass("show")
+                            }
                        if (uncheckedValues.indexOf('Rare cell enzyme disorders') >= 0) {
                             $('#mytab a[href="#4"]').parent().addClass("hide");
                         }

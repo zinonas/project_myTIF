@@ -7,6 +7,8 @@ from functools import partial
 from django.contrib.admin import widgets
 from models import Demographic
 from models import Diagnosis, A_b_sickle_thal, Redcell_enzyme_dis, Redcell_membrane_dis, Cong_dyseryth_anaemia, icd_10, Pregnancy, Clinical_data, Outcome_measures, Life_events
+from sympy import pretty_print as pp, latex
+from sympy.abc import a, o
 import autocomplete_light
 import sys
 reload(sys)
@@ -666,6 +668,16 @@ class DiagnosisForm(forms.ModelForm):
     )
         self.fields['diagnosis_option']=forms.MultipleChoiceField(choices=diagnosis_option_value, widget=forms.CheckboxSelectMultiple())
 
+        diag_sub_options =(
+            ('a-thalassaemia silent trait(a+)','a-thalassaemia silent trait(a+)'),
+            ('a-thalassaemia trait a^o aa|-- a-|a-','a-thalassaemia trait  a^o aa|--  a-|a-' ),
+            ('a-thalassaemia Hb disease','a-thalassaemia Hb disease'),
+            ('a-thalassaemia hydrops fetalis','a-thalassaemia hydrops fetalis'),
+            ('b-thalassaemia trait', 'b-thalassaemia trait'),
+            ('b-thalassaemia Intermedia', 'b-thalassaemia Intermedia'),
+            ('b-thalassaemia Major', 'b-thalassaemia Major'),
+        )
+        self.fields['comment']=forms.MultipleChoiceField(choices=diag_sub_options, widget=forms.CheckboxSelectMultiple())
         #self.fields['patient'].queryset = Demographic.objects.filter(patient_id=self.instance.patient)
         self.helper.field_class = 'col-md-8'
         self.helper.label_class = 'col-md-3'
