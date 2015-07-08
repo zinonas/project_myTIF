@@ -1,7 +1,7 @@
 from django.db.models import Sum, Count
 from django.shortcuts import render, render_to_response, RequestContext, HttpResponse, get_object_or_404, redirect
 import django.http
-from .forms import DemographicForm, DiagnosisForm, A_b_sickle_thalForm, Redcell_enzyme_disForm, Redcell_membrane_disForm,Cong_dyseryth_anaemiaForm, UserCreationForm, ClinicalDataForm, OutcomeMeasuresForm, LifeEventsForm
+from .forms import DemographicForm, DiagnosisForm, A_b_sickle_thalForm, Redcell_enzyme_disForm, Redcell_membrane_disForm,Cong_dyseryth_anaemiaForm, UserCreationForm, ClinicalDataForm
 from django.template import RequestContext
 from collections import OrderedDict
 from django.http import HttpResponseRedirect
@@ -12,7 +12,7 @@ import traceback
 from django.forms.models import formset_factory
 from django.forms.models import inlineformset_factory
 from django.contrib.auth.models import User
-from models import Demographic, Diagnosis, A_b_sickle_thal,Redcell_enzyme_dis, Redcell_membrane_dis, Cong_dyseryth_anaemia, icd_10, Clinical_data, Life_events, Outcome_measures
+from models import Demographic, Diagnosis, A_b_sickle_thal,Redcell_enzyme_dis, Redcell_membrane_dis, Cong_dyseryth_anaemia, icd_10, Clinical_data
 from django.core import serializers
 import json
 from django.db import transaction
@@ -53,8 +53,7 @@ def input(request):
         my_redcell_membrane= Redcell_membrane_disForm(request.POST, prefix='rc_mbr')
         my_cong_dys = Cong_dyseryth_anaemiaForm(request.POST, prefix='cong_dys')
         my_cln_dt = ClinicalDataForm(request.POST, prefix='cln_dt')
-        my_out_mes = OutcomeMeasuresForm(request.POST, prefix='out_mes')
-        my_life_ev = LifeEventsForm(request.POST, prefix='life_ev')
+
 
         print "POST"
 
@@ -66,7 +65,7 @@ def input(request):
                 print 'data =', data
                 return HttpResponse(data)
 
-        if my_demographics.is_valid() and my_diagnosis.is_valid() and my_a_b_sickle.is_valid and my_redcell_enzyme.is_valid() and my_redcell_membrane.is_valid() and my_cong_dys.is_valid() and my_cln_dt.is_valid() and my_out_mes.is_valid() and my_life_ev.is_valid():
+        if my_demographics.is_valid() and my_diagnosis.is_valid() and my_a_b_sickle.is_valid and my_redcell_enzyme.is_valid() and my_redcell_membrane.is_valid() and my_cong_dys.is_valid() and my_cln_dt.is_valid():
 
             entry = '"{Demographic":['
             for formfield in my_demographics:
@@ -199,13 +198,7 @@ def input(request):
             my_cln_dt_object.patient = my_demographics_object
             my_cln_dt_object.save()
 
-            my_out_mes_object = my_out_mes.save(commit=False)
-            my_out_mes_object.patient = my_demographics_object
-            my_out_mes_object.save()
 
-            my_life_ev_object = my_life_ev.save(commit=False)
-            my_life_ev_object.patient = my_demographics_object
-            my_life_ev_object.save()
 
 
         # submitted = request.POST.get('form_id', '')
@@ -267,13 +260,11 @@ def input(request):
         my_redcell_membrane= Redcell_membrane_disForm(prefix='rc_mbr')
         my_cong_dys = Cong_dyseryth_anaemiaForm(prefix='cong_dys')
         my_cln_dt= ClinicalDataForm(prefix='cln_dt')
-        my_out_mes = OutcomeMeasuresForm(prefix='out_mes')
-        my_life_ev = LifeEventsForm(prefix='life_ev')
 
     #if ret is None:
     #    ret = render_to_response('input.html', {'frm':my_demographics, 'frm_d': my_diagnosis, 'frm_a_b_s': my_a_b_sickle, 'frm_rc_enz': my_redcell_enzyme, 'frm_rc_mbr': my_redcell_membrane, 'frm_cong_dys': my_cong_dys, 'diag_option': diag_option, 'frm_cln_dt': my_cln_dt, 'frm_out_mes': my_out_mes, 'frm_life_ev': my_life_ev,}, context)
     #    cache.set('input-rendered', ret)
-    return render_to_response('input.html', {'frm':my_demographics, 'frm_d': my_diagnosis, 'frm_a_b_s': my_a_b_sickle, 'frm_rc_enz': my_redcell_enzyme, 'frm_rc_mbr': my_redcell_membrane, 'frm_cong_dys': my_cong_dys, 'diag_option': diag_option, 'frm_cln_dt': my_cln_dt, 'frm_out_mes': my_out_mes, 'frm_life_ev': my_life_ev,}, context)
+    return render_to_response('input.html', {'frm':my_demographics, 'frm_d': my_diagnosis, 'frm_a_b_s': my_a_b_sickle, 'frm_rc_enz': my_redcell_enzyme, 'frm_rc_mbr': my_redcell_membrane, 'frm_cong_dys': my_cong_dys, 'diag_option': diag_option, 'frm_cln_dt': my_cln_dt}, context)
         # submitted = request.POST.get('form_id', '')
         #
         # if submitted == 'demographics':
@@ -374,8 +365,6 @@ def results(request):
             r_c_m_patient = Redcell_membrane_dis.objects.get(patient=myid)
             c_d_a_patient = Cong_dyseryth_anaemia.objects.get(patient=myid)
             cln_dt_patient= Clinical_data.objects.get(patient=myid)
-            out_mes_patient = Outcome_measures.objects.get(patient=myid)
-            life_ev_patient = Life_events.objects.get(patient=myid)
 
 
 
@@ -409,11 +398,10 @@ def results(request):
         my_redcell_membrane= Redcell_membrane_disForm(request.POST or None, prefix='rc_mbr',instance=r_c_m_patient)
         my_cong_dys = Cong_dyseryth_anaemiaForm(request.POST or None, prefix='cong_dys', instance=c_d_a_patient)
         my_cln_dt = ClinicalDataForm(request.POST or None, prefix='cln_dt', instance=cln_dt_patient)
-        my_out_mes = OutcomeMeasuresForm(request.POST, prefix='out_mes', instance= out_mes_patient)
-        my_life_ev = LifeEventsForm(request.POST, prefix='life_ev', instance = life_ev_patient)
+
 
         print "HERE FIRST IF"
-        if my_demographics.is_valid() and my_diagnosis.is_valid() and my_cln_dt.is_valid() and my_out_mes.is_valid() and my_life_ev.is_valid() and (my_a_b_sickle.is_valid or my_redcell_enzyme.is_valid() or my_redcell_membrane.is_valid() or my_cong_dys.is_valid()):
+        if my_demographics.is_valid() and my_diagnosis.is_valid() and my_cln_dt.is_valid() (my_a_b_sickle.is_valid or my_redcell_enzyme.is_valid() or my_redcell_membrane.is_valid() or my_cong_dys.is_valid()):
             print "HERE SECOND IF"
 
             my_demographics_object = my_demographics.save()
@@ -442,13 +430,6 @@ def results(request):
             my_cln_dt_object.patient = my_demographics_object
             my_cln_dt_object.save()
 
-            my_out_mes_object = my_out_mes.save(commit=False)
-            my_out_mes_object.patient = my_demographics_object
-            my_out_mes_object.save()
-
-            my_life_ev_object = my_life_ev.save(commit=False)
-            my_life_ev_object.patient = my_demographics_object
-            my_life_ev_object.save()
 
 
 
@@ -464,8 +445,6 @@ def results(request):
             r_c_m_patient = Redcell_membrane_dis.objects.get(patient=myid)
             c_d_a_patient = Cong_dyseryth_anaemia.objects.get(patient=myid)
             cln_dt_patient= Clinical_data.objects.get(patient=myid)
-            out_mes_patient = Outcome_measures.objects.get(patient=myid)
-            life_ev_patient = Life_events.objects.get(patient=myid)
 
 
             str_diag_val =ast.literal_eval(diag_val)
@@ -517,11 +496,9 @@ def results(request):
         my_redcell_membrane= Redcell_membrane_disForm(request.POST or None, prefix='rc_mbr',instance=r_c_m_patient)
         my_cong_dys = Cong_dyseryth_anaemiaForm(request.POST or None, prefix='cong_dys', instance=c_d_a_patient)
         my_cln_dt = ClinicalDataForm(request.POST or None, prefix='cln_dt', instance=cln_dt_patient)
-        my_out_mes = OutcomeMeasuresForm(request.POST, prefix='out_mes', instance= out_mes_patient)
-        my_life_ev = LifeEventsForm(request.POST, prefix='life_ev', instance = life_ev_patient)
 
 
-    return render_to_response('results.html', {'frm':my_demographics, 'frm_d': my_diagnosis, 'frm_a_b_s': my_a_b_sickle, 'frm_rc_enz': my_redcell_enzyme, 'frm_rc_mbr': my_redcell_membrane, 'frm_cong_dys': my_cong_dys, 'diag_option': diag_option, 'frm_cln_dt':my_cln_dt, 'frm_out_mes': my_out_mes, 'frm_life_ev': my_life_ev}, context)
+    return render_to_response('results.html', {'frm':my_demographics, 'frm_d': my_diagnosis, 'frm_a_b_s': my_a_b_sickle, 'frm_rc_enz': my_redcell_enzyme, 'frm_rc_mbr': my_redcell_membrane, 'frm_cong_dys': my_cong_dys, 'diag_option': diag_option, 'frm_cln_dt':my_cln_dt}, context)
 
 
 @login_required(login_url='/login')
@@ -593,8 +570,6 @@ def results_patient_card(request):
             r_c_m_patient = Redcell_membrane_dis.objects.get(patient=myid)
             c_d_a_patient = Cong_dyseryth_anaemia.objects.get(patient=myid)
             cln_dt_patient= Clinical_data.objects.get(patient=myid)
-            out_mes_patient = Outcome_measures.objects.get(patient=myid)
-            life_ev_patient = Life_events.objects.get(patient=myid)
 
         # if (diag_val == 'b-thalassaemia syndromes' or diag_val == 'a-thalassaemia syndromes' or diag_val == 'Sickle cell syndromes' or diag_val == 'Other haemoglobin variants'):
         #     diag_option = ='1'
@@ -621,11 +596,9 @@ def results_patient_card(request):
         my_redcell_membrane= Redcell_membrane_disForm(request.POST or None, prefix='rc_mbr',instance=r_c_m_patient)
         my_cong_dys = Cong_dyseryth_anaemiaForm(request.POST or None, prefix='cong_dys', instance=c_d_a_patient)
         my_cln_dt = ClinicalDataForm(request.POST or None, prefix='cln_dt', instance=cln_dt_patient)
-        my_out_mes = OutcomeMeasuresForm(request.POST, prefix='out_mes', instance= out_mes_patient)
-        my_life_ev = LifeEventsForm(request.POST, prefix='life_ev', instance = life_ev_patient)
 
         print "HERE FIRST IF"
-        if my_demographics.is_valid() and my_diagnosis.is_valid() and my_cln_dt.is_valid() and my_out_mes.is_valid() and my_life_ev.is_valid()  and (my_a_b_sickle.is_valid or my_redcell_enzyme.is_valid() or my_redcell_membrane.is_valid() or my_cong_dys.is_valid()):
+        if my_demographics.is_valid() and my_diagnosis.is_valid() and my_cln_dt.is_valid()  and (my_a_b_sickle.is_valid or my_redcell_enzyme.is_valid() or my_redcell_membrane.is_valid() or my_cong_dys.is_valid()):
             print "HERE SECOND IF"
             print my_demographics.given_name
             my_demographics_object = my_demographics.save()
@@ -654,14 +627,6 @@ def results_patient_card(request):
             my_cln_dt_object.patient = my_demographics_object
             my_cln_dt_object.save()
 
-            my_out_mes_object = my_out_mes.save(commit=False)
-            my_out_mes_object.patient = my_demographics_object
-            my_out_mes_object.save()
-
-            my_life_ev_object = my_life_ev.save(commit=False)
-            my_life_ev_object.patient = my_demographics_object
-            my_life_ev_object.save()
-
 
 
     else:
@@ -676,8 +641,6 @@ def results_patient_card(request):
             r_c_m_patient = Redcell_membrane_dis.objects.get(patient=myid)
             c_d_a_patient = Cong_dyseryth_anaemia.objects.get(patient=myid)
             cln_dt_patient=Clinical_data.objects.get(patient=myid)
-            out_mes_patient = Outcome_measures.objects.get(patient=myid)
-            life_ev_patient = Life_events.objects.get(patient=myid)
 
             sum_card_one=OrderedDict()
             sum_card_one['Demographics']= 'title'
@@ -746,11 +709,9 @@ def results_patient_card(request):
         my_redcell_membrane= Redcell_membrane_disForm(request.POST or None, prefix='rc_mbr',instance=r_c_m_patient)
         my_cong_dys = Cong_dyseryth_anaemiaForm(request.POST or None, prefix='cong_dys', instance=c_d_a_patient)
         my_cln_dt = ClinicalDataForm(request.POST or None, prefix='cln_dt', instance=cln_dt_patient)
-        my_out_mes = OutcomeMeasuresForm(request.POST, prefix='out_mes', instance= out_mes_patient)
-        my_life_ev = LifeEventsForm(request.POST, prefix='life_ev', instance = life_ev_patient)
 
 
-    return render_to_response('results_patient_card.html', {'frm':formOne, 'frm_d': my_diagnosis, 'frm_a_b_s': my_a_b_sickle, 'frm_rc_enz': my_redcell_enzyme, 'frm_rc_mbr': my_redcell_membrane, 'frm_cong_dys': my_cong_dys, 'diag_option': diag_option, 'frm_cln_dt': my_cln_dt, 'frm_out_mes': my_out_mes, 'frm_life_ev': my_life_ev}, context)
+    return render_to_response('results_patient_card.html', {'frm':formOne, 'frm_d': my_diagnosis, 'frm_a_b_s': my_a_b_sickle, 'frm_rc_enz': my_redcell_enzyme, 'frm_rc_mbr': my_redcell_membrane, 'frm_cong_dys': my_cong_dys, 'diag_option': diag_option, 'frm_cln_dt': my_cln_dt}, context)
 
 
 

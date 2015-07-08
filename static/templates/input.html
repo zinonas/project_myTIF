@@ -111,7 +111,7 @@
                 $(document).ready(function() {
                     //var id = $(':checkbox').val()
                     //alert(id)
-                    //$('#id_diag-diagnosis_option_').change(function () {
+                    //NEW
                     $("#id_diag-comment_1").parent().addClass("hide")
                     $("#id_diag-comment_2").parent().addClass("hide")
                     $("#id_diag-comment_3").parent().addClass("hide")
@@ -146,7 +146,8 @@
 
 
                         if (value == 'b-thalassaemia syndromes' | value == 'a-thalassaemia syndromes' | value=='Other haemoglobin variants' | value=='Sickle cell syndromes' ){
-                            $('#mytab a[href="#3"]').parent().removeClass("hide");
+                            //$('#mytab a[href="#3"]').parent().removeClass("hide");
+                            //NEW
                             if (value == 'b-thalassaemia syndromes') {
                                 $("#id_diag-comment_5").parent().addClass("show")
                                 $("#id_diag-comment_6").parent().addClass("show")
@@ -165,9 +166,9 @@
                         }
 
 //
-                       else if (value == 'Rare cell enzyme disorders'){
+                       /*else if (value == 'Rare cell enzyme disorders'){
                             //$('#mytab a[href="#3"]').parent().addClass("hide");
-                            $('#mytab a[href="#4"]').parent().removeClass("hide");
+                            //$('#mytab a[href="#4"]').parent().removeClass("hide");
                             //$('#mytab a[href="#5"]').parent().addClass("hide");
                             //$('#mytab a[href="#6"]').parent().addClass("hide");
                         }
@@ -177,7 +178,7 @@
                        else if (value == 'Rare cell membrane disorders'){
                             //$('#mytab a[href="#3"]').parent().addClass("hide");
                             //$('#mytab a[href="#4"]').parent().addClass("hide");
-                            $('#mytab a[href="#5"]').parent().removeClass("hide");
+                            //$('#mytab a[href="#5"]').parent().removeClass("hide");
                             //$('#mytab a[href="#6"]').parent().addClass("hide");
                        }
 
@@ -186,23 +187,23 @@
                             //$('#mytab a[href="#3"]').parent().addClass("hide");
                             //$('#mytab a[href="#4"]').parent().addClass("hide");
                             //$('#mytab a[href="#5"]').parent().addClass("hide");
-                            $('#mytab a[href="#6"]').parent().removeClass("hide");
+                            //$('#mytab a[href="#6"]').parent().removeClass("hide");
                        }
 
                        else if ((after.indexOf('b-thalassaemia syndromes') >= 0 | after.indexOf('a-thalassaemia syndromes') >= 0 | after.indexOf('Other haemoglobin variants') >= 0 | after.indexOf('Sickle cell syndromes') >= 0) && after.indexOf('Rare cell enzyme disorders') >= 0) {
                            //alert("here")
-                           $('#mytab a[href="#3"]').parent().removeClass("hide");
+                           *//*$('#mytab a[href="#3"]').parent().removeClass("hide");
                            $('#mytab a[href="#4"]').parent().removeClass("hide");
                            $('#mytab a[href="#5"]').parent().addeClass("hide");
-                           $('#mytab a[href="#6"]').parent().addClass("hide");
+                           $('#mytab a[href="#6"]').parent().addClass("hide");*//*
                        }
 
                        else if ((after.indexOf('b-thalassaemia syndromes') >= 0 | after.indexOf('a-thalassaemia syndromes') >= 0 | after.indexOf('Other haemoglobin variants') >= 0 | after.indexOf('Sickle cell syndromes') >= 0) && after.indexOf('Rare cell membrane disorders') >= 0) {
                            //alert("here")
-                           $('#mytab a[href="#3"]').parent().removeClass("hide");
+                           *//*$('#mytab a[href="#3"]').parent().removeClass("hide");
                            $('#mytab a[href="#4"]').parent().addClass("hide");
                            $('#mytab a[href="#5"]').parent().removeClass("hide");
-                           $('#mytab a[href="#6"]').parent().addClass("hide");
+                           $('#mytab a[href="#6"]').parent().addClass("hide");*//*
                        }
 
                        else if ((after.indexOf('b-thalassaemia syndromes') >= 0 | after.indexOf('a-thalassaemia syndromes') >= 0 | after.indexOf('Other haemoglobin variants') >= 0 | after.indexOf('Sickle cell syndromes') >= 0) && after.indexOf('Congenital dyserythropoietic anaemias') >= 0) {
@@ -239,7 +240,8 @@
                        if (uncheckedValues.indexOf('b-thalassaemia syndromes') >= 0 && uncheckedValues.indexOf('a-thalassaemia syndromes') >= 0 && uncheckedValues.indexOf('Other haemoglobin variants') >= 0 && uncheckedValues.indexOf('Sickle cell syndromes') >= 0 ) {
                             $('#mytab a[href="#3"]').parent().addClass("hide");
 
-                        }
+                        }*/
+                       //NEW
                        if (uncheckedValues.indexOf('b-thalassaemia syndromes') >= 0) {
                                $("#id_diag-comment_5").parent().removeClass("show")
                                $("#id_diag-comment_6").parent().removeClass("show")
@@ -252,7 +254,7 @@
                                 $("#id_diag-comment_3").parent().removeClass("show")
                                 $("#id_diag-comment_4").parent().removeClass("show")
                             }
-                       if (uncheckedValues.indexOf('Rare cell enzyme disorders') >= 0) {
+                      /* if (uncheckedValues.indexOf('Rare cell enzyme disorders') >= 0) {
                             $('#mytab a[href="#4"]').parent().addClass("hide");
                         }
                        if (uncheckedValues.indexOf('Rare cell membrane disorders') >= 0) {
@@ -260,7 +262,7 @@
                         }
                        if (uncheckedValues.indexOf('Congenital dyserythropoietic anaemias') >= 0) {
                             $('#mytab a[href="#6"]').parent().addClass("hide");
-                        }
+                        }*/
 
                     });
                 });
@@ -323,27 +325,22 @@
             <li>
                 <a href="#2" data-toggle="tab">Diagnosis</a>
             </li>
-            <li class="hide">
+            <li>
                 <a href="#3" data-toggle="tab">Haemoglobin disorders diagnostic tests</a>
             </li>
-            <li class="hide">
+            <li>
                 <a href="#4" data-toggle="tab">Rare cell enzyme disorders</a>
             </li>
-            <li class="hide">
+            <li>
                 <a href="#5" data-toggle="tab">Rare cell membrane disorders</a>
             </li>
-            <li class="hide">
+            <li>
                 <a href="#6" data-toggle="tab">Congenital desyrythropoietic anaemias</a>
             </li>
             <li>
                 <a href="#7" data-toggle="tab">Clinical Data</a>
             </li>
-            <li>
-                <a href="#8" data-toggle="tab">Outcome Measures</a>
-            </li>
-            <li>
-                <a href="#9" data-toggle="tab">Life Events</a>
-            </li>
+
             <!--<li>-->
                 <!--<a href="#7" data-toggle="tab">Clinical Data</a>-->
             <!--</li>-->
@@ -384,16 +381,8 @@
                 <!--<input type="hidden" name="form_id" value="a_b_s">-->
                 <div class="container"> {%crispy frm_cln_dt%}</div>
             </div>
-            <div class="tab-pane fade" id="8">
-                <!-- form controls to be continued here -->
-                <!--<input type="hidden" name="form_id" value="a_b_s">-->
-                <div class="container"> {%crispy frm_out_mes%}</div>
-            </div>
-            <div class="tab-pane fade" id="9">
-                <!-- form controls to be continued here -->
-                <!--<input type="hidden" name="form_id" value="a_b_s">-->
-                <div class="container"> {%crispy frm_life_ev%}</div>
-            </div>
+
+
             <!--<div class="tab-pane" id="7">-->
                 <!--&lt;!&ndash; form controls to be continued here &ndash;&gt;-->
                 <!--&lt;!&ndash;<input type="hidden" name="form_id" value="a_b_s">&ndash;&gt;-->
