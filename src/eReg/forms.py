@@ -8,7 +8,7 @@ from django.contrib.admin import widgets
 from models import Demographic
 from models import Diagnosis, A_b_sickle_thal, Redcell_enzyme_dis, Redcell_membrane_dis, Cong_dyseryth_anaemia, icd_10, Pregnancy, Clinical_data
 from sympy import pretty_print as pp, latex
-from sympy.abc import a, o
+
 import autocomplete_light
 import sys
 reload(sys)
@@ -91,7 +91,6 @@ class DemographicForm(forms.ModelForm):
                 Div(
                     #HTML(u'<div class="col-md-2"></div>'),
                     Div('gender',css_class='col-md-6'),
-                    Div('blood_group',css_class="col-md-6"),
                     Div('race', css_class='col-md-6'),
                     Div('country_of_birth', css_class='col-md-6'),
                     css_class='row',
@@ -107,8 +106,8 @@ class DemographicForm(forms.ModelForm):
                     ),
                 Div(
                     #HTML(u'<div class="col-md-2"></div>'),
-                    Div('address_no',css_class='col-md-4'),
-                    Div('address_street',css_class="col-md-4"),
+                    #Div('address_no',css_class='col-md-4'),
+                    Div('address_street',css_class="col-md-6"),
                     Div('address_post_code',css_class='col-md-4'),
                     css_class='row',
                     ),
@@ -121,17 +120,18 @@ class DemographicForm(forms.ModelForm):
                     ),
                 ),
             Fieldset(
-                '<b>Preferred Health Professional/Legal organization</b>',
+                '<b>Preferred Health Professional</b>',
                 Div(
                     #HTML(u'<div class="col-md-2"></div>'),
-                    Div('legal_org_name',css_class='col-md-4'),
-                    Div('legal_org_phone',css_class="col-md-4"),
-                    Div('legal_org_email',css_class="col-md-4"),
+                    Div('legal_org_name',css_class='col-md-6'),
+                    Div('legal_org_clinic',css_class='col-md-6'),
+                    Div('legal_org_phone',css_class="col-md-6"),
+                    Div('legal_org_email',css_class="col-md-6"),
                     css_class='row',
                     ),
                 ),
             Fieldset(
-                '<b>Contact person</b>',
+                '<b>Contact person (Next of kin)</b>',
                  Div(
                     #HTML(u'<div class="col-md-2"></div>'),
                     Div('contact_person_role',css_class='col-md-4'),
@@ -178,19 +178,13 @@ class DemographicForm(forms.ModelForm):
                 Div(
                     #HTML(u'<div class="col-md-2"></div>'),
                     Div('family_situation',css_class='col-md-6'),
-                    Div('paternity',css_class="col-md-6"),
+                    Div('no_of_children',css_class="col-md-6"),
+                    #Div('paternity',css_class="col-md-6"),
                     #Div('maternity',css_class="col-md-6"),
                     #Div('no_of_children',css_class="col-md-6"),
                     css_class='row',
                     ),
-                Div(
-                    #HTML(u'<div class="col-md-2"></div>'),
-                    #Div('family_situation',css_class='col-md-6'),
-                    #Div('paternity',css_class="col-md-6"),
-                    Div('maternity',css_class="col-md-6"),
-                    Div('no_of_children',css_class="col-md-6"),
-                    css_class='row',
-                    ),
+
                 ),
 
 
@@ -217,17 +211,17 @@ class ClinicalDataForm(forms.ModelForm):
                                        "pickTime": False,
                                        "startDate": "1900-01-01"}))
 
-        self.fields['clinical_data_cholelithiasis_date']= forms.DateField(label=('Date measured'),required=False,
+        self.fields['clinical_data_cholelithiasis_date']= forms.DateField(label=('Date of diagnosis'),required=False,
         widget=DateTimePicker(options={"format": "YYYY-MM-DD",
                                        "pickTime": False,
                                        "startDate": "1900-01-01"}))
 
-        self.fields['clinical_data_cholecystectomy_date']= forms.DateField(label=('Date measured'),required=False,
+        self.fields['clinical_data_cholecystectomy_date']= forms.DateField(label=('Date of operation'),required=False,
         widget=DateTimePicker(options={"format": "YYYY-MM-DD",
                                        "pickTime": False,
                                        "startDate": "1900-01-01"}))
 
-        self.fields['clinical_data_splenectomy_date']= forms.DateField(label=('Date measured'),required=False,
+        self.fields['clinical_data_splenectomy_date']= forms.DateField(label=('Date of operation'),required=False,
         widget=DateTimePicker(options={"format": "YYYY-MM-DD",
                                        "pickTime": False,
                                        "startDate": "1900-01-01"}))
@@ -238,13 +232,13 @@ class ClinicalDataForm(forms.ModelForm):
                                        "startDate": "1900-01-01"}))
 
 
-        self.fields['clinical_data_heart_failure_date']= forms.DateField(label=('Date measured'),required=False,
+        self.fields['clinical_data_heart_failure_date']= forms.DateField(label=('Date of diagnosis'),required=False,
         widget=DateTimePicker(options={"format": "YYYY-MM-DD",
                                        "pickTime": False,
                                        "startDate": "1900-01-01"}))
 
 
-        self.fields['clinical_data_cardiac_arrythmia_date']= forms.DateField(label=('Date measured'),required=False,
+        self.fields['clinical_data_cardiac_arrythmia_date']= forms.DateField(label=('Date of diagnosis'),required=False,
         widget=DateTimePicker(options={"format": "YYYY-MM-DD",
                                        "pickTime": False,
                                        "startDate": "1900-01-01"}))
@@ -254,23 +248,23 @@ class ClinicalDataForm(forms.ModelForm):
                                        "pickTime": False,
                                        "startDate": "1900-01-01"}))
 
-        self.fields['clinical_data_diabetes_date']= forms.DateField(label=('Date measured'),required=False,
+        self.fields['clinical_data_diabetes_date']= forms.DateField(label=('Date of diagnosis'),required=False,
         widget=DateTimePicker(options={"format": "YYYY-MM-DD",
                                        "pickTime": False,
                                        "startDate": "1900-01-01"}))
 
-        self.fields['clinical_data_hypothyroidism_date']= forms.DateField(label=('Date measured'),required=False,
+        self.fields['clinical_data_hypothyroidism_date']= forms.DateField(label=('Date of diagnosis'),required=False,
         widget=DateTimePicker(options={"format": "YYYY-MM-DD",
                                        "pickTime": False,
                                        "startDate": "1900-01-01"}))
 
 
-        self.fields['clinical_data_hypoparathyroidism_date']= forms.DateField(label=('Date measured'),required=False,
+        self.fields['clinical_data_hypoparathyroidism_date']= forms.DateField(label=('Date of diagnosis'),required=False,
         widget=DateTimePicker(options={"format": "YYYY-MM-DD",
                                        "pickTime": False,
                                        "startDate": "1900-01-01"}))
 
-        self.fields['clinical_data_hypogonadism_date']= forms.DateField(label=('Date measured'),required=False,
+        self.fields['clinical_data_hypogonadism_date']= forms.DateField(label=('Date of diagnosis'),required=False,
         widget=DateTimePicker(options={"format": "YYYY-MM-DD",
                                        "pickTime": False,
                                        "startDate": "1900-01-01"}))
@@ -281,7 +275,7 @@ class ClinicalDataForm(forms.ModelForm):
                                        "startDate": "1900-01-01"}))
 
 
-        self.fields['clinical_data_others_date']= forms.DateField(label=('Date measured'),required=False,
+        self.fields['clinical_data_others_date']= forms.DateField(label=('Date of diagnosis'),required=False,
         widget=DateTimePicker(options={"format": "YYYY-MM-DD",
                                        "pickTime": False,
                                        "startDate": "1900-01-01"}))
@@ -319,7 +313,7 @@ class ClinicalDataForm(forms.ModelForm):
                                        "viewMode": 'years',
                                        "startDate": "1900"}))
 
-        self.fields['current_treatment_bone_marrow_date']= forms.DateField(label=('Date measured'),required=False,
+        self.fields['current_treatment_bone_marrow_date']= forms.DateField(label=('Date performed'),required=False,
         widget=DateTimePicker(options={"format": "YYYY-MM-DD",
                                        "pickTime": False,
                                        "startDate": "1900-01-01"}))
@@ -338,8 +332,17 @@ class ClinicalDataForm(forms.ModelForm):
         widget=DateTimePicker(options={"format": "YYYY-MM-DD",
                                        "pickTime": False,
                                        "startDate": "1900-01-01"}))
-
-
+        self.fields['mortality_date_of_death']= forms.DateField(label=('Date of death'),required=False,
+        widget=DateTimePicker(options={"format": "YYYY-MM-DD",
+                                       "pickTime": False,
+                                       "startDate": "1900-01-01"}))
+        current_treatment_chelation_drug_option= (
+        ('Desferrioxamine','Desferrioxamine'),
+        ('Deferiprone','Deferiprone'),
+        ('Deferasirox','Deferasirox'),
+        ('Other','Other'),
+        )
+        self.fields['current_treatment_chelation_drug']=forms.MultipleChoiceField(choices=current_treatment_chelation_drug_option, widget=forms.CheckboxSelectMultiple(),required=False)
         self.helper=FormHelper(form=self)
         self.helper.field_class = 'col-md-9'
         self.helper.label_class = 'col-md-3'
@@ -361,16 +364,16 @@ class ClinicalDataForm(forms.ModelForm):
             #     #'diagnosis_circumstances_caring_year',
             #     ),
             Fieldset(
-                '<b>Clinical Findings</b>',
+                '<b>Clinical Findings of Thalassaemia and Severe Anaemias</b>',
                 Div(
                      Div('clinical_data_date_of_examination',css_class='col-md-6'),
                      css_class='row',
                      ),
                 Div(
                      Div('clinical_data_weight',css_class='col-md-4'),
-                     Div(HTML('cm'), css_class="col-md-1"),
-                     Div('clinical_data_height',css_class='col-md-4'),
                      Div(HTML('kg'), css_class="col-md-1"),
+                     Div('clinical_data_height',css_class='col-md-4'),
+                     Div(HTML('cm'), css_class="col-md-1"),
                      css_class='row',
                      ),
                 Div(
@@ -380,6 +383,148 @@ class ClinicalDataForm(forms.ModelForm):
                      Div(HTML('cm'), css_class="col-md-1"),
                      css_class='row',
                      ),
+                ),
+            Fieldset(
+                '<b>Family Tree</b>',
+                ),
+            Fieldset(
+                '<b>Transfusion history</b>',
+                Div(
+                    #HTML(u'<div class="col-md-9"><h4><b>Transfusion history</b></h4></div><br/><br/>'),
+                    Div('blood_group',css_class="col-md-6"),
+                    Div('age_of_first_transfusion', css_class="col-md-6"),
+                    #HTML("years<br/>"),
+
+                    Div('transfusion_depentent_anaemia', css_class="col-md-6"),
+                    Div('date_of_transition_from_irregular_to_regular_tranfusions', css_class="col-md-8"),
+
+                    css_class='row',
+                    ),
+            ),
+            Fieldset(
+                '<b>Assessment of iron load serrum</b>',
+                Div(
+                    #HTML(u'<div class="col-md-2"></div>'),
+                    Div('assessment_of_iron_load_serrum_one',css_class='col-md-5'),
+                    Div(HTML("mg/L"), css_class="col-md-1"),
+                    Div('assessment_of_iron_load_serrum_one_date',css_class="col-md-5"),
+                    css_class='row',
+                    ),
+                Div(
+                    #HTML(u'<div class="col-md-2"></div>'),
+                    Div('assessment_of_iron_load_serrum_two',css_class='col-md-5'),
+                    Div(HTML("mg/L"), css_class="col-md-1"),
+                    Div('assessment_of_iron_load_serrum_two_date',css_class="col-md-5"),
+                    css_class='row',
+                    ),
+                Div(
+                    #HTML(u'<div class="col-md-2"></div>'),
+                    Div('assessment_of_iron_load_serrum_three',css_class='col-md-5'),
+                    Div(HTML("mg/L"), css_class="col-md-1"),
+                    Div('assessment_of_iron_load_serrum_three_date',css_class="col-md-5"),
+                    css_class='row',
+                    ),
+                Div(
+                    #HTML(u'<div class="col-md-2"></div>'),
+                    Div('assessment_of_iron_load_liver_mri',css_class='col-md-5'),
+                    Div(HTML("mg/g dry weight"), css_class="col-md-2"),
+                    Div('assessment_of_iron_load_liver_mri_date',css_class="col-md-5"),
+                    css_class='row',
+                    ),
+                Div(
+                    #HTML(u'<div class="col-md-2"></div>'),
+                    Div('assessment_of_iron_load_fibroscan',css_class='col-md-6'),
+                    Div('assessment_of_iron_load_fibroscan_date',css_class="col-md-5"),
+                    css_class='row',
+                    ),
+                Div(
+                    #HTML(u'<div class="col-md-2"></div>'),
+                    Div('assessment_of_iron_load_intra_hepatic_iron',css_class='col-md-6'),
+                    Div('assessment_of_iron_load_method_mri',css_class="col-md-5"),
+                    css_class='row',
+                    ),
+                Div(
+                    #HTML(u'<div class="col-md-2"></div>'),
+                    Div('assessment_of_iron_load_method_cardiac_iron',css_class='col-md-6'),
+                    Div('assessment_of_iron_load_ti_bassal_hb_rate',css_class="col-md-5"),
+                    css_class='row',
+                    ),
+
+                ),
+            Fieldset(
+                '<b>Serological data (Viral)</b>',
+                Div(
+                    Div('serological_data_date',css_class='col-md-6'),
+                    css_class='row',
+                    ),
+                Div(
+                    #HTML(u'<div class="col-md-2"></div>'),
+                    Div('serolocigal_data_HCV',css_class='col-md-6'),
+                    Div('serolocigal_data_HCV_PCR',css_class="col-md-5"),
+                    css_class='row',
+                    ),
+                Div(
+                    #HTML(u'<div class="col-md-2"></div>'),
+                    Div('serolocigal_data_HBV',css_class='col-md-6'),
+                    Div('serolocigal_data_HIV',css_class="col-md-5"),
+                    css_class='row',
+                    ),
+                ),
+            Fieldset(
+                '<b>Current treatment</b>',
+                Div(
+                    #HTML(u'<div class="col-md-2"></div>'),
+
+                    Div('current_treatment_transfusion_regime',css_class='col-md-6'),
+                    Div('current_treatment_chelation',css_class="col-md-5"),
+                    css_class='row',
+                    ),
+                Div(
+                    #HTML(u'<div class="col-md-2"></div>'),
+                    Div('current_treatment_chelation_start',css_class='col-md-6'),
+
+                    css_class='row',
+                    ),
+                Field ('current_treatment_chelation_drug'),
+                Div(
+                    #HTML(u'<div class="col-md-2"></div>'),
+                    Div('current_treatment_bone_marrow',css_class='col-md-6'),
+                    Div('current_treatment_bone_marrow_date',css_class="col-md-5"),
+                    css_class='row',
+                    ),
+                Div(
+
+                    Div('current_treatment_bone_marrow_success',css_class='col-md-6'),
+                    css_class='row',
+                    ),
+                ),
+            Fieldset(
+                '<b>Replacement therapy</b>',
+                Div(
+                    #HTML(u'<p><b>Replacement therapy</b></p>'),
+                    Div('current_treatment_replacement_ther',css_class="col-md-6"),
+                    Div('current_treatment_sex_horm',css_class='col-md-6'),
+                    css_class='row',
+                    ),
+                Div(
+                    #HTML(u'<div class="col-md-2"></div>'),
+                    Div('current_treatment_insulin',css_class="col-md-6"),
+                    Div('current_treatment_thyroid',css_class='col-md-6'),
+                    css_class='row',
+                    ),
+                ),
+            Fieldset(
+                '<b>Hepatitis treatment</b>',
+                Div(
+                    #HTML(u'<div class="col-md-2"></div>'),
+                    Div('current_treatment_hepatitis_treatment_c',css_class="col-md-6"),
+                    Div('current_treatment_hepatitis_treatment_b',css_class='col-md-6'),
+
+                    css_class='row',
+                    ),
+                ),
+            Fieldset(
+                '<b>Complications/Outcomes</b>',
 
                 Div(
                     #HTML(u'<div class="col-md-2"></div>'),
@@ -462,126 +607,7 @@ class ClinicalDataForm(forms.ModelForm):
                     css_class='row',
                     ),
                 ),
-            Fieldset(
-                '<b>Assessment of iron load serrum</b>',
-                Div(
-                    #HTML(u'<div class="col-md-2"></div>'),
-                    Div('assessment_of_iron_load_serrum_one',css_class='col-md-5'),
-                    Div(HTML("mg/L"), css_class="col-md-1"),
-                    Div('assessment_of_iron_load_serrum_one_date',css_class="col-md-5"),
-                    css_class='row',
-                    ),
-                Div(
-                    #HTML(u'<div class="col-md-2"></div>'),
-                    Div('assessment_of_iron_load_serrum_two',css_class='col-md-5'),
-                    Div(HTML("mg/L"), css_class="col-md-1"),
-                    Div('assessment_of_iron_load_serrum_two_date',css_class="col-md-5"),
-                    css_class='row',
-                    ),
-                Div(
-                    #HTML(u'<div class="col-md-2"></div>'),
-                    Div('assessment_of_iron_load_serrum_three',css_class='col-md-5'),
-                    Div(HTML("mg/L"), css_class="col-md-1"),
-                    Div('assessment_of_iron_load_serrum_three_date',css_class="col-md-5"),
-                    css_class='row',
-                    ),
-                Div(
-                    #HTML(u'<div class="col-md-2"></div>'),
-                    Div('assessment_of_iron_load_liver_mri',css_class='col-md-5'),
-                    Div(HTML("mg/g dry weight"), css_class="col-md-2"),
-                    Div('assessment_of_iron_load_liver_mri_date',css_class="col-md-5"),
-                    css_class='row',
-                    ),
-                Div(
-                    #HTML(u'<div class="col-md-2"></div>'),
-                    Div('assessment_of_iron_load_fibroscan',css_class='col-md-6'),
-                    Div('assessment_of_iron_load_fibroscan_date',css_class="col-md-5"),
-                    css_class='row',
-                    ),
-                Div(
-                    #HTML(u'<div class="col-md-2"></div>'),
-                    Div('assessment_of_iron_load_intra_hepatic_iron',css_class='col-md-6'),
-                    Div('assessment_of_iron_load_method_mri',css_class="col-md-5"),
-                    css_class='row',
-                    ),
-                Div(
-                    #HTML(u'<div class="col-md-2"></div>'),
-                    Div('assessment_of_iron_load_method_cardiac_iron',css_class='col-md-6'),
-                    Div('assessment_of_iron_load_ti_bassal_hb_rate',css_class="col-md-5"),
-                    css_class='row',
-                    ),
 
-                ),
-            Fieldset(
-                '<b>Serological data (Vival)</b>',
-                Div(
-                    Div('serological_data_date',css_class='col-md-6'),
-                    css_class='row',
-                    ),
-                Div(
-                    #HTML(u'<div class="col-md-2"></div>'),
-                    Div('serolocigal_data_HCV',css_class='col-md-6'),
-                    Div('serolocigal_data_HCV_PCR',css_class="col-md-5"),
-                    css_class='row',
-                    ),
-                Div(
-                    #HTML(u'<div class="col-md-2"></div>'),
-                    Div('serolocigal_data_HBV',css_class='col-md-6'),
-                    Div('serolocigal_data_HIV',css_class="col-md-5"),
-                    css_class='row',
-                    ),
-                ),
-            Fieldset(
-                '<b>Current treatment</b>',
-                Div(
-                    #HTML(u'<div class="col-md-2"></div>'),
-                    Div('current_treatment_transfusion_regime',css_class='col-md-6'),
-                    Div('current_treatment_chelation',css_class="col-md-5"),
-                    css_class='row',
-                    ),
-                Div(
-                    #HTML(u'<div class="col-md-2"></div>'),
-                    Div('current_treatment_chelation_start',css_class='col-md-6'),
-                    Div('current_treatment_chelation_drug',css_class="col-md-5"),
-                    css_class='row',
-                    ),
-                Div(
-                    #HTML(u'<div class="col-md-2"></div>'),
-                    Div('current_treatment_bone_marrow',css_class='col-md-6'),
-                    Div('current_treatment_bone_marrow_date',css_class="col-md-5"),
-                    css_class='row',
-                    ),
-                Div(
-
-                    Div('current_treatment_bone_marrow_success',css_class='col-md-6'),
-                    css_class='row',
-                    ),
-                ),
-            Fieldset(
-                '<b>Replacement therapy</b>',
-                Div(
-                    #HTML(u'<p><b>Replacement therapy</b></p>'),
-                    Div('current_treatment_replacement_ther',css_class="col-md-6"),
-                    Div('current_treatment_sex_horm',css_class='col-md-6'),
-                    css_class='row',
-                    ),
-                Div(
-                    #HTML(u'<div class="col-md-2"></div>'),
-                    Div('current_treatment_insulin',css_class="col-md-6"),
-                    Div('current_treatment_thyroid',css_class='col-md-6'),
-                    css_class='row',
-                    ),
-                ),
-            Fieldset(
-                '<b>Hepatitis treatment</b>',
-                Div(
-                    #HTML(u'<div class="col-md-2"></div>'),
-                    Div('current_treatment_hepatitis_treatment_c',css_class="col-md-6"),
-                    Div('current_treatment_hepatitis_treatment_b',css_class='col-md-6'),
-
-                    css_class='row',
-                    ),
-                ),
             Fieldset(
                 '<b>Supportive therapy</b>',
                 Div(
@@ -597,15 +623,7 @@ class ClinicalDataForm(forms.ModelForm):
                 ),
             Fieldset(
                 '<b>Outcomes</b>',
-                Div(
-                    HTML(u'<div class="col-md-9"><h4><b>Transfusion history</b></h4></div><br/><br/>'),
-                    Div('age_of_first_transfusion', css_class="col-md-6"),
-                    #HTML("years<br/>"),
-                    Div('transfusion_depentent_anaemia', css_class="col-md-6"),
-                    Div('date_of_transition_from_irregular_to_regular_tranfusions', css_class="col-md-8"),
 
-                    css_class='row',
-                    ),
                  Div(
                      HTML(u'<div class="col-md-9"><h4><b>Mortality</b></h4></div><br/><br/>'),
                     Div('mortality_date_of_death',css_class='col-md-6'),
@@ -741,7 +759,6 @@ class DiagnosisForm(forms.ModelForm):
         self.fields['comment']=forms.MultipleChoiceField(choices=diag_sub_options, widget=forms.CheckboxSelectMultiple())
 
         diagnosis_circumstances_value = (
-        ('','Please select Diagnosis circumstances'),
         ('Antenatal diagnosis','Antenatal diagnosis'),
         ('Neonatal diagnosis','Neonatal diagnosis'),
         ('By the presence of affected related','By the presence of affected related'),
@@ -775,7 +792,7 @@ class DiagnosisForm(forms.ModelForm):
                 'orpha_code',
                 'comment',
                 ),
-            Field('diagnosis_genotype'),
+
             Fieldset(
                 '<b>Diagnosis circumstances</b>',
                 'diagnosis_circumstances',
@@ -1024,6 +1041,7 @@ class A_b_sickle_thalForm(forms.ModelForm):
                 'mol_diag_b_thal_dgge',
                 'mol_diag_b_thal_gap_pcr',
                 'mol_diag_b_thal_mpla',
+                 HTML(u'<div class="col-md-9"><h4><b>Molecular mutations</b></h4></div><br/><br/>'),
                 'mol_diag_b_thal_seq_anal_a_gene',
                 'mol_diag_b_thal_seq_anal_b_gene',
                 'mol_diag_b_thal_seq_anal_g_gene',
@@ -1032,10 +1050,17 @@ class A_b_sickle_thalForm(forms.ModelForm):
                 '<b>Pertaining SNPs</b>',
                 'snp_gene',
                 'snp_code',
-                'snp_allele1',
-                'snp_allele1_type',
-                'snp_allele2',
-                'snp_allele2_type',
+
+                Div(
+                    #HTML(u'<div class="col-md-9"><h4><b>Transfusion history</b></h4></div><br/><br/>'),
+                    Div('snp_allele1', css_class="col-md-6"),
+                    #HTML("years<br/>"),
+                    Div('snp_allele1_type',css_class="col-md-6"),
+                    Div('snp_allele2', css_class="col-md-6"),
+                    Div('snp_allele2_type', css_class="col-md-6"),
+
+                    css_class='row',
+                    ),
                 ),
 
             FormActions(
@@ -1059,103 +1084,213 @@ class Redcell_enzyme_disForm(forms.ModelForm):
         self.helper.label_class = 'col-md-3'
         self.helper.layout = Layout(
             Fieldset(
-                '<b>Tests</b>',
-                # 'patient',
-                #'enzymes_of_glycol_option',
-                #'enzymes_of_glycol',
-                'hk_option',
-                'hk',
-                'gpi_option',
-                'gpi',
-                'pfk_option',
-                'pfk',
-                'g3ph_option',
-                'g3ph',
-                'pgk_option',
-                'pgk',
-                'pk_option',
-                'pk_v',
-                'tpi_option',
-                'tpi',
-                'ldh_option',
-                'ldh',
-                'adolase_option',
-                'adolase',
-                'enolase_option',
-                'enolase',
-                'bpgm_option',
-                'bpgm',
-                'mpgm_option',
-                'mpgm',
-                'pgm_option',
-                'pgm',
-                #'enz_hexose_option',
-                #'enz_hexose',
-                'g6pd_option',
-                'g6pd',
-                'no6pgd_option',
-                'no6pgd',
-                'gcs_option',
-                'gcs',
-                'gshs_option',
-                'gshs',
-                'gr_option',
-                'gr',
-                'gshpx_option',
-                'gshpx',
-                'gst_option',
-                'gst',
-                #'enz_nuc_meta_option',
-                #'enz_nuc_meta',
-                'ak_option',
-                'ak',
-                'pyr5nuc_option',
-                'pyr5nuc',
-                'pur_pyr_ratio_option',
-                'pur_pur_ratio',
-                #'other_rbce_act_option',
-                #'other_rbce_act',
-                'nadh_dia_option',
-                'nadh_dia',
-                'nadph_dia_option',
-                'nadph_dia_act',
-                'sod_option',
-                'sod_act',
-                'catalase_option',
-                'catalase',
-                'other_option',
-                #'glycol_interm_option',
-                #'glycol_interm',
-                #'g6p_option',
-                'g6p',
-                #'f6p_option',
-                'f6p',
-                #'fbp_option',
-                'fbp',
-                #'dhap_option',
-                'dhap',
-                #'gap_option',
-                'gap',
-                #'no2_3dpg_option',
-                'no2_3dpg',
-                #'no3pga_option',
-                'no3pga',
-                #'no2pga_option',
-                'no2pga',
-                #'pep_option',
-                'pep',
-                #'amp_option',
-                'amp',
-                #'ab_option',
-                'ab',
-                #'atp_option',
-                'atp',
-                #'gssg_gsh_option',
-                'gssg_gsp',
-                #'pyr_option',
-                'pyr',
-                #'lact_option',
-                'lact',
+                '<b>Enzymes of glycolysis</b>',
+
+                Div(
+                    HTML(u'<div class="col-md-9"><h4><b>Hexokinase (HK)</b></h4></div><br/><br/>'),
+                    Div('hk_option', css_class="col-md-6"),
+                    Div('hk',css_class="col-md-6"),
+                    css_class='row',
+                    ),
+                 Div(
+                    HTML(u'<div class="col-md-9"><h4><b>Glucosephosphate isomerase (GPI)</b></h4></div><br/><br/>'),
+                    Div('gpi_option', css_class="col-md-6"),
+                    Div('gpi',css_class="col-md-6"),
+                    css_class='row',
+                    ),
+                Div(
+                    HTML(u'<div class="col-md-9"><h4><b>Phosphofructokinase (PFK)</b></h4></div><br/><br/>'),
+                    Div('pfk_option', css_class="col-md-6"),
+                    Div('pfk',css_class="col-md-6"),
+                    css_class='row',
+                    ),
+                Div(
+                    HTML(u'<div class="col-md-9"><h4><b>Glyceraldehyde-3-phosphate dehydrogenase</b></h4></div><br/><br/>'),
+                    Div('g3ph_option', css_class="col-md-6"),
+                    Div('g3ph',css_class="col-md-6"),
+                    css_class='row',
+                    ),
+                Div(
+                    HTML(u'<div class="col-md-9"><h4><b>Phosphoglycerate kinase (PGK)</b></h4></div><br/><br/>'),
+                    Div('pgk_option', css_class="col-md-6"),
+                    Div('pgk',css_class="col-md-6"),
+                    css_class='row',
+                    ),
+                Div(
+                    HTML(u'<div class="col-md-9"><h4><b>Pyruvate kinase (PK)</b></h4></div><br/><br/>'),
+                    Div('pk_option', css_class="col-md-6"),
+                    Div('pk_v',css_class="col-md-6"),
+                    css_class='row',
+                    ),
+                Div(
+                    HTML(u'<div class="col-md-9"><h4><b>Triosephorate isomerase (TPI)</b></h4></div><br/><br/>'),
+                    Div('tpi_option', css_class="col-md-6"),
+                    Div('tpi',css_class="col-md-6"),
+                    css_class='row',
+                    ),
+                Div(
+                    HTML(u'<div class="col-md-9"><h4><b>Lactate dehydrogenase (LDH)</b></h4></div><br/><br/>'),
+                    Div('ldh_option', css_class="col-md-6"),
+                    Div('ldh',css_class="col-md-6"),
+                    css_class='row',
+                    ),
+                Div(
+                    HTML(u'<div class="col-md-9"><h4><b>Adolase</b></h4></div><br/><br/>'),
+                    Div('adolase_option', css_class="col-md-6"),
+                    Div('adolase',css_class="col-md-6"),
+                    css_class='row',
+                    ),
+                Div(
+                    HTML(u'<div class="col-md-9"><h4><b>Enolase</b></h4></div><br/><br/>'),
+                    Div('enolase_option', css_class="col-md-6"),
+                    Div('enolase',css_class="col-md-6"),
+                    css_class='row',
+                    ),
+                Div(
+                    HTML(u'<div class="col-md-9"><h4><b>Biphosphoglycerate mutase (BPGM)</b></h4></div><br/><br/>'),
+                    Div('bpgm_option', css_class="col-md-6"),
+                    Div('bpgm',css_class="col-md-6"),
+                    css_class='row',
+                    ),
+                Div(
+                    HTML(u'<div class="col-md-9"><h4><b>Monophosphoglycerate mutase (MPGM)</b></h4></div><br/><br/>'),
+                    Div('mpgm_option', css_class="col-md-6"),
+                    Div('mpgm',css_class="col-md-6"),
+                    css_class='row',
+                    ),
+                Div(
+                    HTML(u'<div class="col-md-9"><h4><b>Phosphocluconate mutase (PGM)</b></h4></div><br/><br/>'),
+                    Div('pgm_option', css_class="col-md-6"),
+                    Div('pgm',css_class="col-md-6"),
+                    css_class='row',
+                    ),
+                ),
+            Fieldset(
+                '<b>Enzymes of hwxose-monophosphate shunt and glutathione metabolism</b>',
+
+                Div(
+                    HTML(u'<div class="col-md-9"><h4><b>Glucose-6-phosphate dehydrogenase (G6PD)</b></h4></div><br/><br/>'),
+                    Div('g6pd_option', css_class="col-md-6"),
+                    Div('g6pd',css_class="col-md-6"),
+                    css_class='row',
+                    ),
+                Div(
+                    HTML(u'<div class="col-md-9"><h4><b>6-phosphogluconate dehydrogenase (6-PGD)</b></h4></div><br/><br/>'),
+                    Div('no6pgd_option', css_class="col-md-6"),
+                    Div('no6pgd',css_class="col-md-6"),
+                    css_class='row',
+                    ),
+                Div(
+                    HTML(u'<div class="col-md-9"><h4><b>Gamma-glutamylcysteine synthetase (GCS)</b></h4></div><br/><br/>'),
+                    Div('gcs_option', css_class="col-md-6"),
+                    Div('gcs',css_class="col-md-6"),
+                    css_class='row',
+                    ),
+                Div(
+                    HTML(u'<div class="col-md-9"><h4><b>Glutathione synthetase (GSH-S)</b></h4></div><br/><br/>'),
+                    Div('gshs_option', css_class="col-md-6"),
+                    Div('gshs',css_class="col-md-6"),
+                    css_class='row',
+                    ),
+                Div(
+                    HTML(u'<div class="col-md-9"><h4><b>Glutathione reductase (GR)</b></h4></div><br/><br/>'),
+                    Div('gr_option', css_class="col-md-6"),
+                    Div('gr',css_class="col-md-6"),
+                    css_class='row',
+                    ),
+                Div(
+                    HTML(u'<div class="col-md-9"><h4><b>Glutathione peroxidase (GSH-Px)</b></h4></div><br/><br/>'),
+                    Div('gshpx_option', css_class="col-md-6"),
+                    Div('gshpx',css_class="col-md-6"),
+                    css_class='row',
+                    ),
+                Div(
+                    HTML(u'<div class="col-md-9"><h4><b>Glutathione s-transferase (GST)</b></h4></div><br/><br/>'),
+                    Div('gst_option', css_class="col-md-6"),
+                    Div('gst',css_class="col-md-6"),
+                    css_class='row',
+                    ),
+                ),
+            Fieldset(
+                '<b>Enzymes of nucleotide metabolism</b>',
+
+                Div(
+                    HTML(u'<div class="col-md-9"><h4><b>Adenylate kinase (AK)</b></h4></div><br/><br/>'),
+                    Div('ak_option', css_class="col-md-6"),
+                    Div('ak',css_class="col-md-6"),
+                    css_class='row',
+                    ),
+                Div(
+                    HTML(u'<div class="col-md-9"><h4><b>Pyrimidine-5 nucleotidase</b></h4></div><br/><br/>'),
+                    Div('pyr5nuc_option', css_class="col-md-6"),
+                    Div('pyr5nuc',css_class="col-md-6"),
+                    css_class='row',
+                    ),
+                 Div(
+                    HTML(u'<div class="col-md-9"><h4><b>Purine/pyrimidine nucleotides ratio</b></h4></div><br/><br/>'),
+                    Div('pur_pyr_ratio_option', css_class="col-md-6"),
+                    Div('pur_pur_ratio',css_class="col-md-6"),
+                    css_class='row',
+                    ),
+                 ),
+            Fieldset(
+                '<b>Other red blood cell enzyme activities</b>',
+
+                Div(
+                    HTML(u'<div class="col-md-9"><h4><b>NADH diaphorase</b></h4></div><br/><br/>'),
+                    Div('nadh_dia_option', css_class="col-md-6"),
+                    Div('nadh_dia',css_class="col-md-6"),
+                    css_class='row',
+                    ),
+                Div(
+                    HTML(u'<div class="col-md-9"><h4><b>NADPH diaphorase</b></h4></div><br/><br/>'),
+                    Div('nadph_dia_option', css_class="col-md-6"),
+                    Div('nadph_dia_act',css_class="col-md-6"),
+                    css_class='row',
+                    ),
+                Div(
+                    HTML(u'<div class="col-md-9"><h4><b>Superoxide dismutase</b></h4></div><br/><br/>'),
+                    Div('sod_option', css_class="col-md-6"),
+                    Div('sod_act',css_class="col-md-6"),
+                    css_class='row',
+                    ),
+                Div(
+                    HTML(u'<div class="col-md-9"><h4><b>Catalase</b></h4></div><br/><br/>'),
+                    Div('catalase_option', css_class="col-md-6"),
+                    Div('catalase',css_class="col-md-6"),
+                    Div('other', css_class="col-md-6"),
+                    Div('other_option',css_class="col-md-6"),
+                    css_class='row',
+                    ),
+                ),
+            Fieldset(
+                '<b>Glycolysis intermediates</b>',
+
+
+                 Div(
+                    #HTML(u'<div class="col-md-9"><h4><b>Catalase</b></h4></div><br/><br/>'),
+                    Div('g6p', css_class="col-md-6"),
+                    Div('f6p',css_class="col-md-6"),
+                    Div('fbp',css_class="col-md-6"),
+                    Div('dhap',css_class="col-md-6"),
+                    Div('gap',css_class="col-md-6"),
+                    Div('no2_3dpg',css_class="col-md-6"),
+                    Div('no3pga',css_class="col-md-6"),
+                    Div('no2pga',css_class="col-md-6"),
+                    Div('pep',css_class="col-md-6"),
+                    Div('amp',css_class="col-md-6"),
+                    Div('ab',css_class="col-md-6"),
+                    Div('atp',css_class="col-md-6"),
+
+                    ),
+
+                Div(
+                    Div('gssg_gsp', css_class="col-md-6"),
+                    Div('pyr', css_class="col-md-6"),
+                    Div('lact', css_class="col-md-6"),
+                    css_class='row',
+                    ),
+
             ),
 
             FormActions(
@@ -1179,25 +1314,31 @@ class Redcell_membrane_disForm(forms.ModelForm):
         self.helper.label_class = 'col-md-3'
         self.helper.layout = Layout(
              Fieldset(
-                '<b>Tests</b>',
+                '<b>Diagnostic Tests Performed</b>',
                 # 'patient',
-                'red_cell_morph_sm',
-                'osm_fr_fresh_blood',
-                'osm_fr_pre_incu_blood',
-                'osm_fr_two_dif_nacl',
-                'osm_fr_curve_str',
-                'osm_fr_curve',
-                'glt',
-                'aglt',
-                'cryohemolysis_tst',
-                'pink_tst',
-                'flow_commercial_tst',
-                'sds_page_rbc_proteins',
-                'ektacytometer',
-                'lorrca',
-                'rbc_retic_auto_prm',
-                'molec_char_rna_dna_level',
-                'method_best_sensi_speci',
+
+                Div(
+                    #HTML(u'<div class="col-md-9"><h4><b>NADH diaphorase</b></h4></div><br/><br/>'),
+                    Div('red_cell_morph_sm', css_class="col-md-6"),
+                    Div('osm_fr_fresh_blood',css_class="col-md-6"),
+                    Div('osm_fr_pre_incu_blood',css_class="col-md-6"),
+                    Div('osm_fr_two_dif_nacl',css_class="col-md-6"),
+                    Div('osm_fr_curve_str',css_class="col-md-6"),
+                    Div('osm_fr_curve',css_class="col-md-6"),
+                    Div('glt',css_class="col-md-6"),
+                    Div('aglt',css_class="col-md-6"),
+                    Div('cryohemolysis_tst',css_class="col-md-6"),
+                    Div('pink_tst',css_class="col-md-6"),
+                    Div('flow_commercial_tst',css_class="col-md-6"),
+                    Div('sds_page_rbc_proteins',css_class="col-md-6"),
+                    Div('ektacytometer',css_class="col-md-6"),
+                    Div('lorrca',css_class="col-md-6"),
+                    Div('rbc_retic_auto_prm',css_class="col-md-6"),
+                    Div('molec_char_rna_dna_level',css_class="col-md-6"),
+                    Div('method_best_sensi_speci',css_class="col-md-6"),
+                    css_class='row',
+                    ),
+
              ),
 
             FormActions(
@@ -1220,20 +1361,27 @@ class Cong_dyseryth_anaemiaForm(forms.ModelForm):
         self.helper.field_class = 'col-md-8'
         self.helper.label_class = 'col-md-3'
         self.helper.layout = Layout(
-            # 'patient',
-            'complt_blood_cnt',
-            'abs_reticulo_cnt',
-            'soluble_transf_recept',
-            'bone_marrow_recept',
-            'sds_page',
+            Fieldset(
+                '<b>Diagnostic Tests</b>',
+                Div(
+                        #HTML(u'<br/><div class="col-md-9"><h4><b>Molecular analysis</b></h4></div><br/><br/>'),
+                        Div('complt_blood_cnt',css_class='col-md-6'),
+                        Div('abs_reticulo_cnt',css_class="col-md-6"),
+                        Div('soluble_transf_recept',css_class="col-md-6"),
+                        Div('bone_marrow_recept',css_class="col-md-6"),
 
-            Div(
-                    HTML(u'<br/><div class="col-md-9"><h4><b>Molecular analysis</b></h4></div><br/><br/>'),
-                    Div('moleculare_analysis',css_class='col-md-6'),
-                    Div('moleculare_analysis_comment',css_class="col-md-6"),
-                    css_class='row',
-                    ),
+                        css_class='row',
+                        ),
+                Div('sds_page'),
 
+
+                Div(
+                        HTML(u'<br/><div class="col-md-9"><h4><b>Molecular analysis</b></h4></div><br/><br/>'),
+                        Div('moleculare_analysis',css_class='col-md-6'),
+                        Div('moleculare_analysis_comment',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                ),
 
             FormActions(
                 Submit('submit', "Save changes"),
