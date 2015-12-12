@@ -1,7 +1,7 @@
 from django.db.models import Sum, Count
 from django.shortcuts import render, render_to_response, RequestContext, HttpResponse, get_object_or_404, redirect
 import django.http
-from .forms import DemographicForm, DiagnosisForm, A_b_sickle_thalForm, Redcell_enzyme_disForm, Redcell_membrane_disForm,Cong_dyseryth_anaemiaForm, UserCreationForm, ClinicalDataForm
+from .forms import DemographicForm, DiagnosisForm, A_b_sickle_thalForm, Redcell_enzyme_disForm, Redcell_membrane_disForm,Cong_dyseryth_anaemiaForm, UserCreationForm, ClinicalDataForm, ClinicalDataTwo, ExternalCentersForm,ExternalCentersDiagnosticForm,ExternalCentersOutcomesForm
 from django.template import RequestContext
 from collections import OrderedDict
 from django.http import HttpResponseRedirect
@@ -12,7 +12,7 @@ import traceback
 from django.forms.models import formset_factory
 from django.forms.models import inlineformset_factory
 from django.contrib.auth.models import User
-from models import Demographic, Diagnosis, A_b_sickle_thal,Redcell_enzyme_dis, Redcell_membrane_dis, Cong_dyseryth_anaemia, icd_10, Clinical_data
+from models import Demographic, Diagnosis, A_b_sickle_thal,Redcell_enzyme_dis, Redcell_membrane_dis, Cong_dyseryth_anaemia, icd_10, Clinical_data, Clinical_data_two, Ext_centers
 from django.core import serializers
 import json
 from django.db import transaction
@@ -53,9 +53,18 @@ def input(request):
         my_redcell_membrane= Redcell_membrane_disForm(request.POST, prefix='rc_mbr')
         my_cong_dys = Cong_dyseryth_anaemiaForm(request.POST, prefix='cong_dys')
         my_cln_dt = ClinicalDataForm(request.POST, prefix='cln_dt')
+        my_cln_dt_two = ClinicalDataTwo(request.POST, prefix='cln_dt_two')
 
 
         print "POST"
+        print my_demographics.is_valid()
+        print my_diagnosis.is_valid()
+        print my_a_b_sickle.is_valid()
+        print my_redcell_enzyme.is_valid()
+        print my_redcell_membrane.is_valid()
+        print my_cong_dys.is_valid()
+        print my_cln_dt.is_valid()
+        print my_cln_dt_two.is_valid()
 
         if request.is_ajax() and 'code' in request.POST:
             with transaction.atomic():
@@ -65,7 +74,7 @@ def input(request):
                 print 'data =', data
                 return HttpResponse(data)
 
-        if my_demographics.is_valid() and my_diagnosis.is_valid() and my_a_b_sickle.is_valid and my_redcell_enzyme.is_valid() and my_redcell_membrane.is_valid() and my_cong_dys.is_valid() and my_cln_dt.is_valid():
+        if my_demographics.is_valid() and my_diagnosis.is_valid() and my_a_b_sickle.is_valid and my_redcell_enzyme.is_valid() and my_redcell_membrane.is_valid() and my_cong_dys.is_valid() and my_cln_dt.is_valid() and my_cln_dt_two.is_valid():
 
             entry = '"{Demographic":['
             for formfield in my_demographics:
@@ -198,7 +207,9 @@ def input(request):
             my_cln_dt_object.patient = my_demographics_object
             my_cln_dt_object.save()
 
-
+            my_cln_dt_two_object = my_cln_dt_two.save(commit=False)
+            my_cln_dt_two_object.patient = my_demographics_object
+            my_cln_dt_two_object.save()
 
 
         # submitted = request.POST.get('form_id', '')
@@ -260,11 +271,13 @@ def input(request):
         my_redcell_membrane= Redcell_membrane_disForm(prefix='rc_mbr')
         my_cong_dys = Cong_dyseryth_anaemiaForm(prefix='cong_dys')
         my_cln_dt= ClinicalDataForm(prefix='cln_dt')
+        my_cln_dt_two= ClinicalDataTwo(prefix='cln_dt_two')
 
     #if ret is None:
     #    ret = render_to_response('input.html', {'frm':my_demographics, 'frm_d': my_diagnosis, 'frm_a_b_s': my_a_b_sickle, 'frm_rc_enz': my_redcell_enzyme, 'frm_rc_mbr': my_redcell_membrane, 'frm_cong_dys': my_cong_dys, 'diag_option': diag_option, 'frm_cln_dt': my_cln_dt, 'frm_out_mes': my_out_mes, 'frm_life_ev': my_life_ev,}, context)
     #    cache.set('input-rendered', ret)
-    return render_to_response('input.html', {'frm':my_demographics, 'frm_d': my_diagnosis, 'frm_a_b_s': my_a_b_sickle, 'frm_rc_enz': my_redcell_enzyme, 'frm_rc_mbr': my_redcell_membrane, 'frm_cong_dys': my_cong_dys, 'diag_option': diag_option, 'frm_cln_dt': my_cln_dt}, context)
+
+    return render_to_response('input.html', {'frm':my_demographics, 'frm_d': my_diagnosis, 'frm_a_b_s': my_a_b_sickle, 'frm_rc_enz': my_redcell_enzyme, 'frm_rc_mbr': my_redcell_membrane, 'frm_cong_dys': my_cong_dys, 'diag_option': diag_option, 'frm_cln_dt': my_cln_dt, 'frm_cln_dt_two': my_cln_dt_two}, context)
         # submitted = request.POST.get('form_id', '')
         #
         # if submitted == 'demographics':
@@ -401,7 +414,7 @@ def results(request):
 
 
         print "HERE FIRST IF"
-        if my_demographics.is_valid() and my_diagnosis.is_valid() and my_cln_dt.is_valid() (my_a_b_sickle.is_valid or my_redcell_enzyme.is_valid() or my_redcell_membrane.is_valid() or my_cong_dys.is_valid()):
+        if my_demographics.is_valid() and my_diagnosis.is_valid() and my_cln_dt.is_valid() and (my_a_b_sickle.is_valid or my_redcell_enzyme.is_valid() or my_redcell_membrane.is_valid() or my_cong_dys.is_valid()):
             print "HERE SECOND IF"
 
             my_demographics_object = my_demographics.save()
@@ -448,7 +461,7 @@ def results(request):
 
 
             str_diag_val =ast.literal_eval(diag_val)
-            print "diagnosis value=", str_diag_val[0], " ", str_diag_val[1]
+            #print "diagnosis value=", str_diag_val[0], " ", str_diag_val[1]
         #     data = serializers.serialize('json', patient)
         #     diag_data = serializers.serialize('json', diag_patient)
         #
@@ -570,6 +583,7 @@ def results_patient_card(request):
             r_c_m_patient = Redcell_membrane_dis.objects.get(patient=myid)
             c_d_a_patient = Cong_dyseryth_anaemia.objects.get(patient=myid)
             cln_dt_patient= Clinical_data.objects.get(patient=myid)
+            cln_dt_two_patient = Clinical_data_two.objects.get(patient=myid)
 
         # if (diag_val == 'b-thalassaemia syndromes' or diag_val == 'a-thalassaemia syndromes' or diag_val == 'Sickle cell syndromes' or diag_val == 'Other haemoglobin variants'):
         #     diag_option = ='1'
@@ -596,9 +610,10 @@ def results_patient_card(request):
         my_redcell_membrane= Redcell_membrane_disForm(request.POST or None, prefix='rc_mbr',instance=r_c_m_patient)
         my_cong_dys = Cong_dyseryth_anaemiaForm(request.POST or None, prefix='cong_dys', instance=c_d_a_patient)
         my_cln_dt = ClinicalDataForm(request.POST or None, prefix='cln_dt', instance=cln_dt_patient)
+        my_cln_dt_two = ClinicalDataTwo(request.POST or None, prefix='cln_dt_two', instance=cln_dt_two_patient)
 
         print "HERE FIRST IF"
-        if my_demographics.is_valid() and my_diagnosis.is_valid() and my_cln_dt.is_valid()  and (my_a_b_sickle.is_valid or my_redcell_enzyme.is_valid() or my_redcell_membrane.is_valid() or my_cong_dys.is_valid()):
+        if my_demographics.is_valid() and my_diagnosis.is_valid() and my_cln_dt.is_valid() and my_cln_dt_two.is_valid()  and (my_a_b_sickle.is_valid or my_redcell_enzyme.is_valid() or my_redcell_membrane.is_valid() or my_cong_dys.is_valid()):
             print "HERE SECOND IF"
             print my_demographics.given_name
             my_demographics_object = my_demographics.save()
@@ -641,6 +656,7 @@ def results_patient_card(request):
             r_c_m_patient = Redcell_membrane_dis.objects.get(patient=myid)
             c_d_a_patient = Cong_dyseryth_anaemia.objects.get(patient=myid)
             cln_dt_patient=Clinical_data.objects.get(patient=myid)
+            cln_dt_two_patient=Clinical_data_two.objects.get(patient=myid)
 
             sum_card_one=OrderedDict()
             sum_card_one['Demographics']= 'title'
@@ -649,7 +665,7 @@ def results_patient_card(request):
             sum_card_one[patient._meta.get_field('patient_id').verbose_name.title()]=patient.patient_id
             sum_card_one[patient._meta.get_field('national_health_care_pat_id').verbose_name.title()]=patient.national_health_care_pat_id
             sum_card_one[patient._meta.get_field('date_of_birth').verbose_name.title()]=patient.date_of_birth
-            sum_card_one[patient._meta.get_field('blood_group').verbose_name.title()]= patient.blood_group
+            #sum_card_one[patient._meta.get_field('blood_group').verbose_name.title()]= patient.blood_group
             sum_card_one['Diagnosis']= 'title'
             #sum_card_one[diag_patient._meta.get_field('diagnosis_option').verbose_name.title()]= diag_patient.diagnosis_option
 
@@ -709,15 +725,17 @@ def results_patient_card(request):
         my_redcell_membrane= Redcell_membrane_disForm(request.POST or None, prefix='rc_mbr',instance=r_c_m_patient)
         my_cong_dys = Cong_dyseryth_anaemiaForm(request.POST or None, prefix='cong_dys', instance=c_d_a_patient)
         my_cln_dt = ClinicalDataForm(request.POST or None, prefix='cln_dt', instance=cln_dt_patient)
+        my_cln_dt_two = ClinicalDataTwo(request.POST or None, prefix='cln_dt_two', instance=cln_dt_two_patient)
 
 
-    return render_to_response('results_patient_card.html', {'frm':formOne, 'frm_d': my_diagnosis, 'frm_a_b_s': my_a_b_sickle, 'frm_rc_enz': my_redcell_enzyme, 'frm_rc_mbr': my_redcell_membrane, 'frm_cong_dys': my_cong_dys, 'diag_option': diag_option, 'frm_cln_dt': my_cln_dt}, context)
+    return render_to_response('results_patient_card.html', {'frm':formOne, 'frm_d': my_diagnosis, 'frm_a_b_s': my_a_b_sickle, 'frm_rc_enz': my_redcell_enzyme, 'frm_rc_mbr': my_redcell_membrane, 'frm_cong_dys': my_cong_dys, 'diag_option': diag_option, 'frm_cln_dt': my_cln_dt, 'frm_cln_dt_two': my_cln_dt_two}, context)
 
 
 
 def test(request):
     return render_to_response('test.html')
 
+@login_required(login_url='/login')
 def statistics(request):
     context = RequestContext(request)
     today = date.today()
@@ -851,6 +869,21 @@ def statistics(request):
         #             {'patient': patient, 'query': id, 'option':value})
 
     return render_to_response('statistics.html', {'total_num': total_num.count(),'females': females.count(), 'males': males.count(), 'age_values': freq_age_dist.keys(),'age_freq':freq_age_dist.values(),'charts':[pvcht, pvcht_age]}, context)
+
+@login_required(login_url='/login')
+def external_centers(request):
+    context = RequestContext(request)
+
+    if request.method == 'POST':
+
+        #TO DO: STORE
+        return render(request, 'external_centers.html')
+    else:
+        ext_cent = ExternalCentersForm(prefix='extcent')
+        ext_cent_diagnostic = ExternalCentersDiagnosticForm(prefix='extcentDiagn')
+        ext_cent_outcomes = ExternalCentersOutcomesForm(prefix='extcentOutcomes')
+
+        return render(request, 'external_centers.html', {'ext_centres': ext_cent, 'ext_centres_diag':ext_cent_diagnostic, 'ext_centres_out':ext_cent_outcomes })
 
 def login(request):
     context = RequestContext(request)

@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+{% load bootstrap3 %}
+{% load static %}
+{% load staticfiles %}
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load pagination_tags %}
+{% block pagetitle %}External Centers{% endblock %}
+
+{% block head %}
+            <script>
+                function load_page(id){
+                    alert(id);
+                    $.ajax({
+                        url: "/results",
+                        type: "post",
+                        data: {
+                            csrfmiddlewaretoken: '{{ csrf_token }}',
+                            sentence: id
+                        },
+                        async: true,
+                        success: function (response){
+                            alert(response)
+                            window.location.href = response.redirect
+
+                        }
+                    })
+                }
+            </script>
+
+            <!--<link rel="stylesheet" type="text/css" href="{% static 'admin/css/global.css' %}"/>-->
+
+
+            <!--<script>-->
+                <!--$(document).ready(function() {-->
+                    <!--$('#id_diag-diagnosis_option').change(function () {-->
+                        <!--var value = $(this).val()-->
+<!--//                        alert(value)-->
+                        <!--if (value === 'b-thalassaemia syndromes' | value === 'a-thalassaemia syndromes' | value==='Other haemoglobin variants' ){-->
+                            <!--$('#mytab a[href="#3"]').parent().removeClass("hide");-->
+                            <!--$('#mytab a[href="#4"]').parent().addClass("hide");-->
+                            <!--$('#mytab a[href="#5"]').parent().addClass("hide");-->
+                            <!--$('#mytab a[href="#6"]').parent().addClass("hide");-->
+                        <!--}-->
+                        <!--if (value === 'Rare cell enzyme disorders'){-->
+                            <!--$('#mytab a[href="#3"]').parent().addClass("hide");-->
+                            <!--$('#mytab a[href="#4"]').parent().removeClass("hide");-->
+                            <!--$('#mytab a[href="#5"]').parent().addClass("hide");-->
+                            <!--$('#mytab a[href="#6"]').parent().addClass("hide");-->
+                        <!--}-->
+
+                        <!--if (value === 'Rare cell membrane disorders'){-->
+                            <!--$('#mytab a[href="#3"]').parent().addClass("hide");-->
+                            <!--$('#mytab a[href="#4"]').parent().addClass("hide");-->
+                            <!--$('#mytab a[href="#5"]').parent().removeClass("hide");-->
+                            <!--$('#mytab a[href="#6"]').parent().addClass("hide");-->
+                        <!--}-->
+
+                        <!--if (value === 'Congenital desyrythropoietic anaemias'){-->
+                            <!--$('#mytab a[href="#3"]').parent().addClass("hide");-->
+                            <!--$('#mytab a[href="#4"]').parent().addClass("hide");-->
+                            <!--$('#mytab a[href="#5"]').parent().addClass("hide");-->
+                            <!--$('#mytab a[href="#6"]').parent().removeClass("hide");-->
+                        <!--}-->
+
+                    <!--});-->
+                <!--});-->
+            <!--</script>-->
+{% endblock %}
+
+{%block jumbotron_title %}External Centers{% endblock %}
+{%block jumbotron_info %}Summary questionnaire (a meta-analysis of total patient data){% endblock %}
+{% block content %}
+
+
+     <form class="form-horizontal" method="post" id="input">
+        {% csrf_token %}
+        <div class="tab-pane" id="mytab">
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a href="#1" data-toggle="tab">Center Report</a>
+                </li>
+                <li>
+                    <a href="#2" data-toggle="tab">Diagnostic Categories</a>
+                </li>
+                 <li>
+                    <a href="#3" data-toggle="tab">Death Outcomes</a>
+                </li>
+                <li>
+                    <a href="#4" data-toggle="tab">Other Outcomes</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane fade in active" id="1">
+                <!--<input type="hidden" name="form_id" value="demographics">-->
+                    <div class="container"> {%crispy ext_centres%}</div>
+                </div>
+                <div class="tab-pane fade" id="2">
+                <!-- form controls to be continued here -->
+                <!--<input type="hidden" name="form_id" value="diagnosis">-->
+                    <div class="container">{%crispy ext_centres_diag%}</div>
+                </div>
+                <div class="tab-pane fade" id="3">
+                <!-- form controls to be continued here -->
+                <!--<input type="hidden" name="form_id" value="diagnosis">-->
+                    <div class="container">{%crispy ext_centres_out%}</div>
+                </div>
+                <div class="tab-pane fade" id="4">
+                <!-- form controls to be continued here -->
+                <!--<input type="hidden" name="form_id" value="diagnosis">-->
+                    <div class="container">{%crispy ext_centres_out%}</div>
+                </div>
+
+            </div>
+        </div>
+
+     </form>
+
+
+<br/>
+
+
+
+{% endblock %}

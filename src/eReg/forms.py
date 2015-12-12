@@ -6,8 +6,10 @@ from crispy_forms.bootstrap import TabHolder, Tab, Accordion, AccordionGroup, Fo
 from functools import partial
 from django.contrib.admin import widgets
 from models import Demographic
-from models import Diagnosis, A_b_sickle_thal, Redcell_enzyme_dis, Redcell_membrane_dis, Cong_dyseryth_anaemia, icd_10, Pregnancy, Clinical_data
+from models import Diagnosis, A_b_sickle_thal, Redcell_enzyme_dis, Redcell_membrane_dis, Cong_dyseryth_anaemia, icd_10, Pregnancy, Clinical_data, Clinical_data_two, Ext_centers
 from sympy import pretty_print as pp, latex
+
+
 
 import autocomplete_light
 import sys
@@ -342,7 +344,7 @@ class ClinicalDataForm(forms.ModelForm):
         ('Deferasirox','Deferasirox'),
         ('Other','Other'),
         )
-        self.fields['current_treatment_chelation_drug']=forms.MultipleChoiceField(choices=current_treatment_chelation_drug_option, widget=forms.CheckboxSelectMultiple(),required=False)
+        self.fields['current_treatment_chelation_drug']=forms.MultipleChoiceField(label='Current Chelator regime',choices=current_treatment_chelation_drug_option, widget=forms.CheckboxSelectMultiple(),required=False)
         self.helper=FormHelper(form=self)
         self.helper.field_class = 'col-md-9'
         self.helper.label_class = 'col-md-3'
@@ -648,6 +650,341 @@ class ClinicalDataForm(forms.ModelForm):
         model = Clinical_data
         exclude = ['patient']
 
+class ClinicalDataTwo(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+
+        super(ClinicalDataTwo, self).__init__(*args, **kwargs)
+
+        self.fields['prophylactic_measures_antibiotic_prophylaxis_penicillin_date']= forms.DateField(label=('Date started'),required=False,
+        widget=DateTimePicker(options={"format": "YYYY-MM-DD",
+                                       "pickTime": False,
+                                       "startDate": "1900-01-01"}))
+        self.fields['prophylactic_measures_antibiotic_prophylaxis_other_date']= forms.DateField(label=('Date started'),required=False,
+        widget=DateTimePicker(options={"format": "YYYY-MM-DD",
+                                       "pickTime": False,
+                                       "startDate": "1900-01-01"}))
+        self.fields['prophylactic_measures_vaccinations_pneumococcal_OCV_date']= forms.DateField(label=('Date given'),required=False,
+        widget=DateTimePicker(options={"format": "YYYY-MM-DD",
+                                       "pickTime": False,
+                                       "startDate": "1900-01-01"}))
+        self.fields['monitoring_tests_annual_liver_profile_date']= forms.DateField(label=('Date abnormal'),required=False,
+        widget=DateTimePicker(options={"format": "YYYY-MM-DD",
+                                       "pickTime": False,
+                                       "startDate": "1900-01-01"}))
+        self.fields['monitoring_tests_annual_renal_profile_blood_urea_date']= forms.DateField(label=('Date abnormal'),required=False,
+        widget=DateTimePicker(options={"format": "YYYY-MM-DD",
+                                       "pickTime": False,
+                                       "startDate": "1900-01-01"}))
+        self.fields['monitoring_tests_annual_renal_profile_creatine_date']= forms.DateField(label=('Date abnormal'),required=False,
+        widget=DateTimePicker(options={"format": "YYYY-MM-DD",
+                                       "pickTime": False,
+                                       "startDate": "1900-01-01"}))
+        self.fields['monitoring_tests_annual_renal_profile_proteiuria_date']= forms.DateField(label=('Date detected'),required=False,
+        widget=DateTimePicker(options={"format": "YYYY-MM-DD",
+                                       "pickTime": False,
+                                       "startDate": "1900-01-01"}))
+        self.fields['monitoring_tests_annual_pulmonary_function_date']= forms.DateField(label=('Date abnormal'),required=False,
+        widget=DateTimePicker(options={"format": "YYYY-MM-DD",
+                                       "pickTime": False,
+                                       "startDate": "1900-01-01"}))
+        self.fields['monitoring_tests_annual_hip_radiology_date']= forms.DateField(label=('Date abnormal'),required=False,
+        widget=DateTimePicker(options={"format": "YYYY-MM-DD",
+                                       "pickTime": False,
+                                       "startDate": "1900-01-01"}))
+        self.fields['complications_dactylitis_date']= forms.DateField(label=('Date'),required=False,
+        widget=DateTimePicker(options={"format": "YYYY-MM-DD",
+                                       "pickTime": False,
+                                       "startDate": "1900-01-01"}))
+        self.fields['complications_stroke_date']= forms.DateField(label=('Date'),required=False,
+        widget=DateTimePicker(options={"format": "YYYY-MM-DD",
+                                       "pickTime": False,
+                                       "startDate": "1900-01-01"}))
+        self.fields['complications_splenic_sequestration_date']= forms.DateField(label=('Date'),required=False,
+        widget=DateTimePicker(options={"format": "YYYY-MM-DD",
+                                       "pickTime": False,
+                                       "startDate": "1900-01-01"}))
+        self.fields['complications_aplastic_crisis_date']= forms.DateField(label=('Date'),required=False,
+        widget=DateTimePicker(options={"format": "YYYY-MM-DD",
+                                       "pickTime": False,
+                                       "startDate": "1900-01-01"}))
+        self.fields['complications_acute_chest_syndrome_date']= forms.DateField(label=('Date'),required=False,
+        widget=DateTimePicker(options={"format": "YYYY-MM-DD",
+                                       "pickTime": False,
+                                       "startDate": "1900-01-01"}))
+        self.fields['complications_multi_organ_failure_syndrome_date']= forms.DateField(label=('Date'),required=False,
+        widget=DateTimePicker(options={"format": "YYYY-MM-DD",
+                                       "pickTime": False,
+                                       "startDate": "1900-01-01"}))
+        self.fields['complications_priapism_date']= forms.DateField(label=('Date'),required=False,
+        widget=DateTimePicker(options={"format": "YYYY-MM-DD",
+                                       "pickTime": False,
+                                       "startDate": "1900-01-01"}))
+        self.fields['complications_heart_failure_date']= forms.DateField(label=('Date'),required=False,
+        widget=DateTimePicker(options={"format": "YYYY-MM-DD",
+                                       "pickTime": False,
+                                       "startDate": "1900-01-01"}))
+        self.fields['complications_pulmonary_hypertension_date']= forms.DateField(label=('Date'),required=False,
+        widget=DateTimePicker(options={"format": "YYYY-MM-DD",
+                                       "pickTime": False,
+                                       "startDate": "1900-01-01"}))
+        self.fields['complications_allo_immunation_date']= forms.DateField(label=('Date'),required=False,
+        widget=DateTimePicker(options={"format": "YYYY-MM-DD",
+                                       "pickTime": False,
+                                       "startDate": "1900-01-01"}))
+        self.fields['complications_iron_overload_date']= forms.DateField(label=('Date'),required=False,
+        widget=DateTimePicker(options={"format": "YYYY-MM-DD",
+                                       "pickTime": False,
+                                       "startDate": "1900-01-01"}))
+        self.fields['complications_serious_infection_date']= forms.DateField(label=('Date'),required=False,
+        widget=DateTimePicker(options={"format": "YYYY-MM-DD",
+                                       "pickTime": False,
+                                       "startDate": "1900-01-01"}))
+        self.fields['complications_azoospermia_date']= forms.DateField(label=('Date'),required=False,
+        widget=DateTimePicker(options={"format": "YYYY-MM-DD",
+                                       "pickTime": False,
+                                       "startDate": "1900-01-01"}))
+        self.fields['monitoring_tests_annual_parvovirus_serology_date']= forms.DateField(label=('Date found positive'),required=False,
+        widget=DateTimePicker(options={"format": "YYYY-MM-DD",
+                                       "pickTime": False,
+                                       "startDate": "1900-01-01"}))
+
+
+        self.helper=FormHelper(form=self)
+        self.helper.field_class = 'col-md-9'
+        self.helper.label_class = 'col-md-3'
+        self.helper.layout = Layout(
+
+            Fieldset(
+                '<b>Clinical findings of Sickle Cell Disease</b>',),
+            Fieldset(
+                '<b>A. Prophylactic measures</b>',),
+            Fieldset(
+                'Antibiotic prophylaxis',
+                Div(
+                     Div('prophylactic_measures_antibiotic_prophylaxis_penicillin',css_class='col-md-6'),
+                     Div('prophylactic_measures_antibiotic_prophylaxis_penicillin_date',css_class='col-md-6'),
+                     css_class='row',
+                     ),
+                Div(
+                     Div('prophylactic_measures_antibiotic_prophylaxis_other',css_class='col-md-6'),
+                     Div('prophylactic_measures_antibiotic_prophylaxis_other_date',css_class='col-md-6'),
+                     css_class='row',
+                     ),
+                ),
+            Fieldset(
+                'Vaccinations',
+                Div(
+                     Div('prophylactic_measures_vaccinations_pneumococcal_OCV',css_class='col-md-6'),
+                     Div('prophylactic_measures_vaccinations_pneumococcal_OCV_date',css_class='col-md-6'),
+                     css_class='row',
+                     ),
+                Div(
+                     Div('prophylactic_measures_vaccination_other',css_class='col-md-6'),
+                     css_class='row',
+                     ),
+                ),
+            Fieldset(
+                '<b>B. Monitoring tests annual</b>',),
+            Fieldset(
+                'Liver profile',
+                Div(
+                     Div('monitoring_tests_annual_liver_profile',css_class='col-md-6'),
+                     Div('monitoring_tests_annual_liver_profile_date',css_class='col-md-6'),
+                     css_class='row',
+                     ),
+                ),
+            Fieldset(
+                'Renal profile',
+                Div(
+                     Div('monitoring_tests_annual_renal_profile_blood_urea',css_class='col-md-6'),
+                     Div('monitoring_tests_annual_renal_profile_blood_urea_date',css_class='col-md-6'),
+                     css_class='row',
+                     ),
+                Div(
+                     Div('monitoring_tests_annual_renal_profile_creatine',css_class='col-md-6'),
+                     Div('monitoring_tests_annual_renal_profile_creatine_date',css_class='col-md-6'),
+                     css_class='row',
+                ),
+                Div(
+                    Div('monitoring_tests_annual_renal_profile_proteiuria',css_class='col-md-6'),
+                    Div('monitoring_tests_annual_renal_profile_proteiuria_date',css_class='col-md-6'),
+                )
+
+            ),
+            Fieldset(
+                'Serrum ferritin',
+                Div(
+                     Div('monitoring_tests_annual_serum_ferritin',css_class='col-md-6'),
+                     css_class='row',
+                     ),
+                ),
+            Fieldset(
+                'Calcium metabolism',
+                Div(
+                     Div('monitoring_tests_annual_calcium_metabolism_serum_calcium',css_class='col-md-3'),
+                     Div('monitoring_tests_annual_calcium_metabolism_vitamin_D_level',css_class='col-md-4'),
+                     Div('monitoring_tests_annual_calcium_metabolism_parathormone_level',css_class='col-md-5'),
+                     css_class='row',
+                     ),
+                ),
+            Fieldset(
+                'Parvovirus serology',
+                Div(
+                    Div('monitoring_tests_annual_parvovirus_serology',css_class='col-md-6'),
+                    Div('monitoring_tests_annual_parvovirus_serology_date',css_class='col-md-6'),
+                    css_class='row',
+                )
+            ),
+            Fieldset(
+                'Pulmonary function',
+                Div(
+                    Div('monitoring_tests_annual_pulmonary_function',css_class='col-md-6'),
+                    Div('monitoring_tests_annual_pulmonary_function_date',css_class='col-md-6'),
+                    css_class='row',
+                )
+            ),
+            Fieldset(
+                'Hepatic ultrasound',
+                Div(
+                    Div('monitoring_tests_annual_hepatic_ultrasound',css_class='col-md-6'),
+                    css_class='row',
+                )
+            ),
+            Fieldset(
+                'Hip radiology (after 6 years)',
+                Div(
+                    Div('monitoring_tests_annual_hip_radiology',css_class='col-md-6'),
+                    Div('monitoring_tests_annual_hip_radiology_date',css_class='col-md-6'),
+                    css_class='row',
+                )
+            ),
+            Fieldset(
+                'Opthalmic evaluation',
+                Div(
+                    Div('monitoring_tests_annual_ophthalmic_evaluation',css_class='col-md-6'),
+                    css_class='row',
+                )
+            ),
+            Fieldset(
+                '<b>C. Compilations</b>'
+            ),
+            Fieldset(
+                '1. Dactylitis (hand/foot syndrome)',
+                 Div(
+                    Div('complications_dactylitis',css_class='col-md-6'),
+                    Div('complications_dactylitis_date',css_class='col-md-6'),
+                    css_class='row',
+                )
+            ),
+            Fieldset(
+                '2. Stroke',
+                 Div(
+                    Div('complications_stroke',css_class='col-md-6'),
+                    Div('complications_stroke_date',css_class='col-md-6'),
+                    css_class='row',
+                )
+            ),
+            Fieldset(
+                '3. Splenic sequestration',
+                 Div(
+                    Div('complications_splenic_sequestration',css_class='col-md-6'),
+                    Div('complications_splenic_sequestration_date',css_class='col-md-6'),
+                    css_class='row',
+                )
+            ),
+            Fieldset(
+                '4. Aplastic crisis',
+                 Div(
+                    Div('complications_aplastic_crisis',css_class='col-md-6'),
+                    Div('complications_aplastic_crisis_date',css_class='col-md-6'),
+                    css_class='row',
+                )
+            ),
+            Fieldset(
+                '5. Acute chest syndrome',
+                 Div(
+                    Div('complications_acute_chest_syndrome',css_class='col-md-6'),
+                    Div('complications_acute_chest_syndrome_date',css_class='col-md-6'),
+                    css_class='row',
+                )
+            ),
+            Fieldset(
+                '6. Multi-organ failure syndrome',
+                 Div(
+                    Div('complications_multi_organ_failure_syndrome',css_class='col-md-6'),
+                    Div('complications_multi_organ_failure_syndrome_date',css_class='col-md-6'),
+                    css_class='row',
+                )
+            ),
+            Fieldset(
+                '7. Priapism',
+                 Div(
+                    Div('complications_priapism',css_class='col-md-6'),
+                    Div('complications_priapism_date',css_class='col-md-6'),
+                    css_class='row',
+                )
+            ),
+            Fieldset(
+                '8. Heart failure',
+                 Div(
+                    Div('complications_heart_failure',css_class='col-md-6'),
+                    Div('complications_heart_failure_date',css_class='col-md-6'),
+                    css_class='row',
+                )
+            ),
+            Fieldset(
+                '9. Pulmonary hypertension',
+                 Div(
+                    Div('complications_pulmonary_hypertension',css_class='col-md-6'),
+                    Div('complications_pulmonary_hypertension_date',css_class='col-md-6'),
+                    css_class='row',
+                )
+            ),
+            Fieldset(
+                '10. Allo-immunisation',
+                 Div(
+                    Div('complications_allo_immunation',css_class='col-md-6'),
+                    Div('complications_allo_immunation_date',css_class='col-md-6'),
+                    css_class='row',
+                )
+            ),
+            Fieldset(
+                '11. Iron overload',
+                 Div(
+                    Div('complications_iron_overload',css_class='col-md-6'),
+                    Div('complications_iron_overload_date',css_class='col-md-6'),
+                    css_class='row',
+                )
+            ),
+            Fieldset(
+                '12. Serious infection',
+                 Div(
+                    Div('complications_serious_infection',css_class='col-md-6'),
+                    Div('complications_serious_infection_date',css_class='col-md-6'),
+                    css_class='row',
+                )
+            ),
+            Fieldset(
+                '13. Azoospermia',
+                 Div(
+                    Div('complications_azoospermia',css_class='col-md-6'),
+                    Div('complications_azoospermia_date',css_class='col-md-6'),
+                    css_class='row',
+                )
+            ),
+                Submit('submit', "Save changes"),
+                Submit('cancel',"Cancel")
+
+        )
+
+        self.helper.form_tag = False
+        self.helper.form_show_labels = True
+
+
+    class Meta:
+        model = Clinical_data_two
+        exclude = ['patient']
+
 class DiagnosisForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
 
@@ -737,26 +1074,26 @@ class DiagnosisForm(forms.ModelForm):
                                     widget=autocomplete_light.ChoiceWidget("icd_10Autocomplete"))
         self.fields['icd_10_desc'].label = "ICD-10 description"
         diagnosis_option_value = (
-        ('b-thalassaemia syndromes', 'b-thalassaemia syndromes'),
+        ('b-thalassaemia syndromes', 'b-thalassaemia syndromes',),
         ('a-thalassaemia syndromes', 'a-thalassaemia syndromes'),
         ('Sickle cell syndromes', 'Sickle cell syndromes'),
         ('Other haemoglobin variants','Other haemoglobin variants'),
-        ('Rare cell membrane disorders','Rare cell membrane disorders'),
-        ('Rare cell enzyme disorders','Rare cell enzyme disorders'),
+        ('Red cell membrane disorders','Red cell membrane disorders'),
+        ('Red cell enzyme disorders','Red cell enzyme disorders'),
         ('Congenital dyserythropoietic anaemias','Congenital dyserythropoietic anaemias')
     )
         self.fields['diagnosis_option']=forms.MultipleChoiceField(choices=diagnosis_option_value, widget=forms.CheckboxSelectMultiple())
 
-        diag_sub_options =(
-            ('a-thalassaemia silent trait(a+)','a-thalassaemia silent trait(a+)'),
-            ('a-thalassaemia trait a^o aa|-- a-|a-','a-thalassaemia trait  a^o aa|--  a-|a-' ),
-            ('a-thalassaemia Hb disease','a-thalassaemia Hb disease'),
-            ('a-thalassaemia hydrops fetalis','a-thalassaemia hydrops fetalis'),
-            ('b-thalassaemia trait', 'b-thalassaemia trait'),
-            ('b-thalassaemia Intermedia', 'b-thalassaemia Intermedia'),
-            ('b-thalassaemia Major', 'b-thalassaemia Major'),
-        )
-        self.fields['comment']=forms.MultipleChoiceField(choices=diag_sub_options, widget=forms.CheckboxSelectMultiple())
+        # diag_sub_options =(
+        #     ('a-thalassaemia silent trait(a+)','a-thalassaemia silent trait(a+)'),
+        #     ('a-thalassaemia trait a^o aa|-- a-|a-','a-thalassaemia trait  a^o aa|--  a-|a-' ),
+        #     ('a-thalassaemia Hb disease','a-thalassaemia Hb disease'),
+        #     ('a-thalassaemia hydrops fetalis','a-thalassaemia hydrops fetalis'),
+        #     ('b-thalassaemia trait', 'b-thalassaemia trait'),
+        #     ('b-thalassaemia Intermedia', 'b-thalassaemia Intermedia'),
+        #     ('b-thalassaemia Major', 'b-thalassaemia Major'),
+        # )
+        # self.fields['comment']=forms.MultipleChoiceField(choices=diag_sub_options, widget=forms.CheckboxSelectMultiple())
 
         diagnosis_circumstances_value = (
         ('Antenatal diagnosis','Antenatal diagnosis'),
@@ -978,11 +1315,11 @@ class A_b_sickle_thalForm(forms.ModelForm):
                     ),
 
                  Div(
-                    HTML(u'<div class="col-md-9"><h4><b>Quantizations</b></h4></div><br/><br/>'),
+                    HTML(u'<div class="col-md-12"><h4><b>Quantizations</b></h4></div><br/><br/>'),
                     Div('quant_hba2',css_class='col-md-2'),
-                    Div(HTML('%'), css_class="col-md-2"),
+                    Div(HTML('%'), css_class="col-md-1"),
                     Div('quant_hbh',css_class="col-md-2"),
-                    Div(HTML("%"), css_class="col-md-2"),
+                    Div(HTML("%"), css_class="col-md-1"),
                     Div('quant_hbf', css_class="col-md-2"),
                     Div(HTML("%"), css_class="col-md-1"),
                     css_class='row',
@@ -1041,7 +1378,7 @@ class A_b_sickle_thalForm(forms.ModelForm):
                 'mol_diag_b_thal_dgge',
                 'mol_diag_b_thal_gap_pcr',
                 'mol_diag_b_thal_mpla',
-                 HTML(u'<div class="col-md-9"><h4><b>Molecular mutations</b></h4></div><br/><br/>'),
+                 HTML(u'<div class="col-md-12"><h4><b>Molecular mutations</b></h4></div><br/><br/>'),
                 'mol_diag_b_thal_seq_anal_a_gene',
                 'mol_diag_b_thal_seq_anal_b_gene',
                 'mol_diag_b_thal_seq_anal_g_gene',
@@ -1417,3 +1754,476 @@ class UserCreationForm(forms.Form):
                 #print (self.fields['%s' % question].label)
                 #yield (self.fields['%s' % question].label, question)
 
+
+class ExternalCentersForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(ExternalCentersForm, self).__init__(*args, **kwargs)
+        self.helper=FormHelper(self)
+        #self.fields['patient'].queryset = Demographic.objects.filter(patient_id=self.instance.patient)
+        self.helper.field_class = 'col-md-8'
+        self.helper.label_class = 'col-md-3'
+        self.helper.layout = Layout(
+            Fieldset(
+                '<b>Center Information</b>',
+                Div(
+                        #HTML(u'<br/><div class="col-md-9"><h4><b>Molecular analysis</b></h4></div><br/><br/>'),
+                        Div('location_of_center',css_class='col-md-6'),
+                        Div('name_of_center',css_class="col-md-6"),
+                        Div('type_of_center',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+
+                Div(
+                        #HTML(u'<br/><div class="col-md-9"><h4><b>Molecular analysis</b></h4></div><br/><br/>'),
+                        Div('center_address',css_class='col-md-6'),
+                        Div('center_city',css_class="col-md-6"),
+                        Div('center_country',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                ),
+
+
+            FormActions(
+                Submit('submit', "Save changes"),
+                Submit('cancel',"Cancel")
+            ),
+        )
+        self.helper.form_tag = False
+        self.helper.form_show_labels = True
+
+    class Meta:
+        model = Ext_centers
+        exclude = ['center_id']
+
+
+class ExternalCentersDiagnosticForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(ExternalCentersDiagnosticForm, self).__init__(*args, **kwargs)
+        self.helper=FormHelper(self)
+        #self.fields['patient'].queryset = Demographic.objects.filter(patient_id=self.instance.patient)
+        self.helper.field_class = 'col-md-8'
+        self.helper.label_class = 'col-md-3'
+        self.helper.layout = Layout(
+            Fieldset(
+                '<b>Diagnostic categories</b>',
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>B-Thalassaemia major</b></h4></div>'),
+                        Div('diagn_categ_b_thal_major_no_patient',css_class='col-md-6'),
+                        Div('diagn_categ_b_thal_major_distribution',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Non transfusion dependent</b></h4></div>'),
+                        Div('diagn_categ_non_transfusion_dep_no_patient',css_class='col-md-6'),
+                        Div('diagn_categ_non_transfusion_dep_distribution',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>HbH Disease</b></h4></div>'),
+                        Div('diagn_categ_hbh_disease_no_patient',css_class='col-md-6'),
+                        Div('diagn_categ_hbh_disease_distribution',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Sickle cell disease SS</b></h4></div>'),
+                        Div('diagn_categ_sickle_ss_no_patient',css_class='col-md-6'),
+                        Div('diagn_categ_sickle_ss_distribution',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Sickle cell disease SC</b></h4></div>'),
+                        Div('diagn_categ_sickle_sc_no_patient',css_class='col-md-6'),
+                        Div('diagn_categ_sickle_sc_distribution',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>SCD S/b-thalassaemia</b></h4></div>'),
+                        Div('diagn_categ_scd_s_b_thal_no_patient',css_class='col-md-6'),
+                        Div('diagn_categ_scd_s_b_thal_distribution',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Other SCD</b></h4></div>'),
+                        Div('diagn_categ_other_scd_no_patient',css_class='col-md-6'),
+                        Div('diagn_categ_other_scd_distribution',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Hereditary Spherocytosis</b></h4></div>'),
+                        Div('diagn_categ_hered_sphero_no_patient',css_class='col-md-6'),
+                        Div('diagn_categ_hered_sphero_distribution',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Hereditary Elliptocytosis</b></h4></div>'),
+                        Div('diagn_categ_hered_ellipto_no_patient',css_class='col-md-6'),
+                        Div('diagn_categ_hered_ellipto_distribution',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Pyropoikilocytosis</b></h4></div>'),
+                        Div('diagn_categ_pyropoikilc_no_patient',css_class='col-md-6'),
+                        Div('diagn_categ_pyropoikilc_distribution',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Stomatocytosis</b></h4></div>'),
+                        Div('diagn_categ_stomatoc_no_patient',css_class='col-md-6'),
+                        Div('diagn_categ_stomatoc_distribution',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Southern Asian Ovalocytosis</b></h4></div>'),
+                        Div('diagn_categ_south_asian_oval_no_patient',css_class='col-md-6'),
+                        Div('diagn_categ_south_asian_oval_distribution',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>CDA type I</b></h4></div>'),
+                        Div('diagn_categ_cda_type_i_no_patient',css_class='col-md-6'),
+                        Div('diagn_categ_cda_type_i_distribution',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>CDA type II</b></h4></div>'),
+                        Div('diagn_categ_cda_type_ii_no_patient',css_class='col-md-6'),
+                        Div('diagn_categ_cda_type_ii_distribution',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>CDA type III</b></h4></div>'),
+                        Div('diagn_categ_cda_type_iii_no_patient',css_class='col-md-6'),
+                        Div('diagn_categ_cda_type_iii_distribution',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>G6PD deficiency</b></h4></div>'),
+                        Div('diagn_categ_g6pd_def_no_patient',css_class='col-md-6'),
+                        Div('diagn_categ_g6pd_def_distribution',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Pyruvate kinase deficiency</b></h4></div>'),
+                        Div('diagn_categ_pyruvate_k_def_no_patient',css_class='col-md-6'),
+                        Div('diagn_categ_pyruvate_k_def_distribution',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Hexokinase deficiency</b></h4></div>'),
+                        Div('diagn_categ_hexokinase_def_no_patient',css_class='col-md-6'),
+                        Div('diagn_categ_hexokinase_def_distribution',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>GPI deficiency</b></h4></div>'),
+                        Div('diagn_categ_gpi_def_no_patient',css_class='col-md-6'),
+                        Div('diagn_categ_gpi_def_distribution',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>PFK deficiency</b></h4></div>'),
+                        Div('diagn_categ_pfk_def_no_patient',css_class='col-md-6'),
+                        Div('diagn_categ_pfk_def_distribution',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>PGK deficiency</b></h4></div>'),
+                        Div('diagn_categ_pgk_def_no_patient',css_class='col-md-6'),
+                        Div('diagn_categ_pgk_def_distribution',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>TPI deficiency</b></h4></div>'),
+                        Div('diagn_categ_tpi_def_no_patient',css_class='col-md-6'),
+                        Div('diagn_categ_tpi_def_distribution',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>LDH deficiency</b></h4></div>'),
+                        Div('diagn_categ_ldh_def_no_patient',css_class='col-md-6'),
+                        Div('diagn_categ_ldh_def_distribution',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Aldolase deficiency</b></h4></div>'),
+                        Div('diagn_categ_aldolase_def_no_patient',css_class='col-md-6'),
+                        Div('diagn_categ_aldolase_def_distribution',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Enolase deficiency</b></h4></div>'),
+                        Div('diagn_categ_enolase_def_no_patient',css_class='col-md-6'),
+                        Div('diagn_categ_enolase_def_distribution',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>BPGM deficiency</b></h4></div>'),
+                        Div('diagn_categ_bpgm_def_no_patient',css_class='col-md-6'),
+                        Div('diagn_categ_bpgm_def_distribution',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>MPGM deficiency</b></h4></div>'),
+                        Div('diagn_categ_mpgm_def_no_patient',css_class='col-md-6'),
+                        Div('diagn_categ_mpgm_def_distribution',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>PGM deficiency</b></h4></div>'),
+                        Div('diagn_categ_pgm_def_no_patient',css_class='col-md-6'),
+                        Div('diagn_categ_pgm_def_distribution',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>6-PGD deficiency</b></h4></div>'),
+                        Div('diagn_categ_6pgd_def_no_patient',css_class='col-md-6'),
+                        Div('diagn_categ_6pgd_def_distribution',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>GCS deficiency</b></h4></div>'),
+                        Div('diagn_categ_gcs_def_no_patient',css_class='col-md-6'),
+                        Div('diagn_categ_gcs_def_distribution',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>GSH-S deficiency</b></h4></div>'),
+                        Div('diagn_categ_gsh_s_def_no_patient',css_class='col-md-6'),
+                        Div('diagn_categ_gsh_s_def_distribution',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>GR deficiency</b></h4></div>'),
+                        Div('diagn_categ_gr_def_no_patient',css_class='col-md-6'),
+                        Div('diagn_categ_gr_def_distribution',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>GSH-Px deficiency</b></h4></div>'),
+                        Div('diagn_categ_gsh_px_def_no_patient',css_class='col-md-6'),
+                        Div('diagn_categ_gsh_px_def_distribution',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>GST deficiency</b></h4></div>'),
+                        Div('diagn_categ_gst_def_no_patient',css_class='col-md-6'),
+                        Div('diagn_categ_gst_def_distribution',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>AK deficiency</b></h4></div>'),
+                        Div('diagn_categ_ak_def_no_patient',css_class='col-md-6'),
+                        Div('diagn_categ_ak_def_distribution',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Pyrimidine-5&#39; nucleotidase</b></h4></div>'),
+                        Div('diagn_categ_p5_nuc_no_patient',css_class='col-md-6'),
+                        Div('diagn_categ_p5_nuc_distribution',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>NADH diaphorase deficiency</b></h4></div>'),
+                        Div('diagn_categ_nadh_dia_def_no_patient',css_class='col-md-6'),
+                        Div('diagn_categ_nadh_dia_def_distribution',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>NADPH diaphorase deficiency</b></h4></div>'),
+                        Div('diagn_categ_nadph_dia_def_no_patient',css_class='col-md-6'),
+                        Div('diagn_categ_nadph_dia_def_distribution',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>SOD diaphorase deficiency</b></h4></div>'),
+                        Div('diagn_categ_sod_def_no_patient',css_class='col-md-6'),
+                        Div('diagn_categ_sod_def_distribution',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Catalase deficiency</b></h4></div>'),
+                        Div('diagn_categ_catalas_def_no_patient',css_class='col-md-6'),
+                        Div('diagn_categ_catalas_def_distribution',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Diamond-Blackfan anaemia</b></h4></div>'),
+                        Div('diagn_categ_diamond_blackfan_anae_no_patient',css_class='col-md-6'),
+                        Div('diagn_categ_diamond_blackfan_anae_distribution',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Fanconi anaemia</b></h4></div>'),
+                        Div('diagn_categ_fanconi_no_patient',css_class='col-md-6'),
+                        Div('diagn_categ_fanconi_distribution',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Hereditary or Congenital Sideroblastic anaemia</b></h4></div>'),
+                        Div('diagn_categ_here_congenit_side_anaemia_no_patient',css_class='col-md-6'),
+                        Div('diagn_categ_here_congenit_side_anaemia_distribution',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Aceruloplasminemia</b></h4></div>'),
+                        Div('diagn_categ_aceruloplasm_no_patient',css_class='col-md-6'),
+                        Div('diagn_categ_aceruloplasm_distribution',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Atrasferrinemia</b></h4></div>'),
+                        Div('diagn_categ_atransfer_no_patient',css_class='col-md-6'),
+                        Div('diagn_categ_atransfer_distribution',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>DMT1-deficiency anaemia</b></h4></div>'),
+                        Div('diagn_categ_dmt1_def_no_patient',css_class='col-md-6'),
+                        Div('diagn_categ_dmt1_def_distribution',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Iron refractory iron deficiency anaemia (IRIDA)</b></h4></div>'),
+                        Div('diagn_categ_irida_no_patient',css_class='col-md-6'),
+                        Div('diagn_categ_irida_distribution',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Paroxysmal nocturnal haemoglobinuria (PNH)</b></h4></div>'),
+                        Div('diagn_categ_pnh_no_patient',css_class='col-md-6'),
+                        Div('diagn_categ_pnh_distribution',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+
+
+                ),
+            FormActions(
+                Submit('submit', "Save changes"),
+                Submit('cancel',"Cancel")
+            ),
+        )
+        self.helper.form_tag = False
+        self.helper.form_show_labels = True
+
+    class Meta:
+        model = Ext_centers
+        exclude = ['center_id']
+
+class ExternalCentersOutcomesForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(ExternalCentersOutcomesForm, self).__init__(*args, **kwargs)
+        self.helper=FormHelper(self)
+        #self.fields['patient'].queryset = Demographic.objects.filter(patient_id=self.instance.patient)
+        self.helper.field_class = 'col-md-8'
+        self.helper.label_class = 'col-md-3'
+        self.helper.layout = Layout(
+            Fieldset(
+                '<b>1. Deaths</b>',
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>2010</b></h4></div>'),
+                        Div('outcomes_year2010_thal',css_class='col-md-6'),
+                        Div('outcomes_year2010_sickle',css_class="col-md-6"),
+                        Div('outcomes_year2010_rare',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>2011</b></h4></div>'),
+                        Div('outcomes_year2011_thal',css_class='col-md-6'),
+                        Div('outcomes_year2011_sickle',css_class="col-md-6"),
+                        Div('outcomes_year2011_rare',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>2012</b></h4></div>'),
+                        Div('outcomes_year2012_thal',css_class='col-md-6'),
+                        Div('outcomes_year2012_sickle',css_class="col-md-6"),
+                        Div('outcomes_year2012_rare',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>2013</b></h4></div>'),
+                        Div('outcomes_year2013_thal',css_class='col-md-6'),
+                        Div('outcomes_year2013_sickle',css_class="col-md-6"),
+                        Div('outcomes_year2013_rare',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>2014</b></h4></div>'),
+                        Div('outcomes_year2014_thal',css_class='col-md-6'),
+                        Div('outcomes_year2014_sickle',css_class="col-md-6"),
+                        Div('outcomes_year2014_rare',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>2015</b></h4></div>'),
+                        Div('outcomes_year2015_thal',css_class='col-md-6'),
+                        Div('outcomes_year2015_sickle',css_class="col-md-6"),
+                        Div('outcomes_year2015_rare',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                ),
+            Fieldset(
+                 '<b>2. Causes of death in the last 5 years</b>',
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Anaemia</b></h4></div>'),
+                        Div('anaemia_thal',css_class='col-md-6'),
+                        Div('anaemia_sickle',css_class="col-md-6"),
+                        Div('anaemia_rare',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Cardiac</b></h4></div>'),
+                        Div('cardiac_thal',css_class='col-md-6'),
+                        Div('cardiac_sickle',css_class="col-md-6"),
+                        Div('cardiac_rare',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Infection</b></h4></div>'),
+                        Div('infection_thal',css_class='col-md-6'),
+                        Div('infection_sickle',css_class="col-md-6"),
+                        Div('infection_rare',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Hepatic</b></h4></div>'),
+                        Div('hepatic_thal',css_class='col-md-6'),
+                        Div('hepatic_sickle',css_class="col-md-6"),
+                        Div('hepatic_rare',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Malignancy</b></h4></div>'),
+                        Div('malignancy_thal',css_class='col-md-6'),
+                        Div('malignancy_sickle',css_class="col-md-6"),
+                        Div('malignancy_rare',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Other</b></h4></div>'),
+                        Div('other_thal',css_class='col-md-6'),
+                        Div('other_sickle',css_class="col-md-6"),
+                        Div('other_rare',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+            ),
+
+
+            FormActions(
+                Submit('submit', "Save changes"),
+                Submit('cancel',"Cancel")
+            ),
+        )
+        self.helper.form_tag = False
+        self.helper.form_show_labels = True
+
+    class Meta:
+        model = Ext_centers
+        exclude = ['center_id']

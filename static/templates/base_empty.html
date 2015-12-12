@@ -32,6 +32,8 @@
                  $('ul.nav.navbar-nav li:eq(3)').removeClass('active');
                  $('ul.nav.navbar-nav li:eq(4)').removeClass('active');
                  $('ul.nav.navbar-nav li:eq(5)').removeClass('active');
+                 $('ul.nav.navbar-nav li:eq(6)').removeClass('active');
+
              }
 
              if (window.location.href.toString().split(window.location.host)[1] === '/input/') {
@@ -42,6 +44,7 @@
                  $('ul.nav.navbar-nav li:eq(3)').removeClass('active');
                  $('ul.nav.navbar-nav li:eq(4)').removeClass('active');
                  $('ul.nav.navbar-nav li:eq(5)').removeClass('active');
+                 $('ul.nav.navbar-nav li:eq(6)').removeClass('active');
              }
 
              if (window.location.href.toString().split(window.location.host)[1] === '/search/' | window.location.href.toString().split(window.location.host)[1].indexOf('/results/') > -1) {
@@ -52,6 +55,7 @@
                  $('ul.nav.navbar-nav li:eq(3)').removeClass('active');
                  $('ul.nav.navbar-nav li:eq(4)').removeClass('active');
                  $('ul.nav.navbar-nav li:eq(5)').removeClass('active');
+                 $('ul.nav.navbar-nav li:eq(6)').removeClass('active');
              }
 
              if (window.location.href.toString().split(window.location.host)[1] === '/search_patient_card/' | window.location.href.toString().split(window.location.host)[1].indexOf('/results_patient_card/') > -1 ) {
@@ -62,6 +66,7 @@
                  $('ul.nav.navbar-nav li:eq(3)').addClass('active');
                  $('ul.nav.navbar-nav li:eq(4)').removeClass('active');
                  $('ul.nav.navbar-nav li:eq(5)').removeClass('active');
+                 $('ul.nav.navbar-nav li:eq(6)').removeClass('active');
              }
 
              if (window.location.href.toString().split(window.location.host)[1] === '/statistics/') {
@@ -72,6 +77,18 @@
                  $('ul.nav.navbar-nav li:eq(3)').removeClass('active');
                  $('ul.nav.navbar-nav li:eq(4)').addClass('active');
                  $('ul.nav.navbar-nav li:eq(5)').removeClass('active');
+                 $('ul.nav.navbar-nav li:eq(6)').removeClass('active');
+             }
+
+             if (window.location.href.toString().split(window.location.host)[1] === '/externalcenters/') {
+//                 alert('input');
+                 $('ul.nav.navbar-nav li:eq(0)').removeClass('active');
+                 $('ul.nav.navbar-nav li:eq(1)').removeClass('active');
+                 $('ul.nav.navbar-nav li:eq(2)').removeClass('active');
+                 $('ul.nav.navbar-nav li:eq(3)').removeClass('active');
+                 $('ul.nav.navbar-nav li:eq(4)').removeClass('active');
+                 $('ul.nav.navbar-nav li:eq(5)').addClass('active');
+                 $('ul.nav.navbar-nav li:eq(6)').removeClass('active');
              }
 
              if (window.location.href.toString().split(window.location.host)[1] === '/about/') {
@@ -81,7 +98,8 @@
                  $('ul.nav.navbar-nav li:eq(2)').removeClass('active');
                  $('ul.nav.navbar-nav li:eq(3)').removeClass('active');
                  $('ul.nav.navbar-nav li:eq(4)').removeClass('active');
-                 $('ul.nav.navbar-nav li:eq(5)').addClass('active');
+                 $('ul.nav.navbar-nav li:eq(5)').removeClass('active');
+                 $('ul.nav.navbar-nav li:eq(6)').addClass('active');
              }
 
          })
@@ -114,7 +132,8 @@
                 <li><a href="{% url 'input'  %}">Add patient</a></li>
                 <li><a href="{% url 'search'  %}">Search patient</a></li>
                 <li><a href="{% url 'search_patient_card'  %}">Patient card</a></li>
-                <li><a href="{% url 'statistics'  %}">Analytics</a></li>{%endif%}
+                <li><a href="{% url 'statistics'  %}">Analytics</a></li>
+                <li><a href="{% url 'extcenters'  %}">External centers</a></li>{%endif%}
                 <li><a href="#">About</a></li>
               </ul>
           </div>

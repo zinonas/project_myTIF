@@ -17,8 +17,8 @@ class Demographic(models.Model):
         ('I agree','I agree'),
         ('I do not agree','I do not agree')
     )
-    patient_consent_for_data_storage= models.CharField('Data Storage', max_length=3,choices=patient_option, default=patient_option[0][0])
-    patient_consent_for_data_reusage= models.CharField('Data Reuse',max_length=3,choices=patient_option, default=patient_option[0][0])
+    patient_consent_for_data_storage= models.CharField('Data Storage', max_length=20,choices=patient_option, default=patient_option[0][0])
+    patient_consent_for_data_reusage= models.CharField('Data Reuse',max_length=20,choices=patient_option, default=patient_option[0][0])
     creation_of_consent_form = models.DateField('Creation date')
     data_provider = (
         ('','Please select'),
@@ -166,7 +166,7 @@ class Diagnosis(models.Model):
     comment = models.CharField(max_length=100,null=True,blank=True)
     #diagnosis_genotype = models.CharField('Diagnosis genotype', max_length=100, null=True, blank=True)
 
-    diagnosis_circumstances = models.CharField(max_length=45, null=True, blank=True)
+    diagnosis_circumstances = models.CharField(max_length=150)
     diagnosis_circumstances_date = models.DateField('Date of diagnosis',null=True,blank=True)
     date_of_input= models.DateField(null=True,blank=True)
     #diagnosis_circumstances_caring_year = models.DateField('Date of diagnosis',null=True,blank=True)
@@ -335,11 +335,11 @@ class Clinical_data(models.Model):
         ('Occational','Occational'),
         ('None','None')
     )
-    current_treatment_transfusion_regime = models.CharField('Transfusion regime', max_length=30,null=True,blank=True, choices=current_treatment_transfusion_regime_option, default=current_treatment_transfusion_regime_option[0][0])
+    current_treatment_transfusion_regime = models.CharField('Transfusion regime', max_length=150,null=True,blank=True)
     current_treatment_chelation =  models.CharField('Chelation', max_length=3,choices=clinical_data_option, default=clinical_data_option[0][0],null=True, blank=True)
     current_treatment_chelation_start=models.DateField('Start of chelation therapy (year only)',null=True,blank=True)
 
-    current_treatment_chelation_drug= models.CharField('Current Chelator regime',max_length=15, null=True, blank=True)
+    current_treatment_chelation_drug= models.CharField('Current Chelator regime',max_length=25, null=True, blank=True)
     current_treatment_bone_marrow =  models.CharField('HSCT transplant',max_length=15, null=True, blank=True, choices=clinical_data_option, default=clinical_data_option[0][0])
     current_treatment_bone_marrow_date = models.DateField('Date measured',null=True,blank=True)
     current_treatment_bone_marrow_success =  models.CharField('HSCT outcome',max_length=15, null=True, blank=True)
@@ -390,7 +390,7 @@ class Clinical_data_two(models.Model):
     prophylactic_measures_antibiotic_prophylaxis_other = models.CharField('Other', max_length=30,null=True, blank=True)
     prophylactic_measures_antibiotic_prophylaxis_other_date = models.DateField('Date Started',null=True,blank=True)
     prophylactic_measures_vaccinations_pneumococcal_OCV = models.CharField('Pneumococcal OCV', max_length=3,choices=clinical_data_option, default=clinical_data_option[0][0],null=True, blank=True)
-    prophylactic_measures_vaccination_penicillin_date = models.DateField('Date given',null=True,blank=True)
+    prophylactic_measures_vaccinations_pneumococcal_OCV_date = models.DateField('Date given',null=True,blank=True)
     prophylactic_measures_vaccination_other = models.CharField('Other', max_length=30,null=True, blank=True)
     clinical_data_normal = (
         ('','Please select'),
@@ -422,31 +422,31 @@ class Clinical_data_two(models.Model):
     monitoring_tests_annual_hip_radiology = models.CharField('Hip radiology (after 6 years)', max_length=50, null=True, blank=True)
     monitoring_tests_annual_hip_radiology_date = models.DateField('Date abnormal',null=True,blank=True)
     monitoring_tests_annual_ophthalmic_evaluation = models.CharField('Ophthalmic evaluation', max_length=50, null=True, blank=True)
-    complications_dactylitis = models.IntegerFieldField('Dactylitis (hand/foot syndrome)', max_length=3,null=True, blank=True)
-    complication_dactylitis_date = models.DateField('Date',null=True,blank=True)
-    complications_stroke = models.IntegerField('Stroke', max_length=3,null=True, blank=True)
+    complications_dactylitis = models.IntegerField('Age', max_length=3,null=True, blank=True)
+    complications_dactylitis_date = models.DateField('Date',null=True,blank=True)
+    complications_stroke = models.IntegerField('Age', max_length=3,null=True, blank=True)
     complications_stroke_date = models.DateField('Date',null=True,blank=True)
-    complications_splenic_sequestration = models.IntegerField('Splenic sequestration', max_length=3,null=True, blank=True)
+    complications_splenic_sequestration = models.IntegerField('Age', max_length=3,null=True, blank=True)
     complications_splenic_sequestration_date = models.DateField('Date',null=True,blank=True)
-    complications_aplastic_crisis = models.IntegerField('Aplastic crisis', max_length=3,null=True, blank=True)
+    complications_aplastic_crisis = models.IntegerField('Age', max_length=3,null=True, blank=True)
     complications_aplastic_crisis_date = models.DateField('Date',null=True,blank=True)
-    complications_acute_chest_syndrome = models.IntegerField('Acute chest syndrome', max_length=3,null=True, blank=True)
+    complications_acute_chest_syndrome = models.IntegerField('Age', max_length=3,null=True, blank=True)
     complications_acute_chest_syndrome_date = models.DateField('Date',null=True,blank=True)
-    complications_multi_organ_failure_syndrome = models.IntegerField('Multi-organ failure syndrome', max_length=3,null=True, blank=True)
+    complications_multi_organ_failure_syndrome = models.IntegerField('Age', max_length=3,null=True, blank=True)
     complications_multi_organ_failure_syndrome_date = models.DateField('Date',null=True,blank=True)
-    complications_priapism = models.IntegerField('Priapism', max_length=3,null=True, blank=True)
+    complications_priapism = models.IntegerField('Age', max_length=3,null=True, blank=True)
     complications_priapism_date = models.DateField('Date',null=True,blank=True)
-    complications_heart_failure = models.IntegerField('Heart failure', max_length=3,null=True, blank=True)
+    complications_heart_failure = models.IntegerField('Age', max_length=3,null=True, blank=True)
     complications_heart_failure_date = models.DateField('Date',null=True,blank=True)
-    complications_pulmonary_hypertension = models.IntegerField('Pulmonary Hypertension', max_length=3,null=True, blank=True)
+    complications_pulmonary_hypertension = models.IntegerField('Age', max_length=3,null=True, blank=True)
     complications_pulmonary_hypertension_date = models.DateField('Date',null=True,blank=True)
-    complications_allo_immunation = models.IntegerField('Allo-immunation', max_length=3,null=True, blank=True)
+    complications_allo_immunation = models.IntegerField('Age', max_length=3,null=True, blank=True)
     complications_allo_immunation_date = models.DateField('Date',null=True,blank=True)
-    complications_iron_overload = models.IntegerField('Iron overload', max_length=3,null=True, blank=True)
+    complications_iron_overload = models.IntegerField('Age', max_length=3,null=True, blank=True)
     complications_iron_overload_date = models.DateField('Date',null=True,blank=True)
-    complications_serious_infection = models.IntegerField('Serious infection', max_length=3,null=True, blank=True)
+    complications_serious_infection = models.IntegerField('Age', max_length=3,null=True, blank=True)
     complications_serious_infection_date = models.DateField('Date',null=True,blank=True)
-    complications_azoospermia = models.IntegerField('Azoospermia', max_length=3,null=True, blank=True)
+    complications_azoospermia = models.IntegerField('Age', max_length=3,null=True, blank=True)
     complications_azoospermia_date = models.DateField('Date',null=True,blank=True)
     treatment_modalities_regular_transfusions_date = models.DateField('Date started',null=True,blank=True)
     treatment_modalities_hydroxyurea_date = models.DateField('Date started',null=True,blank=True)
@@ -492,8 +492,8 @@ class A_b_sickle_thal (models.Model):
     quant_hbf  = models.IntegerField('HbF',max_length=3, null=True, blank=True)
     quant_other_var  = models.CharField('Other variant',max_length=15, null=True, blank=True)
     quantity = models.CharField('Quantity',max_length=3, null=True, blank=True)
-    conf_pres_hbs  = models.CharField('Confirm the presence of an HbS by sickling test or a solubility test',max_length=3,choices= thal_option, default= thal_option[0][0])
-    conf_pres_hbe  = models.CharField('Confirm the presence of an HbE by the DCIP test',max_length=3,choices= thal_option, default= thal_option[0][0])
+    conf_pres_hbs  = models.CharField('Confirm the presence of an HbS by sickling test or a solubility test',max_length=3,null=True, blank=True, choices= thal_option, default= thal_option[0][0])
+    conf_pres_hbe  = models.CharField('Confirm the presence of an HbE by the DCIP test',max_length=3,null=True, blank=True, choices= thal_option, default= thal_option[0][0])
     conf_pres_un_haemo_isoprop_option  = models.CharField('Isopropanol test',choices=thal_option,max_length=3, null=True, blank=True)
     conf_pres_un_haemo_isoprop  = models.CharField('Comment',max_length=25, null=True, blank=True)
     conf_pres_un_haemo_heat_option = models.CharField('Heat test', max_length=3, null=True, blank=True,choices= thal_option, default= thal_option[0][0])
@@ -696,3 +696,217 @@ class Cong_dyseryth_anaemia(models.Model):
     def __str__(self):
         return str(self.patient)
 
+
+class Ext_centers(models.Model):
+    center_id = models.AutoField(primary_key=True)
+    center_loc_option = (
+        ('','Please select'),
+        ('National','National'),
+        ('Regional','Regional'),
+        ('Hospital','Hospital')
+    )
+    location_of_center = models.CharField('Locale',max_length=45, null=True, blank=True, choices=center_loc_option, default=center_loc_option[0][0])
+    name_of_center = models.CharField('Name',max_length=45, null=True, blank=True)
+    center_type_option = (
+        ('','Please select'),
+        ('Center for adults','Center for adults'),
+        ('Center for children','Center for children'),
+        ('Center manages all ages','Center manages all ages')
+    )
+    type_of_center = models.CharField('Type',max_length=45, null=True, blank=True, choices=center_type_option, default=center_type_option[0][0])
+    center_address  = models.CharField('Address',max_length=45, null=True, blank=True)
+    center_city  = models.CharField('City',max_length=45, null=True, blank=True)
+    center_country  = models.CharField('Country',max_length=45, null=True, blank=True)
+    center_name_of_medical_director  = models.CharField('Name of medical director',max_length=45, null=True, blank=True)
+    center_name_of_respondent  = models.CharField('Name of respondent',max_length=45, null=True, blank=True)
+    center_status_of_respondent  = models.CharField('Status of respondent',max_length=45, null=True, blank=True)
+    center_telephone = models.IntegerField('Telephone', null=True,blank=True)
+    center_email = models.EmailField('E-mail',null=True,blank=True)
+    center_fax = models.IntegerField('Fax',null=True,blank=True)
+    center_website = models.CharField('Website',max_length=45, null=True, blank=True)
+
+
+    diagn_categ_b_thal_major_no_patient = models.IntegerField('No of patients',max_length=5, null=True,blank=True)
+    diagn_categ_b_thal_major_distribution = models.CharField('Age distribution',max_length=45, null=True, blank=True)
+
+    diagn_categ_non_transfusion_dep_no_patient = models.IntegerField('No of patients',max_length=5, null=True,blank=True)
+    diagn_categ_non_transfusion_dep_distribution= models.CharField('Age distribution',max_length=45, null=True, blank=True)
+
+    diagn_categ_hbh_disease_no_patient = models.IntegerField('No of patients',max_length=5, null=True,blank=True)
+    diagn_categ_hbh_disease_distribution= models.CharField('Age distribution',max_length=45, null=True, blank=True)
+
+    diagn_categ_sickle_ss_no_patient = models.IntegerField('No of patients',max_length=5, null=True,blank=True)
+    diagn_categ_sickle_ss_distribution= models.CharField('Age distribution',max_length=45, null=True, blank=True)
+
+    diagn_categ_sickle_sc_no_patient = models.IntegerField('No of patients',max_length=5, null=True,blank=True)
+    diagn_categ_sickle_sc_distribution= models.CharField('Age distribution',max_length=45, null=True, blank=True)
+
+    diagn_categ_scd_s_b_thal_no_patient = models.IntegerField('No of patients',max_length=5, null=True,blank=True)
+    diagn_categ_scd_s_b_thal_distribution= models.CharField('Age distribution',max_length=45, null=True, blank=True)
+
+    diagn_categ_other_scd_no_patient = models.IntegerField('No of patients',max_length=5, null=True,blank=True)
+    diagn_categ_other_scd_distribution= models.CharField('Age distribution',max_length=45, null=True, blank=True)
+
+    diagn_categ_hered_sphero_no_patient = models.IntegerField('No of patients',max_length=5, null=True,blank=True)
+    diagn_categ_hered_sphero_distribution= models.CharField('Age distribution',max_length=45, null=True, blank=True)
+
+    diagn_categ_hered_ellipto_no_patient = models.IntegerField('No of patients',max_length=5, null=True,blank=True)
+    diagn_categ_hered_ellipto_distribution= models.CharField('Age distribution',max_length=45, null=True, blank=True)
+
+    diagn_categ_pyropoikilc_no_patient = models.IntegerField('No of patients',max_length=5, null=True,blank=True)
+    diagn_categ_pyropoikilc_distribution= models.CharField('Age distribution',max_length=45, null=True, blank=True)
+
+    diagn_categ_stomatoc_no_patient = models.IntegerField('No of patients',max_length=5, null=True,blank=True)
+    diagn_categ_stomatoc_distribution= models.CharField('Age distribution',max_length=45, null=True, blank=True)
+
+    diagn_categ_south_asian_oval_no_patient = models.IntegerField('No of patients',max_length=5, null=True,blank=True)
+    diagn_categ_south_asian_oval_distribution= models.CharField('Age distribution',max_length=45, null=True, blank=True)
+
+    diagn_categ_cda_type_i_no_patient = models.IntegerField('No of patients',max_length=5, null=True,blank=True)
+    diagn_categ_cda_type_i_distribution= models.CharField('Age distribution',max_length=45, null=True, blank=True)
+
+    diagn_categ_cda_type_ii_no_patient = models.IntegerField('No of patients',max_length=5, null=True,blank=True)
+    diagn_categ_cda_type_ii_distribution= models.CharField('Age distribution',max_length=45, null=True, blank=True)
+
+    diagn_categ_cda_type_iii_no_patient = models.IntegerField('No of patients',max_length=5, null=True,blank=True)
+    diagn_categ_cda_type_iii_distribution= models.CharField('Age distribution',max_length=45, null=True, blank=True)
+
+    diagn_categ_g6pd_def_no_patient = models.IntegerField('No of patients',max_length=5, null=True,blank=True)
+    diagn_categ_g6pd_def_distribution= models.CharField('Age distribution',max_length=45, null=True, blank=True)
+
+    diagn_categ_pyruvate_k_def_no_patient = models.IntegerField('No of patients',max_length=5, null=True,blank=True)
+    diagn_categ_pyruvate_k_def_distribution= models.CharField('Age distribution',max_length=45, null=True, blank=True)
+
+    diagn_categ_hexokinase_def_no_patient = models.IntegerField('No of patients',max_length=5, null=True,blank=True)
+    diagn_categ_hexokinase_def_distribution= models.CharField('Age distribution',max_length=45, null=True, blank=True)
+
+    diagn_categ_gpi_def_no_patient = models.IntegerField('No of patients',max_length=5, null=True,blank=True)
+    diagn_categ_gpi_def_distribution= models.CharField('Age distribution',max_length=45, null=True, blank=True)
+
+    diagn_categ_pfk_def_no_patient = models.IntegerField('No of patients',max_length=5, null=True,blank=True)
+    diagn_categ_pfk_def_distribution= models.CharField('Age distribution',max_length=45, null=True, blank=True)
+
+    diagn_categ_pgk_def_no_patient = models.IntegerField('No of patients',max_length=5, null=True,blank=True)
+    diagn_categ_pgk_def_distribution= models.CharField('Age distribution',max_length=45, null=True, blank=True)
+
+    diagn_categ_tpi_def_no_patient = models.IntegerField('No of patients',max_length=5, null=True,blank=True)
+    diagn_categ_tpi_def_distribution= models.CharField('Age distribution',max_length=45, null=True, blank=True)
+
+    diagn_categ_ldh_def_no_patient = models.IntegerField('No of patients',max_length=5, null=True,blank=True)
+    diagn_categ_ldh_def_distribution= models.CharField('Age distribution',max_length=45, null=True, blank=True)
+
+    diagn_categ_aldolase_def_no_patient = models.IntegerField('No of patients',max_length=5, null=True,blank=True)
+    diagn_categ_aldolase_def_distribution= models.CharField('Age distribution',max_length=45, null=True, blank=True)
+
+    diagn_categ_enolase_def_no_patient = models.IntegerField('No of patients',max_length=5, null=True,blank=True)
+    diagn_categ_enolase_def_distribution= models.CharField('Age distribution',max_length=45, null=True, blank=True)
+
+    diagn_categ_bpgm_def_no_patient = models.IntegerField('No of patients',max_length=5, null=True,blank=True)
+    diagn_categ_bpgm_def_distribution= models.CharField('Age distribution',max_length=45, null=True, blank=True)
+
+    diagn_categ_mpgm_def_no_patient = models.IntegerField('No of patients',max_length=5, null=True,blank=True)
+    diagn_categ_mpgm_def_distribution= models.CharField('Age distribution',max_length=45, null=True, blank=True)
+
+    diagn_categ_pgm_def_no_patient = models.IntegerField('No of patients',max_length=5, null=True,blank=True)
+    diagn_categ_pgm_def_distribution= models.CharField('Age distribution',max_length=45, null=True, blank=True)
+
+    diagn_categ_6pgd_def_no_patient = models.IntegerField('No of patients',max_length=5, null=True,blank=True)
+    diagn_categ_6pgd_def_distribution= models.CharField('Age distribution',max_length=45, null=True, blank=True)
+
+    diagn_categ_gcs_def_no_patient = models.IntegerField('No of patients',max_length=5, null=True,blank=True)
+    diagn_categ_gcs_def_distribution= models.CharField('Age distribution',max_length=45, null=True, blank=True)
+
+    diagn_categ_gsh_s_def_no_patient = models.IntegerField('No of patients',max_length=5, null=True,blank=True)
+    diagn_categ_gsh_s_def_distribution= models.CharField('Age distribution',max_length=45, null=True, blank=True)
+
+    diagn_categ_gr_def_no_patient = models.IntegerField('No of patients',max_length=5, null=True,blank=True)
+    diagn_categ_gr_def_distribution= models.CharField('Age distribution',max_length=45, null=True, blank=True)
+
+    diagn_categ_gsh_px_def_no_patient = models.IntegerField('No of patients',max_length=5, null=True,blank=True)
+    diagn_categ_gsh_px_def_distribution= models.CharField('Age distribution',max_length=45, null=True, blank=True)
+
+    diagn_categ_gst_def_no_patient = models.IntegerField('No of patients',max_length=5, null=True,blank=True)
+    diagn_categ_gst_def_distribution= models.CharField('Age distribution',max_length=45, null=True, blank=True)
+
+    diagn_categ_ak_def_no_patient = models.IntegerField('No of patients',max_length=5, null=True,blank=True)
+    diagn_categ_ak_def_distribution= models.CharField('Age distribution',max_length=45, null=True, blank=True)
+
+    diagn_categ_p5_nuc_no_patient = models.IntegerField('No of patients',max_length=5, null=True,blank=True)
+    diagn_categ_p5_nuc_distribution= models.CharField('Age distribution',max_length=45, null=True, blank=True)
+
+    diagn_categ_nadh_dia_def_no_patient = models.IntegerField('No of patients',max_length=5, null=True,blank=True)
+    diagn_categ_nadh_dia_def_distribution= models.CharField('Age distribution',max_length=45, null=True, blank=True)
+
+    diagn_categ_nadph_dia_def_no_patient = models.IntegerField('No of patients',max_length=5, null=True,blank=True)
+    diagn_categ_nadph_dia_def_distribution= models.CharField('Age distribution',max_length=45, null=True, blank=True)
+
+    diagn_categ_sod_def_no_patient = models.IntegerField('No of patients',max_length=5, null=True,blank=True)
+    diagn_categ_sod_def_def_distribution= models.CharField('Age distribution',max_length=45, null=True, blank=True)
+
+    diagn_categ_catalas_def_no_patient = models.IntegerField('No of patients',max_length=5, null=True,blank=True)
+    diagn_categ_catalas_def_distribution= models.CharField('Age distribution',max_length=45, null=True, blank=True)
+
+    diagn_categ_diamond_blackfan_anae_no_patient = models.IntegerField('No of patients',max_length=5, null=True,blank=True)
+    diagn_categ_diamond_blackfan_anae_distribution= models.CharField('Age distribution',max_length=45, null=True, blank=True)
+
+    diagn_categ_fanconi_no_patient = models.IntegerField('No of patients',max_length=5, null=True,blank=True)
+    diagn_categ_fanconi_distribution= models.CharField('Age distribution',max_length=45, null=True, blank=True)
+
+    diagn_categ_here_congenit_side_anaemia_no_patient = models.IntegerField('No of patients',max_length=5, null=True,blank=True)
+    diagn_categ_here_congenit_side_anaemia_distribution= models.CharField('Age distribution',max_length=45, null=True, blank=True)
+
+    diagn_categ_aceruloplasm_no_patient = models.IntegerField('No of patients',max_length=5, null=True,blank=True)
+    diagn_categ_aceruloplasm_distribution= models.CharField('Age distribution',max_length=45, null=True, blank=True)
+
+    diagn_categ_atransfer_no_patient = models.IntegerField('No of patients',max_length=5, null=True,blank=True)
+    diagn_categ_atransfer_distribution= models.CharField('Age distribution',max_length=45, null=True, blank=True)
+
+    diagn_categ_dmt1_def_no_patient = models.IntegerField('No of patients',max_length=5, null=True,blank=True)
+    diagn_categ_dmt1_def_distribution= models.CharField('Age distribution',max_length=45, null=True, blank=True)
+
+    diagn_categ_irida_no_patient = models.IntegerField('No of patients',max_length=5, null=True,blank=True)
+    diagn_categ_irida_distribution= models.CharField('Age distribution',max_length=45, null=True, blank=True)
+
+    diagn_categ_pnh_no_patient = models.IntegerField('No of patients',max_length=5, null=True,blank=True)
+    diagn_categ_pnh_distribution= models.CharField('Age distribution',max_length=45, null=True, blank=True)
+
+    outcomes_year2010_thal = models.IntegerField('Thalassaemia syndromes',max_length=5, null=True,blank=True)
+    outcomes_year2010_sickle= models.IntegerField('Sickle cell syndromes',max_length=5, null=True,blank=True)
+    outcomes_year2010_rare= models.IntegerField('Rare anaemias',max_length=5, null=True,blank=True)
+    outcomes_year2011_thal = models.IntegerField('Thalassaemia syndromes',max_length=5, null=True,blank=True)
+    outcomes_year2011_sickle= models.IntegerField('Sickle cell syndromes',max_length=5, null=True,blank=True)
+    outcomes_year2011_rare= models.IntegerField('Rare anaemias',max_length=5, null=True,blank=True)
+    outcomes_year2012_thal = models.IntegerField('Thalassaemia syndromes',max_length=5, null=True,blank=True)
+    outcomes_year2012_sickle= models.IntegerField('Sickle cell syndromes',max_length=5, null=True,blank=True)
+    outcomes_year2012_rare= models.IntegerField('Rare anaemias',max_length=5, null=True,blank=True)
+    outcomes_year2013_thal = models.IntegerField('Thalassaemia syndromes',max_length=5, null=True,blank=True)
+    outcomes_year2013_sickle= models.IntegerField('Sickle cell syndromes',max_length=5, null=True,blank=True)
+    outcomes_year2013_rare= models.IntegerField('Rare anaemias',max_length=5, null=True,blank=True)
+    outcomes_year2014_thal = models.IntegerField('Thalassaemia syndromes',max_length=5, null=True,blank=True)
+    outcomes_year2014_sickle= models.IntegerField('Sickle cell syndromes',max_length=5, null=True,blank=True)
+    outcomes_year2014_rare= models.IntegerField('Rare anaemias',max_length=5, null=True,blank=True)
+    outcomes_year2015_thal = models.IntegerField('Thalassaemia syndromes',max_length=5, null=True,blank=True)
+    outcomes_year2015_sickle= models.IntegerField('Sickle cell syndromes',max_length=5, null=True,blank=True)
+    outcomes_year2015_rare= models.IntegerField('Rare anaemias',max_length=5, null=True,blank=True)
+
+    anaemia_thal= models.IntegerField('Thalassaemia syndromes',max_length=5, null=True,blank=True)
+    anaemia_sickle= models.IntegerField('Sickle cell syndromes',max_length=5, null=True,blank=True)
+    anaemia_rare= models.IntegerField('Rare anaemias',max_length=5, null=True,blank=True)
+    cardiac_thal= models.IntegerField('Thalassaemia syndromes',max_length=5, null=True,blank=True)
+    cardiac_sickle= models.IntegerField('Sickle cell syndromes',max_length=5, null=True,blank=True)
+    cardiac_rare= models.IntegerField('Rare anaemias',max_length=5, null=True,blank=True)
+    infection_thal= models.IntegerField('Thalassaemia syndromes',max_length=5, null=True,blank=True)
+    infection_sickle= models.IntegerField('Sickle cell syndromes',max_length=5, null=True,blank=True)
+    infection_rare= models.IntegerField('Rare anaemias',max_length=5, null=True,blank=True)
+    hepatic_thal= models.IntegerField('Thalassaemia syndromes',max_length=5, null=True,blank=True)
+    hepatic_sickle= models.IntegerField('Sickle cell syndromes',max_length=5, null=True,blank=True)
+    hepatic_rare= models.IntegerField('Rare anaemias',max_length=5, null=True,blank=True)
+    malignancy_thal= models.IntegerField('Thalassaemia syndromes',max_length=5, null=True,blank=True)
+    malignancy_sickle= models.IntegerField('Sickle cell syndromes',max_length=5, null=True,blank=True)
+    malignancy_rare= models.IntegerField('Rare anaemias',max_length=5, null=True,blank=True)
+    other_thal= models.IntegerField('Thalassaemia syndromes',max_length=5, null=True,blank=True)
+    other_sickle= models.IntegerField('Sickle cell syndromes',max_length=5, null=True,blank=True)
+    other_rare= models.IntegerField('Rare anaemias',max_length=5, null=True,blank=True)
+
+    def __str__(self):
+        return self.name_of_center

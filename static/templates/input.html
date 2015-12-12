@@ -25,60 +25,75 @@
             <!--<script src="//code.jquery.com/jquery-1.10.2.js"></script>-->
             <script>
                 $(document).ready(function() {
-                    $('#my_option').each(function() {
-                        var option = $(this).val();
+                    $("input[name='diag-diagnosis_option']").change(function () {
+                        var $this = $(this)
+                        if ($(this).prop('checked')) {
+                            var option = $(this).val();
+                            //alert(unescape(escape($(this).attr('value'))));
+                            $(this).parent().append('<label><input class="extended" type="checkbox" id="extended" name="extended" value='+escape($(this).attr('value'))+'>Extended</label>');
 
-                        if (option === '1'){
-                            $('#mytab a[href="#3"]').parent().removeClass("hide");
-//                            alert(option);
                         }
-                        if (option === '2'){
-                            $('#mytab a[href="#4"]').parent().removeClass("hide");
-//                            alert(option);
-                        }
-                        if (option === '3'){
-                            $('#mytab a[href="#5"]').parent().removeClass("hide");
-//                            alert(option);
-                        }
-                        if (option === '4'){
-                            $('#mytab a[href="#6"]').parent().removeClass("hide");
-//                            alert(option);
-                        }
-                        if (option === '12'){
-                            $('#mytab a[href="#3"]').parent().removeClass("hide");
-                            $('#mytab a[href="#4"]').parent().removeClass("hide");
-//                            alert(option);
-                        }
-                        if (option === '13'){
-                            $('#mytab a[href="#3"]').parent().removeClass("hide");
-                            $('#mytab a[href="#5"]').parent().removeClass("hide");
-//                            alert(option);
-                        }
-                        if (option === '14'){
-                            $('#mytab a[href="#3"]').parent().removeClass("hide");
-                            $('#mytab a[href="#6"]').parent().removeClass("hide");
-//                            alert(option);
-                        }
-                        if (option === '23'){
-                            $('#mytab a[href="#4"]').parent().removeClass("hide");
-                            $('#mytab a[href="#5"]').parent().removeClass("hide");
-//                            alert(option);
-                        }
-                        if (option === '24'){
-                            $('#mytab a[href="#4"]').parent().removeClass("hide");
-                            $('#mytab a[href="#6"]').parent().removeClass("hide");
-//                            alert(option);
-                        }
-                        if (option === '34'){
-                            $('#mytab a[href="#5"]').parent().removeClass("hide");
-                            $('#mytab a[href="#6"]').parent().removeClass("hide");
-//                            alert(option);
-                        }
+                        else if( $this.siblings('label').length ) {
 
+                    $this.siblings('label').remove();
+
+                    }
                     });
-
                 });
             </script>
+
+            <script>
+                $(document).ready(function() {
+
+                    $(document).on('change','#extended',function () {
+                        var option = unescape($(this).val());
+
+                        //get all the extended selections
+                        var selected = $('.extended:checked').map(function () {
+                            return unescape($(this).attr('value'));
+                        }).get();
+                        //alert(selected);
+
+
+                        if (this.checked) {
+                            //alert(option);
+                            if (option == 'b-thalassaemia syndromes' | option == 'a-thalassaemia syndromes' | option == 'Sickle cell syndromes' | option == 'Other haemoglobin variants') {
+                                $('#mytab a[href="#3"]').parent().removeClass("hide");
+                            }
+                            if (option == 'Red cell membrane disorders') {
+                                $('#mytab a[href="#4"]').parent().removeClass("hide");
+                            }
+                            if (option == 'Red cell enzyme disorders') {
+                                $('#mytab a[href="#5"]').parent().removeClass("hide");
+                            }
+                            if (option == 'Congenital dyserythropoietic anaemias') {
+                                $('#mytab a[href="#6"]').parent().removeClass("hide");
+                            }
+                        }
+                        else if (!(this.checked))
+                            {
+                                if (selected.indexOf('b-thalassaemia syndromes') <0 & selected.indexOf('a-thalassaemia syndromes') <0 & selected.indexOf('Sickle cell syndromes') <0  & selected.indexOf('Other haemoglobin variants') <0  )
+                                {
+                                    $('#mytab a[href="#3"]').parent().addClass("hide")
+                                }
+                                if (option == 'Red cell membrane disorders') {
+                                    $('#mytab a[href="#4"]').parent().addClass("hide");
+                                }
+                                if (option == 'Red cell enzyme disorders') {
+                                    $('#mytab a[href="#5"]').parent().addClass("hide");
+                                }
+                                if (option == 'Congenital dyserythropoietic anaemias') {
+                                    $('#mytab a[href="#6"]').parent().addClass("hide");
+                                }
+
+                            }
+
+
+
+                    });
+                });
+            </script>
+
 
             <script>
                 $(document).ready(function() {
@@ -299,7 +314,8 @@
 {% endblock %}
 
 {%block jumbotron_title %}Add new patient to the eRegistry{% endblock %}
-{%block jumbotron_info %}Insert patient's demographics and diagnosis data. {% endblock %}
+{%block jumbotron_info %}Insert patient's demographics and diagnosis data.
+{% endblock %}
 {% block content %}
 
 <!-- Nav tabs -->
@@ -325,23 +341,23 @@
             <li>
                 <a href="#2" data-toggle="tab">Diagnosis</a>
             </li>
-            <li>
+            <li class="hide">
                 <a href="#3" data-toggle="tab">Haemoglobin disorders diagnostic tests</a>
             </li>
-            <li>
-                <a href="#4" data-toggle="tab">Rare cell enzyme disorders</a>
+            <li class="hide">
+                <a href="#4" data-toggle="tab">Red cell enzyme disorders</a>
             </li>
-            <li>
-                <a href="#5" data-toggle="tab">Rare cell membrane disorders</a>
+            <li class="hide">
+                <a href="#5" data-toggle="tab">Red cell membrane disorders</a>
             </li>
-            <li>
+            <li class="hide">
                 <a href="#6" data-toggle="tab">Congenital desyrythropoietic anaemias</a>
             </li>
             <li>
-                <a href="#7" data-toggle="tab">Clinical Data 1</a>
+                <a href="#7" data-toggle="tab">Summary of Thalassaemia and Severe Anaemias</a>
             </li>
             <li>
-                <a href="#8" data-toggle="tab">Clinical Data 2</a>
+                <a href="#8" data-toggle="tab">Summary of Sickle Cell disease</a>
             </li>
 
             <!--<li>-->
@@ -349,6 +365,7 @@
             <!--</li>-->
         </ul>
         <div class="tab-content">
+
             <div class="tab-pane fade in active" id="1">
                 <!--<input type="hidden" name="form_id" value="demographics">-->
                 <div class="container"> {%crispy frm %}</div>
@@ -387,7 +404,7 @@
             <div class="tab-pane fade" id="8">
                 <!-- form controls to be continued here -->
                 <!--<input type="hidden" name="form_id" value="a_b_s">-->
-                <div class="container">To be added</div>
+                <div class="container">{%crispy frm_cln_dt_two%}</div>
             </div>
 
 
