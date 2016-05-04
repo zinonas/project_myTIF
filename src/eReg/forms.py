@@ -202,6 +202,8 @@ class DemographicForm(forms.ModelForm):
     class Meta:
         model = Demographic
         exclude = ['age']
+        exclude = ('author',)
+        list_display = ('title', 'pub_date', 'author')
 
 class ClinicalDataForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -649,6 +651,8 @@ class ClinicalDataForm(forms.ModelForm):
     class Meta:
         model = Clinical_data
         exclude = ['patient']
+        exclude = ('author',)
+        list_display = ('title', 'pub_date', 'author')
 
 class ClinicalDataTwo(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -984,6 +988,8 @@ class ClinicalDataTwo(forms.ModelForm):
     class Meta:
         model = Clinical_data_two
         exclude = ['patient']
+        exclude = ('author',)
+        list_display = ('title', 'pub_date', 'author')
 
 class DiagnosisForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -1235,6 +1241,8 @@ class DiagnosisForm(forms.ModelForm):
     class Meta:
         model = Diagnosis
         exclude = ['patient']
+        exclude = ('author',)
+        list_display = ('title', 'pub_date', 'author')
         # autocomplete_js_attribute={'name': 'icd_10_code'}
 
     # def clean_diagnosis_option(self):
@@ -1411,6 +1419,8 @@ class A_b_sickle_thalForm(forms.ModelForm):
     class Meta:
         model = A_b_sickle_thal
         exclude = ['patient']
+        exclude = ('author',)
+        list_display = ('title', 'pub_date', 'author')
 
 class Redcell_enzyme_disForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -1641,6 +1651,8 @@ class Redcell_enzyme_disForm(forms.ModelForm):
     class Meta:
         model = Redcell_enzyme_dis
         exclude = ['patient']
+        exclude = ('author',)
+        list_display = ('title', 'pub_date', 'author')
 
 class Redcell_membrane_disForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -1689,6 +1701,8 @@ class Redcell_membrane_disForm(forms.ModelForm):
     class Meta:
         model = Redcell_membrane_dis
         exclude = ['patient']
+        exclude = ('author',)
+        list_display = ('title', 'pub_date', 'author')
 
 class Cong_dyseryth_anaemiaForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -1731,6 +1745,8 @@ class Cong_dyseryth_anaemiaForm(forms.ModelForm):
     class Meta:
         model = Cong_dyseryth_anaemia
         exclude = ['patient']
+        exclude = ('author',)
+        list_display = ('title', 'pub_date', 'author')
 
 class UserCreationForm(forms.Form):
      def __init__(self, *args, **kwargs):
@@ -1751,7 +1767,7 @@ class UserCreationForm(forms.Form):
             else:
                 self.fields['%s' % question] = forms.CharField(label=question, required=False)
                 self.fields['%s' % question].widget.attrs['readonly'] = True
-                #print (self.fields['%s' % question].label)
+                print (self.fields['%s' % question].label)
                 #yield (self.fields['%s' % question].label, question)
 
 
@@ -1795,6 +1811,8 @@ class ExternalCentersForm(forms.ModelForm):
     class Meta:
         model = Ext_centers
         exclude = ['center_id']
+        exclude = ('author',)
+        list_display = ('title', 'pub_date', 'author')
 
 
 class ExternalCentersDiagnosticForm(forms.ModelForm):
@@ -2113,6 +2131,8 @@ class ExternalCentersDiagnosticForm(forms.ModelForm):
     class Meta:
         model = Ext_centers
         exclude = ['center_id']
+        exclude = ('author',)
+        list_display = ('title', 'pub_date', 'author')
 
 class ExternalCentersOutcomesForm(forms.ModelForm):
 
@@ -2227,3 +2247,281 @@ class ExternalCentersOutcomesForm(forms.ModelForm):
     class Meta:
         model = Ext_centers
         exclude = ['center_id']
+        exclude = ('author',)
+        list_display = ('title', 'pub_date', 'author')
+
+
+class ExternalCentersOutcomes2Form(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(ExternalCentersOutcomes2Form, self).__init__(*args, **kwargs)
+        self.helper=FormHelper(self)
+        #self.fields['patient'].queryset = Demographic.objects.filter(patient_id=self.instance.patient)
+        self.helper.field_class = 'col-md-8'
+        self.helper.label_class = 'col-md-3'
+        self.helper.layout = Layout(
+            Fieldset(
+                '<b>2. More measurements</b>',
+                Div(
+                        #HTML(u'<br/><div class="col-md-9"><h4><b>Molecular analysis</b></h4></div><br/><br/>'),
+                        Div('out_patients_married',css_class='col-md-6'),
+                        Div('out_patients_divorced',css_class="col-md-6"),
+                        Div('out_patients_single',css_class="col-md-6"),
+                        Div('out_patients_cohabiting',css_class="col-md-6"),
+                        Div('out_patients_parented_children',css_class="col-md-6"),
+                        Div('out_thal_women_preg',css_class="col-md-6"),
+                        Div('out_patients_splene',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                ),
+            Fieldset(
+                '<b>Complications measurements</b>',
+
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Cholelithiasis</b></h4></div>'),
+                        Div('choleitithiasis_hb',css_class='col-md-6'),
+                        Div('choleitithiasis_ra',css_class="col-md-6"),
+                        Div('choleitithiasis_per_hb',css_class="col-md-6"),
+                        Div('choleitithiasis_per_ra',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Heart failure</b></h4></div>'),
+                        Div('heart_f_hb',css_class='col-md-6'),
+                        Div('heart_f_ra',css_class="col-md-6"),
+                        Div('heart_f_per_hb',css_class="col-md-6"),
+                        Div('heart_f_per_ra',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Arrythmias</b></h4></div>'),
+                        Div('arryth_hb',css_class='col-md-6'),
+                        Div('arryth_ra',css_class="col-md-6"),
+                        Div('arryth_per_hb',css_class="col-md-6"),
+                        Div('arryth_per_ra',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Pulmonary hypertension</b></h4></div>'),
+                        Div('pulm_hyp_hb',css_class='col-md-6'),
+                        Div('pulm_hyp_ra',css_class="col-md-6"),
+                        Div('pulm_hyp_per_hb',css_class="col-md-6"),
+                        Div('pulm_hyp_per_ra',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Glucose intolerance</b></h4></div>'),
+                        Div('gluc_int_hb',css_class='col-md-6'),
+                        Div('gluc_int_ra',css_class="col-md-6"),
+                        Div('gluc_int_per_hb',css_class="col-md-6"),
+                        Div('gluc_int_per_ra',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Diabetes</b></h4></div>'),
+                        Div('diab_hb',css_class='col-md-6'),
+                        Div('diab_ra',css_class="col-md-6"),
+                        Div('diab_per_hb',css_class="col-md-6"),
+                        Div('diab_per_ra',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Hypogonadism</b></h4></div>'),
+                        Div('hypogon_hb',css_class='col-md-6'),
+                        Div('hypogon_ra',css_class="col-md-6"),
+                        Div('hypogon_per_hb',css_class="col-md-6"),
+                        Div('hypogon_per_ra',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Hypothyroidism</b></h4></div>'),
+                        Div('hypothyr_hb',css_class='col-md-6'),
+                        Div('hypothyr_ra',css_class="col-md-6"),
+                        Div('hypothyr_per_hb',css_class="col-md-6"),
+                        Div('hypothyr_per_ra',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Hypoparathyroidism</b></h4></div>'),
+                        Div('hypoparath_hb',css_class='col-md-6'),
+                        Div('hypoparath_ra',css_class="col-md-6"),
+                        Div('hypoparath_per_hb',css_class="col-md-6"),
+                        Div('hypoparath_per_ra',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Liver fibrosis/cirrhosis</b></h4></div>'),
+                        Div('liver_hb',css_class='col-md-6'),
+                        Div('liver_ra',css_class="col-md-6"),
+                        Div('liver_per_hb',css_class="col-md-6"),
+                        Div('liver_per_ra',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>HCV infections</b></h4></div>'),
+                        Div('hcv_hb',css_class='col-md-6'),
+                        Div('hcv_ra',css_class="col-md-6"),
+                        Div('hcv_per_hb',css_class="col-md-6"),
+                        Div('hcv_per_ra',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Hepatocellular carcinoma</b></h4></div>'),
+                        Div('hypatoc_hb',css_class='col-md-6'),
+                        Div('hypatoc_ra',css_class="col-md-6"),
+                        Div('hypatoc_per_hb',css_class="col-md-6"),
+                        Div('hypatoc_per_ra',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Other malignancy</b></h4></div>'),
+                        Div('other_mal_hb',css_class='col-md-6'),
+                        Div('other_mal_ra',css_class="col-md-6"),
+                        Div('other_mal_per_hb',css_class="col-md-6"),
+                        Div('other_mal_per_ra',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Osteoporosis</b></h4></div>'),
+                        Div('osteopor_hb',css_class='col-md-6'),
+                        Div('osteopor_ra',css_class="col-md-6"),
+                        Div('osteopor_per_hb',css_class="col-md-6"),
+                        Div('osteopor_per_ra',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Osteomyelitis</b></h4></div>'),
+                        Div('osteomye_hb',css_class='col-md-6'),
+                        Div('osteomye_ra',css_class="col-md-6"),
+                        Div('osteomye_per_hb',css_class="col-md-6"),
+                        Div('osteomye_per_ra',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Thromboembolism</b></h4></div>'),
+                        Div('thrombo_hb',css_class='col-md-6'),
+                        Div('thrombo_ra',css_class="col-md-6"),
+                        Div('thrombo_per_hb',css_class="col-md-6"),
+                        Div('thrombo_per_ra',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Dactylitis</b></h4></div>'),
+                        Div('dact_hb',css_class='col-md-6'),
+                        Div('dact_ra',css_class="col-md-6"),
+                        Div('dact_per_hb',css_class="col-md-6"),
+                        Div('dact_per_ra',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Splenic sequestration</b></h4></div>'),
+                        Div('splenic_seq_hb',css_class='col-md-6'),
+                        Div('splenic_seq_ra',css_class="col-md-6"),
+                        Div('splenic_seq_per_hb',css_class="col-md-6"),
+                        Div('splenic_seq_per_ra',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Liver sequestration</b></h4></div>'),
+                        Div('liver_seq_hb',css_class='col-md-6'),
+                        Div('liver_seq_ra',css_class="col-md-6"),
+                        Div('liver_seq_per_hb',css_class="col-md-6"),
+                        Div('liver_seq_per_ra',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Mesenteric syndrome</b></h4></div>'),
+                        Div('mes_synd_hb',css_class='col-md-6'),
+                        Div('mes_synd_ra',css_class="col-md-6"),
+                        Div('mes_synd_per_hb',css_class="col-md-6"),
+                        Div('mes_synd_per_ra',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Aplastic crisis</b></h4></div>'),
+                        Div('aplas_cris_hb',css_class='col-md-6'),
+                        Div('aplas_cris_ra',css_class="col-md-6"),
+                        Div('aplas_cris_per_hb',css_class="col-md-6"),
+                        Div('aplas_cris_per_ra',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Hyperhaemilysis</b></h4></div>'),
+                        Div('hyperhae_hb',css_class='col-md-6'),
+                        Div('hyperhae_ra',css_class="col-md-6"),
+                        Div('hyperhae_per_hb',css_class="col-md-6"),
+                        Div('hyperhae_per_ra',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Stroke</b></h4></div>'),
+                        Div('stroke_hb',css_class='col-md-6'),
+                        Div('stroke_ra',css_class="col-md-6"),
+                        Div('stroke_per_hb',css_class="col-md-6"),
+                        Div('stroke_per_ra',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Silent infarct</b></h4></div>'),
+                        Div('sil_inf_hb',css_class='col-md-6'),
+                        Div('sil_inf_ra',css_class="col-md-6"),
+                        Div('sil_inf_per_hb',css_class="col-md-6"),
+                        Div('sil_inf_per_ra',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Acute chest syndrome</b></h4></div>'),
+                        Div('ac_chest_synd_hb',css_class='col-md-6'),
+                        Div('ac_chest_synd_ra',css_class="col-md-6"),
+                        Div('ac_chest_synd_per_hb',css_class="col-md-6"),
+                        Div('ac_chest_synd_per_ra',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Priapism</b></h4></div>'),
+                        Div('priap_hb',css_class='col-md-6'),
+                        Div('priap_ra',css_class="col-md-6"),
+                        Div('priap_per_hb',css_class="col-md-6"),
+                        Div('priap_per_ra',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Avascular necrosis femoral head</b></h4></div>'),
+                        Div('ava_nec_fem_hd_hb',css_class='col-md-6'),
+                        Div('ava_nec_fem_hd_ra',css_class="col-md-6"),
+                        Div('ava_nec_fem_hd_per_hb',css_class="col-md-6"),
+                        Div('ava_nec_fem_hd_per_ra',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Retinopathy</b></h4></div>'),
+                        Div('retin_hb',css_class='col-md-6'),
+                        Div('retin_ra',css_class="col-md-6"),
+                        Div('retin_per_hb',css_class="col-md-6"),
+                        Div('retin_per_ra',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                Div(
+                        HTML(u'<div class="col-md-9"><h4><b>Kidney disease</b></h4></div>'),
+                        Div('kid_dis_hb',css_class='col-md-6'),
+                        Div('kid_dis_ra',css_class="col-md-6"),
+                        Div('kid_dis_per_hb',css_class="col-md-6"),
+                        Div('kid_dis_per_ra',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                ),
+
+
+            FormActions(
+                Submit('submit', "Save changes"),
+                Submit('cancel',"Cancel")
+            ),
+        )
+        self.helper.form_tag = False
+        self.helper.form_show_labels = True
+
+    class Meta:
+        model = Ext_centers
+        exclude = ['center_id']
+        exclude = ('author',)
+        list_display = ('title', 'pub_date', 'author')

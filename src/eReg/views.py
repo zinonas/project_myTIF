@@ -1,7 +1,7 @@
 from django.db.models import Sum, Count
 from django.shortcuts import render, render_to_response, RequestContext, HttpResponse, get_object_or_404, redirect
 import django.http
-from .forms import DemographicForm, DiagnosisForm, A_b_sickle_thalForm, Redcell_enzyme_disForm, Redcell_membrane_disForm,Cong_dyseryth_anaemiaForm, UserCreationForm, ClinicalDataForm, ClinicalDataTwo, ExternalCentersForm,ExternalCentersDiagnosticForm,ExternalCentersOutcomesForm
+from .forms import DemographicForm, DiagnosisForm, A_b_sickle_thalForm, Redcell_enzyme_disForm, Redcell_membrane_disForm,Cong_dyseryth_anaemiaForm, UserCreationForm, ClinicalDataForm, ClinicalDataTwo, ExternalCentersForm,ExternalCentersDiagnosticForm,ExternalCentersOutcomesForm, ExternalCentersOutcomes2Form
 from django.template import RequestContext
 from collections import OrderedDict
 from django.http import HttpResponseRedirect
@@ -882,8 +882,9 @@ def external_centers(request):
         ext_cent = ExternalCentersForm(prefix='extcent')
         ext_cent_diagnostic = ExternalCentersDiagnosticForm(prefix='extcentDiagn')
         ext_cent_outcomes = ExternalCentersOutcomesForm(prefix='extcentOutcomes')
+        ext_cent_outcomes2 = ExternalCentersOutcomes2Form(prefix='extcentOutcomesTwo')
 
-        return render(request, 'external_centers.html', {'ext_centres': ext_cent, 'ext_centres_diag':ext_cent_diagnostic, 'ext_centres_out':ext_cent_outcomes })
+        return render(request, 'external_centers.html', {'ext_centres': ext_cent, 'ext_centres_diag':ext_cent_diagnostic, 'ext_centres_out':ext_cent_outcomes, 'ext_centres_out2':ext_cent_outcomes2 })
 
 def login(request):
     context = RequestContext(request)

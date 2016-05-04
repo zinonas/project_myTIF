@@ -12,38 +12,47 @@ from .models import Pregnancy
 from .models import Clinical_data
 
 class DemographicsAdmin(admin.ModelAdmin):
+    list_display = ('pub_date', 'author')
     class Meta:
         model = Demographic
 
 class DiagnosisAdmin(admin.ModelAdmin):
+    list_display = ('pub_date', 'author')
     class Meta:
         model = Diagnosis
 
 class a_b_sickle_Admin(admin.ModelAdmin):
+    list_display = ('pub_date', 'author')
     class Meta:
         model = A_b_sickle_thal
 
 class redcell_enzAdmin(admin.ModelAdmin):
+    list_display = ('pub_date', 'author')
     class Meta:
         model = Redcell_enzyme_dis
 
 class redcell_memb_Admin(admin.ModelAdmin):
+    list_display = ('pub_date', 'author')
     class Meta:
         model = Redcell_membrane_dis
 
 class cong_dyserAdmin(admin.ModelAdmin):
+    list_display = ('pub_date', 'author')
     class Meta:
         model = Cong_dyseryth_anaemia
 
 class icd10Admin (admin.ModelAdmin):
+    list_display = ('pub_date', 'author')
     class Meta:
         model = icd_10
 
 class pregnancyAdmin (admin.ModelAdmin):
+    list_display = ('pub_date', 'author')
     class Meta:
         model = Pregnancy
 
 class clinical_dataAdmin (admin.ModelAdmin):
+    list_display = ('pub_date', 'author')
     class Meta:
         model = Clinical_data
 
