@@ -31,6 +31,7 @@ import collections
 from chartit import PivotDataPool, PivotChart
 import ast
 
+
 @login_required(login_url='/login')
 def home(request):
     return render(request,'index.html')

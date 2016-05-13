@@ -53,6 +53,7 @@ INSTALLED_APPS = (
     'pagination',
     'bootstrap3_datetime',
     'chartit',
+    'rolepermissions',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -69,6 +70,8 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'project_mytif.urls'
 
 WSGI_APPLICATION = 'project_mytif.wsgi.application'
+
+ROLEPERMISSIONS_MODULE = 'project_mytif.roles'
 
 
 # Database
