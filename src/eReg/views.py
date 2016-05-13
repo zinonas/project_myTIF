@@ -46,6 +46,7 @@ def input(request):
     diag_option = 0
 
     if request.method == 'POST':
+
         my_demographics = DemographicForm(request.POST, prefix="demo")
         my_diagnosis = DiagnosisForm(request.POST, prefix='diag')
         my_a_b_sickle= A_b_sickle_thalForm(request.POST,prefix='a_b_s')
@@ -56,7 +57,37 @@ def input(request):
         my_cln_dt_two = ClinicalDataTwo(request.POST, prefix='cln_dt_two')
 
 
+        # if (my_demographics.is_valid() and my_diagnosis.is_valid()):
+        #     print "dem and diag validation"
+        #     my_demographics_object = my_demographics.save(commit=False)
+        #     my_demographics_object.author = request.user
+        #     my_demographics_object.save()
+        #     #my_diagnosis = DiagnosisForm(request.POST, prefix='diag', initial={'patient':my_demographics_object.patient_id} )
+        #
+        #     print "my dem id"
+        #     print my_demographics_object.patient_id
+        #
+        #     my_diagnosis_object=my_diagnosis.save(commit=False)
+        #     my_diagnosis_object.patient = my_demographics_object
+        #     my_diagnosis_object.author = request.user
+        #     my_diagnosis_object.save()
+
+
         print "POST"
+
+
+        print "my demographics"
+        print my_demographics.errors
+        print "my diagnosis"
+        print my_diagnosis.errors
+        print "a_b_sickle"
+        print my_a_b_sickle.errors
+        print my_redcell_membrane.errors
+        print my_redcell_enzyme.errors
+        print my_cong_dys.errors
+        print my_cln_dt.errors
+        print my_cln_dt_two.errors
+
         print my_demographics.is_valid()
         print my_diagnosis.is_valid()
         print my_a_b_sickle.is_valid()
@@ -181,33 +212,45 @@ def input(request):
 
 
 
-            my_demographics_object = my_demographics.save()
+
+
+            #my_demographics_object = my_demographics.save()
+            my_demographics_object = my_demographics.save(commit=False)
+            my_demographics_object.author = request.user
+            my_demographics_object.save()
 
             my_diagnosis_object = my_diagnosis.save(commit=False)
+            my_diagnosis_object.author = request.user
             my_diagnosis_object.patient = my_demographics_object
             my_diagnosis_object.save()
 
             my_a_b_sickle_object = my_a_b_sickle.save(commit=False)
+            my_a_b_sickle_object.author = request.user
             my_a_b_sickle_object.patient = my_demographics_object
             my_a_b_sickle_object.save()
 
             my_redcell_enzyme_object = my_redcell_enzyme.save(commit=False)
+            my_redcell_enzyme_object.author = request.user
             my_redcell_enzyme_object.patient = my_demographics_object
             my_redcell_enzyme_object.save()
 
             my_redcell_membrane_object = my_redcell_membrane.save(commit=False)
+            my_redcell_membrane_object.author = request.user
             my_redcell_membrane_object.patient = my_demographics_object
             my_redcell_membrane_object.save()
 
             my_cong_dys_object = my_cong_dys.save(commit=False)
+            my_cong_dys_object.author = request.user
             my_cong_dys_object.patient = my_demographics_object
             my_cong_dys_object.save()
 
             my_cln_dt_object = my_cln_dt.save(commit=False)
+            my_cln_dt_object.author = request.user
             my_cln_dt_object.patient = my_demographics_object
             my_cln_dt_object.save()
 
             my_cln_dt_two_object = my_cln_dt_two.save(commit=False)
+            my_cln_dt_two_object.author = request.user
             my_cln_dt_two_object.patient = my_demographics_object
             my_cln_dt_two_object.save()
 
@@ -327,7 +370,7 @@ def search(request):
         if 'id' in request.POST and request.POST['id']:
             with transaction.atomic():
                 id = request.POST['id']
-                patient = Demographic.objects.filter(patient_id__icontains=id)
+                patient = Demographic.objects.filter(patient_id__icontains=id, author=request.user)
                 print patient
                 print patient.count()
                 # books = Book.objects.filter(title__icontains=q)

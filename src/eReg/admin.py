@@ -42,7 +42,7 @@ class cong_dyserAdmin(admin.ModelAdmin):
         model = Cong_dyseryth_anaemia
 
 class icd10Admin (admin.ModelAdmin):
-    list_display = ('pub_date', 'author')
+    list_display = ('pub_date','author')
     class Meta:
         model = icd_10
 

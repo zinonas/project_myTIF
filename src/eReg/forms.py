@@ -201,8 +201,7 @@ class DemographicForm(forms.ModelForm):
 
     class Meta:
         model = Demographic
-        exclude = ['age']
-        exclude = ('author',)
+        exclude = ['age', 'author']
         list_display = ('title', 'pub_date', 'author')
 
 class ClinicalDataForm(forms.ModelForm):
@@ -650,8 +649,7 @@ class ClinicalDataForm(forms.ModelForm):
 
     class Meta:
         model = Clinical_data
-        exclude = ['patient']
-        exclude = ('author',)
+        exclude = ['patient', 'author']
         list_display = ('title', 'pub_date', 'author')
 
 class ClinicalDataTwo(forms.ModelForm):
@@ -987,8 +985,7 @@ class ClinicalDataTwo(forms.ModelForm):
 
     class Meta:
         model = Clinical_data_two
-        exclude = ['patient']
-        exclude = ('author',)
+        exclude = ['patient', 'author']
         list_display = ('title', 'pub_date', 'author')
 
 class DiagnosisForm(forms.ModelForm):
@@ -1240,8 +1237,8 @@ class DiagnosisForm(forms.ModelForm):
 
     class Meta:
         model = Diagnosis
-        exclude = ['patient']
-        exclude = ('author',)
+        exclude = ['patient', 'author']
+
         list_display = ('title', 'pub_date', 'author')
         # autocomplete_js_attribute={'name': 'icd_10_code'}
 
@@ -1418,8 +1415,7 @@ class A_b_sickle_thalForm(forms.ModelForm):
 
     class Meta:
         model = A_b_sickle_thal
-        exclude = ['patient']
-        exclude = ('author',)
+        exclude = ['patient', 'author']
         list_display = ('title', 'pub_date', 'author')
 
 class Redcell_enzyme_disForm(forms.ModelForm):
@@ -1650,8 +1646,7 @@ class Redcell_enzyme_disForm(forms.ModelForm):
 
     class Meta:
         model = Redcell_enzyme_dis
-        exclude = ['patient']
-        exclude = ('author',)
+        exclude = ['patient', 'author']
         list_display = ('title', 'pub_date', 'author')
 
 class Redcell_membrane_disForm(forms.ModelForm):
@@ -1700,8 +1695,7 @@ class Redcell_membrane_disForm(forms.ModelForm):
 
     class Meta:
         model = Redcell_membrane_dis
-        exclude = ['patient']
-        exclude = ('author',)
+        exclude = ['patient', 'author']
         list_display = ('title', 'pub_date', 'author')
 
 class Cong_dyseryth_anaemiaForm(forms.ModelForm):
@@ -1744,8 +1738,7 @@ class Cong_dyseryth_anaemiaForm(forms.ModelForm):
 
     class Meta:
         model = Cong_dyseryth_anaemia
-        exclude = ['patient']
-        exclude = ('author',)
+        exclude = ['patient', 'author']
         list_display = ('title', 'pub_date', 'author')
 
 class UserCreationForm(forms.Form):
@@ -1810,8 +1803,7 @@ class ExternalCentersForm(forms.ModelForm):
 
     class Meta:
         model = Ext_centers
-        exclude = ['center_id']
-        exclude = ('author',)
+        exclude = ['center_id', 'author']
         list_display = ('title', 'pub_date', 'author')
 
 
@@ -2130,8 +2122,7 @@ class ExternalCentersDiagnosticForm(forms.ModelForm):
 
     class Meta:
         model = Ext_centers
-        exclude = ['center_id']
-        exclude = ('author',)
+        exclude = ['center_id', 'author']
         list_display = ('title', 'pub_date', 'author')
 
 class ExternalCentersOutcomesForm(forms.ModelForm):
@@ -2246,8 +2237,7 @@ class ExternalCentersOutcomesForm(forms.ModelForm):
 
     class Meta:
         model = Ext_centers
-        exclude = ['center_id']
-        exclude = ('author',)
+        exclude = ['center_id', 'author']
         list_display = ('title', 'pub_date', 'author')
 
 
@@ -2522,6 +2512,5 @@ class ExternalCentersOutcomes2Form(forms.ModelForm):
 
     class Meta:
         model = Ext_centers
-        exclude = ['center_id']
-        exclude = ('author',)
+        exclude = ['center_id', 'author']
         list_display = ('title', 'pub_date', 'author')

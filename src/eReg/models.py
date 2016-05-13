@@ -7,6 +7,8 @@ from django.utils.encoding import smart_unicode
 from datetime import date
 from dateutil.relativedelta import relativedelta
 from django.contrib.auth.models import User
+from django.utils.text import slugify
+from django.utils import timezone
 from django.conf import settings
 # Create Demographic models here
 
@@ -118,7 +120,7 @@ class Demographic(models.Model):
     no_of_children = models.IntegerField('Number of children',null=True,blank=True)
     #year of birth of each child
     #maternity = models.CharField('Maternity', max_length=3, null=True,blank=True, choices=data_option, default=data_option[0][0])
-    pub_date = models.DateTimeField(default=datetime.datetime.now)
+    pub_date = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(User)
 
 
@@ -131,8 +133,8 @@ class icd_10(models.Model):
     icd_10_desc = models.CharField('ICD-10 description',max_length=80,null=True,blank=True)
     icd_10_code = models.CharField('ICD-10 code',max_length=10,null=True,blank=True)
     date_of_input= models.DateField(null=True,blank=True)
-    pub_date = models.DateTimeField(default=datetime.datetime.now)
-    author = models.ForeignKey(User)
+    pub_date = models.DateTimeField(auto_now=True)
+    author = models.CharField(max_length=20,null=True,blank=True)
 
     def __str__(self):
         return str(self.icd_10_desc)
@@ -144,7 +146,7 @@ class Pregnancy(models.Model):
     outcome_birth = models.CharField('Outcome birth',max_length=100,null=True,blank=True)
     other = models.CharField('Other',max_length=50, null=True,blank=True)
     date_of_input= models.DateField(null=True,blank=True)
-    pub_date = models.DateTimeField(default=datetime.datetime.now)
+    pub_date = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(User)
 
     def __str__(self):
@@ -152,7 +154,7 @@ class Pregnancy(models.Model):
 
 
 class Diagnosis(models.Model):
-    patient = models.ForeignKey(Demographic)
+
     age_of_diagnosis = models.IntegerField(null=True,blank=True)
     age_at_onset_of_symptoms = models.IntegerField(null=True,blank=True)
     diagnosis_option_value = (
@@ -178,96 +180,10 @@ class Diagnosis(models.Model):
     diagnosis_circumstances = models.CharField(max_length=150)
     diagnosis_circumstances_date = models.DateField('Date of diagnosis',null=True,blank=True)
     date_of_input= models.DateField(null=True,blank=True)
-    pub_date = models.DateTimeField(default=datetime.datetime.now)
+    pub_date = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(User)
-    #diagnosis_circumstances_caring_year = models.DateField('Date of diagnosis',null=True,blank=True)
-    # clinical_data_date_of_examination= models.DateField('Date of examination',null=True,blank=True)
-    # clinical_data_weight = models.IntegerField('Weight (kg)', null=True,blank=True)
-    # clinical_data_height = models.IntegerField('Height (cm)', null=True,blank=True)
-    # clinical_data_option = (
-    #     ('','Please select'),
-    #     ('Yes','Yes'),
-    #     ('No','No')
-    # )
-    # clinical_data_cholelithiasis = models.CharField('Cholelithiasis', max_length=3,choices=clinical_data_option, default=clinical_data_option[0][0])
-    # clinical_data_cholelithiasis_date = models.DateField('Date of occurrence',null=True,blank=True)
-    # clinical_data_cholecystectomy = models.CharField('Cholecystectomy', max_length=3,choices=clinical_data_option, default=clinical_data_option[0][0])
-    # clinical_data_cholecystectomy_date = models.DateField('Date of occurrence',null=True,blank=True)
-    # clinical_data_splenectomy = models.CharField('Splenectomy', max_length=3,choices=clinical_data_option, default=clinical_data_option[0][0])
-    # clinical_data_splenectomy_date = models.DateField('Date of occurrence',null=True,blank=True)
-    # clinical_data_iron_overload_heart = models.CharField('Iron overload heart', max_length=3,choices=clinical_data_option, default=clinical_data_option[0][0])
-    # clinical_data_iron_overload_heart_date = models.DateField('Date of occurrence',null=True,blank=True)
-    # clinical_data_heart_failure = models.CharField('Heart failure', max_length=3,choices=clinical_data_option, default=clinical_data_option[0][0])
-    # clinical_data_heart_failure_date = models.DateField('Date of occurrence',null=True,blank=True)
-    # clinical_data_cardiac_arrythmia = models.CharField('And/or cardiac arrythmia', max_length=3,choices=clinical_data_option, default=clinical_data_option[0][0])
-    # clinical_data_cardiac_arrythmia_date = models.DateField('Date of occurrence',null=True,blank=True)
-    # clinical_data_glucose_intolerance = models.CharField('Glucose intolerance', max_length=3,choices=clinical_data_option, default=clinical_data_option[0][0])
-    # clinical_data_glucose_intolerance_date = models.DateField('Date of occurrence',null=True,blank=True)
-    # clinical_data_diabetes = models.CharField('Diabetes', max_length=3,choices=clinical_data_option, default=clinical_data_option[0][0])
-    # clinical_data_diabetes_date = models.DateField('Date of occurrence',null=True,blank=True)
-    # clinical_data_hypothyroidism = models.CharField('Hypothyroidism', max_length=3,choices=clinical_data_option, default=clinical_data_option[0][0])
-    # clinical_data_hypothyroidism_date = models.DateField('Date of occurrence',null=True,blank=True)
-    # clinical_data_hypoparathyroidism = models.CharField('Hypoparathyroidism', max_length=3,choices=clinical_data_option, default=clinical_data_option[0][0])
-    # clinical_data_hypoparathyroidism_date = models.DateField('Date of occurrence',null=True,blank=True)
-    # clinical_data_hypogonadism = models.CharField('Hypogonadism', max_length=3,choices=clinical_data_option, default=clinical_data_option[0][0])
-    # clinical_data_hypogonadism_date = models.DateField('Date of occurrence',null=True,blank=True)
-    # clinical_data_iron_overload_liver = models.CharField('Iron overload liver', max_length=3,choices=clinical_data_option, default=clinical_data_option[0][0])
-    # clinical_data_iron_overload_liver_date = models.DateField('Date of occurrence',null=True,blank=True)
-    # clinical_data_others = models.CharField('Others (Thromboembolism, cancers,...)', max_length=3,choices=clinical_data_option, default=clinical_data_option[0][0])
-    # clinical_data_others_date = models.DateField('Date of occurrence',null=True,blank=True)
-    # clinical_data_pregnancy_id = models.ForeignKey(Pregnancy)
-    # assessment_of_iron_load_serrum_one= models.CharField('Measurement 1', max_length=10,null=True,blank=True)
-    # assessment_of_iron_load_serrum_one_date= models.DateField('Date of occurrence',null=True,blank=True)
-    # assessment_of_iron_load_serrum_two= models.CharField('Measurement 2', max_length=10,null=True,blank=True)
-    # assessment_of_iron_load_serrum_two_date= models.DateField('Date of occurrence',null=True,blank=True)
-    # assessment_of_iron_load_serrum_three= models.CharField('Measurement 3', max_length=10,null=True,blank=True)
-    # assessment_of_iron_load_serrum_three_date= models.DateField('Date of occurrence',null=True,blank=True)
-    # assessment_of_iron_load_liver_mri= models.CharField('Liver MRI', max_length=10,null=True,blank=True)
-    # assessment_of_iron_load_liver_mri_date= models.DateField('Date of occurrence',null=True,blank=True)
-    # assessment_of_iron_load_fibroscan= models.CharField('Fibroscan', max_length=10,null=True,blank=True)
-    # assessment_of_iron_load_fibroscan_date= models.DateField('Date of occurrence',null=True,blank=True)
-    # assessment_of_iron_load_intra_hepatic_iron= models.CharField('Intra hepatic iron', max_length=10,null=True,blank=True)
-    # assessment_of_iron_load_method_mri= models.CharField('MRI', max_length=10,null=True,blank=True)
-    # assessment_of_iron_load_method_cardiac_iron= models.CharField('Cardiac iron/IRM', max_length=10,null=True,blank=True)
-    # assessment_of_iron_load_ti_bassal_hb_rate= models.CharField('Bassal Hb rate', max_length=10,null=True,blank=True)
-    # assessment_of_iron_load_ti_bassal_per_hbf= models.CharField('Bassal % HbF rate', max_length=10,null=True,blank=True)
-    # serological_data_option = (
-    #     ('','Please select'),
-    #     ('+','+'),
-    #     ('-','-'),
-    #     ('not done', 'not done')
-    # )
-    # serolocigal_data_HCV = models.CharField('HCV', max_length=10,null=True,blank=True, choices=serological_data_option, default=serological_data_option[0][0])
-    # serolocigal_data_HCV_PCR = models.CharField('HCV PCR', max_length=10,null=True,blank=True, choices=serological_data_option, default=serological_data_option[0][0])
-    # serolocigal_data_HBV = models.CharField('HBV', max_length=10,null=True,blank=True, choices=serological_data_option, default=serological_data_option[0][0])
-    # serolocigal_data_HIV = models.CharField('HIV', max_length=10,null=True,blank=True, choices=serological_data_option, default=serological_data_option[0][0])
-    # current_treatment_transfusion_regime_option= (
-    #     ('', 'Please select'),
-    #     ('8 transfusions per year or more','8 transfusions per year or more' ),
-    #     ('Occational','Occational'),
-    #     ('Absent','Absent')
-    # )
-    # current_treatment_transfusion_regime = models.CharField('Transfusion regime', max_length=30,null=True,blank=True, choices=current_treatment_transfusion_regime_option, default=current_treatment_transfusion_regime_option[0][0])
-    # current_treatment_chelation =  models.CharField('Chelation', max_length=3,choices=clinical_data_option, default=clinical_data_option[0][0])
-    # current_treatment_chelation_start=models.DateField('Start of chelation therapy (year only)',null=True,blank=True)
-    # current_treatment_chelation_drug= models.CharField('Current Chelator drug',max_length=15, null=True, blank=True)
-    # current_treatment_bone_marrow =  models.CharField('Bone-marrow treatment',max_length=15, null=True, blank=True, choices=clinical_data_option, default=clinical_data_option[0][0])
-    # current_treatment_bone_marrow_date = models.DateField('Date of occurrence',null=True,blank=True)
-    # current_treatment_bone_marrow_success =  models.CharField('Success',max_length=15, null=True, blank=True, choices=clinical_data_option, default=clinical_data_option[0][0])
-    # current_treatment_replacement_ther =  models.CharField('Replacement therapy: by thyroid stimulating Hormones',max_length=15, null=True, blank=True, choices=clinical_data_option, default=clinical_data_option[0][0])
-    # current_treatment_sex_horm =  models.CharField('By sexual Hormones',max_length=15, null=True, blank=True, choices=clinical_data_option, default=clinical_data_option[0][0])
-    # current_treatment_insulin =  models.CharField('By insulin',max_length=15, null=True, blank=True, choices=clinical_data_option, default=clinical_data_option[0][0])
-    # current_treatment_thyroid =  models.CharField('For parathyroid deficiency',max_length=15, null=True, blank=True, choices=clinical_data_option, default=clinical_data_option[0][0])
-    # current_treatment_hepatitis_option= (
-    #     ('', 'Please select'),
-    #     ('No','No' ),
-    #     ('Current treatment','Current treatment'),
-    #     ('Treatment in the past','Treatment in the past')
-    # )
-    # current_treatment_hepatitis_treatment_c =  models.CharField('Hepatitis treatment',max_length=15, null=True, blank=True, choices=current_treatment_hepatitis_option, default=current_treatment_hepatitis_option[0][0])
-    # current_treatment_hepatitis_treatment_b =  models.CharField('Hepatitis treatment',max_length=15, null=True, blank=True, choices=current_treatment_hepatitis_option, default=current_treatment_hepatitis_option[0][0])
-    # current_treatment_by_hydroxyurea = models.CharField('Treatment by Hydroxyurea',max_length=15, null=True, blank=True, choices=clinical_data_option, default=clinical_data_option[0][0])
-    # current_treatment_by_hydroxyurea_with_epo = models.CharField('With EPO',max_length=15, null=True, blank=True, choices=clinical_data_option, default=clinical_data_option[0][0])
+    patient = models.ForeignKey(Demographic)
+
 
     def __str__(self):
         return str(self.patient)
@@ -381,7 +297,7 @@ class Clinical_data(models.Model):
     blood_group= models.CharField('Extended red cell antigens',max_length=25,null=True,blank=True)
     transfusion_depentent_anaemia= models.CharField('Transfusion dependent anaemia',max_length=100, null=True, blank=True, choices=yesno_option, default=yesno_option[0][0])
     date_of_transition_from_irregular_to_regular_tranfusions= models.DateField(null=True,blank=True)
-    pub_date = models.DateTimeField(default=datetime.datetime.now)
+    pub_date = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(User)
 
 
@@ -465,7 +381,7 @@ class Clinical_data_two(models.Model):
     treatment_modalities_hydroxyurea_date = models.DateField('Date started',null=True,blank=True)
     treatment_modalities_hsct_date = models.DateField('Date performed',null=True,blank=True)
     treatment_modalities_hsct_outcome = models.CharField('Date performed',max_length=50,null=True,blank=True)
-    pub_date = models.DateTimeField(default=datetime.datetime.now)
+    pub_date = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(User)
 
     def __str__(self):
@@ -543,7 +459,7 @@ class A_b_sickle_thal (models.Model):
     snp_allele2  = models.CharField('Allele 2',max_length=10, null=True, blank=True)
     snp_allele2_type = models.CharField('Allele 2 type',max_length=10, null=True, blank=True, choices=snp_allele_option, default=snp_allele_option[0][0])
     date_of_input= models.DateField(null=True,blank=True)
-    pub_date = models.DateTimeField(default=datetime.datetime.now)
+    pub_date = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(User)
 
     def __str__(self):
@@ -656,7 +572,7 @@ class Redcell_enzyme_dis (models.Model):
     #lact_option = models.CharField(max_length=3, null=True, blank=True)
     lact = models.CharField('Lactate (LACT)',max_length=45, null=True, blank=True)
     date_of_input= models.DateField(null=True,blank=True)
-    pub_date = models.DateTimeField(default=datetime.datetime.now)
+    pub_date = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(User)
 
     def __str__(self):
@@ -692,7 +608,7 @@ class Redcell_membrane_dis(models.Model):
     molec_char_rna_dna_level = models.CharField('Molecular characterization at the DNA/RNA level',max_length=45, null=True, blank=True)
     method_best_sensi_speci = models.CharField('Method with best specificity and sensitivity in your experience',max_length=45, null=True, blank=True)
     date_of_input= models.DateField(null=True,blank=True)
-    pub_date = models.DateTimeField(default=datetime.datetime.now)
+    pub_date = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(User)
 
     def __str__(self):
@@ -713,7 +629,7 @@ class Cong_dyseryth_anaemia(models.Model):
     moleculare_analysis = models.CharField('Performed',max_length=5, null=True, blank=True,choices=plus_minus_option, default=plus_minus_option[0][0])
     moleculare_analysis_comment = models.CharField('Comment',max_length=45, null=True, blank=True)
     date_of_input= models.DateField(null=True,blank=True)
-    pub_date = models.DateTimeField(default=datetime.datetime.now)
+    pub_date = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(User)
 
     def __str__(self):
@@ -1055,7 +971,7 @@ class Ext_centers(models.Model):
     kid_dis_ra= models.IntegerField('No RAs disorders', null=True,blank=True)
     kid_dis_per_hb= models.DecimalField('Percentage of total Hb disorders',decimal_places=2, max_digits=5,max_length=5, null=True,blank=True)
     kid_dis_per_ra= models.DecimalField('Percentage of total RAs disorders',decimal_places=2, max_digits=5,max_length=5, null=True,blank=True)
-    pub_date = models.DateTimeField(default=datetime.datetime.now)
+    pub_date = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(User)
 
 
