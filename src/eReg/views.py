@@ -997,7 +997,7 @@ def login(request):
         auth.login(request, user)
         #user = User.objects.get(username=username)
         print 'login'
-        return redirect('eReg.views.home')
+        return redirect('eReg.views.modules')
 
     else:
         print 'no login'
