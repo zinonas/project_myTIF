@@ -11,6 +11,7 @@ from django.utils.text import slugify
 from django.utils import timezone
 from django.conf import settings
 # Create Demographic models here
+from simple_history.models import HistoricalRecords
 
 
 
@@ -122,6 +123,7 @@ class Demographic(models.Model):
     #maternity = models.CharField('Maternity', max_length=3, null=True,blank=True, choices=data_option, default=data_option[0][0])
     pub_date = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(User)
+    history = HistoricalRecords()
 
 
 
@@ -135,6 +137,7 @@ class icd_10(models.Model):
     date_of_input= models.DateField(null=True,blank=True)
     pub_date = models.DateTimeField(auto_now=True)
     author = models.CharField(max_length=20,null=True,blank=True)
+    history = HistoricalRecords()
 
     def __str__(self):
         return str(self.icd_10_desc)
@@ -148,6 +151,7 @@ class Pregnancy(models.Model):
     date_of_input= models.DateField(null=True,blank=True)
     pub_date = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(User)
+    history = HistoricalRecords()
 
     def __str__(self):
         return str(self.patient)
@@ -183,6 +187,7 @@ class Diagnosis(models.Model):
     pub_date = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(User)
     patient = models.ForeignKey(Demographic)
+    history = HistoricalRecords()
 
 
     def __str__(self):
@@ -299,6 +304,7 @@ class Clinical_data(models.Model):
     date_of_transition_from_irregular_to_regular_tranfusions= models.DateField(null=True,blank=True)
     pub_date = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(User)
+    history = HistoricalRecords()
 
 
 
@@ -383,6 +389,7 @@ class Clinical_data_two(models.Model):
     treatment_modalities_hsct_outcome = models.CharField('Date performed',max_length=50,null=True,blank=True)
     pub_date = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(User)
+    history = HistoricalRecords()
 
     def __str__(self):
         return str(self.patient)
@@ -461,6 +468,7 @@ class A_b_sickle_thal (models.Model):
     date_of_input= models.DateField(null=True,blank=True)
     pub_date = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(User)
+    history = HistoricalRecords()
 
     def __str__(self):
         return str(self.patient)
@@ -574,6 +582,7 @@ class Redcell_enzyme_dis (models.Model):
     date_of_input= models.DateField(null=True,blank=True)
     pub_date = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(User)
+    history = HistoricalRecords()
 
     def __str__(self):
         return str(self.patient)
@@ -610,6 +619,7 @@ class Redcell_membrane_dis(models.Model):
     date_of_input= models.DateField(null=True,blank=True)
     pub_date = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(User)
+    history = HistoricalRecords()
 
     def __str__(self):
         return str(self.patient)
@@ -631,10 +641,32 @@ class Cong_dyseryth_anaemia(models.Model):
     date_of_input= models.DateField(null=True,blank=True)
     pub_date = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(User)
+    history = HistoricalRecords()
 
     def __str__(self):
         return str(self.patient)
 
+
+class Patient_reported_outcome (models.Model):
+    patient =  models.ForeignKey(Demographic)
+    days_missed_from_school = models.IntegerField('Days missed from school per year', null=True, blank=True)
+    days_missed_from_work = models.IntegerField('Days missed from work per year', null=True, blank=True)
+    transfusion_times_option = (
+        ('', 'Please select'),
+        ('Morning sessions','Morning sessions'),
+        ('Afternoon sessions','Afternoon sessions'),
+        ('Evening sessions','Evening sessions'),
+        ('Weekend sessions','Weekend sessions')
+    )
+    transfusion_times = models.CharField('Transfusion/Clinic times offered by the hospital', max_length=40, null=True,blank=True,choices=transfusion_times_option,default=transfusion_times_option[0][0])
+    distance_from_center = models.CharField('Distance from center - travel time', max_length=100, null=True, blank = True)
+    date_of_input= models.DateField(null=True,blank=True)
+    pub_date = models.DateTimeField(auto_now=True)
+    author = models.ForeignKey(User)
+    history = HistoricalRecords()
+
+    def __str__(self):
+        return str(self.patient)
 
 class Ext_centers(models.Model):
     center_id = models.AutoField(primary_key=True)
@@ -973,6 +1005,7 @@ class Ext_centers(models.Model):
     kid_dis_per_ra= models.DecimalField('Percentage of total RAs disorders',decimal_places=2, max_digits=5,max_length=5, null=True,blank=True)
     pub_date = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(User)
+    history = HistoricalRecords()
 
 
     def __str__(self):

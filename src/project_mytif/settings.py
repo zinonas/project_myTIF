@@ -53,7 +53,7 @@ INSTALLED_APPS = (
     'pagination',
     'bootstrap3_datetime',
     'chartit',
-    'rolepermissions',
+    'simple_history',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -64,15 +64,13 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'pagination.middleware.PaginationMiddleware',
+    'simple_history.middleware.HistoryRequestMiddleware',
 )
 
 
 ROOT_URLCONF = 'project_mytif.urls'
 
 WSGI_APPLICATION = 'project_mytif.wsgi.application'
-
-ROLEPERMISSIONS_MODULE = 'project_mytif.roles'
-
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases

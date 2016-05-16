@@ -128,11 +128,21 @@
                   <!--</ul>-->
 
                 <!--</li>-->
-                <li><a href="{% url 'input'  %}">Add patient</a></li>
-                <li><a href="{% url 'search'  %}">Search patient</a></li>
-                <li><a href="{% url 'search_patient_card'  %}">Patient card</a></li>
+                {% for group in user.groups.all %}
+                    {% if group.name == 'Doctor' %}
+                        <li><a href="{% url 'input'  %}">Add patient</a></li>
+                    {% endif %}
+                    {% if group.name == 'Doctor'%}
+                        <li><a href="{% url 'search'  %}">Search patient</a></li>
+                    {% endif %}
+
+                    {% if group.name == 'External_center' %}
+                        <li><a href="{% url 'extcenters'  %}">External centers</a></li>
+                    {% endif %}
+
+                {%endfor%}
                 <li><a href="{% url 'statistics'  %}">Analytics</a></li>
-                <li><a href="{% url 'extcenters'  %}">External centers</a></li>  {%endif%}
+                {%endif%}
                 <li><a href="#">About</a></li>
               </ul>
           </div>
