@@ -6,7 +6,7 @@ from crispy_forms.bootstrap import TabHolder, Tab, Accordion, AccordionGroup, Fo
 from functools import partial
 from django.contrib.admin import widgets
 from models import Demographic
-from models import Diagnosis, A_b_sickle_thal, Redcell_enzyme_dis, Redcell_membrane_dis, Cong_dyseryth_anaemia, icd_10, Pregnancy, Clinical_data, Clinical_data_two, Ext_centers
+from models import Diagnosis, A_b_sickle_thal, Redcell_enzyme_dis, Redcell_membrane_dis, Cong_dyseryth_anaemia, icd_10, Pregnancy, Clinical_data, Clinical_data_two, Ext_centers,Patient_reported_outcome
 from sympy import pretty_print as pp, latex
 
 
@@ -1740,6 +1740,42 @@ class Cong_dyseryth_anaemiaForm(forms.ModelForm):
         model = Cong_dyseryth_anaemia
         exclude = ['patient', 'author']
         list_display = ('title', 'pub_date', 'author')
+
+
+class Patient_Reported_outcomeForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(Patient_Reported_outcomeForm, self).__init__(*args, **kwargs)
+        self.helper=FormHelper(self)
+        #self.fields['patient'].queryset = Demographic.objects.filter(patient_id=self.instance.patient)
+        self.helper.field_class = 'col-md-8'
+        self.helper.label_class = 'col-md-3'
+        self.helper.layout = Layout(
+            Fieldset(
+                '<b>Patient reported outcomes</b>',
+                Div(
+                        #HTML(u'<br/><div class="col-md-9"><h4><b>Molecular analysis</b></h4></div><br/><br/>'),
+                        Div('days_missed_from_school',css_class='col-md-12'),
+                        Div('days_missed_from_work',css_class="col-md-12"),
+                        Div('transfusion_times',css_class="col-md-12"),
+                        Div('distance_from_center',css_class="col-md-12"),
+
+                        css_class='row',
+                        ),
+                ),
+
+            FormActions(
+                Submit('submit', "Save changes"),
+                Submit('cancel',"Cancel")
+            ),
+        )
+        self.helper.form_tag = False
+        self.helper.form_show_labels = True
+
+    class Meta:
+        model = Patient_reported_outcome
+        exclude = ['patient', 'author']
+        list_display = ('title', 'pub_date', 'author')
+
 
 class UserCreationForm(forms.Form):
      def __init__(self, *args, **kwargs):

@@ -2,7 +2,7 @@ from django.db.models import Sum, Count
 from django.contrib.auth.models import Group
 from django.shortcuts import render, render_to_response, RequestContext, HttpResponse, get_object_or_404, redirect
 import django.http
-from .forms import DemographicForm, DiagnosisForm, A_b_sickle_thalForm, Redcell_enzyme_disForm, Redcell_membrane_disForm,Cong_dyseryth_anaemiaForm, UserCreationForm, ClinicalDataForm, ClinicalDataTwo, ExternalCentersForm,ExternalCentersDiagnosticForm,ExternalCentersOutcomesForm, ExternalCentersOutcomes2Form
+from .forms import DemographicForm, DiagnosisForm, A_b_sickle_thalForm, Redcell_enzyme_disForm, Redcell_membrane_disForm,Cong_dyseryth_anaemiaForm, UserCreationForm, ClinicalDataForm, ClinicalDataTwo, ExternalCentersForm,ExternalCentersDiagnosticForm,ExternalCentersOutcomesForm, ExternalCentersOutcomes2Form,Patient_Reported_outcomeForm
 from django.template import RequestContext
 from collections import OrderedDict
 from django.http import HttpResponseRedirect
@@ -13,7 +13,7 @@ import traceback
 from django.forms.models import formset_factory
 from django.forms.models import inlineformset_factory
 from django.contrib.auth.models import User
-from models import Demographic, Diagnosis, A_b_sickle_thal,Redcell_enzyme_dis, Redcell_membrane_dis, Cong_dyseryth_anaemia, icd_10, Clinical_data, Clinical_data_two, Ext_centers
+from models import Demographic, Diagnosis, A_b_sickle_thal,Redcell_enzyme_dis, Redcell_membrane_dis, Cong_dyseryth_anaemia, icd_10, Clinical_data, Clinical_data_two, Ext_centers,Patient_reported_outcome
 from django.core import serializers
 import json
 from django.db import transaction
@@ -59,6 +59,7 @@ def input(request):
         my_cong_dys = Cong_dyseryth_anaemiaForm(request.POST, prefix='cong_dys')
         my_cln_dt = ClinicalDataForm(request.POST, prefix='cln_dt')
         my_cln_dt_two = ClinicalDataTwo(request.POST, prefix='cln_dt_two')
+        my_patient_reported_outcomes = Patient_Reported_outcomeForm(request.POST, prefix='ptn_rep_out')
 
 
         # if (my_demographics.is_valid() and my_diagnosis.is_valid()):
@@ -91,6 +92,7 @@ def input(request):
         print my_cong_dys.errors
         print my_cln_dt.errors
         print my_cln_dt_two.errors
+        print my_patient_reported_outcomes.errors
 
         print my_demographics.is_valid()
         print my_diagnosis.is_valid()
@@ -100,6 +102,7 @@ def input(request):
         print my_cong_dys.is_valid()
         print my_cln_dt.is_valid()
         print my_cln_dt_two.is_valid()
+        print my_patient_reported_outcomes.is_valid
 
         if request.is_ajax() and 'code' in request.POST:
             with transaction.atomic():
@@ -109,7 +112,7 @@ def input(request):
                 print 'data =', data
                 return HttpResponse(data)
 
-        if my_demographics.is_valid() and my_diagnosis.is_valid() and my_a_b_sickle.is_valid and my_redcell_enzyme.is_valid() and my_redcell_membrane.is_valid() and my_cong_dys.is_valid() and my_cln_dt.is_valid() and my_cln_dt_two.is_valid():
+        if my_demographics.is_valid() and my_diagnosis.is_valid() and my_a_b_sickle.is_valid and my_redcell_enzyme.is_valid() and my_redcell_membrane.is_valid() and my_cong_dys.is_valid() and my_cln_dt.is_valid() and my_cln_dt_two.is_valid() and my_patient_reported_outcomes.is_valid():
 
             entry = '"{Demographic":['
             for formfield in my_demographics:
@@ -258,6 +261,11 @@ def input(request):
             my_cln_dt_two_object.patient = my_demographics_object
             my_cln_dt_two_object.save()
 
+            my_patient_reported_outcomes_object = my_patient_reported_outcomes.save(commit=False)
+            my_patient_reported_outcomes_object.author = request.user
+            my_patient_reported_outcomes_object.patient = my_demographics_object
+            my_patient_reported_outcomes_object.save()
+
 
         # submitted = request.POST.get('form_id', '')
         # print submitted
@@ -319,12 +327,13 @@ def input(request):
         my_cong_dys = Cong_dyseryth_anaemiaForm(prefix='cong_dys')
         my_cln_dt= ClinicalDataForm(prefix='cln_dt')
         my_cln_dt_two= ClinicalDataTwo(prefix='cln_dt_two')
+        my_patient_reported_outcomes = Patient_Reported_outcomeForm(prefix='ptn_rep_out')
 
     #if ret is None:
     #    ret = render_to_response('input.html', {'frm':my_demographics, 'frm_d': my_diagnosis, 'frm_a_b_s': my_a_b_sickle, 'frm_rc_enz': my_redcell_enzyme, 'frm_rc_mbr': my_redcell_membrane, 'frm_cong_dys': my_cong_dys, 'diag_option': diag_option, 'frm_cln_dt': my_cln_dt, 'frm_out_mes': my_out_mes, 'frm_life_ev': my_life_ev,}, context)
     #    cache.set('input-rendered', ret)
 
-    return render_to_response('input.html', {'frm':my_demographics, 'frm_d': my_diagnosis, 'frm_a_b_s': my_a_b_sickle, 'frm_rc_enz': my_redcell_enzyme, 'frm_rc_mbr': my_redcell_membrane, 'frm_cong_dys': my_cong_dys, 'diag_option': diag_option, 'frm_cln_dt': my_cln_dt, 'frm_cln_dt_two': my_cln_dt_two}, context)
+    return render_to_response('input.html', {'frm':my_demographics, 'frm_d': my_diagnosis, 'frm_a_b_s': my_a_b_sickle, 'frm_rc_enz': my_redcell_enzyme, 'frm_rc_mbr': my_redcell_membrane, 'frm_cong_dys': my_cong_dys, 'diag_option': diag_option, 'frm_cln_dt': my_cln_dt, 'frm_cln_dt_two': my_cln_dt_two, 'ptn_rep_out':my_patient_reported_outcomes}, context)
         # submitted = request.POST.get('form_id', '')
         #
         # if submitted == 'demographics':
