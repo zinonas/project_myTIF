@@ -20,8 +20,16 @@
     }
     </style>
 
+    <script>function getCookie(name) {
+  var value = "; " + document.cookie;
+  var parts = value.split("; " + name + "=");
+  if (parts.length == 2) return parts.pop().split(";").shift();
+}</script>
+
+
     <script>
          $(document).ready(function() {
+
              //alert(window.location.href.toString().split(window.location.host)[1]);
 //             alert(window.location.host.toString());
              if (window.location.href.toString().split(window.location.host)[1] === '/') {
@@ -142,7 +150,9 @@
                     {% endif %}
 
                 {%endfor%}
-                 <li><a href="{% url 'statistics'  %}">Analytics</a></li>
+                {% if request.COOKIES.module_5 %}
+                    <li><a href="{% url 'statistics'  %}">Analytics</a></li>
+                {%endif%}
                 {%endif%}
 
                 <li><a href="#">About</a></li>

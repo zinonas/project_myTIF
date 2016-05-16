@@ -33,11 +33,54 @@ from chartit import PivotDataPool, PivotChart
 import ast
 
 
+
+
 @login_required(login_url='/login')
 def home(request):
     groups = Group.objects.all()
 
     return render(request,'index.html', {'groups':groups},context_instance= RequestContext(request))
+
+@login_required(login_url='/login')
+def modules(request):
+    #groups = Group.objects.all()
+
+    if request.method == 'POST':
+        response = redirect('home')
+        mod2=request.POST.get('module_id_2', False)
+        if mod2 != False:
+            print mod2
+            response.set_cookie('module_2', '2')
+        else:
+            response.delete_cookie('module_2')
+
+        mod3=request.POST.get('module_id_3', False)
+        if mod3 != False:
+            print mod3
+            response.set_cookie('module_3', '3')
+        else:
+            response.delete_cookie('module_3')
+
+        mod4=request.POST.get('module_id_4', False)
+        if mod4 != False:
+            print mod4
+            response.set_cookie('module_4', '4')
+        else:
+            response.delete_cookie('module_4')
+
+        mod5=request.POST.get('module_id_5', False)
+        if mod5 != False:
+            print mod5
+            response.set_cookie('module_5', '5')
+        else:
+            response.delete_cookie('module_5')
+
+
+        return response
+
+
+
+    return render(request,'module_selection.html',context_instance= RequestContext(request))
 
 @login_required(login_url='/login')
 def input(request):
@@ -964,4 +1007,9 @@ def login(request):
 
 def logout_view(request):
     logout(request)
-    return render(request, 'login.html')
+    response = redirect('login')
+    response.delete_cookie('module_2')
+    response.delete_cookie('module_3')
+    response.delete_cookie('module_4')
+    response.delete_cookie('module_5')
+    return response

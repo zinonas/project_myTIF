@@ -23,7 +23,34 @@
             <!--<script type="text/javascript" src="{% static 'admin/js/calendar.js' %}"></script>-->
             <!--<script type="text/javascript" src="/static/admin/js/admin/DateTimeShortcuts.js"></script>-->
             <!--<script src="//code.jquery.com/jquery-1.10.2.js"></script>-->
+
             <script>
+                $(document).ready(function() {
+                    var mod2 = getCookie('module_2');
+                    var mod3 = getCookie('module_3');
+                    var mod4 = getCookie('module_4');
+                    var mod5 = getCookie('module_5');
+
+
+                     if (mod2 ==2){
+                         $('#mytab a[href="#3"]').parent().removeClass("hide");
+                         $('#mytab a[href="#4"]').parent().removeClass("hide");
+                         $('#mytab a[href="#5"]').parent().removeClass("hide");
+                         $('#mytab a[href="#6"]').parent().removeClass("hide");
+                         $('#mytab a[href="#7"]').parent().removeClass("hide")
+                     }
+                    if (mod3 ==3){
+                         $('#mytab a[href="#8"]').parent().removeClass("hide");
+                     }
+                    if (mod4 ==4){
+                         $('#mytab a[href="#9"]').parent().removeClass("hide");
+                     }
+                })
+            </script>
+
+
+            <!--EXTENTED-->
+            <!--<script>
                 $(document).ready(function() {
                     $("input[name='diag-diagnosis_option']").change(function () {
                         var $this = $(this)
@@ -44,6 +71,8 @@
 
             <script>
                 $(document).ready(function() {
+                    var mod2 = getCookie('module_2');
+                    alert(mod2);
 
                     $(document).on('change','#extended',function () {
                         var option = unescape($(this).val());
@@ -72,7 +101,7 @@
                         }
                         else if (!(this.checked))
                             {
-                                if (selected.indexOf('b-thalassaemia syndromes') <0 & selected.indexOf('a-thalassaemia syndromes') <0 & selected.indexOf('Sickle cell syndromes') <0  & selected.indexOf('Other haemoglobin variants') <0  )
+                            if (selected.indexOf('b-thalassaemia syndromes') <0 & selected.indexOf('a-thalassaemia syndromes') <0 & selected.indexOf('Sickle cell syndromes') <0  & selected.indexOf('Other haemoglobin variants') <0 )
                                 {
                                     $('#mytab a[href="#3"]').parent().addClass("hide")
                                 }
@@ -85,6 +114,9 @@
                                 if (option == 'Congenital dyserythropoietic anaemias') {
                                     $('#mytab a[href="#6"]').parent().addClass("hide");
                                 }
+                                else if(mod==2){
+                                    $('#mytab a[href="#3"]').parent().removeClass("hide")
+                                }
 
                             }
 
@@ -92,7 +124,7 @@
 
                     });
                 });
-            </script>
+            </script>-->
 
 
             <script>
@@ -124,6 +156,7 @@
 
             <script>
                 $(document).ready(function() {
+
                     //var id = $(':checkbox').val()
                     //alert(id)
                     //NEW
@@ -134,6 +167,8 @@
                     $("#id_diag-comment_5").parent().addClass("hide")
                     $("#id_diag-comment_6").parent().addClass("hide")
                     $("#id_diag-comment_7").parent().addClass("hide")
+
+
 
 //                    var checkboxes =choices_table.getElementsByTagName('input');
 //                    for (var i = checkboxes.length; i >0; i--)
@@ -353,13 +388,13 @@
             <li class="hide">
                 <a href="#6" data-toggle="tab">Congenital desyrythropoietic anaemias</a>
             </li>
-            <li>
+            <li class="hide">
                 <a href="#7" data-toggle="tab">Summary of Thalassaemia and Severe Anaemias</a>
             </li>
-            <li>
+            <li class="hide">
                 <a href="#8" data-toggle="tab">Summary of Sickle Cell disease</a>
             </li>
-            <li>
+            <li class="hide">
                 <a href="#9" data-toggle="tab">Patient reported outcomes</a>
             </li>
 
@@ -413,6 +448,7 @@
                 <!-- form controls to be continued here -->
                 <!--<input type="hidden" name="form_id" value="a_b_s">-->
                 <div class="container">{%crispy ptn_rep_out%}</div>
+             </div>
 
 
             <!--<div class="tab-pane" id="7">-->

@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+{% load bootstrap3 %}
+{% load static %}
+{% load staticfiles %}
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% block pagetitle %}Module selection{% endblock %}
+
+{% block head %}
+
+{% endblock %}
+
+{%block jumbotron_title %}Modular phase{% endblock %}
+{%block jumbotron_info %}Please select the modules that you want to see in the eRegistry.
+{% endblock %}
+{% block content %}
+<form class="form-horizontal" method="post" id="modules" xmlns="http://www.w3.org/1999/html">
+     {% csrf_token %}
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingOne">
+          <h4 class="panel-title">
+            <input type="checkbox" disabled="disabled" checked="checked">
+            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              Module #1: Patient demographics and diagnosis
+            </a>
+          </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            This module is mandatory. It includes a patient's demographics information and the most important diagnosis information.
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingTwo">
+          <h4 class="panel-title">
+            <input type="checkbox" name="module_id_2" id="module_id_2" value="2">
+            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+
+               Module #2: Annual Haemoglobin disorders diagnostic tests
+            </a>
+          </h4>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+          This module is optional. It includes the annual Haemoglobin disorders diagnostic tests.
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingThree">
+          <h4 class="panel-title">
+            <input type="checkbox" name="module_id_3" id="module_id_3" value="3">
+            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+              Module #3: Red cell enzymes disorders tests
+            </a>
+          </h4>
+        </div>
+        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            This module is optional. It includes the annual Red cell enzymes disorders tests.
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingFour">
+          <h4 class="panel-title">
+            <input type="checkbox" name="module_id_4" id="module_id_4" value="4">
+              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+              Module #4: Patient reported outcomes
+            </a>
+          </h4>
+        </div>
+        <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+          <div class="panel-body">
+            This module is optional. It includes a patient's reported outcomes.
+          </div>
+        </div>
+      </div>
+        <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingFive">
+          <h4 class="panel-title">
+            <input type="checkbox" name="module_id_5" id="module_id_5" value="5">
+             <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+              Module #5: Statistical package
+            </a>
+          </h4>
+        </div>
+        <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+          <div class="panel-body">
+            This module is optional. It includes statistical correlations.
+          </div>
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+{% endblock %}
