@@ -10,34 +10,35 @@ from .models import Cong_dyseryth_anaemia
 from .models import icd_10
 from .models import Pregnancy
 from .models import Clinical_data
+from .models import Patient_reported_outcome
 
 class DemographicsAdmin(admin.ModelAdmin):
-    list_display = ('pub_date', 'author')
+    list_display = ('patient_id','pub_date', 'author')
     class Meta:
         model = Demographic
 
 class DiagnosisAdmin(admin.ModelAdmin):
-    list_display = ('pub_date', 'author')
+    list_display = ('patient','pub_date', 'author')
     class Meta:
         model = Diagnosis
 
 class a_b_sickle_Admin(admin.ModelAdmin):
-    list_display = ('pub_date', 'author')
+    list_display = ('patient','pub_date', 'author')
     class Meta:
         model = A_b_sickle_thal
 
 class redcell_enzAdmin(admin.ModelAdmin):
-    list_display = ('pub_date', 'author')
+    list_display = ('patient','pub_date', 'author')
     class Meta:
         model = Redcell_enzyme_dis
 
 class redcell_memb_Admin(admin.ModelAdmin):
-    list_display = ('pub_date', 'author')
+    list_display = ('patient','pub_date', 'author')
     class Meta:
         model = Redcell_membrane_dis
 
 class cong_dyserAdmin(admin.ModelAdmin):
-    list_display = ('pub_date', 'author')
+    list_display = ('patient','pub_date', 'author')
     class Meta:
         model = Cong_dyseryth_anaemia
 
@@ -47,14 +48,19 @@ class icd10Admin (admin.ModelAdmin):
         model = icd_10
 
 class pregnancyAdmin (admin.ModelAdmin):
-    list_display = ('pub_date', 'author')
+    list_display = ('patient','pub_date', 'author')
     class Meta:
         model = Pregnancy
 
 class clinical_dataAdmin (admin.ModelAdmin):
-    list_display = ('pub_date', 'author')
+    list_display = ('patient','pub_date', 'author')
     class Meta:
         model = Clinical_data
+
+class patient_rep_outAdmin (admin.ModelAdmin):
+    list_display = ('patient','pub_date', 'author')
+    class Meta:
+        model = Patient_reported_outcome
 
 admin.site.register(Demographic, DemographicsAdmin)
 admin.site.register(Diagnosis, DiagnosisAdmin)
@@ -65,3 +71,4 @@ admin.site.register(Cong_dyseryth_anaemia,cong_dyserAdmin)
 admin.site.register(icd_10, icd10Admin)
 admin.site.register(Pregnancy,pregnancyAdmin)
 admin.site.register(Clinical_data,clinical_dataAdmin)
+admin.site.register(Patient_reported_outcome,patient_rep_outAdmin)

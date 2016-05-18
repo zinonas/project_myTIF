@@ -841,6 +841,7 @@ def statistics(request):
     days_in_year = 365.2425
 
     total_num = Demographic.objects.all()
+
     for e in total_num:
         t = Demographic.objects.get(patient_id=e.patient_id)
         t.age = ((date.today() - e.date_of_birth).days / days_in_year)
@@ -850,8 +851,24 @@ def statistics(request):
     females = Demographic.objects.filter(gender__startswith='F')
     males = Demographic.objects.filter(gender__startswith='M')
     date_of_birth = Demographic.objects.all().values_list('date_of_birth')
+
     #print date_of_birth[0][0]
     x = date_of_birth.count()
+
+    #PATIENT CONSENT
+    signed_by_pat = Demographic.objects.filter(data_entered_by='Patient').count()
+    signed_by_oth =  Demographic.objects.filter(data_entered_by='Other').count()
+    signed_data_storage = Demographic.objects.filter(patient_consent_for_data_storage='I agree').count()
+    signed_data_reusage = Demographic.objects.filter(patient_consent_for_data_reusage='I agree').count()
+    signed_data_both = Demographic.objects.filter(patient_consent_for_data_storage='I agree', patient_consent_for_data_reusage='I agree').count()
+    signed_other_clas = Demographic.objects.exclude(data_entered_by_relationship__isnull=True).exclude(data_entered_by_relationship="")
+    #signed_other_clas = Demographic.objects.filter(data_entered_by_relationship__isnull=True).exclude(alias="")
+    print signed_other_clas
+
+
+    #signed_by_relationship = Demographic.objects.values('data_entered_by_relationship').annotate(cnt=Count('data_entered_by_relationship'))
+    #for q in signed_by_relationship:
+    #    print(q['data_entered_by_relationship'], q['cnt'])
 
     months_in_year = 12
     age_dist=[]
@@ -887,6 +904,81 @@ def statistics(request):
     for i in freq_age_dist:
         age_dict[str(i)+'i']=freq_age_dist[i]
     print "DICT", age_dict
+
+    signed_by_c = PivotDataPool(
+        series=[
+            {'options': {
+                'source':Demographic.objects.all(),
+                'categories':['data_entered_by'] },
+                'terms':{
+                    'signed_count':Count('data_entered_by'),
+
+                    }
+            }
+        ]
+    )
+
+    signed_by_c1 = PivotChart(
+        datasource=signed_by_c,
+        series_options =
+              [{'options':{
+                'type': 'column',
+                #'stacking': True
+                },
+                'terms':[
+                'signed_count']}],
+         chart_options =
+              {'title': {
+                   'text': 'Signed by patient vs signed by other'},
+               'xAxis': {
+                    'title': {
+                       'text': 'Signed by'}}}
+    )
+
+    signed_by_rel = PivotDataPool(
+        series=[
+            {'options': {
+                'source':signed_other_clas,
+                'categories':['data_entered_by_relationship'] },
+                'terms':{
+                    'signed_rel_count':Count('data_entered_by_relationship'),
+
+                    }
+            }
+        ]
+    )
+
+    signed_by_rel1 = PivotChart(
+        datasource=signed_by_rel,
+        series_options =
+              [{'options':{
+                'type': 'column',
+                #'stacking': True
+                },
+                'terms':[
+                'signed_rel_count']}],
+         chart_options =
+              {'title': {
+                   'text': '"Other" classification'},
+               'xAxis': {
+                    'title': {
+                       'text': 'Signed by'}}}
+    )
+
+    #TOTALS
+    #1
+    total_patients_beta = Diagnosis.objects.filter(diagnosis_option__contains='b-thalassaemia syndromes').count()
+    total_patients_alpha = Diagnosis.objects.filter(diagnosis_option__contains='a-thalassaemia syndromes').count()
+    total_patients_sickle = Diagnosis.objects.filter(diagnosis_option__contains='Sickle cell syndromes').count()
+    total_patients_other_haem = Diagnosis.objects.filter(diagnosis_option__contains='Other haemoglobin variants').count()
+    total_patients_meb_dis = Diagnosis.objects.filter(diagnosis_option__contains='Red cell membrane disorders').count()
+    total_patients_enz_dis = Diagnosis.objects.filter(diagnosis_option__contains='Red cell enzyme disorders').count()
+    total_patients_cong = Diagnosis.objects.filter(diagnosis_option__contains='Congenital dyserythropoietic anaemias').count()
+
+    #2
+
+
+
     ds = PivotDataPool(
         series=[
             {'options': {
@@ -967,7 +1059,7 @@ def statistics(request):
         #         return render(request, 'search.html',
         #             {'patient': patient, 'query': id, 'option':value})
 
-    return render_to_response('statistics.html', {'total_num': total_num.count(),'females': females.count(), 'males': males.count(), 'age_values': freq_age_dist.keys(),'age_freq':freq_age_dist.values(),'charts':[pvcht, pvcht_age]}, context)
+    return render_to_response('statistics.html', {'total_num': total_num.count(),'data_storage':signed_data_storage, 'data_reuse':signed_data_reusage,'data_both':signed_data_both,'total_patients_beta':total_patients_beta, 'total_patients_alpha':total_patients_alpha,'total_patients_sickle':total_patients_sickle,'total_patients_other_haem':total_patients_other_haem,'total_patients_meb_dis':total_patients_meb_dis,'total_patients_enz_dis':total_patients_enz_dis,'total_patients_cong':total_patients_cong,'females': females.count(), 'males': males.count(), 'age_values': freq_age_dist.keys(),'age_freq':freq_age_dist.values(),'charts':[signed_by_c1,signed_by_rel1, pvcht, pvcht_age ]}, context)
 
 @login_required(login_url='/login')
 def external_centers(request):

@@ -33,7 +33,15 @@ class Demographic(models.Model):
     )
     data_entered_by = models.CharField('Entered by',max_length=15,choices=data_provider, default=data_provider[0][0])
     data_entered_by_name = models.CharField('Other name', max_length=30,null=True,blank=True)
-    data_entered_by_relationship =  models.CharField('Other relationship',max_length=30,null=True,blank=True)
+    relationship_options = (
+        ('','Please select'),
+        #('Provider','Provider'),
+        ('Father','Father'),
+        ('Mother', 'Mother'),
+        ('Sibling','Sibling'),
+        ('Legal guardian','Legal guardian')
+    )
+    data_entered_by_relationship =  models.CharField('Other relationship',max_length=30,null=True,blank=True, choices=relationship_options, default=relationship_options[0][0])
     national_health_care_pat_id = models.IntegerField('National Health Care patient id', null=True,blank=True)
     guid =  models.IntegerField('Global unique identifier', null=True,blank=True)
     patient_hospital_file_number = models.IntegerField(null=True,blank=True)

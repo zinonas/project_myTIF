@@ -202,7 +202,7 @@ class DemographicForm(forms.ModelForm):
     class Meta:
         model = Demographic
         exclude = ['age', 'author']
-        list_display = ('title', 'pub_date', 'author')
+        list_display = ('patient_id', 'pub_date', 'author')
 
 class ClinicalDataForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -650,7 +650,7 @@ class ClinicalDataForm(forms.ModelForm):
     class Meta:
         model = Clinical_data
         exclude = ['patient', 'author']
-        list_display = ('title', 'pub_date', 'author')
+        list_display = ('patient', 'pub_date', 'author')
 
 class ClinicalDataTwo(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -986,7 +986,7 @@ class ClinicalDataTwo(forms.ModelForm):
     class Meta:
         model = Clinical_data_two
         exclude = ['patient', 'author']
-        list_display = ('title', 'pub_date', 'author')
+        list_display = ('patient', 'pub_date', 'author')
 
 class DiagnosisForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -1239,7 +1239,7 @@ class DiagnosisForm(forms.ModelForm):
         model = Diagnosis
         exclude = ['patient', 'author']
 
-        list_display = ('title', 'pub_date', 'author')
+        list_display = ('patient', 'pub_date', 'author')
         # autocomplete_js_attribute={'name': 'icd_10_code'}
 
     # def clean_diagnosis_option(self):
@@ -1416,7 +1416,7 @@ class A_b_sickle_thalForm(forms.ModelForm):
     class Meta:
         model = A_b_sickle_thal
         exclude = ['patient', 'author']
-        list_display = ('title', 'pub_date', 'author')
+        list_display = ('patient', 'pub_date', 'author')
 
 class Redcell_enzyme_disForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -1647,7 +1647,7 @@ class Redcell_enzyme_disForm(forms.ModelForm):
     class Meta:
         model = Redcell_enzyme_dis
         exclude = ['patient', 'author']
-        list_display = ('title', 'pub_date', 'author')
+        list_display = ('patient', 'pub_date', 'author')
 
 class Redcell_membrane_disForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -1696,7 +1696,7 @@ class Redcell_membrane_disForm(forms.ModelForm):
     class Meta:
         model = Redcell_membrane_dis
         exclude = ['patient', 'author']
-        list_display = ('title', 'pub_date', 'author')
+        list_display = ('patient', 'pub_date', 'author')
 
 class Cong_dyseryth_anaemiaForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -1739,7 +1739,7 @@ class Cong_dyseryth_anaemiaForm(forms.ModelForm):
     class Meta:
         model = Cong_dyseryth_anaemia
         exclude = ['patient', 'author']
-        list_display = ('title', 'pub_date', 'author')
+        list_display = ('patient', 'pub_date', 'author')
 
 
 class Patient_Reported_outcomeForm(forms.ModelForm):
@@ -1774,7 +1774,7 @@ class Patient_Reported_outcomeForm(forms.ModelForm):
     class Meta:
         model = Patient_reported_outcome
         exclude = ['patient', 'author']
-        list_display = ('title', 'pub_date', 'author')
+        list_display = ('patient', 'pub_date', 'author')
 
 
 class UserCreationForm(forms.Form):
