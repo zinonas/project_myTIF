@@ -11,6 +11,7 @@ from .models import icd_10
 from .models import Pregnancy
 from .models import Clinical_data
 from .models import Patient_reported_outcome
+from .models import DiagnosisOption
 
 class DemographicsAdmin(admin.ModelAdmin):
     list_display = ('patient_id','pub_date', 'author')
@@ -62,8 +63,14 @@ class patient_rep_outAdmin (admin.ModelAdmin):
     class Meta:
         model = Patient_reported_outcome
 
+class diag_optAdmin (admin.ModelAdmin):
+    list_display = ('id','diag_option')
+    class Meta:
+        model = DiagnosisOption
+
 admin.site.register(Demographic, DemographicsAdmin)
 admin.site.register(Diagnosis, DiagnosisAdmin)
+admin.site.register(DiagnosisOption,diag_optAdmin)
 admin.site.register(A_b_sickle_thal,a_b_sickle_Admin)
 admin.site.register(Redcell_enzyme_dis,redcell_enzAdmin)
 admin.site.register(Redcell_membrane_dis,redcell_memb_Admin)

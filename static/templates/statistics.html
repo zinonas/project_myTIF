@@ -35,7 +35,7 @@
             <script src ="http://code.highcharts.com/highcharts.js"></script>
 
             {% load chartit %}
-            {{ charts|load_charts:"one, two, three, four" }}
+            {{ charts|load_charts:"one, two, three, four,five" }}
 
 
 
@@ -149,9 +149,9 @@
                     <!--<p>Age distribution: {{ age_values }}</p>
                     <p>Age frequency: {{ age_freq }}</p>-->
 
-                    <p>Number of patients signed for data storage: {{ data_storage }}</p>
-                    <p>Number of patients signed for data reuse: {{ data_reuse }}</p>
-                    <p>Number of patients signed for both: {{ data_both }}</p>
+                    <p>&#9632 <b>Number of patients signed for data storage</b>: {{ data_storage }}</p>
+                    <p>&#9632 <b>Number of patients signed for data reuse</b>: {{ data_reuse }}</p>
+                    <p>&#9632 <b>Number of patients signed for both</b>: {{ data_both }}</p>
 
                     <center><div id="two" style="width: 50%; height: auto " > Chart will be rendered here </div>
                     </br>
@@ -165,8 +165,8 @@
                 <div class="container">
                     <h2>Totals</h2>
                     <br/>
-                    <p>Total number of patients: {{ total_num }}</p>
-                    <p>Total number of patients having</p>
+                    <p>&#9632 <b>Total number of patients</b>: {{ total_num }}</p>
+                    <p>&#9632 <b>Total number of patients having</b>:</p>
                     <ul>
                         <li><p>b-thalassaemia syndromes: {{total_patients_beta}}</p></li>
                         <li><p>a-thalassaemia syndromes: {{total_patients_alpha}}</p></li>
@@ -176,6 +176,48 @@
                         <li><p>Red cell enzyme disorders: {{total_patients_enz_dis}}</p></li>
                         <li><p>Congenital dyserythropoietic anaemias: {{total_patients_cong}}</p></li>
                     </ul>
+                    <p>&#9632 <b>Total number of patients by country of residence per diagnosis</b>:</p>
+                    {% for key,values in total_patients_country_res.items %}
+
+                            <ul>
+                                <li><p>{{key}}</p></li>
+                                {% for key1, value1 in values.items%}
+                                <ul>
+                                    <li><p>{{key1}} : {{value1}}</p></li>
+                                </ul>
+                                {% endfor %}
+                            </ul>
+
+                    {% endfor %}
+                    <br/>
+                    <p>&#9632 <b>Total number of patients by country of origin per diagnosis</b>:</p>
+                    {% for key,values in total_patients_country_orig.items %}
+
+                            <ul>
+                                <li><p>{{key}}</p></li>
+                                {% for key1, value1 in values.items%}
+                                <ul>
+                                    <li><p>{{key1}} : {{value1}}</p></li>
+                                </ul>
+                                {% endfor %}
+                            </ul>
+
+                    {% endfor %}
+
+                    <br/>
+                    <p>&#9632 <b>Total number of patients by ethnic origin per diagnosis</b>:</p>
+                    {% for key,values in total_patients_country_ethnic_orig.items %}
+
+                            <ul>
+                                <li><p>{{key}}</p></li>
+                                {% for key1, value1 in values.items%}
+                                <ul>
+                                    <li><p>{{key1}} : {{value1}}</p></li>
+                                </ul>
+                                {% endfor %}
+                            </ul>
+
+                    {% endfor %}
 
 
                 </div>
@@ -184,7 +226,24 @@
                 <!-- form controls to be continued here -->
                 <!--<input type="hidden" name="form_id" value="a_b_s">-->
                 <div class="container">
+                    <center><div id="three" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <p>&#9632 <b>Age distribution per diagnosis</b>:</p>
+                    {% for key,values in age_dist_per_diag.items %}
 
+                            <ul>
+                                <li><p>{{key}}</p></li>
+                                {% for key1, value1 in values.items%}
+                                <ul>
+                                    <li><p>Age {{key1}} : {{value1}}</p></li>
+                                </ul>
+                                {% endfor %}
+                            </ul>
+
+                    {% endfor %}
+
+                    <br/>
                 </div>
             </div>
              <div class="tab-pane" id="4">

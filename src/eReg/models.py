@@ -164,11 +164,7 @@ class Pregnancy(models.Model):
     def __str__(self):
         return str(self.patient)
 
-
-class Diagnosis(models.Model):
-
-    age_of_diagnosis = models.IntegerField(null=True,blank=True)
-    age_at_onset_of_symptoms = models.IntegerField(null=True,blank=True)
+class DiagnosisOption(models.Model):
     diagnosis_option_value = (
         ('', 'Please select a diagnosis'),
         ('b-thalassaemia syndromes', 'b-thalassaemia syndromes'),
@@ -179,7 +175,19 @@ class Diagnosis(models.Model):
         ('Rare cell enzyme disorders','Rare cell enzyme disorders'),
         ('Congenital dyserythropoietic anaemias','Congenital dyserythropoietic anaemias')
     )
-    diagnosis_option = models.CharField( max_length=150)
+
+    diag_option = models.CharField( max_length=50)
+
+    def __str__(self):
+        return self.diag_option
+
+
+class Diagnosis(models.Model):
+
+    age_of_diagnosis = models.IntegerField(null=True,blank=True)
+    age_at_onset_of_symptoms = models.IntegerField(null=True,blank=True)
+
+    diagnosis_option = models.ManyToManyField(DiagnosisOption)
     record_of_genotype = models.CharField(max_length=45,null=True,blank=True)
     # icd_10_code = models.ForeignKey(icd_10)
     icd_10_code = models.CharField('ICD-10 code', max_length=20,null=True,blank=True)
@@ -200,6 +208,7 @@ class Diagnosis(models.Model):
 
     def __str__(self):
         return str(self.patient)
+
 
 
 class Clinical_data(models.Model):

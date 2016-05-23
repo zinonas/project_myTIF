@@ -6,7 +6,7 @@ from crispy_forms.bootstrap import TabHolder, Tab, Accordion, AccordionGroup, Fo
 from functools import partial
 from django.contrib.admin import widgets
 from models import Demographic
-from models import Diagnosis, A_b_sickle_thal, Redcell_enzyme_dis, Redcell_membrane_dis, Cong_dyseryth_anaemia, icd_10, Pregnancy, Clinical_data, Clinical_data_two, Ext_centers,Patient_reported_outcome
+from models import Diagnosis, A_b_sickle_thal, Redcell_enzyme_dis, Redcell_membrane_dis, Cong_dyseryth_anaemia, icd_10, Pregnancy, Clinical_data, Clinical_data_two, Ext_centers,Patient_reported_outcome,DiagnosisOption
 from sympy import pretty_print as pp, latex
 
 
@@ -997,79 +997,6 @@ class DiagnosisForm(forms.ModelForm):
         widget=DateTimePicker(options={"format": "YYYY-MM-DD",
                                        "pickTime": False,
                                        "startDate": "1900-01-01"}))
-        # self.fields['clinical_data_date_of_examination']= forms.DateField(label=('Date of examination'),required=False,
-        # widget=DateTimePicker(options={"format": "YYYY-MM-DD",
-        #                                "pickTime": False,
-        #                                "startDate": "1900-01-01"}))
-        #
-        # self.fields['clinical_data_cholelithiasis_date']= forms.DateField(label=('Date measured'),required=False,
-        # widget=DateTimePicker(options={"format": "YYYY-MM-DD",
-        #                                "pickTime": False,
-        #                                "startDate": "1900-01-01"}))
-        #
-        # self.fields['clinical_data_cholecystectomy_date']= forms.DateField(label=('Date measured'),required=False,
-        # widget=DateTimePicker(options={"format": "YYYY-MM-DD",
-        #                                "pickTime": False,
-        #                                "startDate": "1900-01-01"}))
-        #
-        # self.fields['clinical_data_splenectomy_date']= forms.DateField(label=('Date measured'),required=False,
-        # widget=DateTimePicker(options={"format": "YYYY-MM-DD",
-        #                                "pickTime": False,
-        #                                "startDate": "1900-01-01"}))
-        #
-        # self.fields['clinical_data_iron_overload_heart_date']= forms.DateField(label=('Date measured'),required=False,
-        # widget=DateTimePicker(options={"format": "YYYY-MM-DD",
-        #                                "pickTime": False,
-        #                                "startDate": "1900-01-01"}))
-        #
-        #
-        # self.fields['clinical_data_heart_failure_date']= forms.DateField(label=('Date measured'),required=False,
-        # widget=DateTimePicker(options={"format": "YYYY-MM-DD",
-        #                                "pickTime": False,
-        #                                "startDate": "1900-01-01"}))
-        #
-        #
-        # self.fields['clinical_data_cardiac_arrythmia_date']= forms.DateField(label=('Date measured'),required=False,
-        # widget=DateTimePicker(options={"format": "YYYY-MM-DD",
-        #                                "pickTime": False,
-        #                                "startDate": "1900-01-01"}))
-        #
-        # self.fields['clinical_data_glucose_intolerance_date']= forms.DateField(label=('Date measured'),required=False,
-        # widget=DateTimePicker(options={"format": "YYYY-MM-DD",
-        #                                "pickTime": False,
-        #                                "startDate": "1900-01-01"}))
-        #
-        # self.fields['clinical_data_diabetes_date']= forms.DateField(label=('Date measured'),required=False,
-        # widget=DateTimePicker(options={"format": "YYYY-MM-DD",
-        #                                "pickTime": False,
-        #                                "startDate": "1900-01-01"}))
-        #
-        # self.fields['clinical_data_hypothyroidism_date']= forms.DateField(label=('Date measured'),required=False,
-        # widget=DateTimePicker(options={"format": "YYYY-MM-DD",
-        #                                "pickTime": False,
-        #                                "startDate": "1900-01-01"}))
-        #
-        #
-        # self.fields['clinical_data_hypoparathyroidism_date']= forms.DateField(label=('Date measured'),required=False,
-        # widget=DateTimePicker(options={"format": "YYYY-MM-DD",
-        #                                "pickTime": False,
-        #                                "startDate": "1900-01-01"}))
-        #
-        # self.fields['clinical_data_hypogonadism_date']= forms.DateField(label=('Date measured'),required=False,
-        # widget=DateTimePicker(options={"format": "YYYY-MM-DD",
-        #                                "pickTime": False,
-        #                                "startDate": "1900-01-01"}))
-        #
-        # self.fields['clinical_data_iron_overload_liver_date']= forms.DateField(label=('Date measured'),required=False,
-        # widget=DateTimePicker(options={"format": "YYYY-MM-DD",
-        #                                "pickTime": False,
-        #                                "startDate": "1900-01-01"}))
-        #
-        #
-        # self.fields['clinical_data_others_date']= forms.DateField(label=('Date measured'),required=False,
-        # widget=DateTimePicker(options={"format": "YYYY-MM-DD",
-        #                                "pickTime": False,
-        #                                "startDate": "1900-01-01"}))
 
         self.helper=FormHelper(form=self)
 
@@ -1085,18 +1012,8 @@ class DiagnosisForm(forms.ModelForm):
         ('Red cell enzyme disorders','Red cell enzyme disorders'),
         ('Congenital dyserythropoietic anaemias','Congenital dyserythropoietic anaemias')
     )
-        self.fields['diagnosis_option']=forms.MultipleChoiceField(choices=diagnosis_option_value, widget=forms.CheckboxSelectMultiple())
+        self.fields['diagnosis_option']=forms.MultipleChoiceField(choices=DiagnosisOption.objects.all().values_list('id','diag_option'), widget=forms.CheckboxSelectMultiple())
 
-        # diag_sub_options =(
-        #     ('a-thalassaemia silent trait(a+)','a-thalassaemia silent trait(a+)'),
-        #     ('a-thalassaemia trait a^o aa|-- a-|a-','a-thalassaemia trait  a^o aa|--  a-|a-' ),
-        #     ('a-thalassaemia Hb disease','a-thalassaemia Hb disease'),
-        #     ('a-thalassaemia hydrops fetalis','a-thalassaemia hydrops fetalis'),
-        #     ('b-thalassaemia trait', 'b-thalassaemia trait'),
-        #     ('b-thalassaemia Intermedia', 'b-thalassaemia Intermedia'),
-        #     ('b-thalassaemia Major', 'b-thalassaemia Major'),
-        # )
-        # self.fields['comment']=forms.MultipleChoiceField(choices=diag_sub_options, widget=forms.CheckboxSelectMultiple())
 
         diagnosis_circumstances_value = (
         ('Antenatal diagnosis','Antenatal diagnosis'),
@@ -1139,92 +1056,7 @@ class DiagnosisForm(forms.ModelForm):
                 'diagnosis_circumstances_date',
                 #'diagnosis_circumstances_caring_year',
                 ),
-            # Fieldset(
-            #     '<b>Clinical data</b>',
-            #     'clinical_data_date_of_examination',
-            #     'clinical_data_weight',
-            #     'clinical_data_height',
-            #     Div(
-            #         #HTML(u'<div class="col-md-2"></div>'),
-            #         Div('clinical_data_cholelithiasis',css_class='col-md-6'),
-            #         Div('clinical_data_cholelithiasis_date',css_class="col-md-5"),
-            #         css_class='row',
-            #         ),
-            #      Div(
-            #         #HTML(u'<div class="col-md-2"></div>'),
-            #         Div('clinical_data_cholecystectomy',css_class='col-md-6'),
-            #         Div('clinical_data_cholecystectomy_date',css_class="col-md-5"),
-            #         css_class='row',
-            #         ),
-            #      Div(
-            #         #HTML(u'<div class="col-md-2"></div>'),,
-            #         Div('clinical_data_splenectomy',css_class='col-md-6'),
-            #         Div('clinical_data_splenectomy_date',css_class="col-md-5"),
-            #         css_class='row',
-            #         ),
-            #      Div(
-            #         #HTML(u'<div class="col-md-2"></div>'),
-            #         Div('clinical_data_iron_overload_heart',css_class='col-md-6'),
-            #         Div('clinical_data_iron_overload_heart_date',css_class="col-md-5"),
-            #         css_class='row',
-            #         ),
-            #     Div(
-            #         #HTML(u'<div class="col-md-2"></div>'),
-            #         Div('clinical_data_heart_failure',css_class='col-md-6'),
-            #         Div('clinical_data_heart_failure_date',css_class="col-md-5"),
-            #         css_class='row',
-            #         ),
-            #     Div(
-            #         #HTML(u'<div class="col-md-2"></div>'),
-            #         Div('clinical_data_cardiac_arrythmia',css_class='col-md-6'),
-            #         Div('clinical_data_cardiac_arrythmia_date',css_class="col-md-5"),
-            #         css_class='row',
-            #         ),
-            #     Div(
-            #         #HTML(u'<div class="col-md-2"></div>'),
-            #         Div('clinical_data_glucose_intolerance',css_class='col-md-6'),
-            #         Div('clinical_data_glucose_intolerance_date',css_class="col-md-5"),
-            #         css_class='row',
-            #         ),
-            #     Div(
-            #         #HTML(u'<div class="col-md-2"></div>'),
-            #         Div('clinical_data_diabetes',css_class='col-md-6'),
-            #         Div('clinical_data_diabetes_date',css_class="col-md-5"),
-            #         css_class='row',
-            #         ),
-            #     Div(
-            #         #HTML(u'<div class="col-md-2"></div>'),
-            #         Div('clinical_data_hypothyroidism',css_class='col-md-6'),
-            #         Div('clinical_data_hypothyroidism_date',css_class="col-md-5"),
-            #         css_class='row',
-            #         ),
-            #
-            #     Div(
-            #         #HTML(u'<div class="col-md-2"></div>'),
-            #         Div('clinical_data_hypoparathyroidism',css_class='col-md-6'),
-            #         Div('clinical_data_hypoparathyroidism_date',css_class="col-md-5"),
-            #         css_class='row',
-            #         ),
-            #
-            #     Div(
-            #         #HTML(u'<div class="col-md-2"></div>'),
-            #         Div('clinical_data_hypogonadism',css_class='col-md-6'),
-            #         Div('clinical_data_hypogonadism_date',css_class="col-md-5"),
-            #         css_class='row',
-            #         ),
-            #     Div(
-            #         #HTML(u'<div class="col-md-2"></div>'),
-            #         Div('clinical_data_iron_overload_liver',css_class='col-md-6'),
-            #         Div('clinical_data_iron_overload_liver_date',css_class="col-md-5"),
-            #         css_class='row',
-            #         ),
-            #     Div(
-            #         #HTML(u'<div class="col-md-2"></div>'),
-            #         Div('clinical_data_others',css_class='col-md-6'),
-            #         Div('clinical_data_others_date',css_class="col-md-5"),
-            #         css_class='row',
-            #         ),
-            #    ),
+
 
 
             FormActions(

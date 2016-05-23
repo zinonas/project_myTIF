@@ -13,7 +13,7 @@ import traceback
 from django.forms.models import formset_factory
 from django.forms.models import inlineformset_factory
 from django.contrib.auth.models import User
-from models import Demographic, Diagnosis, A_b_sickle_thal,Redcell_enzyme_dis, Redcell_membrane_dis, Cong_dyseryth_anaemia, icd_10, Clinical_data, Clinical_data_two, Ext_centers,Patient_reported_outcome
+from models import Demographic, Diagnosis, A_b_sickle_thal,Redcell_enzyme_dis, Redcell_membrane_dis, Cong_dyseryth_anaemia, icd_10, Clinical_data, Clinical_data_two, Ext_centers,Patient_reported_outcome, DiagnosisOption
 from django.core import serializers
 import json
 from django.db import transaction
@@ -31,7 +31,8 @@ from django.utils import formats
 import collections
 from chartit import PivotDataPool, PivotChart
 import ast
-
+from django.db.models import Q
+import collections
 
 
 
@@ -105,6 +106,7 @@ def input(request):
         my_patient_reported_outcomes = Patient_Reported_outcomeForm(request.POST, prefix='ptn_rep_out')
 
 
+
         # if (my_demographics.is_valid() and my_diagnosis.is_valid()):
         #     print "dem and diag validation"
         #     my_demographics_object = my_demographics.save(commit=False)
@@ -174,9 +176,12 @@ def input(request):
 
             for formfield in my_diagnosis:
                 dia_id = formfield.name
+                if formfield.name == 'diagnosis_option':
+                    dig_opt_list =  formfield.value()
                 #print formfield.id_for_label
                 entry+='{"fieldName":"'+ str(dia_id) + '",'
                 print "HERE I HAVE dia_val=", formfield.value()
+                print formfield.name
                 dia_val= str(formfield.value())
                 if (dia_val == 'b-thalassaemia syndromes' or dia_val=='a-thalassaemia syndromes' or dia_val=='Sickle cell syndromes' or dia_val=='Other haemoglobin variants'):
                     diag_option = 1
@@ -273,6 +278,17 @@ def input(request):
             my_diagnosis_object.author = request.user
             my_diagnosis_object.patient = my_demographics_object
             my_diagnosis_object.save()
+
+            for x in xrange(0, len(dig_opt_list)):
+                my_diagnosis_object.diagnosis_option.add(dig_opt_list[x])
+
+
+
+
+            #my_diagnosis_object.set_all()
+
+
+            #my_diagnosis_object.diagnosis_options.add(id=my_diagnosis_object.id,name= "test")
 
             my_a_b_sickle_object = my_a_b_sickle.save(commit=False)
             my_a_b_sickle_object.author = request.user
@@ -852,8 +868,7 @@ def statistics(request):
     males = Demographic.objects.filter(gender__startswith='M')
     date_of_birth = Demographic.objects.all().values_list('date_of_birth')
 
-    #print date_of_birth[0][0]
-    x = date_of_birth.count()
+
 
     #PATIENT CONSENT
     signed_by_pat = Demographic.objects.filter(data_entered_by='Patient').count()
@@ -863,13 +878,15 @@ def statistics(request):
     signed_data_both = Demographic.objects.filter(patient_consent_for_data_storage='I agree', patient_consent_for_data_reusage='I agree').count()
     signed_other_clas = Demographic.objects.exclude(data_entered_by_relationship__isnull=True).exclude(data_entered_by_relationship="")
     #signed_other_clas = Demographic.objects.filter(data_entered_by_relationship__isnull=True).exclude(alias="")
-    print signed_other_clas
+    #print signed_other_clas
 
 
     #signed_by_relationship = Demographic.objects.values('data_entered_by_relationship').annotate(cnt=Count('data_entered_by_relationship'))
     #for q in signed_by_relationship:
     #    print(q['data_entered_by_relationship'], q['cnt'])
 
+    #print date_of_birth[0][0]
+    x = date_of_birth.count()
     months_in_year = 12
     age_dist=[]
     for i in range(0,x):
@@ -976,8 +993,261 @@ def statistics(request):
     total_patients_cong = Diagnosis.objects.filter(diagnosis_option__contains='Congenital dyserythropoietic anaemias').count()
 
     #2
+    all_stored_countries = [demographic.encode("utf8") for demographic in (Demographic.objects.values_list('address_country',flat=True).order_by('address_country')).distinct()]
+
+    thalb={}
+    thala={}
+    sickl={}
+    other_h={}
+    mem_dis={}
+    enz_dis={}
+    cong={}
+    #print all_stored_countries
+
+    for num in xrange(0,len(all_stored_countries)):
+        #print num
+        thalb_count= Diagnosis.objects.filter(diagnosis_option__contains='b-thalassaemia syndromes', patient__address_country=all_stored_countries[num]).count()
+        thala_count= Diagnosis.objects.filter(diagnosis_option__contains='a-thalassaemia syndromes', patient__address_country=all_stored_countries[num]).count()
+        sickle_count= Diagnosis.objects.filter(diagnosis_option__contains='Sickle cell syndromes', patient__address_country=all_stored_countries[num]).count()
+        other_count= Diagnosis.objects.filter(diagnosis_option__contains='Other haemoglobin variants', patient__address_country=all_stored_countries[num]).count()
+        mem_dis_count= Diagnosis.objects.filter(diagnosis_option__contains='Red cell membrane disorders', patient__address_country=all_stored_countries[num]).count()
+        enz_dis_count= Diagnosis.objects.filter(diagnosis_option__contains='Red cell enzyme disorders', patient__address_country=all_stored_countries[num]).count()
+        cong_count= Diagnosis.objects.filter(diagnosis_option__contains='Congenital dyserythropoietic anaemias', patient__address_country=all_stored_countries[num]).count()
 
 
+        if thalb_count != 0:
+            thalb[all_stored_countries[num]]=thalb_count
+        if thala_count != 0:
+            thala[all_stored_countries[num]]=thala_count
+        if sickle_count != 0:
+            sickl[all_stored_countries[num]]=sickle_count
+        if other_count != 0:
+            other_h[all_stored_countries[num]]=other_count
+        if mem_dis_count != 0:
+            mem_dis[all_stored_countries[num]]=mem_dis_count
+        if enz_dis_count != 0:
+            enz_dis[all_stored_countries[num]]=enz_dis_count
+        if cong_count != 0:
+            cong[all_stored_countries[num]]=cong_count
+
+    total_patients_country_res={}
+    if len(thalb)!=0:
+        total_patients_country_res['b-thalassaemia syndromes']= thalb
+    if len(thala)!=0:
+        total_patients_country_res['a-thalassaemia syndromes']=thala
+    if len(sickl)!=0:
+        total_patients_country_res['Sickle cell syndromes']=sickl
+    if len(other_h)!=0:
+        total_patients_country_res['Other haemoglobin variants']=other_h
+    if len(mem_dis)!=0:
+        total_patients_country_res['Red cell membrane disorders']=mem_dis
+    if len(enz_dis)!=0:
+        total_patients_country_res['Red cell enzyme disorders']=enz_dis
+    if len(cong)!=0:
+        total_patients_country_res['Congenital dyserythropoietic anaemias']= cong
+
+    #3
+    all_stored_countries = [demographic.encode("utf8") for demographic in (Demographic.objects.values_list('country_of_birth',flat=True).order_by('country_of_birth')).distinct()]
+    print all_stored_countries
+    thalb_orig={}
+    thala_orig={}
+    sickl_orig={}
+    other_h_orig={}
+    mem_dis_orig={}
+    enz_dis_orig={}
+    cong_orig={}
+
+    for num in xrange(0,len(all_stored_countries)):
+        #print num
+        thalb_orig_count= Diagnosis.objects.filter(diagnosis_option__contains='b-thalassaemia syndromes', patient__country_of_birth=all_stored_countries[num]).count()
+        thala_orig_count= Diagnosis.objects.filter(diagnosis_option__contains='a-thalassaemia syndromes', patient__country_of_birth=all_stored_countries[num]).count()
+        sickle_count= Diagnosis.objects.filter(diagnosis_option__contains='Sickle cell syndromes', patient__country_of_birth=all_stored_countries[num]).count()
+        other_count= Diagnosis.objects.filter(diagnosis_option__contains='Other haemoglobin variants', patient__country_of_birth=all_stored_countries[num]).count()
+        mem_dis_orig_count= Diagnosis.objects.filter(diagnosis_option__contains='Red cell membrane disorders', patient__country_of_birth=all_stored_countries[num]).count()
+        enz_dis_orig_count= Diagnosis.objects.filter(diagnosis_option__contains='Red cell enzyme disorders', patient__country_of_birth=all_stored_countries[num]).count()
+        cong_orig_count= Diagnosis.objects.filter(diagnosis_option__contains='congenital dyserythropoietic anaemias', patient__country_of_birth=all_stored_countries[num]).count()
+
+
+        if thalb_orig_count != 0:
+            thalb_orig[all_stored_countries[num]]=thalb_orig_count
+        if thala_orig_count != 0:
+            thala_orig[all_stored_countries[num]]=thala_orig_count
+        if sickle_count != 0:
+            sickl_orig[all_stored_countries[num]]=sickle_count
+        if other_count != 0:
+            other_h_orig[all_stored_countries[num]]=other_count
+        if mem_dis_orig_count != 0:
+            mem_dis_orig[all_stored_countries[num]]=mem_dis_orig_count
+        if enz_dis_orig_count != 0:
+            enz_dis_orig[all_stored_countries[num]]=enz_dis_orig_count
+        if cong_orig_count != 0:
+            cong_orig[all_stored_countries[num]]=cong_orig_count
+
+    total_patients_country_orig={}
+    if len(thalb_orig)!=0:
+        total_patients_country_orig['b-thalssaemia syndromes']= thalb_orig
+    if len(thala_orig)!=0:
+        total_patients_country_orig['a-thalssaemia syndromes']=thala_orig
+    if len(sickl_orig)!=0:
+        total_patients_country_orig['Sickle cell syndromes']=sickl_orig
+    if len(other_h_orig)!=0:
+        total_patients_country_orig['Other haemoglobin variants']=other_h_orig
+    if len(mem_dis_orig)!=0:
+        total_patients_country_orig['Red cell membrane disorders']=mem_dis_orig
+    if len(enz_dis_orig)!=0:
+        total_patients_country_orig['Red cell enzyme disorders']=enz_dis_orig
+    if len(cong_orig)!=0:
+        total_patients_country_orig['conggenital dyserythropoietic anaemias']= cong_orig
+
+
+    #4
+    all_stored_ethnic = [demographic.encode("utf8") for demographic in (Demographic.objects.values_list('race',flat=True).order_by('race')).distinct()]
+    #print all_stored_ethnic
+    thalb_ethnic_orig={}
+    thala_ethnic_orig={}
+    sickl_ethnic_orig={}
+    other_h_ethnic_orig={}
+    mem_dis_ethnic_orig={}
+    enz_dis_ethnic_orig={}
+    cong_ethnic_orig={}
+
+    for num in xrange(0,len(all_stored_ethnic)):
+        #print num
+        thalb_ethnic_orig_count= Diagnosis.objects.filter(diagnosis_option__contains='b-thalassaemia syndromes', patient__race=all_stored_ethnic[num]).count()
+        thala_ethnic_orig_count= Diagnosis.objects.filter(diagnosis_option__contains='a-thalassaemia syndromes', patient__race=all_stored_ethnic[num]).count()
+        sickle_count= Diagnosis.objects.filter(diagnosis_option__contains='Sickle cell syndromes', patient__race=all_stored_ethnic[num]).count()
+        other_count= Diagnosis.objects.filter(diagnosis_option__contains='Other haemoglobin variants', patient__race=all_stored_ethnic[num]).count()
+        mem_dis_ethnic_orig_count= Diagnosis.objects.filter(diagnosis_option__contains='Red cell membrane disorders', patient__race=all_stored_ethnic[num]).count()
+        enz_dis_ethnic_orig_count= Diagnosis.objects.filter(diagnosis_option__contains='Red cell enzyme disorders', patient__race=all_stored_ethnic[num]).count()
+        cong_ethnic_orig_count= Diagnosis.objects.filter(diagnosis_option__contains='congenital dyserythropoietic anaemias', patient__race=all_stored_ethnic[num]).count()
+
+
+        if thalb_ethnic_orig_count != 0:
+            thalb_ethnic_orig[all_stored_ethnic[num]]=thalb_ethnic_orig_count
+        if thala_ethnic_orig_count != 0:
+            thala_ethnic_orig[all_stored_ethnic[num]]=thala_ethnic_orig_count
+        if sickle_count != 0:
+            sickl_ethnic_orig[all_stored_ethnic[num]]=sickle_count
+        if other_count != 0:
+            other_h_ethnic_orig[all_stored_ethnic[num]]=other_count
+        if mem_dis_ethnic_orig_count != 0:
+            mem_dis_ethnic_orig[all_stored_ethnic[num]]=mem_dis_ethnic_orig_count
+        if enz_dis_ethnic_orig_count != 0:
+            enz_dis_ethnic_orig[all_stored_ethnic[num]]=enz_dis_ethnic_orig_count
+        if cong_ethnic_orig_count != 0:
+            cong_ethnic_orig[all_stored_ethnic[num]]=cong_ethnic_orig_count
+
+    total_patients_country_ethnic_orig={}
+    if len(thalb_ethnic_orig)!=0:
+        total_patients_country_ethnic_orig['b-thalssaemia syndromes']= thalb_ethnic_orig
+    if len(thala_ethnic_orig)!=0:
+        total_patients_country_ethnic_orig['a-thalssaemia syndromes']=thala_ethnic_orig
+    if len(sickl_ethnic_orig)!=0:
+        total_patients_country_ethnic_orig['Sickle cell syndromes']=sickl_ethnic_orig
+    if len(other_h_ethnic_orig)!=0:
+        total_patients_country_ethnic_orig['Other haemoglobin variants']=other_h_ethnic_orig
+    if len(mem_dis_ethnic_orig)!=0:
+        total_patients_country_ethnic_orig['Red cell membrane disorders']=mem_dis_ethnic_orig
+    if len(enz_dis_ethnic_orig)!=0:
+        total_patients_country_ethnic_orig['Red cell enzyme disorders']=enz_dis_ethnic_orig
+    if len(cong_ethnic_orig)!=0:
+        total_patients_country_ethnic_orig['conggenital dyserythropoietic anaemias']= cong_ethnic_orig
+
+    #BY DATE OF BIRTH (AGE) AND FOR EACH DIAGNOSIS
+
+
+
+    all_stored_ages =(Demographic.objects.values_list('age',flat=True).order_by('age')).distinct()
+
+    thalb={}
+    thala={}
+    sickl={}
+    other_h={}
+    mem_dis={}
+    enz_dis={}
+    cong={}
+    #print all_stored_ages
+
+    for num in xrange(0,len(all_stored_ages)):
+        #print num
+        thalb_count= Diagnosis.objects.filter(diagnosis_option__contains='b-thalassaemia syndromes', patient__age=all_stored_ages[num]).count()
+        thala_count= Diagnosis.objects.filter(diagnosis_option__contains='a-thalassaemia syndromes', patient__age=all_stored_ages[num]).count()
+        sickle_count= Diagnosis.objects.filter(diagnosis_option__contains='Sickle cell syndromes', patient__age=all_stored_ages[num]).count()
+        other_count= Diagnosis.objects.filter(diagnosis_option__contains='Other haemoglobin variants', patient__age=all_stored_ages[num]).count()
+        mem_dis_count= Diagnosis.objects.filter(diagnosis_option__contains='Red cell membrane disorders', patient__age=all_stored_ages[num]).count()
+        enz_dis_count= Diagnosis.objects.filter(diagnosis_option__contains='Red cell enzyme disorders', patient__age=all_stored_ages[num]).count()
+        cong_count= Diagnosis.objects.filter(diagnosis_option__contains='Congenital dyserythropoietic anaemias', patient__age=all_stored_ages[num]).count()
+
+
+        if thalb_count != 0:
+            thalb[all_stored_ages[num]]=thalb_count
+        if thala_count != 0:
+            thala[all_stored_ages[num]]=thala_count
+        if sickle_count != 0:
+            sickl[all_stored_ages[num]]=sickle_count
+        if other_count != 0:
+            other_h[all_stored_ages[num]]=other_count
+        if mem_dis_count != 0:
+            mem_dis[all_stored_ages[num]]=mem_dis_count
+        if enz_dis_count != 0:
+            enz_dis[all_stored_ages[num]]=enz_dis_count
+        if cong_count != 0:
+            cong[all_stored_ages[num]]=cong_count
+
+    age_dist_per_diag={}
+    if len(thalb)!=0:
+        age_dist_per_diag['b-thalassaemia syndromes']= thalb
+    if len(thala)!=0:
+        age_dist_per_diag['a-thalassaemia syndromes']=thala
+    if len(sickl)!=0:
+        age_dist_per_diag['Sickle cell syndromes']=sickl
+    if len(other_h)!=0:
+        age_dist_per_diag['Other haemoglobin variants']=other_h
+    if len(mem_dis)!=0:
+        age_dist_per_diag['Red cell membrane disorders']=mem_dis
+    if len(enz_dis)!=0:
+        age_dist_per_diag['Red cell enzyme disorders']=enz_dis
+    if len(cong)!=0:
+        age_dist_per_diag['Congenital dyserythropoietic anaemias']= cong
+
+    print 'thalb'
+    print thalb
+    thalb_n=[]
+    for key in thalb:
+        print key, thalb[key]
+        thalb_n.extend([key])
+
+    print thalb_n
+    age_dist_diag = PivotDataPool(
+        series=[
+            {'options': {
+                'source':Diagnosis.objects.all(),
+                'categories':['diagnosis_option'] },
+                'terms':{
+                    ''
+                    'age_distribution':Count('diagnosis_option'),
+
+                    }
+            }
+        ]
+    )
+
+    age_dist_diag1 = PivotChart(
+        datasource=age_dist_diag ,
+        series_options =
+              [{'options':{
+                'type': 'column',
+                #'stacking': True
+                },
+                'terms':[
+                'age_distribution']}],
+         chart_options =
+              {'title': {
+                   'text': 'b-thalassaemia syndromes'},
+               'xAxis': {
+                    'title': {
+                       'text': 'Age distribution'}}}
+    )
 
     ds = PivotDataPool(
         series=[
@@ -1059,7 +1329,15 @@ def statistics(request):
         #         return render(request, 'search.html',
         #             {'patient': patient, 'query': id, 'option':value})
 
-    return render_to_response('statistics.html', {'total_num': total_num.count(),'data_storage':signed_data_storage, 'data_reuse':signed_data_reusage,'data_both':signed_data_both,'total_patients_beta':total_patients_beta, 'total_patients_alpha':total_patients_alpha,'total_patients_sickle':total_patients_sickle,'total_patients_other_haem':total_patients_other_haem,'total_patients_meb_dis':total_patients_meb_dis,'total_patients_enz_dis':total_patients_enz_dis,'total_patients_cong':total_patients_cong,'females': females.count(), 'males': males.count(), 'age_values': freq_age_dist.keys(),'age_freq':freq_age_dist.values(),'charts':[signed_by_c1,signed_by_rel1, pvcht, pvcht_age ]}, context)
+    return render_to_response('statistics.html', {'total_num': total_num.count(),'data_storage':signed_data_storage, 'total_patients_country_res':total_patients_country_res,
+                                                  'total_patients_country_orig':total_patients_country_orig,'total_patients_country_ethnic_orig':total_patients_country_ethnic_orig,
+                                                  'data_reuse':signed_data_reusage,'data_both':signed_data_both,'age_dist_per_diag':age_dist_per_diag,
+                                                  'total_patients_beta':total_patients_beta, 'total_patients_alpha':total_patients_alpha,
+                                                  'total_patients_sickle':total_patients_sickle,'total_patients_other_haem':total_patients_other_haem,
+                                                  'total_patients_meb_dis':total_patients_meb_dis,'total_patients_enz_dis':total_patients_enz_dis,
+                                                  'total_patients_cong':total_patients_cong,'females': females.count(), 'males': males.count(),
+                                                  'age_values': freq_age_dist.keys(),'age_freq':freq_age_dist.values(),'charts':[signed_by_c1,signed_by_rel1, age_dist_diag1, pvcht, pvcht_age ]},
+                              context)
 
 @login_required(login_url='/login')
 def external_centers(request):
