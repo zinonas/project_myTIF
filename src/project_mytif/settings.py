@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'project_mytif.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'cy_thal_test',
+        'NAME': 'cy_thal',
         'USER': 'root',
         'PASSWORD': 'root',
         'HOST': '127.0.0.2',

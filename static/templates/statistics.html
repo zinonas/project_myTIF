@@ -35,7 +35,7 @@
             <script src ="http://code.highcharts.com/highcharts.js"></script>
 
             {% load chartit %}
-            {{ charts|load_charts:"one, two, three, four,five" }}
+            {{ charts|load_charts:"c1, c2, c3, c4 ,c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30, c31, c32, c33" }}
 
 
 
@@ -141,7 +141,7 @@
                 <div class="container">
                     <h2>Patient Consent correlations</h2>
 
-                    <center><div id="one" style="width: 50%; height: auto " > Chart will be rendered here </div>
+                    <center><div id="c1" style="width: 50%; height: auto " > Chart will be rendered here </div>
                     </br>
                     </center>
 
@@ -153,7 +153,7 @@
                     <p>&#9632 <b>Number of patients signed for data reuse</b>: {{ data_reuse }}</p>
                     <p>&#9632 <b>Number of patients signed for both</b>: {{ data_both }}</p>
 
-                    <center><div id="two" style="width: 50%; height: auto " > Chart will be rendered here </div>
+                    <center><div id="c2" style="width: 50%; height: auto " > Chart will be rendered here </div>
                     </br>
                     </center>
                 </div>
@@ -166,58 +166,77 @@
                     <h2>Totals</h2>
                     <br/>
                     <p>&#9632 <b>Total number of patients</b>: {{ total_num }}</p>
-                    <p>&#9632 <b>Total number of patients having</b>:</p>
-                    <ul>
-                        <li><p>b-thalassaemia syndromes: {{total_patients_beta}}</p></li>
-                        <li><p>a-thalassaemia syndromes: {{total_patients_alpha}}</p></li>
-                        <li><p>Sickle cell syndromes: {{total_patients_sickle}}</p></li>
-                        <li><p>Other haemoglobin variants: {{total_patients_other_haem}}</p></li>
-                        <li><p>Red cell membrane disorders: {{total_patients_meb_dis}}</p></li>
-                        <li><p>Red cell enzyme disorders: {{total_patients_enz_dis}}</p></li>
-                        <li><p>Congenital dyserythropoietic anaemias: {{total_patients_cong}}</p></li>
-                    </ul>
+
+                    <center><div id="c3" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
                     <p>&#9632 <b>Total number of patients by country of residence per diagnosis</b>:</p>
-                    {% for key,values in total_patients_country_res.items %}
-
-                            <ul>
-                                <li><p>{{key}}</p></li>
-                                {% for key1, value1 in values.items%}
-                                <ul>
-                                    <li><p>{{key1}} : {{value1}}</p></li>
-                                </ul>
-                                {% endfor %}
-                            </ul>
-
-                    {% endfor %}
-                    <br/>
+                    <center><div id="c4" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c5" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c6" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c7" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c8" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c9" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c10" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
                     <p>&#9632 <b>Total number of patients by country of origin per diagnosis</b>:</p>
-                    {% for key,values in total_patients_country_orig.items %}
+                    <center><div id="c11" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c12" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c13" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c14" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c15" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c16" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c17" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <p>&#9632 <b>Total number of patients by ethnic race per diagnosis</b>:</p>
+                    <center><div id="c18" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c19" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c20" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c21" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c22" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c23" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c24" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
 
-                            <ul>
-                                <li><p>{{key}}</p></li>
-                                {% for key1, value1 in values.items%}
-                                <ul>
-                                    <li><p>{{key1}} : {{value1}}</p></li>
-                                </ul>
-                                {% endfor %}
-                            </ul>
-
-                    {% endfor %}
-
-                    <br/>
-                    <p>&#9632 <b>Total number of patients by ethnic origin per diagnosis</b>:</p>
-                    {% for key,values in total_patients_country_ethnic_orig.items %}
-
-                            <ul>
-                                <li><p>{{key}}</p></li>
-                                {% for key1, value1 in values.items%}
-                                <ul>
-                                    <li><p>{{key1}} : {{value1}}</p></li>
-                                </ul>
-                                {% endfor %}
-                            </ul>
-
-                    {% endfor %}
 
 
                 </div>
@@ -226,24 +245,28 @@
                 <!-- form controls to be continued here -->
                 <!--<input type="hidden" name="form_id" value="a_b_s">-->
                 <div class="container">
-                    <center><div id="three" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    <p>&#9632 <b>Age distribution per diagnosis</b>:</p>
+                    <center><div id="c25" style="width: auto; height: auto " > Chart will be rendered here </div>
                     </br>
                     </center>
-                    <p>&#9632 <b>Age distribution per diagnosis</b>:</p>
-                    {% for key,values in age_dist_per_diag.items %}
-
-                            <ul>
-                                <li><p>{{key}}</p></li>
-                                {% for key1, value1 in values.items%}
-                                <ul>
-                                    <li><p>Age {{key1}} : {{value1}}</p></li>
-                                </ul>
-                                {% endfor %}
-                            </ul>
-
-                    {% endfor %}
-
-                    <br/>
+                    <center><div id="c26" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c27" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c28" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c29" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c30" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c31" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
                 </div>
             </div>
              <div class="tab-pane" id="4">
