@@ -106,6 +106,9 @@
       </style>
 {% endblock %}
 
+{%block jumbotron_title %}Login{% endblock %}
+{%block jumbotron_info %}Please enter your credentials{% endblock %}
+
 {% block content %}
     <div class="row">
         <div class="col-sm-6 col-md-4 col-md-offset-4">
@@ -115,15 +118,18 @@
                     alt="">-->
                 <form class="form-signin" method="post" action="{% url 'login' %}">
                 {% csrf_token %}
+                <text><b>Username:</b></text>
                 <input type="text" class="form-control" id="username" name="username" placeholder="Username" required="">
+                <br/>
+                <text><b>Password:</b></text>
                 <input type="password" class="form-control" id="password" name="password" placeholder="Password" required="">
                 <button class="btn btn-lg btn-primary btn-block" type="submit">
                     Sign in</button>
-                <label class="checkbox pull-left">
+                <!--<label class="checkbox pull-left">
                     <input type="checkbox" value="remember-me">
                     Remember me
-                </label>
-                <a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
+                </label>-->
+                <a href="{% url 'password_reset' %}" class="pull-right need-help">Reset password?</a><span class="clearfix"></span>
                 </form>
             </div>
             <!--<a href="#" class="text-center new-account">Create an account </a>-->

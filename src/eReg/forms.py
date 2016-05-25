@@ -2382,3 +2382,5 @@ class ExternalCentersOutcomes2Form(forms.ModelForm):
         model = Ext_centers
         exclude = ['center_id', 'author']
         list_display = ('title', 'pub_date', 'author')
+
+

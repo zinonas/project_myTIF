@@ -34,7 +34,11 @@ import ast
 from django.db.models import Q
 import collections
 
+def password_change_done(request, template_name="registration/password_change_done.html"):
+    return render_to_response(template_name,(),context_instance= RequestContext(request))
 
+def about(request):
+    return render(request,'index.html')
 
 @login_required(login_url='/login')
 def home(request):

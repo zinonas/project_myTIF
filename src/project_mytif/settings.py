@@ -86,6 +86,16 @@ DATABASES = {
     }
 }
 
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'enerca.tif@gmail.com'
+EMAIL_HOST_PASSWORD = 'fnutxpbqxwjdzouu'#enerca2016
+
+DEFAULT_FROM_EMAIL = 'enerca.tif@gmail.com'
+SERVER_EMAIL = 'enerca.tif@gmail.com'
+
+
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
     'django.contrib.auth.context_processors.auth',
