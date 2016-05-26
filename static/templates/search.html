@@ -30,6 +30,22 @@
                     })
                 }
             </script>
+            <script>
+            $(document).ready(function(){
+                var my_alert = document.getElementById("my_alert").value
+                if (my_alert=="1") {
+
+                    $(".close").click(function () {
+                        $("#myAlert").alert("close");
+                    });
+                }
+                else if (my_alert = "0"){
+                    $("#myAlert").addClass("hide");
+                }
+            });
+            </script>
+
+
 
             <!--<link rel="stylesheet" type="text/css" href="{% static 'admin/css/global.css' %}"/>-->
 
@@ -74,8 +90,15 @@
 {%block jumbotron_title %}Search patient{% endblock %}
 {%block jumbotron_info %}You have the option to update patient's data or add new.{% endblock %}
 {% block content %}
-<h3>Search using id</h3>
+<input type="hidden" id="my_alert" name='NoUser' value="{{my_alert}}" />
 
+
+  <div class="alert alert-danger" id="myAlert" >
+    <a href="#" class="close">&times;</a>
+    <strong>Error!</strong> This patient does not exist.
+  </div>
+
+<h3>Search using id</h3>
 
 <nav class="navbar navbar-default" role="navigation">
   <div class="container-fluid">

@@ -177,6 +177,7 @@ class DiagnosisOption(models.Model):
     )
 
     diag_option = models.CharField( max_length=50)
+    history = HistoricalRecords()
 
     def __str__(self):
         return self.diag_option

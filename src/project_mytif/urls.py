@@ -40,6 +40,7 @@ urlpatterns = patterns('',
     url(r'^admin/jsi18n/', 'django.views.i18n.javascript_catalog'),
     url(r'^autocomplete/', include('autocomplete_light.urls')),
     url(r'^admin/', include(admin.site.urls)),
+    #url(r'^cookies/', include('cookie_consent.urls')),
 
 
 

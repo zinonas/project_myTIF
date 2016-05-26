@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.contrib.auth.models import User, Group
+from simple_history import register
 
 # Register your models here.
 from .models import Demographic
@@ -13,61 +15,64 @@ from .models import Clinical_data
 from .models import Patient_reported_outcome
 from .models import DiagnosisOption
 
-class DemographicsAdmin(admin.ModelAdmin):
+from simple_history.admin import SimpleHistoryAdmin
+
+class DemographicsAdmin(SimpleHistoryAdmin):
     list_display = ('patient_id','pub_date', 'author')
     class Meta:
         model = Demographic
 
-class DiagnosisAdmin(admin.ModelAdmin):
+class DiagnosisAdmin(SimpleHistoryAdmin):
     list_display = ('patient','pub_date', 'author')
     class Meta:
         model = Diagnosis
 
-class a_b_sickle_Admin(admin.ModelAdmin):
+class a_b_sickle_Admin(SimpleHistoryAdmin):
     list_display = ('patient','pub_date', 'author')
     class Meta:
         model = A_b_sickle_thal
 
-class redcell_enzAdmin(admin.ModelAdmin):
+class redcell_enzAdmin(SimpleHistoryAdmin):
     list_display = ('patient','pub_date', 'author')
     class Meta:
         model = Redcell_enzyme_dis
 
-class redcell_memb_Admin(admin.ModelAdmin):
+class redcell_memb_Admin(SimpleHistoryAdmin):
     list_display = ('patient','pub_date', 'author')
     class Meta:
         model = Redcell_membrane_dis
 
-class cong_dyserAdmin(admin.ModelAdmin):
+class cong_dyserAdmin(SimpleHistoryAdmin):
     list_display = ('patient','pub_date', 'author')
     class Meta:
         model = Cong_dyseryth_anaemia
 
-class icd10Admin (admin.ModelAdmin):
+class icd10Admin (SimpleHistoryAdmin):
     list_display = ('pub_date','author')
     class Meta:
         model = icd_10
 
-class pregnancyAdmin (admin.ModelAdmin):
+class pregnancyAdmin (SimpleHistoryAdmin):
     list_display = ('patient','pub_date', 'author')
     class Meta:
         model = Pregnancy
 
-class clinical_dataAdmin (admin.ModelAdmin):
+class clinical_dataAdmin (SimpleHistoryAdmin):
     list_display = ('patient','pub_date', 'author')
     class Meta:
         model = Clinical_data
 
-class patient_rep_outAdmin (admin.ModelAdmin):
+class patient_rep_outAdmin (SimpleHistoryAdmin):
     list_display = ('patient','pub_date', 'author')
     class Meta:
         model = Patient_reported_outcome
 
-class diag_optAdmin (admin.ModelAdmin):
+class diag_optAdmin (SimpleHistoryAdmin):
     list_display = ('id','diag_option')
     class Meta:
         model = DiagnosisOption
 
+#admin.site.register(User, SimpleHistoryAdmin)
 admin.site.register(Demographic, DemographicsAdmin)
 admin.site.register(Diagnosis, DiagnosisAdmin)
 admin.site.register(DiagnosisOption,diag_optAdmin)
@@ -79,3 +84,20 @@ admin.site.register(icd_10, icd10Admin)
 admin.site.register(Pregnancy,pregnancyAdmin)
 admin.site.register(Clinical_data,clinical_dataAdmin)
 admin.site.register(Patient_reported_outcome,patient_rep_outAdmin)
+
+register(User,inherit=True)
+register(Group,inherit=True)
+
+
+# admin.site.register(Demographic, SimpleHistoryAdmin)
+# admin.site.register(Diagnosis, SimpleHistoryAdmin)
+# admin.site.register(DiagnosisOption,SimpleHistoryAdmin)
+# admin.site.register(A_b_sickle_thal,SimpleHistoryAdmin)
+# admin.site.register(Redcell_enzyme_dis,SimpleHistoryAdmin)
+# admin.site.register(Redcell_membrane_dis,SimpleHistoryAdmin)
+# admin.site.register(Cong_dyseryth_anaemia,SimpleHistoryAdmin)
+# admin.site.register(icd_10, SimpleHistoryAdmin)
+# admin.site.register(Pregnancy,SimpleHistoryAdmin)
+# admin.site.register(Clinical_data,SimpleHistoryAdmin)
+# admin.site.register(Patient_reported_outcome,SimpleHistoryAdmin)
+

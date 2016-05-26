@@ -23,7 +23,7 @@
             <!--<script type="text/javascript" src="{% static 'admin/js/calendar.js' %}"></script>-->
             <!--<script type="text/javascript" src="/static/admin/js/admin/DateTimeShortcuts.js"></script>-->
             <!--<script src="//code.jquery.com/jquery-1.10.2.js"></script>-->
-            <script>
+            <!--<script>
                 $(document).ready(function() {
                     $('#my_option').each(function() {
                         var option = $(this).val();
@@ -76,7 +76,8 @@
                         }
                     });
                 });
-            </script>
+            </script>-->
+
             <script>
                 $(document).ready(function() {
                      var allcheckedValues = $('input:checkbox:checked').map(function() {
@@ -221,6 +222,24 @@
                     });
                 });
             </script>
+         <script>
+                $(document).ready(function() {
+                    $('#id_demo-data_entered_by_name').attr('disabled', true);
+                    $('#id_demo-data_entered_by_relationship').attr('disabled', true);
+                    $('#id_demo-data_entered_by').change(function () {
+                        var value = $(this).val()
+                        //alert(value)
+                        if (value === 'Other'){
+                            $('#id_demo-data_entered_by_name').attr('disabled', false);
+                            $('#id_demo-data_entered_by_relationship').attr('disabled', false);
+                        }
+                        if (value != 'Other'){
+                            $('#id_demo-data_entered_by_name').attr('disabled', true);
+                            $('#id_demo-data_entered_by_relationship').attr('disabled', true);
+                        }
+                    });
+                });
+            </script>
             {{frm.media}}
 {% endblock %}
 
@@ -263,11 +282,14 @@
             <li class="hide">
                 <a href="#6" data-toggle="tab">Congenital desyrythropoietic anaemias</a>
             </li>
-            <li>
+            <li class="hide">
                 <a href="#7" data-toggle="tab">Summary of Thalassaemia and Severe Anaemias</a>
             </li>
-            <li>
+            <li class="hide">
                 <a href="#8" data-toggle="tab">Summary of Sickle Cell disease</a>
+            </li>
+            <li class="hide">
+                <a href="#9" data-toggle="tab">Patient reported outcomes</a>
             </li>
         </ul>
         <div class="tab-content">
