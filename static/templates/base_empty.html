@@ -154,10 +154,7 @@
                      }
                 })
     </script>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
     
     <!--<script src="jquery-1.11.1.min.js"></script>-->
     {% block head %}{% endblock %}
@@ -225,7 +222,7 @@
                                         <p class="text-left"><strong>{{user.first_name}} {{user.last_name}}</strong></p>
                                         <p class="text-left small">{{user.email}}</p>
                                         <p class="text-left">
-                                            <a href="{% url 'password_change' %}" class="btn btn-primary btn-block btn-sm">Change Password</a>
+                                            <a href="{% url 'password_change' %}" class="btn btn-warning btn-block btn-sm">Change Password</a>
                                         </p>
                                     </div>
                                 </div>
@@ -236,6 +233,9 @@
                             <div class="navbar-login navbar-login-session">
                                 <div class="row">
                                     <div class="col-lg-12">
+                                        <p class="text-left small">
+                                            <a href="{% url 'modules' %}" class="btn btn-primary btn-block btn-sm">Select module(s)</a>
+                                        </p>
                                         <p class="text-left small">Last login: {{user.last_login}}</p>
                                     </div>
                                 </div>

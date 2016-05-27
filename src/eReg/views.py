@@ -54,28 +54,28 @@ def modules(request):
         response = redirect('home')
         mod2=request.POST.get('module_id_2', False)
         if mod2 != False:
-            print mod2
+            #print mod2
             response.set_cookie('module_2', '2')
         else:
             response.delete_cookie('module_2')
 
         mod3=request.POST.get('module_id_3', False)
         if mod3 != False:
-            print mod3
+            #print mod3
             response.set_cookie('module_3', '3')
         else:
             response.delete_cookie('module_3')
 
         mod4=request.POST.get('module_id_4', False)
         if mod4 != False:
-            print mod4
+            #print mod4
             response.set_cookie('module_4', '4')
         else:
             response.delete_cookie('module_4')
 
         mod5=request.POST.get('module_id_5', False)
         if mod5 != False:
-            print mod5
+            #print mod5
             response.set_cookie('module_5', '5')
         else:
             response.delete_cookie('module_5')
@@ -432,8 +432,15 @@ def input(request):
 @login_required(login_url='/login')
 def search(request):
     context = RequestContext(request)
+
     value=0
-    my_alert = "0"
+    my_alert_option=request.COOKIES.get('no_patient', False)
+    if my_alert_option == "True":
+        my_alert="1"
+    else:
+        my_alert="0"
+    print "my_alert"
+    print my_alert
     if request.method == "POST":
         value = 1
         my_demographics = DemographicForm(request.POST, prefix="demo")
@@ -451,33 +458,18 @@ def search(request):
                 print patient
                 print patient.count()
                 # books = Book.objects.filter(title__icontains=q)
-                return render(request, 'search.html',
-                    {'patient': patient, 'query': id, 'option':value})
+                response =  render_to_response( 'search.html', {'patient': patient, 'query': id, 'option':value},context)
+                response.delete_cookie('no_patient')
+                return response
 
-    # if request.is_ajax() and request.method == "POST":
-    #     myid= request.POST.get("sentence","")
-    #     #response_data=fil(sentence)
-    #     print myid
-    #     patient = Demographic.objects.select_for_update().filter(patient_id = myid)
-    #     data = serializers.serialize('json', patient)
-    #     json_data = json.loads(data)[0]
-    #     form_data = json_data['fields']
-    #     print form_data
-    #     my_demographics = DemographicForm(initial=form_data)
-    #     print my_demographics
-    #     # new_d = serializers.deserialize("json", data)
-    #     # print new_d
-    #     # myp = Demographic.objects.raw('SELECT * from `eReg_demographic`')
-    #     # for p in myp:
-    #     #     print p
-    #     # my_data = json.loads(data)
-    #
-    #     for pat in patient:
-    #         print pat.given_name
 
-        return redirect('results.html', {'frm':my_demographics, 'option': value, 'my_alert':my_alert}, context)
+        response =  redirect('results.html', {'frm':my_demographics, 'option': value, 'my_alert':my_alert}, context)
+        response.delete_cookie('no_patient')
+        return response
     else:
-        return render_to_response('search.html', {'option': value, 'my_alert':my_alert}, context)
+        response =  render_to_response('search.html', {'option': value, 'my_alert':my_alert}, context)
+        response.delete_cookie('no_patient')
+        return response
 
 @login_required(login_url='/login')
 def results(request):
@@ -646,7 +638,9 @@ def results(request):
                 patient = None
             if patient == None:
                 my_alert = "1"
-                return render_to_response('search.html',{'my_alert':my_alert}, context)
+                response = redirect('search')
+                response.set_cookie('no_patient', 'True')
+                return response
 
             diag_patient = Diagnosis.objects.get(patient=myid, author=request.user)
             diag_val = diag_patient.diagnosis_option

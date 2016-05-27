@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import datetime
 from django.db import models
+import uuid
 from django.forms.extras.widgets import SelectDateWidget
 from django.contrib.admin import widgets
 from django.utils.encoding import smart_unicode
@@ -16,7 +17,7 @@ from simple_history.models import HistoricalRecords
 
 
 class Demographic(models.Model):
-    anonymisation_code = models.IntegerField('Anonymisation code', null=True,blank=True)
+    anonymisation_code = models.UUIDField('Anonymisation code',default=uuid.uuid4, editable=False, unique=True)
     patient_option = (
         ('','Please select'),
         ('I agree','I agree'),
