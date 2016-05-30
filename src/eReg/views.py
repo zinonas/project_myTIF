@@ -13,7 +13,7 @@ import traceback
 from django.forms.models import formset_factory
 from django.forms.models import inlineformset_factory
 from django.contrib.auth.models import User
-from models import Demographic, Diagnosis, A_b_sickle_thal,Redcell_enzyme_dis, Redcell_membrane_dis, Cong_dyseryth_anaemia, icd_10, Clinical_data, Clinical_data_two, Ext_centers,Patient_reported_outcome, DiagnosisOption
+from models import Demographic, Diagnosis, A_b_sickle_thal,Redcell_enzyme_dis, Redcell_membrane_dis, Cong_dyseryth_anaemia, icd_10, orphaCodes, Clinical_data, Clinical_data_two, Ext_centers,Patient_reported_outcome, DiagnosisOption
 from django.core import serializers
 import json
 from django.db import transaction
@@ -23,8 +23,7 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 from django.contrib import auth
 from django.contrib.auth import logout
-import autocomplete_light
-autocomplete_light.autodiscover()
+from dal import autocomplete
 from django.core.cache import cache
 from datetime import date
 from django.utils import formats
@@ -88,6 +87,7 @@ def modules(request):
     return render(request,'module_selection.html',context_instance= RequestContext(request))
 
 @login_required(login_url='/login')
+
 def input(request):
 
     context = RequestContext(request)
@@ -2162,3 +2162,32 @@ def logout_view(request):
     response.delete_cookie('module_4')
     response.delete_cookie('module_5')
     return response
+
+
+class IcdTenAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+
+        #Don't forget to filter out results depending on the visitor !
+        if not self.request.user.is_authenticated():
+            return icd_10.objects.none()
+
+        qs = icd_10.objects.all()
+        #
+        if self.q:
+             qs = qs.filter(icd_10_desc__icontains=self.q)
+        #
+        return qs
+
+class OrphaAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+
+        #Don't forget to filter out results depending on the visitor !
+        if not self.request.user.is_authenticated():
+            return orphaCodes.objects.none()
+
+        qs = orphaCodes.objects.all()
+        #
+        if self.q:
+             qs = qs.filter(orpha_desc__icontains=self.q)
+        #
+        return qs

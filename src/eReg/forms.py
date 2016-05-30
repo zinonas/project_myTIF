@@ -5,19 +5,20 @@ from crispy_forms.layout import Layout, Div, Submit, HTML, Button, Row, Field, B
 from crispy_forms.bootstrap import TabHolder, Tab, Accordion, AccordionGroup, FormActions
 from functools import partial
 from django.contrib.admin import widgets
-from models import Demographic
+from models import Demographic, IcdTenOption, orphaCodes
 from models import Diagnosis, A_b_sickle_thal, Redcell_enzyme_dis, Redcell_membrane_dis, Cong_dyseryth_anaemia, icd_10, Pregnancy, Clinical_data, Clinical_data_two, Ext_centers,Patient_reported_outcome,DiagnosisOption
 from sympy import pretty_print as pp, latex
+from dal import autocomplete
 
 
 
-import autocomplete_light
+#import autocomplete_light
 import sys
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
-autocomplete_light.register(icd_10, search_fields=['icd_10_desc'] )
-autocomplete_light.autodiscover()
+#autocomplete_light.register(icd_10, search_fields=['icd_10_desc'] )
+#autocomplete_light.autodiscover()
 
 class DemographicForm(forms.ModelForm):
 
@@ -1000,9 +1001,9 @@ class DiagnosisForm(forms.ModelForm):
 
         self.helper=FormHelper(form=self)
 
-        self.fields['icd_10_desc']= forms.ModelChoiceField(queryset=icd_10.objects.all(),
-                                    widget=autocomplete_light.ChoiceWidget("icd_10Autocomplete"))
-        self.fields['icd_10_desc'].label = "ICD-10 description"
+        # self.fields['icd_10_desc']= forms.ModelChoiceField(queryset=icd_10.objects.all(),
+        #                             widget=autocomplete_light.ChoiceWidget("icd_10Autocomplete"))
+
         diagnosis_option_value = (
         ('b-thalassaemia syndromes', 'b-thalassaemia syndromes',),
         ('a-thalassaemia syndromes', 'a-thalassaemia syndromes'),
@@ -1013,6 +1014,9 @@ class DiagnosisForm(forms.ModelForm):
         ('Congenital dyserythropoietic anaemias','Congenital dyserythropoietic anaemias')
     )
         self.fields['diagnosis_option']=forms.MultipleChoiceField(choices=DiagnosisOption.objects.all().values_list('id','diag_option'), widget=forms.CheckboxSelectMultiple())
+        #self.fields['icd_10_desc']=forms.MultipleChoiceField(label='ICD 10 description', choices=icd_10.objects.all().values_list('id','icd_10_desc'), widget=autocomplete.ModelSelect2Multiple())
+        self.fields['icd_10_desc'].label = 'ICD-10 description'
+        self.fields['orpha_code'].label = 'Orpha code description'
 
 
         diagnosis_circumstances_value = (
@@ -1044,8 +1048,9 @@ class DiagnosisForm(forms.ModelForm):
 
                 'diagnosis_option',
                 'record_of_genotype',
+
+
                 'icd_10_desc',
-                'icd_10_code',
                 'orpha_code',
                 'comment',
                 ),
@@ -1072,6 +1077,11 @@ class DiagnosisForm(forms.ModelForm):
         exclude = ['patient', 'author']
 
         list_display = ('patient', 'pub_date', 'author')
+        widgets = {
+        'icd_10_desc': autocomplete.ModelSelect2Multiple(url='icd10-autocomplete'),
+        'orpha_code': autocomplete.ModelSelect2Multiple(url='orpha-autocomplete')
+        }
+        #widgets={'icd_10_desc' : autocomplete.ModelSelect2Multiple(url='icd10-autocomplete' )}
         # autocomplete_js_attribute={'name': 'icd_10_code'}
 
     # def clean_diagnosis_option(self):

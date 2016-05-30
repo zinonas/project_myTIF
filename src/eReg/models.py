@@ -151,6 +151,18 @@ class icd_10(models.Model):
     def __str__(self):
         return str(self.icd_10_desc)
 
+class orphaCodes(models.Model):
+    id = models.IntegerField(unique=True,primary_key=True,null=False,blank=False)
+    orpha_desc = models.CharField('Oprha code description',max_length=80,null=True,blank=True)
+    orpha_code = models.CharField('Orpha code',max_length=10,null=True,blank=True)
+    date_of_input= models.DateField(null=True,blank=True)
+    pub_date = models.DateTimeField(auto_now=True)
+    author = models.CharField(max_length=20,null=True,blank=True)
+    history = HistoricalRecords()
+
+    def __str__(self):
+        return str(self.orpha_desc)
+
 class Pregnancy(models.Model):
     patient = models.ForeignKey(Demographic)
     #pregnancy_id = models.AutoField(unique=True ,primary_key=True)
@@ -183,6 +195,14 @@ class DiagnosisOption(models.Model):
     def __str__(self):
         return self.diag_option
 
+class IcdTenOption(models.Model):
+
+
+    icd10_desc= models.ForeignKey(icd_10)
+    history = HistoricalRecords()
+
+    def __str__(self):
+        return self.icd10_desc
 
 class Diagnosis(models.Model):
 
@@ -192,10 +212,8 @@ class Diagnosis(models.Model):
     diagnosis_option = models.ManyToManyField(DiagnosisOption)
     record_of_genotype = models.CharField(max_length=45,null=True,blank=True)
     # icd_10_code = models.ForeignKey(icd_10)
-    icd_10_code = models.CharField('ICD-10 code', max_length=20,null=True,blank=True)
-    # icd_10_desc = models.CharField('ICD-10 description',max_length=80,null=True,blank=True)
-    icd_10_desc = models.ForeignKey(icd_10)
-    orpha_code = models.CharField('Oprha code', max_length=20,null=True,blank=True)
+    icd_10_desc = models.ManyToManyField(icd_10)
+    orpha_code = models.ManyToManyField(orphaCodes)
     comment = models.CharField(max_length=100,null=True,blank=True)
     #diagnosis_genotype = models.CharField('Diagnosis genotype', max_length=100, null=True, blank=True)
 

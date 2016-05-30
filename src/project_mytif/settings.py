@@ -40,7 +40,8 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 # Application definition
 
 INSTALLED_APPS = (
-    'autocomplete_light',
+    'dal',
+    'dal_select2',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -54,6 +55,7 @@ INSTALLED_APPS = (
     'bootstrap3_datetime',
     'chartit',
     'simple_history',
+
 )
 
 MIDDLEWARE_CLASSES = (
