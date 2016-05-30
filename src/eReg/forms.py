@@ -5,7 +5,7 @@ from crispy_forms.layout import Layout, Div, Submit, HTML, Button, Row, Field, B
 from crispy_forms.bootstrap import TabHolder, Tab, Accordion, AccordionGroup, FormActions
 from functools import partial
 from django.contrib.admin import widgets
-from models import Demographic, IcdTenOption, orphaCodes
+from models import Demographic
 from models import Diagnosis, A_b_sickle_thal, Redcell_enzyme_dis, Redcell_membrane_dis, Cong_dyseryth_anaemia, icd_10, Pregnancy, Clinical_data, Clinical_data_two, Ext_centers,Patient_reported_outcome,DiagnosisOption
 from sympy import pretty_print as pp, latex
 from dal import autocomplete
@@ -15,6 +15,7 @@ from dal import autocomplete
 #import autocomplete_light
 import sys
 reload(sys)
+
 sys.setdefaultencoding("utf-8")
 
 #autocomplete_light.register(icd_10, search_fields=['icd_10_desc'] )
