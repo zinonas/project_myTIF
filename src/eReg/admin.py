@@ -72,6 +72,10 @@ class diag_optAdmin (SimpleHistoryAdmin):
     class Meta:
         model = DiagnosisOption
 
+
+register(User, inherit=True)
+register(Group, inherit=True)
+
 #admin.site.register(User, SimpleHistoryAdmin)
 admin.site.register(Demographic, DemographicsAdmin)
 admin.site.register(Diagnosis, DiagnosisAdmin)
@@ -85,8 +89,7 @@ admin.site.register(Pregnancy,pregnancyAdmin)
 admin.site.register(Clinical_data,clinical_dataAdmin)
 admin.site.register(Patient_reported_outcome,patient_rep_outAdmin)
 
-register(User,inherit=True)
-register(Group,inherit=True)
+
 
 
 # admin.site.register(Demographic, SimpleHistoryAdmin)

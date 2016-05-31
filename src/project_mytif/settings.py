@@ -55,6 +55,7 @@ INSTALLED_APPS = (
     'bootstrap3_datetime',
     'chartit',
     'simple_history',
+    'simplejson',
 
 )
 
@@ -84,7 +85,7 @@ DATABASES = {
         'NAME': 'cy_thal',
         'USER': 'root',
         'PASSWORD': 'root',
-        'HOST': '127.0.0.2',
+        'HOST': '127.0.0.1',
         'PORT': '3306',
     }
 }
@@ -110,7 +111,7 @@ LANGUAGE_CODE = 'en-us'
 
 DATE_INPUT_FORMATS = ('%d-%m-%Y')
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Nicosia'
 
 USE_I18N = True
 
