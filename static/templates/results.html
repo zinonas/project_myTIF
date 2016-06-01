@@ -240,6 +240,20 @@
                     });
                 });
             </script>
+            <script>
+                 $(document).ready(function() {
+                     $('#id_diag-icd_10_desc').change(function () {
+                         alert($(this.value()));
+                     })
+                 })
+
+
+               $('select').select2({
+                      ajax: {
+                        url: "{% url 'icd10-autocomplete'  %}"
+                      }
+                    });
+           </script>
             {{frm.media}}
 {% endblock %}
 
@@ -334,5 +348,12 @@
     <!--<input type="submit" name='submit' value="Submit">-->
 </form>
 
+ {% block footer %}
+
+<script type="text/javascript" src="http://dal-yourlabs.rhcloud.com/static/collected/admin/js/vendor/jquery/jquery.js"></script>
+
+{{ frm_d.media }}
+
+{% endblock %}
 
 {% endblock %}

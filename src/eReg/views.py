@@ -182,6 +182,10 @@ def input(request):
                 dia_id = formfield.name
                 if formfield.name == 'diagnosis_option':
                     dig_opt_list =  formfield.value()
+                if formfield.name == 'icd_10_desc':
+                    icd_10_opt_list =  formfield.value()
+                if formfield.name == 'orpha_code':
+                    orpha_opt_list =  formfield.value()
                 #print formfield.id_for_label
                 entry+='{"fieldName":"'+ str(dia_id) + '",'
                 print "HERE I HAVE dia_val=", formfield.value()
@@ -285,6 +289,16 @@ def input(request):
 
             for x in xrange(0, len(dig_opt_list)):
                 my_diagnosis_object.diagnosis_option.add(dig_opt_list[x])
+
+            for x in xrange(0, len(icd_10_opt_list)):
+                my_diagnosis_object.icd_10_desc.add(icd_10_opt_list[x])
+                #print "icd"
+                #print icd_10_opt_list[x]
+
+            for x in xrange(0, len(orpha_opt_list)):
+                my_diagnosis_object.orpha_code.add(orpha_opt_list[x])
+                #print "orpha"
+                #print orpha_opt_list[x]
 
 
 
@@ -491,7 +505,7 @@ def results(request):
                 return render_to_response('search.html',{'my_alert':my_alert}, context)
 
             diag_patient = Diagnosis.objects.get(patient=myid, author=request.user)
-            diag_val = diag_patient.diagnosis_option
+            #diag_val = diag_patient.diagnosis_option
             a_b_s_patient = A_b_sickle_thal.objects.get(patient=myid, author=request.user)
             r_c_e_patient = Redcell_enzyme_dis.objects.get(patient=myid, author=request.user)
             r_c_m_patient = Redcell_membrane_dis.objects.get(patient=myid, author=request.user)
@@ -504,31 +518,10 @@ def results(request):
 
 
 
-        if ('b-thalassaemia syndromes' in diag_val.all() or 'a-thalassaemia syndromes' in diag_val.all() or 'Sickle cell syndromes' in diag_val.all() or 'Other haemoglobin variants' in diag_val.all()) :
-            diag_option = 1
-        elif ('Rare cell enzyme disorders' in diag_val.all()):
-            diag_option = 2
-        elif ('Rare cell membrane disorders' in diag_val.all()):
-            diag_option = 3
-        elif ('Congenital desyrythropoietic anaemias' in diag_val.all()):
-            diag_option = 4
-        elif(('b-thalassaemia syndromes' in diag_val.all() or 'a-thalassaemia syndromes' in diag_val.all() or 'Sickle cell syndromes' in diag_val.all() or 'Other haemoglobin variants' in diag_val.all()) and 'Rare cell enzyme disorders' in diag_val.all()):
-            diag_option = 12
-        elif(('b-thalassaemia syndromes' in diag_val.all() or 'a-thalassaemia syndromes' in diag_val.all() or 'Sickle cell syndromes' in diag_val.all() or 'Other haemoglobin variants' in diag_val.all()) and 'Rare cell membrane disorders' in diag_val.all()):
-            diag_option = 13
-        elif(('b-thalassaemia syndromes' in diag_val.all() or 'a-thalassaemia syndromes' in diag_val.all() or 'Sickle cell syndromes' in diag_val.all() or 'Other haemoglobin variants' in diag_val.all()) and 'Congenital desyrythropoietic anaemias' in diag_val.all()):
-            diag_option = 14
-        elif('Rare cell enzyme disorders' in diag_val.all() and 'Rare cell membrane disorders' in diag_val.all()):
-            diag_option = 23
-        elif('Rare cell enzyme disorders' in diag_val.all() and 'Congenital desyrythropoietic anaemias' in diag_val.all()):
-            diag_option = 24
-        elif('Rare cell membrane disorders' in diag_val.all() and 'Congenital desyrythropoietic anaemias' in diag_val.all()):
-            diag_option = 34
 
         my_demographics = DemographicForm(request.POST or None, prefix="demo", instance=patient)
-        my_diagnosis = DiagnosisForm(request.POST or None,prefix='diag', instance=diag_patient)
-        my_diagnosis.diagnosis_option = diag_val
-        print "VALUE=", diag_val
+        my_diagnosis = DiagnosisForm(request.POST,prefix='diag', instance=diag_patient)
+
         my_a_b_sickle= A_b_sickle_thalForm(request.POST or None,prefix='a_b_s', instance=a_b_s_patient)
         my_redcell_enzyme = Redcell_enzyme_disForm(request.POST or None, prefix='rc_enz', instance=r_c_e_patient)
         my_redcell_membrane= Redcell_membrane_disForm(request.POST or None, prefix='rc_mbr',instance=r_c_m_patient)
@@ -538,8 +531,15 @@ def results(request):
         my_patient_reported_outcomes = Patient_Reported_outcomeForm(request.POST or None, prefix='pat_rep_out', instance=patient_reported_outcomes_patient)
 
         for formfield in my_diagnosis:
+            print formfield.name
             if formfield.name == 'diagnosis_option':
                 dig_opt_list =  formfield.value()
+                print "it has"
+                print dig_opt_list
+            if formfield.name == 'icd_10_desc':
+                icd_10_opt_list =  formfield.value()
+            if formfield.name == 'orpha_code':
+                orpha_opt_list =  formfield.value()
         #print "dig_opt_list"
         #print dig_opt_list
 
@@ -554,7 +554,11 @@ def results(request):
             my_demographics_object.author = request.user
             my_demographics_object.save()
 
-            mylist = my_diagnosis.diagnosis_option.all()
+            mylist = diag_patient.diagnosis_option.all()
+            #print "mylist"
+            #print mylist
+            mylist_icd_10 = diag_patient.icd_10_desc.all()
+            mylist_orpha =   diag_patient.orpha_code.all()
 
             my_diagnosis_object = my_diagnosis.save(commit=False)
             my_diagnosis_object.author = request.user
@@ -563,12 +567,28 @@ def results(request):
 
 
             x = mylist.values('id')
+            w = mylist_icd_10.values('id')
+            e =  mylist_orpha.values('id')
+
             db_diag_values = [int(y['id']) for y in x]
+            db_icd10_values =  [int(y['id']) for y in w]
+            db_orpha_values =  [int(y['id']) for y in e]
+
             dig_opt_list_values=[]
+            icd_10_opt_list_values=[]
+            orpha_opt_list_values=[]
+
             for d in xrange (0, len(dig_opt_list)):
                 dig_opt_list_values.append(int(dig_opt_list[d]))
-            #print "db_diag_values"
-            print db_diag_values
+
+            for d in xrange (0, len(icd_10_opt_list)):
+                icd_10_opt_list_values.append(int(icd_10_opt_list[d]))
+
+            for d in xrange (0, len(orpha_opt_list)):
+                orpha_opt_list_values.append(int(orpha_opt_list[d]))
+
+            #print "icd1 10 opt list"
+            #print icd_10_opt_list_values
 
 
             #If a new diagnosis option in not in DB for user, add it
@@ -576,10 +596,26 @@ def results(request):
                 if int(dig_opt_list_values[x]) not in db_diag_values:
                     my_diagnosis_object.diagnosis_option.add(dig_opt_list_values[x])
 
+            for x in xrange(0, len(icd_10_opt_list_values)):
+                if int(icd_10_opt_list_values[x]) not in db_icd10_values:
+                    my_diagnosis_object.icd_10_desc.add(icd_10_opt_list_values[x])
+
+            for x in xrange(0, len(orpha_opt_list_values)):
+                if int(orpha_opt_list_values[x]) not in db_orpha_values:
+                    my_diagnosis_object.orpha_code.add(orpha_opt_list_values[x])
+
             #If remove a diagnosis, remove it from DB
             for y in xrange(0, len(db_diag_values)):
                 if db_diag_values[y] not in dig_opt_list_values:
                     my_diagnosis_object.diagnosis_option.remove(db_diag_values[y])
+
+            for y in xrange(0, len(db_icd10_values)):
+                if db_icd10_values[y] not in icd_10_opt_list_values:
+                    my_diagnosis_object.icd_10_desc.remove(db_icd10_values[y])
+
+            for y in xrange(0, len(db_orpha_values)):
+                if db_orpha_values[y] not in orpha_opt_list_values:
+                    my_diagnosis_object.orpha_code.remove(db_orpha_values[y])
 
 
 
@@ -643,7 +679,6 @@ def results(request):
                 return response
 
             diag_patient = Diagnosis.objects.get(patient=myid, author=request.user)
-            diag_val = diag_patient.diagnosis_option
             a_b_s_patient = A_b_sickle_thal.objects.get(patient=myid, author=request.user)
             r_c_e_patient = Redcell_enzyme_dis.objects.get(patient=myid,author=request.user)
             r_c_m_patient = Redcell_membrane_dis.objects.get(patient=myid, author=request.user)
@@ -657,35 +692,16 @@ def results(request):
             #     print diag_opt
 
 
-        if ('b-thalassaemia syndromes' in diag_val.all() or 'a-thalassaemia syndromes' in diag_val.all() or 'Sickle cell syndromes' in diag_val.all() or 'Other haemoglobin variants' in diag_val.all()) :
-            diag_option = 1
-        elif ('Rare cell enzyme disorders' in diag_val.all()):
-            diag_option = 2
-        elif ('Rare cell membrane disorders' in diag_val.all()):
-            diag_option = 3
-        elif ('Congenital desyrythropoietic anaemias' in diag_val.all()):
-            diag_option = 4
-        elif(('b-thalassaemia syndromes' in diag_val.all() or 'a-thalassaemia syndromes' in diag_val.all() or 'Sickle cell syndromes' in diag_val.all() or 'Other haemoglobin variants' in diag_val.all()) and 'Rare cell enzyme disorders' in diag_val.all()):
-            diag_option = 12
-        elif(('b-thalassaemia syndromes' in diag_val.all() or 'a-thalassaemia syndromes' in diag_val.all() or 'Sickle cell syndromes' in diag_val.all() or 'Other haemoglobin variants' in diag_val.all()) and 'Rare cell membrane disorders' in diag_val.all()):
-            diag_option = 13
-        elif(('b-thalassaemia syndromes' in diag_val.all() or 'a-thalassaemia syndromes' in diag_val.all() or 'Sickle cell syndromes' in diag_val.all() or 'Other haemoglobin variants' in diag_val.all()) and 'Congenital desyrythropoietic anaemias' in diag_val.all()):
-            diag_option = 14
-        elif('Rare cell enzyme disorders' in diag_val.all() and 'Rare cell membrane disorders' in diag_val.all()):
-            diag_option = 23
-        elif('Rare cell enzyme disorders' in diag_val.all() and 'Congenital desyrythropoietic anaemias' in diag_val.all()):
-            diag_option = 24
-        elif('Rare cell membrane disorders' in diag_val.all() and 'Congenital desyrythropoietic anaemias' in diag_val.all()):
-            diag_option = 34
 
-        print "diag_option=", diag_option
-        my_demographics = DemographicForm(prefix="demo",instance=patient)
+
+        #print "diag_option=", diag_option
+        my_demographics = DemographicForm(request.POST or None,prefix="demo",instance=patient)
         # my_demographics = DemographicForm(initial=form_data,)
 
         # my_demographics = DemographicForm(prefix='demo')
 
-        my_diagnosis = DiagnosisForm(prefix='diag', instance=diag_patient)
-        my_diagnosis.diagnosis_option = diag_val
+        my_diagnosis = DiagnosisForm(request.POST or None,prefix='diag', instance=diag_patient)
+
         my_a_b_sickle= A_b_sickle_thalForm(request.POST or None,prefix='a_b_s', instance=a_b_s_patient)
         my_redcell_enzyme = Redcell_enzyme_disForm(request.POST or None, prefix='rc_enz', instance=r_c_e_patient)
         my_redcell_membrane= Redcell_membrane_disForm(request.POST or None, prefix='rc_mbr',instance=r_c_m_patient)
