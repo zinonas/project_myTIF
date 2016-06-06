@@ -26,13 +26,19 @@
           <h4 class="panel-title">
             <input type="checkbox" disabled="disabled" checked="checked">
             <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-              Module #1: Patient demographics and diagnosis
+              Module 1: Patient consent, demographics and diagnosis
             </a>
           </h4>
         </div>
         <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
           <div class="panel-body">
-            This module is mandatory. It includes a patient's demographics information and the most important diagnosis information.
+            This module consists of 4 parts: <br/>
+              <ol>
+                <li>Patient consent (obligatory)</li>
+                <li>The minimum common dataset (obligatory)</li>
+                <li>The sub-menu: proof of diagnosis (not obligatory)</li>
+                <li>Family history and pedigree chart (not obligatory)</li>
+              </ol>
           </div>
         </div>
       </div>
@@ -41,14 +47,13 @@
           <h4 class="panel-title">
             <input type="checkbox" name="module_id_2" id="module_id_2" value="2">
             <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-
-               Module #2: Annual Haemoglobin disorders diagnostic tests..
+               Module 2: Clinical Findings of Thalassaemia and Severe Anaemias (not obligatory)
             </a>
           </h4>
         </div>
         <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
           <div class="panel-body">
-          This module is optional. It includes the annual Haemoglobin disorders diagnostic tests, the red cell enzyme disorders tests, the red cell membrance disorders tests, the Congenital desyrythropoietic anaemias tests and the Summary of Thalassaemia and Severe Anaemias.
+            In this module annual clinical data summary data are recorded, from patients who are regularly or irregularly transfused, whatever the diagnosis. The information can be used to follow progress or to follow the response to treatment, for example during a clinical trial.
           </div>
         </div>
       </div>
@@ -57,13 +62,13 @@
           <h4 class="panel-title">
             <input type="checkbox" name="module_id_3" id="module_id_3" value="3">
             <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-              Module #3: Sickle Cell Disease tests
+              Module 3: Clinical findings of Sickle Cell Disease (not obligatory)
             </a>
           </h4>
         </div>
         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
           <div class="panel-body">
-            This module is optional. It includes the annual sickle cell disease tests.
+            In this module annual clinical summary data are recorded, from patients suffering from sickle cell syndromes.  They are used in a similar way as module 2.
           </div>
         </div>
       </div>
@@ -72,13 +77,13 @@
           <h4 class="panel-title">
             <input type="checkbox" name="module_id_4" id="module_id_4" value="4">
               <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-              Module #4: Patient reported outcomes
+              Module 4: Patient reported outcomes
             </a>
           </h4>
         </div>
         <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
           <div class="panel-body">
-            This module is optional. It includes a patient's reported outcomes.
+            This module records patient outcomes, such as patient reported outcomes (quality of life) and mortality. Especially useful for clinical trials. The module is not obligatory but mortality data are.
           </div>
         </div>
       </div>
@@ -87,13 +92,28 @@
           <h4 class="panel-title">
             <input type="checkbox" name="module_id_5" id="module_id_5" value="5">
              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-              Module #5: Statistical package
+              Module 5: Statistical package
             </a>
           </h4>
         </div>
         <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
           <div class="panel-body">
-            This module is optional. It includes statistical correlations.
+            This is the statistical package with set queries which can be supplemented
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingSix">
+          <h4 class="panel-title">
+            <input type="checkbox" name="module_id_6" id="module_id_6" value="6">
+              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+              Module 6: Aggregate data
+            </a>
+          </h4>
+        </div>
+        <div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
+          <div class="panel-body">
+            This module records aggregated data.
           </div>
         </div>
       </div>

@@ -79,6 +79,13 @@ def modules(request):
         else:
             response.delete_cookie('module_5')
 
+        mod6=request.POST.get('module_id_6', False)
+        if mod6 != False:
+            #print mod5
+            response.set_cookie('module_6', '6')
+        else:
+            response.delete_cookie('module_6')
+
 
         return response
 
@@ -406,11 +413,13 @@ def input(request):
         my_cln_dt_two= ClinicalDataTwo(prefix='cln_dt_two')
         my_patient_reported_outcomes = Patient_Reported_outcomeForm(prefix='ptn_rep_out')
 
-    #if ret is None:
-    #    ret = render_to_response('input.html', {'frm':my_demographics, 'frm_d': my_diagnosis, 'frm_a_b_s': my_a_b_sickle, 'frm_rc_enz': my_redcell_enzyme, 'frm_rc_mbr': my_redcell_membrane, 'frm_cong_dys': my_cong_dys, 'diag_option': diag_option, 'frm_cln_dt': my_cln_dt, 'frm_out_mes': my_out_mes, 'frm_life_ev': my_life_ev,}, context)
-    #    cache.set('input-rendered', ret)
-
-    return render_to_response('input.html', {'frm':my_demographics, 'frm_d': my_diagnosis, 'frm_a_b_s': my_a_b_sickle, 'frm_rc_enz': my_redcell_enzyme, 'frm_rc_mbr': my_redcell_membrane, 'frm_cong_dys': my_cong_dys, 'diag_option': diag_option, 'frm_cln_dt': my_cln_dt, 'frm_cln_dt_two': my_cln_dt_two, 'ptn_rep_out':my_patient_reported_outcomes}, context)
+    if ret is None:
+        ret = render_to_response('input.html', {'frm':my_demographics, 'frm_d': my_diagnosis, 'frm_a_b_s': my_a_b_sickle, 'frm_rc_enz': my_redcell_enzyme, 'frm_rc_mbr': my_redcell_membrane, 'frm_cong_dys': my_cong_dys, 'diag_option': diag_option, 'frm_cln_dt': my_cln_dt, 'frm_cln_dt_two': my_cln_dt_two, 'ptn_rep_out':my_patient_reported_outcomes}, context)
+        cache.set('input-rendered', ret)
+    if ret is not None and request.method != 'POST':
+        return ret
+    else:
+        return render_to_response('input.html', {'frm':my_demographics, 'frm_d': my_diagnosis, 'frm_a_b_s': my_a_b_sickle, 'frm_rc_enz': my_redcell_enzyme, 'frm_rc_mbr': my_redcell_membrane, 'frm_cong_dys': my_cong_dys, 'diag_option': diag_option, 'frm_cln_dt': my_cln_dt, 'frm_cln_dt_two': my_cln_dt_two, 'ptn_rep_out':my_patient_reported_outcomes}, context)
         # submitted = request.POST.get('form_id', '')
         #
         # if submitted == 'demographics':
@@ -2177,6 +2186,7 @@ def logout_view(request):
     response.delete_cookie('module_3')
     response.delete_cookie('module_4')
     response.delete_cookie('module_5')
+    response.delete_cookie('module_6')
     return response
 
 

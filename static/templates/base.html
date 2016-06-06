@@ -136,13 +136,14 @@
                     var mod3 = getCookie('module_3');
                     var mod4 = getCookie('module_4');
                     var mod5 = getCookie('module_5');
+                    var mod6 = getCookie('module_6');
 
 
                      if (mod2 ==2){
-                         $('#mytab a[href="#3"]').parent().removeClass("hide");
-                         $('#mytab a[href="#4"]').parent().removeClass("hide");
-                         $('#mytab a[href="#5"]').parent().removeClass("hide");
-                         $('#mytab a[href="#6"]').parent().removeClass("hide");
+                         //$('#mytab a[href="#3"]').parent().removeClass("hide");
+                         //$('#mytab a[href="#4"]').parent().removeClass("hide");
+                         //$('#mytab a[href="#5"]').parent().removeClass("hide");
+                         //$('#mytab a[href="#6"]').parent().removeClass("hide");
                          $('#mytab a[href="#7"]').parent().removeClass("hide")
                      }
                     if (mod3 ==3){
@@ -187,15 +188,16 @@
                         <li><a href="{% url 'search'  %}">Search patient</a></li>
                     {% endif %}
 
-                    {% if group.name == 'External_center' %}
-                        <li><a href="{% url 'extcenters'  %}">External centers</a></li>
-                    {% endif %}
-
                 {%endfor%}
+
+                {% if request.COOKIES.module_6 %}
+                    <li><a href="{% url 'extcenters'  %}">External centers</a></li>
+                {%endif%}
                 {% if request.COOKIES.module_5 %}
                     <li><a href="{% url 'statistics'  %}">Analytics</a></li>
                 {%endif%}
                 {%endif%}
+
                 <li><a href="{% url 'about'  %}">About</a></li>
               </ul>
           </div>

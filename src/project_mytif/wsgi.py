@@ -8,7 +8,7 @@ https://docs.djangoproject.com/en/1.6/howto/deployment/wsgi/
 """
 
 import os, sys
-sys.path.append('/home/zinonas/PycharmProjects/project_myTIF/src')
+sys.path.append('/home/enerca/project_myTIF/src')
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project_mytif.settings")
 
 from django.core.wsgi import get_wsgi_application
