@@ -13,7 +13,7 @@ import traceback
 from django.forms.models import formset_factory
 from django.forms.models import inlineformset_factory
 from django.contrib.auth.models import User
-from models import Demographic, Diagnosis, A_b_sickle_thal,Redcell_enzyme_dis, Redcell_membrane_dis, Cong_dyseryth_anaemia, icd_10, orphaCodes, Clinical_data, Clinical_data_two, Ext_centers,Patient_reported_outcome, DiagnosisOption
+from models import Demographic, Diagnosis, A_b_sickle_thal,Redcell_enzyme_dis, Redcell_membrane_dis, Cong_dyseryth_anaemia, icd_10, orphaCodes, Clinical_data, Clinical_data_two, Ext_centers,Patient_reported_outcome, DiagnosisOption, Institution
 from django.core import serializers
 import json
 from django.db import transaction
@@ -477,9 +477,12 @@ def search(request):
         if 'id' in request.POST and request.POST['id']:
             with transaction.atomic():
                 id = request.POST['id']
-                patient = Demographic.objects.filter(patient_id__icontains=id, author=request.user)
-                print patient
-                print patient.count()
+                department = Institution.objects.filter(user=request.user).first().department
+                #print "dep"
+                #print department
+                patient = Demographic.objects.filter(patient_id__icontains=id, author__institution__department=department)
+                #print patient
+                #print patient.count()
                 # books = Book.objects.filter(title__icontains=q)
                 response =  render_to_response( 'search.html', {'patient': patient, 'query': id, 'option':value},context)
                 response.delete_cookie('no_patient')
@@ -506,22 +509,23 @@ def results(request):
         with transaction.atomic():
             print "HERE ELSE"
             try:
-                patient = Demographic.objects.get(patient_id=myid, author=request.user)
+                department = Institution.objects.filter(user=request.user).first().department
+                patient = Demographic.objects.get(patient_id=myid, author__institution__department=department)
             except Demographic.DoesNotExist:
                 patient = None
             if patient == None:
                 my_alert = "1"
                 return render_to_response('search.html',{'my_alert':my_alert}, context)
 
-            diag_patient = Diagnosis.objects.get(patient=myid, author=request.user)
+            diag_patient = Diagnosis.objects.get(patient=myid, author__institution__department=department)
             #diag_val = diag_patient.diagnosis_option
-            a_b_s_patient = A_b_sickle_thal.objects.get(patient=myid, author=request.user)
-            r_c_e_patient = Redcell_enzyme_dis.objects.get(patient=myid, author=request.user)
-            r_c_m_patient = Redcell_membrane_dis.objects.get(patient=myid, author=request.user)
-            c_d_a_patient = Cong_dyseryth_anaemia.objects.get(patient=myid, author=request.user)
-            cln_dt_patient= Clinical_data.objects.get(patient=myid, author=request.user)
-            cln_dt_two_patient = Clinical_data_two.objects.get(patient=myid, author=request.user)
-            patient_reported_outcomes_patient = Patient_reported_outcome.objects.get(patient=myid, author=request.user)
+            a_b_s_patient = A_b_sickle_thal.objects.get(patient=myid, author__institution__department=department)
+            r_c_e_patient = Redcell_enzyme_dis.objects.get(patient=myid, author__institution__department=department)
+            r_c_m_patient = Redcell_membrane_dis.objects.get(patient=myid, author__institution__department=department)
+            c_d_a_patient = Cong_dyseryth_anaemia.objects.get(patient=myid, author__institution__department=department)
+            cln_dt_patient= Clinical_data.objects.get(patient=myid, author__institution__department=department)
+            cln_dt_two_patient = Clinical_data_two.objects.get(patient=myid, author__institution__department=department)
+            patient_reported_outcomes_patient = Patient_reported_outcome.objects.get(patient=myid, author__institution__department=department)
 
 
 
@@ -678,7 +682,8 @@ def results(request):
         with transaction.atomic():
             print "HERE ELSE ELSE"
             try:
-                patient = Demographic.objects.get(patient_id=myid, author=request.user)
+                department = Institution.objects.filter(user=request.user).first().department
+                patient = Demographic.objects.get(patient_id=myid, author__institution__department=department)
             except Demographic.DoesNotExist:
                 patient = None
             if patient == None:
@@ -687,14 +692,14 @@ def results(request):
                 response.set_cookie('no_patient', 'True')
                 return response
 
-            diag_patient = Diagnosis.objects.get(patient=myid, author=request.user)
-            a_b_s_patient = A_b_sickle_thal.objects.get(patient=myid, author=request.user)
-            r_c_e_patient = Redcell_enzyme_dis.objects.get(patient=myid,author=request.user)
-            r_c_m_patient = Redcell_membrane_dis.objects.get(patient=myid, author=request.user)
-            c_d_a_patient = Cong_dyseryth_anaemia.objects.get(patient=myid, author=request.user)
-            cln_dt_patient= Clinical_data.objects.get(patient=myid, author=request.user)
-            cln_dt_two_patient = Clinical_data_two.objects.get(patient=myid)
-            patient_reported_outcomes_patient = Patient_reported_outcome.objects.get(patient=myid,author=request.user)
+            diag_patient = Diagnosis.objects.get(patient=myid, author__institution__department=department)
+            a_b_s_patient = A_b_sickle_thal.objects.get(patient=myid, author__institution__department=department)
+            r_c_e_patient = Redcell_enzyme_dis.objects.get(patient=myid,author__institution__department=department)
+            r_c_m_patient = Redcell_membrane_dis.objects.get(patient=myid, author__institution__department=department)
+            c_d_a_patient = Cong_dyseryth_anaemia.objects.get(patient=myid, author__institution__department=department)
+            cln_dt_patient= Clinical_data.objects.get(patient=myid, author__institution__department=department)
+            cln_dt_two_patient = Clinical_data_two.objects.get(patient=myid,author__institution__department=department)
+            patient_reported_outcomes_patient = Patient_reported_outcome.objects.get(patient=myid,author__institution__department=department)
 
             # print "diag_val"
             # for diag_opt in diag_val.all():

@@ -1931,7 +1931,7 @@ class ExternalCentersDiagnosticForm(forms.ModelForm):
                 Div(
                         HTML(u'<div class="col-md-9"><h4><b>SOD diaphorase deficiency</b></h4></div>'),
                         Div('diagn_categ_sod_def_no_patient',css_class='col-md-6'),
-                        Div('diagn_categ_sod_def_distribution',css_class="col-md-6"),
+                        Div('diagn_categ_sod_def_def_distribution',css_class="col-md-6"),
                         css_class='row',
                         ),
                 Div(

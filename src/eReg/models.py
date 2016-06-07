@@ -14,7 +14,9 @@ from django.conf import settings
 # Create Demographic models here
 from simple_history.models import HistoricalRecords
 
-
+class Institution(models.Model):
+    user =  models.OneToOneField(User, on_delete=models.CASCADE)
+    department = models.CharField(max_length=100)
 
 class Demographic(models.Model):
     anonymisation_code = models.UUIDField('Anonymisation code',default=uuid.uuid4, editable=False, unique=True)
@@ -33,7 +35,7 @@ class Demographic(models.Model):
         ('Other', 'Other')
     )
     data_entered_by = models.CharField('Entered by',max_length=15,choices=data_provider, default=data_provider[0][0])
-    data_entered_by_name = models.CharField('Other name', max_length=30,null=True,blank=True)
+    data_entered_by_name = models.CharField('Consent given by', max_length=30,null=True,blank=True)
     relationship_options = (
         ('','Please select'),
         #('Provider','Provider'),
