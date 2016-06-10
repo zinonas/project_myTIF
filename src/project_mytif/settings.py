@@ -72,6 +72,7 @@ MIDDLEWARE_CLASSES = (
 )
 
 
+
 ROOT_URLCONF = 'project_mytif.urls'
 
 WSGI_APPLICATION = 'project_mytif.wsgi.application'

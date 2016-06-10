@@ -8,10 +8,11 @@
 {% bootstrap_css %}
 {% bootstrap_javascript %}
 {% load pagination_tags %}
+
 {% block pagetitle %}Inputs{% endblock %}
 
-
 {% block head %}
+
             <script>
                 function load_page(id){
                     alert(id);
@@ -34,8 +35,9 @@
             <script type="text/javascript" src="/static/js/jquery.min.js"></script>
             <script src ="http://code.highcharts.com/highcharts.js"></script>
 
+
             {% load chartit %}
-            {{ charts|load_charts:"c1, c2, c3, c4 ,c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30, c31, c32, c33" }}
+            {{ charts|load_charts:"c1, c2, c3, c4 ,c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30, c31, c32, c33, c34, c35, c36, c37, c38, c39, c40" }}
 
 
 
@@ -267,6 +269,34 @@
                     <center><div id="c31" style="width: auto; height: auto " > Chart will be rendered here </div>
                     </br>
                     </center>
+                    <p>&#9632 <b>Age distribution by educational level</b>:</p>
+                    <center><div id="c32" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c33" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c34" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c35" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <p>&#9632 <b>Age distribution by employment/unemployment</b>:</p>
+                    <center><div id="c36" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c37" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <p>&#9632 <b>Proportion of adult patients who are married</b>: {{ prop_married }}%</p>
+                    <p>&#9632 <b>Proportion of adult patients who are parents</b>: {{ prop_parents }}%</p>
+                    <center><div id="c38" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+
+
+
                 </div>
             </div>
              <div class="tab-pane" id="4">

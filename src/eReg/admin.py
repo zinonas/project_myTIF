@@ -12,6 +12,7 @@ from .models import Cong_dyseryth_anaemia
 from .models import icd_10
 from .models import Pregnancy
 from .models import Clinical_data
+from .models import Clinical_data_two
 from .models import Patient_reported_outcome
 from .models import DiagnosisOption
 from .models import Institution
@@ -63,6 +64,11 @@ class clinical_dataAdmin (SimpleHistoryAdmin):
     class Meta:
         model = Clinical_data
 
+class clinical_data_twoAdmin (SimpleHistoryAdmin):
+    list_display = ('patient','pub_date', 'author')
+    class Meta:
+        model = Clinical_data_two
+
 class patient_rep_outAdmin (SimpleHistoryAdmin):
     list_display = ('patient','pub_date', 'author')
     class Meta:
@@ -94,6 +100,7 @@ admin.site.register(Cong_dyseryth_anaemia,cong_dyserAdmin)
 admin.site.register(icd_10, icd10Admin)
 admin.site.register(Pregnancy,pregnancyAdmin)
 admin.site.register(Clinical_data,clinical_dataAdmin)
+admin.site.register(Clinical_data_two,clinical_data_twoAdmin)
 admin.site.register(Patient_reported_outcome,patient_rep_outAdmin)
 
 

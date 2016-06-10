@@ -663,10 +663,10 @@ class ClinicalDataTwo(forms.ModelForm):
         widget=DateTimePicker(options={"format": "YYYY-MM-DD",
                                        "pickTime": False,
                                        "startDate": "1900-01-01"}))
-        self.fields['prophylactic_measures_antibiotic_prophylaxis_other_date']= forms.DateField(label=('Date started'),required=False,
-        widget=DateTimePicker(options={"format": "YYYY-MM-DD",
-                                       "pickTime": False,
-                                       "startDate": "1900-01-01"}))
+        #self.fields['prophylactic_measures_antibiotic_prophylaxis_other_date']= forms.DateField(label=('Date started'),required=False,
+        #widget=DateTimePicker(options={"format": "YYYY-MM-DD",
+        #                               "pickTime": False,
+        #                               "startDate": "1900-01-01"}))
         self.fields['prophylactic_measures_vaccinations_pneumococcal_OCV_date']= forms.DateField(label=('Date given'),required=False,
         widget=DateTimePicker(options={"format": "YYYY-MM-DD",
                                        "pickTime": False,
@@ -751,6 +751,21 @@ class ClinicalDataTwo(forms.ModelForm):
         widget=DateTimePicker(options={"format": "YYYY-MM-DD",
                                        "pickTime": False,
                                        "startDate": "1900-01-01"}))
+        self.fields['monitoring_tests_annual_calcium_metabolism_serum_calcium_date']= forms.DateField(label=('Date abnormal'),required=False,
+        widget=DateTimePicker(options={"format": "YYYY-MM-DD",
+                                       "pickTime": False,
+                                       "startDate": "1900-01-01"}))
+
+        self.fields['monitoring_tests_annual_hip_radiology_date']= forms.DateField(label=('Date abnormal'),required=False,
+        widget=DateTimePicker(options={"format": "YYYY-MM-DD",
+                                       "pickTime": False,
+                                       "startDate": "1900-01-01"}))
+        self.fields['monitoring_tests_annual_ophthalmic_evaluation_date']= forms.DateField(label=('Date abnormal'),required=False,
+        widget=DateTimePicker(options={"format": "YYYY-MM-DD",
+                                       "pickTime": False,
+                                       "startDate": "1900-01-01"}))
+
+
 
 
         self.helper=FormHelper(form=self)
@@ -771,7 +786,7 @@ class ClinicalDataTwo(forms.ModelForm):
                      ),
                 Div(
                      Div('prophylactic_measures_antibiotic_prophylaxis_other',css_class='col-md-6'),
-                     Div('prophylactic_measures_antibiotic_prophylaxis_other_date',css_class='col-md-6'),
+                     #Div('prophylactic_measures_antibiotic_prophylaxis_other_date',css_class='col-md-6'),
                      css_class='row',
                      ),
                 ),
@@ -825,9 +840,10 @@ class ClinicalDataTwo(forms.ModelForm):
             Fieldset(
                 'Calcium metabolism',
                 Div(
-                     Div('monitoring_tests_annual_calcium_metabolism_serum_calcium',css_class='col-md-3'),
-                     Div('monitoring_tests_annual_calcium_metabolism_vitamin_D_level',css_class='col-md-4'),
-                     Div('monitoring_tests_annual_calcium_metabolism_parathormone_level',css_class='col-md-5'),
+                     Div('monitoring_tests_annual_calcium_metabolism_serum_calcium',css_class='col-md-6'),
+                     Div('monitoring_tests_annual_calcium_metabolism_serum_calcium_date',css_class='col-md-6'),
+                     Div('monitoring_tests_annual_calcium_metabolism_vitamin_D_level',css_class='col-md-6'),
+                     Div('monitoring_tests_annual_calcium_metabolism_parathormone_level',css_class='col-md-6'),
                      css_class='row',
                      ),
                 ),
@@ -866,6 +882,7 @@ class ClinicalDataTwo(forms.ModelForm):
                 'Opthalmic evaluation',
                 Div(
                     Div('monitoring_tests_annual_ophthalmic_evaluation',css_class='col-md-6'),
+                    Div('monitoring_tests_annual_ophthalmic_evaluation_date',css_class='col-md-6'),
                     css_class='row',
                 )
             ),

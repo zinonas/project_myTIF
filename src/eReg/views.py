@@ -1,3 +1,4 @@
+from __future__ import division
 from django.db.models import Sum, Count
 from django.contrib.auth.models import Group
 from django.shortcuts import render, render_to_response, RequestContext, HttpResponse, get_object_or_404, redirect
@@ -32,6 +33,10 @@ from chartit import PivotDataPool, PivotChart
 import ast
 from django.db.models import Q
 import collections
+from itertools import chain
+from collections import Counter
+
+
 
 def password_change_done(request, template_name="registration/password_change_done.html"):
     return render_to_response(template_name,(),context_instance= RequestContext(request))
@@ -1008,18 +1013,18 @@ def statistics(request):
     age_dist=sorted(age_dist)
     #Find frequencies of elements
     freq_age_dist = collections.Counter(age_dist)
-    print "FREQ:", freq_age_dist
+    #print "FREQ:", freq_age_dist
 
-    print 'total count', total_num.count()
-    print 'females', females.count()
-    print 'males', males.count()
-    print 'birthdays', age_dist
-    print "COUNT:", Count(age_dist)
+    #print 'total count', total_num.count()
+    #print 'females', females.count()
+    #print 'males', males.count()
+    #print 'birthdays', age_dist
+    #print "COUNT:", Count(age_dist)
 
     age_dict={}
     for i in freq_age_dist:
         age_dict[str(i)+'i']=freq_age_dist[i]
-    print "DICT", age_dict
+    #print "DICT", age_dict
 
     signed_by_c = PivotDataPool(
         series=[
@@ -2047,8 +2052,268 @@ def statistics(request):
                        'text': 'Age distribution'}}}
     )
 
+    #2 Age by educational level
+    edu_level = Demographic.objects.filter(education='Primary')
+
+    edu_by_age_prim = PivotDataPool(
+        series=[
+            {'options': {
+                'source':edu_level,
+                'categories':['age'] ,
+                },
+                'terms':{
+                    'Number_of_patients':Count('education'),
+
+                    }
+            }
+        ]
+    )
+
+    edu_by_age_prim1 = PivotChart(
+        datasource=edu_by_age_prim,
+        series_options =
+              [{'options':{
+                'type': 'column',
+                'stacking': True
+                },
+                'terms':['Number_of_patients']
+               }],
+         chart_options =
+              {'title': {
+                   'text': 'Primary'},
+               'xAxis': {
+                    'title': {
+                       'text': 'Age distribution'}}}
+    )
+
+    edu_level = Demographic.objects.filter(education='Secondary')
+
+    edu_by_age_sec = PivotDataPool(
+        series=[
+            {'options': {
+                'source':edu_level,
+                'categories':['age'] ,
+                },
+                'terms':{
+                    'Number_of_patients':Count('education'),
+
+                    }
+            }
+        ]
+    )
+
+    edu_by_age_sec1 = PivotChart(
+        datasource=edu_by_age_sec,
+        series_options =
+              [{'options':{
+                'type': 'column',
+                'stacking': True
+                },
+                'terms':['Number_of_patients']
+               }],
+         chart_options =
+              {'title': {
+                   'text': 'Secondary'},
+               'xAxis': {
+                    'title': {
+                       'text': 'Age distribution'}}}
+    )
+
+    edu_level = Demographic.objects.filter(education='University')
+
+    edu_by_age_uni = PivotDataPool(
+        series=[
+            {'options': {
+                'source':edu_level,
+                'categories':['age'] ,
+                },
+                'terms':{
+                    'Number_of_patients':Count('education'),
+
+                    }
+            }
+        ]
+    )
+
+    edu_by_age_uni1 = PivotChart(
+        datasource=edu_by_age_uni,
+        series_options =
+              [{'options':{
+                'type': 'column',
+                'stacking': True
+                },
+                'terms':['Number_of_patients']
+               }],
+         chart_options =
+              {'title': {
+                   'text': 'University'},
+               'xAxis': {
+                    'title': {
+                       'text': 'Age distribution'}}}
+    )
+
+    edu_level = Demographic.objects.filter(education='Other')
+
+    edu_by_age_oth = PivotDataPool(
+        series=[
+            {'options': {
+                'source':edu_level,
+                'categories':['age'] ,
+                },
+                'terms':{
+                    'Number_of_patients':Count('education'),
+
+                    }
+            }
+        ]
+    )
+
+    edu_by_age_oth1 = PivotChart(
+        datasource=edu_by_age_oth,
+        series_options =
+              [{'options':{
+                'type': 'column',
+                'stacking': True
+                },
+                'terms':['Number_of_patients']
+               }],
+         chart_options =
+              {'title': {
+                   'text': 'Other'},
+               'xAxis': {
+                    'title': {
+                       'text': 'Age distribution'}}}
+    )
+    #3
+    employ_age = Demographic.objects.filter(Q(profession='Full time') | Q(profession="Part time"))
+
+    employ_age_dist = PivotDataPool(
+        series=[
+            {'options': {
+                'source':employ_age,
+                'categories':['age'] ,
+                },
+                'terms':{
+                    'Number_of_patients':Count('profession'),
+
+                    }
+            }
+        ]
+    )
+
+    employ_age_dist1 = PivotChart(
+        datasource=employ_age_dist,
+        series_options =
+              [{'options':{
+                'type': 'column',
+                'stacking': True
+                },
+                'terms':['Number_of_patients']
+               }],
+         chart_options =
+              {'title': {
+                   'text': 'Employment'},
+               'xAxis': {
+                    'title': {
+                       'text': 'Age distribution'}}}
+    )
+
+    unemploy_age = Demographic.objects.filter(profession='Unemployed')
+
+    unemploy_age_dist = PivotDataPool(
+        series=[
+            {'options': {
+                'source':unemploy_age,
+                'categories':['age'] ,
+                },
+                'terms':{
+                    'Number_of_patients':Count('profession'),
+
+                    }
+            }
+        ]
+    )
+
+    unemploy_age_dist1 = PivotChart(
+        datasource=unemploy_age_dist,
+        series_options =
+              [{'options':{
+                'type': 'column',
+                'stacking': True
+                },
+                'terms':['Number_of_patients']
+               }],
+         chart_options =
+              {'title': {
+                   'text': 'Unemployment'},
+               'xAxis': {
+                    'title': {
+                       'text': 'Age distribution'}}}
+    )
+
+    #4 Age by marriage
+    adults_all = Demographic.objects.filter(Q(age__gte=18)).count()
+
+    #Use this to catch ZeroDivisionError
+    if adults_all == 0:
+        adults_all=1
+
+    adults_married = Demographic.objects.filter(Q(age__gte=18) &  Q(family_situation="married")).count()
+    prop_married = '{:2.0f}'.format((adults_married/adults_all)*100)
+    #print ("adults")
+    #print (prop_married)
+
+    #5 Proportion of adult patients who are parents
+    adults_parents = Demographic.objects.filter(Q(age__gte=18) &  Q(no_of_children__gt="0")).count()
+    prop_parents = '{:2.0f}'.format((adults_parents/adults_all)*100)
+    #print prop_parents
+
+    #6 Age starting penicilin prophylaxis
+
+    total_pat_penic = Clinical_data_two.objects.filter(prophylactic_measures_antibiotic_prophylaxis_penicillin_date__isnull = False)
+
+    for penic in total_pat_penic:
+        t = Clinical_data_two.objects.get(patient=penic.patient.patient_id)
+        #id = penic.patient.patient_id
+        dob = penic.patient.date_of_birth
+        penic_date = penic.prophylactic_measures_antibiotic_prophylaxis_penicillin_date
+        t.prophylactic_measures_antibiotic_prophylaxis_penicillin_age = ((penic_date-dob).days / days_in_year)
+        t.save()
+
+    penic_dist = PivotDataPool(
+        series=[
+            {'options': {
+                'source':total_pat_penic,
+                'categories':['prophylactic_measures_antibiotic_prophylaxis_penicillin_age'] ,
+                },
+                'terms':{
+                    'Number_of_patients':Count('prophylactic_measures_antibiotic_prophylaxis_penicillin_age'),
+
+                    }
+            }
+        ]
+    )
+
+    penic_dist1 = PivotChart(
+        datasource=penic_dist,
+        series_options =
+              [{'options':{
+                'type': 'column',
+                'stacking': True
+                },
+                'terms':['Number_of_patients']
+               }],
+         chart_options =
+              {'title': {
+                   'text': 'Age starting penicillin prophylaxis/other antibiotic prophylaxis'},
+               'xAxis': {
+                    'title': {
+                       'text': 'Age distribution'}}}
+    )
 
 
+
+    ##########
     ds = PivotDataPool(
         series=[
             {'options': {
@@ -2133,20 +2398,23 @@ def statistics(request):
                                                   #'total_patients_country_res':total_patients_country_res,
                                                   #'total_patients_country_orig':total_patients_country_orig,'total_patients_country_ethnic_orig':total_patients_country_ethnic_orig,
                                                   'data_reuse':signed_data_reusage,'data_both':signed_data_both,
+                                                  'prop_married':prop_married, 'prop_parents':prop_parents,
                                                   # 'age_dist_per_diag':age_dist_per_diag,
                                                   #'total_patients_beta':total_patients_beta, 'total_patients_alpha':total_patients_alpha,
                                                   #'total_patients_sickle':total_patients_sickle,'total_patients_other_haem':total_patients_other_haem,
                                                   #'total_patients_meb_dis':total_patients_meb_dis,'total_patients_enz_dis':total_patients_enz_dis,
                                                   #'total_patients_cong':total_patients_cong,
+
                                                   'females': females.count(), 'males': males.count(),
                                                   'age_values': freq_age_dist.keys(),'age_freq':freq_age_dist.values(),
                                                   'charts':[signed_by_c1,signed_by_rel1, tot_diag1 ,tot_diag_thalb1, tot_diag_thala1, tot_diag_sck1, tot_diag_other1, tot_diag_mem1,
                                                             tot_diag_enz1, tot_diag_cong1,tot_diag_thalb_con_or1, tot_diag_thala_con_or1, tot_diag_sck_con_or1, tot_diag_other_con_or1,
                                                             tot_diag_mem_con_or1, tot_diag_enz_con_or1, tot_diag_cong_con_or1 , tot_diag_thalb_race1, tot_diag_thala_race1, tot_diag_sck_race1,
                                                             tot_diag_other_race1, tot_diag_mem_race1, tot_diag_enz_race1, tot_diag_cong_race1, tot_diag_thalb_age1, tot_diag_thala_age1,
-                                                            tot_diag_sck_age1, tot_diag_other_age1, tot_diag_mem_age1, tot_diag_enz_age1, tot_diag_cong_age1,
+                                                            tot_diag_sck_age1, tot_diag_other_age1, tot_diag_mem_age1, tot_diag_enz_age1, tot_diag_cong_age1, edu_by_age_prim1, edu_by_age_sec1,
+                                                            edu_by_age_uni1, edu_by_age_oth1, employ_age_dist1, unemploy_age_dist1, penic_dist1,
                                                             pvcht, pvcht_age ]},
-                              context)
+                              context_instance=context)
 
 @login_required(login_url='/login')
 def external_centers(request):
