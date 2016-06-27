@@ -205,6 +205,7 @@
                     });
                 });
             </script>
+
             <!--<script>
                 $(document).ready(function() {
                     $('#id_diag-icd_10_desc').change(function () {
@@ -253,7 +254,7 @@
                         if ($(this).prop('checked')) {
                             var option = $(this).val();
                             //alert(unescape(escape($(this).attr('value'))));
-                            $(this).parent().append('<label><input class="extended" type="checkbox" id="extended" name="extended" value='+escape($(this).attr('value'))+'>Extended</label>');
+                            $(this).parent().append('<label><input class="extended" type="checkbox" id="extended" name="extended" value='+escape($(this).attr('value'))+'>Laboratory tests</label>');
                         }
                         else if( $this.siblings('label').length ) {
                     $this.siblings('label').remove();
@@ -313,7 +314,11 @@
 
 {%block jumbotron_title %}Add new patient to the eRegistry{% endblock %}
 {%block jumbotron_info %}Insert patient's demographics and diagnosis data.
-{% endblock %}
+    <div class="alert alert-warning" >
+        <strong>If you want to select different module(s) for this patient, you have to select modules firstly and then add new patient to the system.</strong>.
+    </div>
+
+        {% endblock %}
 {% block content %}
 
 <!-- Nav tabs -->
@@ -352,10 +357,10 @@
                 <a href="#6" data-toggle="tab">Congenital desyrythropoietic anaemias</a>
             </li>
             <li class="hide">
-                <a href="#7" data-toggle="tab">Summary of Thalassaemia and Severe Anaemias</a>
+                <a href="#7" data-toggle="tab">Annual Summary of Thalassaemia and Severe Anaemias</a>
             </li>
             <li class="hide">
-                <a href="#8" data-toggle="tab">Summary of Sickle Cell disease</a>
+                <a href="#8" data-toggle="tab">Annual Summary of Sickle Cell disease</a>
             </li>
             <li class="hide">
                 <a href="#9" data-toggle="tab">Patient reported outcomes</a>

@@ -290,15 +290,15 @@ class ClinicalDataForm(forms.ModelForm):
                                        "pickTime": False,
                                        "startDate": "1900-01-01"}))
 
-        self.fields['assessment_of_iron_load_serrum_two_date']= forms.DateField(label=('Date measured'),required=False,
-        widget=DateTimePicker(options={"format": "YYYY-MM-DD",
-                                       "pickTime": False,
-                                       "startDate": "1900-01-01"}))
-
-        self.fields['assessment_of_iron_load_serrum_three_date']= forms.DateField(label=('Date measured'),required=False,
-        widget=DateTimePicker(options={"format": "YYYY-MM-DD",
-                                       "pickTime": False,
-                                       "startDate": "1900-01-01"}))
+        # self.fields['assessment_of_iron_load_serrum_two_date']= forms.DateField(label=('Date measured'),required=False,
+        # widget=DateTimePicker(options={"format": "YYYY-MM-DD",
+        #                                "pickTime": False,
+        #                                "startDate": "1900-01-01"}))
+        #
+        # self.fields['assessment_of_iron_load_serrum_three_date']= forms.DateField(label=('Date measured'),required=False,
+        # widget=DateTimePicker(options={"format": "YYYY-MM-DD",
+        #                                "pickTime": False,
+        #                                "startDate": "1900-01-01"}))
 
 
         self.fields['assessment_of_iron_load_liver_mri_date']= forms.DateField(label=('Date measured'),required=False,
@@ -345,7 +345,7 @@ class ClinicalDataForm(forms.ModelForm):
         ('Desferrioxamine','Desferrioxamine'),
         ('Deferiprone','Deferiprone'),
         ('Deferasirox','Deferasirox'),
-        ('Other','Other'),
+        ('Compilation','Compilation'),
         )
         self.fields['current_treatment_chelation_drug']=forms.MultipleChoiceField(label='Current Chelator regime',choices=current_treatment_chelation_drug_option, widget=forms.CheckboxSelectMultiple(),required=False)
         self.helper=FormHelper(form=self)
@@ -401,7 +401,12 @@ class ClinicalDataForm(forms.ModelForm):
                     #HTML("years<br/>"),
 
                     Div('transfusion_depentent_anaemia', css_class="col-md-6"),
-                    Div('date_of_transition_from_irregular_to_regular_tranfusions', css_class="col-md-8"),
+                    Div('average_pretransfusion_hb', css_class="col-md-11"),
+                    Div(HTML("g/dl"), css_class="col-md-1"),
+                    Div('annual_blood_consumption', css_class="col-md-11"),
+                    Div(HTML("ml/kg"), css_class="col-md-1"),
+                    Div('date_of_transition_from_irregular_to_regular_tranfusions', css_class="col-md-12"),
+
 
                     css_class='row',
                     ),
@@ -415,20 +420,20 @@ class ClinicalDataForm(forms.ModelForm):
                     Div('assessment_of_iron_load_serrum_one_date',css_class="col-md-5"),
                     css_class='row',
                     ),
-                Div(
-                    #HTML(u'<div class="col-md-2"></div>'),
-                    Div('assessment_of_iron_load_serrum_two',css_class='col-md-5'),
-                    Div(HTML("mg/L"), css_class="col-md-1"),
-                    Div('assessment_of_iron_load_serrum_two_date',css_class="col-md-5"),
-                    css_class='row',
-                    ),
-                Div(
-                    #HTML(u'<div class="col-md-2"></div>'),
-                    Div('assessment_of_iron_load_serrum_three',css_class='col-md-5'),
-                    Div(HTML("mg/L"), css_class="col-md-1"),
-                    Div('assessment_of_iron_load_serrum_three_date',css_class="col-md-5"),
-                    css_class='row',
-                    ),
+                # Div(
+                #     #HTML(u'<div class="col-md-2"></div>'),
+                #     Div('assessment_of_iron_load_serrum_two',css_class='col-md-5'),
+                #     Div(HTML("mg/L"), css_class="col-md-1"),
+                #     Div('assessment_of_iron_load_serrum_two_date',css_class="col-md-5"),
+                #     css_class='row',
+                #     ),
+                # Div(
+                #     #HTML(u'<div class="col-md-2"></div>'),
+                #     Div('assessment_of_iron_load_serrum_three',css_class='col-md-5'),
+                #     Div(HTML("mg/L"), css_class="col-md-1"),
+                #     Div('assessment_of_iron_load_serrum_three_date',css_class="col-md-5"),
+                #     css_class='row',
+                #     ),
                 Div(
                     #HTML(u'<div class="col-md-2"></div>'),
                     Div('assessment_of_iron_load_liver_mri',css_class='col-md-5'),
@@ -451,7 +456,7 @@ class ClinicalDataForm(forms.ModelForm):
                 Div(
                     #HTML(u'<div class="col-md-2"></div>'),
                     Div('assessment_of_iron_load_method_cardiac_iron',css_class='col-md-6'),
-                    Div('assessment_of_iron_load_ti_bassal_hb_rate',css_class="col-md-5"),
+                    #Div('assessment_of_iron_load_ti_bassal_hb_rate',css_class="col-md-5"),
                     css_class='row',
                     ),
 
@@ -476,6 +481,16 @@ class ClinicalDataForm(forms.ModelForm):
                     ),
                 ),
             Fieldset(
+                '<b>Hepatitis treatment</b>',
+                Div(
+                    #HTML(u'<div class="col-md-2"></div>'),
+                    Div('current_treatment_hepatitis_treatment_c',css_class="col-md-6"),
+                    Div('current_treatment_hepatitis_treatment_b',css_class='col-md-6'),
+
+                    css_class='row',
+                    ),
+                ),
+            Fieldset(
                 '<b>Current treatment</b>',
                 Div(
                     #HTML(u'<div class="col-md-2"></div>'),
@@ -487,7 +502,7 @@ class ClinicalDataForm(forms.ModelForm):
                 Div(
                     #HTML(u'<div class="col-md-2"></div>'),
                     Div('current_treatment_chelation_start',css_class='col-md-6'),
-
+                    Div('current_treatment_chelation_desc',css_class='col-md-6'),
                     css_class='row',
                     ),
                 Field ('current_treatment_chelation_drug'),
@@ -518,16 +533,7 @@ class ClinicalDataForm(forms.ModelForm):
                     css_class='row',
                     ),
                 ),
-            Fieldset(
-                '<b>Hepatitis treatment</b>',
-                Div(
-                    #HTML(u'<div class="col-md-2"></div>'),
-                    Div('current_treatment_hepatitis_treatment_c',css_class="col-md-6"),
-                    Div('current_treatment_hepatitis_treatment_b',css_class='col-md-6'),
 
-                    css_class='row',
-                    ),
-                ),
             Fieldset(
                 '<b>Complications/Outcomes</b>',
 

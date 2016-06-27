@@ -45,7 +45,7 @@
     }</script>
 
 
-    <script>
+   <!-- <script>
          $(document).ready(function() {
 
              //alert(window.location.href.toString().split(window.location.host)[1]);
@@ -130,7 +130,7 @@
 
          })
 
-    </script>
+    </script>-->
     <script>
                 $(document).ready(function() {
                     var mod2 = getCookie('module_2');
@@ -160,6 +160,14 @@
     {% block head %}{% endblock %}
   </head>
 
+  {% url 'home' as home_url %}
+  {% url 'modules' as modules_url %}
+  {% url 'input' as input_url %}
+  {% url 'search' as search_url %}
+  {% url 'results' as results_url %}
+  {% url 'about' as about_url %}
+  {% url 'statistics' as statistics_url %}
+  {% url 'extcenters' as extcenters_url %}
   <body>
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="container-fluid">
@@ -167,9 +175,13 @@
           <a class="navbar-brand" href="http://www.enerca.org" target=_blank><img src="/media/Enerca_logo.png" width="8%"/></a>
         </div>
         <div>
-        <div class="header">
+         <div class="header">
               <ul class="nav navbar-nav" role="navigation">
-                <li class="active"><a href="{% url 'home' %}">Home</a></li>
+                {% if user.is_authenticated %}
+                    <li {% if request.get_full_path == modules_url %} class="active"{% endif %}><a href="{% url 'modules' %}"><b  style="color:#ff9904;">Modules</b></a></li>
+                {% endif %}
+                <li {% if request.get_full_path == home_url %} class="active"{% endif %}><a href="{% url 'home' %}">Home</a></li>
+
                 {% if user.is_authenticated %}
                 <!--<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>-->
 
@@ -182,23 +194,23 @@
                 <!--</li>-->
                 {% for group in user.groups.all %}
                     {% if group.name == 'Doctor' or group.name == 'Nurse' %}
-                        <li><a href="{% url 'input'  %}">Add patient</a></li>
+                        <li {% if request.get_full_path == input_url %} class="active"{% endif %}><a href="{% url 'input'  %}">Add patient</a></li>
                     {% endif %}
                     {% if group.name == 'Doctor' or group.name == 'Nurse' %}
-                        <li><a href="{% url 'search'  %}">Search patient</a></li>
+                        <li {% if request.get_full_path == search_url %} class="active"{% endif %}><a href="{% url 'search'  %}">Search patient</a></li>
                     {% endif %}
 
                 {%endfor%}
 
                 {% if request.COOKIES.module_6 %}
-                    <li><a href="{% url 'extcenters'  %}">Aggregated data</a></li>
+                    <li {% if request.get_full_path == extcenters_url %} class="active"{% endif %}><a href="{% url 'extcenters'  %}">Aggregated data</a></li>
                 {%endif%}
                 {% if request.COOKIES.module_5 %}
-                    <li><a href="{% url 'statistics'  %}">Analytics</a></li>
+                    <li {% if request.get_full_path == statistics_url %} class="active"{% endif %}><a href="{% url 'statistics'  %}">Analytics</a></li>
                 {%endif%}
                 {%endif%}
 
-                <li><a href="{% url 'about'  %}">About</a></li>
+                <li{% if request.get_full_path == about_url %} class="active"{% endif %}><a href="{% url 'about'  %}">About</a></li>
               </ul>
           </div>
           <ul class="nav navbar-nav navbar-right" role="navigation">

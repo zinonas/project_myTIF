@@ -51,7 +51,10 @@
 {% endblock %}
 
 {%block jumbotron_title %}Search patient{% endblock %}
-{%block jumbotron_info %}You have the option to update patient's data or add new.{% endblock %}
+{%block jumbotron_info %}You have the option to update patient's data or add new.
+<div class="alert alert-warning" >
+        <strong>If you want to select different module(s) for this patient, you have to select modules firstly and then search the patient</strong>.
+    </div>{% endblock %}
 {% block content %}
 <input type="hidden" id="my_alert" name='NoUser' value="{{my_alert}}" />
 

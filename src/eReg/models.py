@@ -274,12 +274,12 @@ class Clinical_data(models.Model):
     clinical_data_others = models.CharField('Others (Thromboembolism, cancers,...)', max_length=30, null=True, blank=True)
     clinical_data_others_date = models.DateField('Date of diagnosis',null=True,blank=True)
     #clinical_data_pregnancy_id = models.ForeignKey(Pregnancy)
-    assessment_of_iron_load_serrum_one= models.CharField('Serrum ferritin 1', max_length=10,null=True,blank=True)
+    assessment_of_iron_load_serrum_one= models.CharField('Average Serrum ferritin', max_length=10,null=True,blank=True)
     assessment_of_iron_load_serrum_one_date= models.DateField('Date measured',null=True,blank=True)
-    assessment_of_iron_load_serrum_two= models.CharField('Serrum ferritin 2', max_length=10,null=True,blank=True)
-    assessment_of_iron_load_serrum_two_date= models.DateField('Date measured',null=True,blank=True)
-    assessment_of_iron_load_serrum_three= models.CharField('Serrum ferritin 3', max_length=10,null=True,blank=True)
-    assessment_of_iron_load_serrum_three_date= models.DateField('Date measured',null=True,blank=True)
+    #assessment_of_iron_load_serrum_two= models.CharField('Serrum ferritin 2', max_length=10,null=True,blank=True)
+    #assessment_of_iron_load_serrum_two_date= models.DateField('Date measured',null=True,blank=True)
+    #assessment_of_iron_load_serrum_three= models.CharField('Serrum ferritin 3', max_length=10,null=True,blank=True)
+    #assessment_of_iron_load_serrum_three_date= models.DateField('Date measured',null=True,blank=True)
     assessment_of_iron_load_liver_mri= models.CharField('Liver MRI', max_length=10,null=True,blank=True)
     assessment_of_iron_load_liver_mri_date= models.DateField('Date measured',null=True,blank=True)
     assessment_of_iron_load_fibroscan= models.CharField('Fibroscan', max_length=10,null=True,blank=True)
@@ -287,7 +287,7 @@ class Clinical_data(models.Model):
     assessment_of_iron_load_intra_hepatic_iron= models.CharField('Liver biopsy', max_length=10,null=True,blank=True)
     assessment_of_iron_load_method_mri= models.DateField('Date measured', max_length=10,null=True,blank=True)
     assessment_of_iron_load_method_cardiac_iron= models.CharField('Cardiac iron T2<sup>*</sup>', max_length=10,null=True,blank=True)
-    assessment_of_iron_load_ti_bassal_hb_rate= models.CharField('Bassal Hb rate', max_length=10,null=True,blank=True)
+    #assessment_of_iron_load_ti_bassal_hb_rate= models.CharField('Bassal Hb rate', max_length=10,null=True,blank=True)
 
     serological_data_option = (
         ('','Please select'),
@@ -297,7 +297,7 @@ class Clinical_data(models.Model):
     )
     serological_data_date = models.DateField('Date positive', max_length=10,null=True,blank=True)
     serolocigal_data_HCV = models.CharField('HCV', max_length=10,null=True,blank=True, choices=serological_data_option, default=serological_data_option[0][0])
-    serolocigal_data_HCV_PCR = models.CharField('HCV PCR', max_length=10,null=True,blank=True, choices=serological_data_option, default=serological_data_option[0][0])
+    serolocigal_data_HCV_PCR = models.CharField('HCV RNA', max_length=10,null=True,blank=True, choices=serological_data_option, default=serological_data_option[0][0])
     serolocigal_data_HBV = models.CharField('HBV', max_length=10,null=True,blank=True, choices=serological_data_option, default=serological_data_option[0][0])
     serolocigal_data_HIV = models.CharField('HIV', max_length=10,null=True,blank=True, choices=serological_data_option, default=serological_data_option[0][0])
     current_treatment_transfusion_regime_option= (
@@ -309,7 +309,7 @@ class Clinical_data(models.Model):
     current_treatment_transfusion_regime = models.CharField('Transfusion regime', max_length=150,null=True,blank=True)
     current_treatment_chelation =  models.CharField('Chelation', max_length=3,choices=clinical_data_option, default=clinical_data_option[0][0],null=True, blank=True)
     current_treatment_chelation_start=models.DateField('Start of chelation therapy (year only)',null=True,blank=True)
-
+    current_treatment_chelation_desc = models.CharField('Description',max_length=80,null=True,blank=True)
     current_treatment_chelation_drug= models.CharField('Current Chelator regime',max_length=25, null=True, blank=True)
     current_treatment_bone_marrow =  models.CharField('HSCT transplant',max_length=15, null=True, blank=True, choices=clinical_data_option, default=clinical_data_option[0][0])
     current_treatment_bone_marrow_date = models.DateField('Date measured',null=True,blank=True)
@@ -340,6 +340,8 @@ class Clinical_data(models.Model):
     )
     blood_group= models.CharField('Extended red cell antigens',max_length=25,null=True,blank=True)
     transfusion_depentent_anaemia= models.CharField('Transfusion dependent anaemia',max_length=100, null=True, blank=True, choices=yesno_option, default=yesno_option[0][0])
+    average_pretransfusion_hb = models.CharField('Average pre-transfusion Hb', max_length=10,null=True,blank=True)
+    annual_blood_consumption = models.CharField('Annual blood consumption', max_length=10,null=True,blank=True)
     date_of_transition_from_irregular_to_regular_tranfusions= models.DateField(null=True,blank=True)
     pub_date = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(User)
