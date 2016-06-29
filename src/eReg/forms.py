@@ -104,15 +104,15 @@ class DemographicForm(forms.ModelForm):
                 '<b>Contact information</b>',
                 Div(
                     #HTML(u'<div class="col-md-2"></div>'),
-                    Div('telephone',css_class='col-md-4'),
-                    Div('email',css_class="col-md-4"),
+                    Div('telephone',css_class='col-md-6'),
+                    Div('email',css_class="col-md-6"),
                     css_class='row',
                     ),
                 Div(
                     #HTML(u'<div class="col-md-2"></div>'),
                     #Div('address_no',css_class='col-md-4'),
                     Div('address_street',css_class="col-md-6"),
-                    Div('address_post_code',css_class='col-md-4'),
+                    Div('address_post_code',css_class='col-md-6'),
                     css_class='row',
                     ),
                 Div(
@@ -204,7 +204,7 @@ class DemographicForm(forms.ModelForm):
     class Meta:
         model = Demographic
         exclude = ['age', 'author']
-        list_display = ('patient_id', 'pub_date', 'author')
+        list_display = ('patient_id', 'pub_date', 'author', 'anonymisation_code')
 
 class ClinicalDataForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -328,7 +328,22 @@ class ClinicalDataForm(forms.ModelForm):
                                        "pickTime": False,
                                        "startDate": "1900-01-01"}))
 
-        self.fields['serological_data_date']= forms.DateField(label=('Date positive'),required=False,
+        self.fields['serological_data_date_HCV']= forms.DateField(label=('Date positive'),required=False,
+        widget=DateTimePicker(options={"format": "YYYY-MM-DD",
+                                       "pickTime": False,
+                                       "startDate": "1900-01-01"}))
+
+        self.fields['serological_data_date_HCV_PCR']= forms.DateField(label=('Date positive'),required=False,
+        widget=DateTimePicker(options={"format": "YYYY-MM-DD",
+                                       "pickTime": False,
+                                       "startDate": "1900-01-01"}))
+
+        self.fields['serological_data_date_HBV']= forms.DateField(label=('Date positive'),required=False,
+        widget=DateTimePicker(options={"format": "YYYY-MM-DD",
+                                       "pickTime": False,
+                                       "startDate": "1900-01-01"}))
+
+        self.fields['serological_data_date_HIV']= forms.DateField(label=('Date positive'),required=False,
         widget=DateTimePicker(options={"format": "YYYY-MM-DD",
                                        "pickTime": False,
                                        "startDate": "1900-01-01"}))
@@ -464,19 +479,19 @@ class ClinicalDataForm(forms.ModelForm):
             Fieldset(
                 '<b>Serological data (Viral)</b>',
                 Div(
-                    Div('serological_data_date',css_class='col-md-6'),
-                    css_class='row',
-                    ),
-                Div(
                     #HTML(u'<div class="col-md-2"></div>'),
                     Div('serolocigal_data_HCV',css_class='col-md-6'),
-                    Div('serolocigal_data_HCV_PCR',css_class="col-md-5"),
+                    Div('serological_data_date_HCV',css_class='col-md-6'),
+                    Div('serolocigal_data_HCV_PCR',css_class="col-md-6"),
+                    Div('serological_data_date_HCV_PCR',css_class='col-md-6'),
                     css_class='row',
                     ),
                 Div(
                     #HTML(u'<div class="col-md-2"></div>'),
                     Div('serolocigal_data_HBV',css_class='col-md-6'),
-                    Div('serolocigal_data_HIV',css_class="col-md-5"),
+                    Div('serological_data_date_HBV',css_class='col-md-6'),
+                    Div('serolocigal_data_HIV',css_class="col-md-6"),
+                    Div('serological_data_date_HIV',css_class='col-md-6'),
                     css_class='row',
                     ),
                 ),
@@ -495,8 +510,9 @@ class ClinicalDataForm(forms.ModelForm):
                 Div(
                     #HTML(u'<div class="col-md-2"></div>'),
 
-                    Div('current_treatment_transfusion_regime',css_class='col-md-6'),
-                    Div('current_treatment_chelation',css_class="col-md-5"),
+                    Div('current_treatment_transfusion_regime',css_class='col-md-5'),
+                    Div(HTML("ml/kg/year"), css_class="col-md-1"),
+                    Div('current_treatment_chelation',css_class="col-md-6"),
                     css_class='row',
                     ),
                 Div(
@@ -509,7 +525,7 @@ class ClinicalDataForm(forms.ModelForm):
                 Div(
                     #HTML(u'<div class="col-md-2"></div>'),
                     Div('current_treatment_bone_marrow',css_class='col-md-6'),
-                    Div('current_treatment_bone_marrow_date',css_class="col-md-5"),
+                    Div('current_treatment_bone_marrow_date',css_class="col-md-6"),
                     css_class='row',
                     ),
                 Div(
@@ -770,7 +786,10 @@ class ClinicalDataTwo(forms.ModelForm):
         widget=DateTimePicker(options={"format": "YYYY-MM-DD",
                                        "pickTime": False,
                                        "startDate": "1900-01-01"}))
-
+        self.fields['mortality_date_of_death']= forms.DateField(label=('Date of death'),required=False,
+        widget=DateTimePicker(options={"format": "YYYY-MM-DD",
+                                       "pickTime": False,
+                                       "startDate": "1900-01-01"}))
 
 
 
@@ -999,6 +1018,17 @@ class ClinicalDataTwo(forms.ModelForm):
                     css_class='row',
                 )
             ),
+            Fieldset(
+                '<b>Outcomes</b>',
+
+                 Div(
+                     HTML(u'<div class="col-md-9"><h4><b>Mortality</b></h4></div><br/><br/>'),
+                    Div('mortality_date_of_death',css_class='col-md-6'),
+                    Div('mortality_cause_of_death',css_class="col-md-6"),
+                    css_class='row',
+                    ),
+
+             ),
                 Submit('submit', "Save changes"),
                 Submit('cancel',"Cancel")
 
@@ -1624,7 +1654,30 @@ class Patient_Reported_outcomeForm(forms.ModelForm):
                         Div('days_missed_from_work',css_class="col-md-12"),
                         Div('transfusion_times',css_class="col-md-12"),
                         Div('distance_from_center',css_class="col-md-12"),
-
+                        css_class='row',
+                        ),
+                 Div(
+                        Div('fatigue',css_class="col-md-6"),
+                        Div('dizziness',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                 Div(
+                        Div('impaired_cogn_function',css_class="col-md-6"),
+                        Div('exertional_dyspnea',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                 Div(
+                        Div('tachycardia',css_class="col-md-6"),
+                        Div('menstrual_irregularity',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                 Div(
+                        Div('loss_of_libido',css_class="col-md-6"),
+                        Div('depression',css_class="col-md-6"),
+                        css_class='row',
+                        ),
+                 Div(
+                        Div('anxiety',css_class="col-md-6"),
                         css_class='row',
                         ),
                 ),

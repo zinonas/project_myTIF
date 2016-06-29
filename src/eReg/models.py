@@ -19,7 +19,7 @@ class Institution(models.Model):
     department = models.CharField(max_length=100)
 
 class Demographic(models.Model):
-    anonymisation_code = models.UUIDField('Anonymisation code',default=uuid.uuid4, editable=False, unique=True)
+    anonymisation_code = models.CharField('Anonymisation code',max_length=4, unique=True)
     patient_option = (
         ('','Please select'),
         ('I agree','I agree'),
@@ -295,18 +295,22 @@ class Clinical_data(models.Model):
         ('-','-'),
         ('not done', 'not done')
     )
-    serological_data_date = models.DateField('Date positive', max_length=10,null=True,blank=True)
+
     serolocigal_data_HCV = models.CharField('HCV', max_length=10,null=True,blank=True, choices=serological_data_option, default=serological_data_option[0][0])
+    serological_data_date_HCV = models.DateField('Date positive', max_length=10,null=True,blank=True)
     serolocigal_data_HCV_PCR = models.CharField('HCV RNA', max_length=10,null=True,blank=True, choices=serological_data_option, default=serological_data_option[0][0])
-    serolocigal_data_HBV = models.CharField('HBV', max_length=10,null=True,blank=True, choices=serological_data_option, default=serological_data_option[0][0])
+    serological_data_date_HCV_PCR = models.DateField('Date positive', max_length=10,null=True,blank=True)
+    serolocigal_data_HBV = models.CharField('HBsAg', max_length=10,null=True,blank=True, choices=serological_data_option, default=serological_data_option[0][0])
+    serological_data_date_HBV = models.DateField('Date positive', max_length=10,null=True,blank=True)
     serolocigal_data_HIV = models.CharField('HIV', max_length=10,null=True,blank=True, choices=serological_data_option, default=serological_data_option[0][0])
+    serological_data_date_HIV = models.DateField('Date positive', max_length=10,null=True,blank=True)
     current_treatment_transfusion_regime_option= (
         ('', 'Please select'),
         ('8 transfusions per year or more','8 transfusions per year or more' ),
         ('Occational','Occational'),
         ('None','None')
     )
-    current_treatment_transfusion_regime = models.CharField('Transfusion regime', max_length=150,null=True,blank=True)
+    current_treatment_transfusion_regime = models.CharField('Blood consumption', max_length=150,null=True,blank=True)
     current_treatment_chelation =  models.CharField('Chelation', max_length=3,choices=clinical_data_option, default=clinical_data_option[0][0],null=True, blank=True)
     current_treatment_chelation_start=models.DateField('Start of chelation therapy (year only)',null=True,blank=True)
     current_treatment_chelation_desc = models.CharField('Description',max_length=80,null=True,blank=True)
@@ -322,7 +326,8 @@ class Clinical_data(models.Model):
         ('', 'Please select'),
         ('No','No' ),
         ('Current treatment','Current treatment'),
-        ('Treatment in the past','Treatment in the past')
+        ('Treatment in the past','Treatment in the past'),
+        ('Vaccination','Vaccination')
     )
     current_treatment_hepatitis_treatment_c =  models.CharField('Hepatitis C',max_length=15, null=True, blank=True, choices=current_treatment_hepatitis_option, default=current_treatment_hepatitis_option[0][0])
     current_treatment_hepatitis_treatment_b =  models.CharField('Hepatitis B',max_length=15, null=True, blank=True, choices=current_treatment_hepatitis_option, default=current_treatment_hepatitis_option[0][0])
@@ -366,7 +371,7 @@ class Clinical_data_two(models.Model):
     prophylactic_measures_antibiotic_prophylaxis_penicillin_age = models.IntegerField(null=True,blank=True)
     prophylactic_measures_antibiotic_prophylaxis_other = models.CharField('Other', max_length=30,null=True, blank=True)
     #prophylactic_measures_antibiotic_prophylaxis_other_date = models.DateField('Date Started',null=True,blank=True)
-    prophylactic_measures_vaccinations_pneumococcal_OCV = models.CharField('Pneumococcal OCV', max_length=3,choices=clinical_data_option, default=clinical_data_option[0][0],null=True, blank=True)
+    prophylactic_measures_vaccinations_pneumococcal_OCV = models.CharField('Pneumococcal', max_length=3,choices=clinical_data_option, default=clinical_data_option[0][0],null=True, blank=True)
     prophylactic_measures_vaccinations_pneumococcal_OCV_date = models.DateField('Date given',null=True,blank=True)
     prophylactic_measures_vaccinations_pneumococcal_OCV_age = models.IntegerField(null=True,blank=True)
     prophylactic_measures_vaccination_other = models.CharField('Other', max_length=30,null=True, blank=True)
@@ -441,6 +446,8 @@ class Clinical_data_two(models.Model):
     treatment_modalities_hydroxyurea_date = models.DateField('Date started',null=True,blank=True)
     treatment_modalities_hsct_date = models.DateField('Date performed',null=True,blank=True)
     treatment_modalities_hsct_outcome = models.CharField('Date performed',max_length=50,null=True,blank=True)
+    mortality_date_of_death = models.DateField('Date of death',null=True,blank=True)
+    mortality_cause_of_death = models.CharField('Cause of death',max_length=100, null=True, blank=True)
     pub_date = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(User)
     history = HistoricalRecords()
@@ -714,6 +721,20 @@ class Patient_reported_outcome (models.Model):
     )
     transfusion_times = models.CharField('Transfusion/Clinic times offered by the hospital', max_length=40, null=True,blank=True,choices=transfusion_times_option,default=transfusion_times_option[0][0])
     distance_from_center = models.CharField('Distance from center - travel time', max_length=100, null=True, blank = True)
+    yes_no_option = (
+        ('','Please select'),
+        ('Yes','Yes'),
+        ('No','No')
+    )
+    fatigue = models.CharField('Fatigue', max_length=4, null=True,blank=True, choices=yes_no_option, default=yes_no_option[0][0])
+    dizziness = models.CharField('Dizziness/ nausea', max_length=4, null=True,blank=True, choices=yes_no_option, default=yes_no_option[0][0])
+    impaired_cogn_function = models.CharField('Impaired cognitive function', max_length=4, null=True,blank=True, choices=yes_no_option, default=yes_no_option[0][0])
+    exertional_dyspnea= models.CharField('Exertional dyspnea', max_length=4, null=True,blank=True, choices=yes_no_option, default=yes_no_option[0][0])
+    tachycardia = models.CharField('Tachycardia/ parpitations', max_length=4, null=True,blank=True, choices=yes_no_option, default=yes_no_option[0][0])
+    menstrual_irregularity = models.CharField('Menstrual irregularity', max_length=4, null=True,blank=True, choices=yes_no_option, default=yes_no_option[0][0])
+    loss_of_libido = models.CharField('Loss of libido', max_length=4, null=True,blank=True, choices=yes_no_option, default=yes_no_option[0][0])
+    depression = models.CharField('Depression', max_length=4, null=True,blank=True, choices=yes_no_option, default=yes_no_option[0][0])
+    anxiety = models.CharField('Anxiety', max_length=4, null=True,blank=True, choices=yes_no_option, default=yes_no_option[0][0])
     date_of_input= models.DateField(null=True,blank=True)
     pub_date = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(User)

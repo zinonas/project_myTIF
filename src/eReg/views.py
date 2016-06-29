@@ -55,7 +55,7 @@ def modules(request):
     #groups = Group.objects.all()
 
     if request.method == 'POST':
-        response = redirect('home')
+        response = redirect('input')
         mod2=request.POST.get('module_id_2', False)
         if mod2 != False:
             #print mod2
@@ -292,6 +292,13 @@ def input(request):
             #my_demographics_object = my_demographics.save()
             my_demographics_object = my_demographics.save(commit=False)
             my_demographics_object.author = request.user
+            surname = my_demographics_object.surname
+            initial_letter = "".join(item[0].upper() for item in surname.split())
+            count_initial_letter = Demographic.objects.filter(surname__startswith=initial_letter)
+            length_count_initial_letter = len(count_initial_letter)
+            new_anonymization = initial_letter + str(length_count_initial_letter+1)
+            my_demographics_object.anonymisation_code = new_anonymization
+
             my_demographics_object.save()
 
             my_diagnosis_object = my_diagnosis.save(commit=False)
