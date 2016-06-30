@@ -34,7 +34,7 @@ urlpatterns = patterns('',
     url(r'^externalcenters/','eReg.views.external_centers', name='extcenters'),
     # url(r'^input/', 'eReg.views.icd_10_view', name='icd_10_view'),
     # url(r'^input/', 'eReg.views.icd_10_view', name='icd_10_view'),
-    url(r'^accounts/login/', 'eReg.views.login', name='login'),
+    url(r'^accounts/login/', 'eReg.views.login', name='login_view'),
     url(r'^accounts/logout/', 'eReg.views.logout_view', name='logout_view'),
     url(r'^accounts/', include('django.contrib.auth.urls')),
 
