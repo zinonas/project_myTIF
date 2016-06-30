@@ -169,6 +169,7 @@
   {% url 'about' as about_url %}
   {% url 'statistics' as statistics_url %}
   {% url 'extcenters' as extcenters_url %}
+  {% url 'login_view' as login_url %}
   <body>
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="container-fluid">
@@ -266,7 +267,7 @@
         </div>
       </div>
     </nav>
-    {% if user.is_authenticated %}
+    {% if request.get_full_path != login_url %}
     <div class="container">
         <div class="jumbotron">
             <h1>{%block jumbotron_title %}{% endblock %}</h1>
