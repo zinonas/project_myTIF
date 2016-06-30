@@ -298,7 +298,6 @@ def input(request):
             length_count_initial_letter = len(count_initial_letter)
             new_anonymization = initial_letter + str(length_count_initial_letter+1)
             my_demographics_object.anonymisation_code = new_anonymization
-
             my_demographics_object.save()
 
             my_diagnosis_object = my_diagnosis.save(commit=False)
@@ -3520,6 +3519,7 @@ def login(request):
 
 
 def logout_view(request):
+    cache.clear()
     logout(request)
     response = redirect('login')
     response.delete_cookie('module_2')

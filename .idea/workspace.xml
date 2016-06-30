@@ -8,9 +8,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3dc3b258-7aa6-4de1-9034-27e990e0e1b6" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eReg/forms.py" afterPath="$PROJECT_DIR$/src/eReg/forms.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/templates/input.html" afterPath="$PROJECT_DIR$/static/templates/input.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eReg/models.py" afterPath="$PROJECT_DIR$/src/eReg/models.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eReg/views.py" afterPath="$PROJECT_DIR$/src/eReg/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -49,7 +46,7 @@
       <file leaf-file-name="search.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/templates/search.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.6153846" vertical-offset="850" max-vertical-offset="2142">
+            <state vertical-scroll-proportion="0.0" vertical-offset="918" max-vertical-offset="2142">
               <caret line="54" column="31" selection-start-line="54" selection-start-column="23" selection-end-line="54" selection-end-column="31" />
               <folding />
             </state>
@@ -59,7 +56,7 @@
       <file leaf-file-name="input.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/templates/input.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.8461537" vertical-offset="5185" max-vertical-offset="7599">
+            <state vertical-scroll-proportion="0.0" vertical-offset="5185" max-vertical-offset="7599">
               <caret line="317" column="149" selection-start-line="317" selection-start-column="149" selection-end-line="317" selection-end-column="149" />
               <folding />
             </state>
@@ -79,11 +76,9 @@
       <file leaf-file-name="forms.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/eReg/forms.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.181818" vertical-offset="3232" max-vertical-offset="42143">
+            <state vertical-scroll-proportion="0.0" vertical-offset="3232" max-vertical-offset="42143">
               <caret line="206" column="79" selection-start-line="206" selection-start-column="79" selection-end-line="206" selection-end-column="79" />
-              <folding>
-                <element signature="e#0#24#0" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -101,7 +96,7 @@
       <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/eReg/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.151515" vertical-offset="0" max-vertical-offset="18377">
+            <state vertical-scroll-proportion="0.0" vertical-offset="357" max-vertical-offset="18564">
               <caret line="21" column="77" selection-start-line="21" selection-start-column="77" selection-end-line="21" selection-end-column="77" />
               <folding />
             </state>
@@ -121,8 +116,8 @@
       <file leaf-file-name="views.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/eReg/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.52551985" vertical-offset="4805" max-vertical-offset="60588">
-              <caret line="299" column="73" selection-start-line="299" selection-start-column="73" selection-end-line="299" selection-end-column="73" />
+            <state vertical-scroll-proportion="0.3615917" vertical-offset="59648" max-vertical-offset="60588">
+              <caret line="3521" column="17" selection-start-line="3521" selection-start-column="17" selection-end-line="3521" selection-end-column="17" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -133,7 +128,7 @@
       <file leaf-file-name="module_selection.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/templates/module_selection.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-13.730769" vertical-offset="0" max-vertical-offset="2176">
+            <state vertical-scroll-proportion="0.0" vertical-offset="357" max-vertical-offset="2176">
               <caret line="21" column="21" selection-start-line="21" selection-start-column="21" selection-end-line="21" selection-end-column="21" />
               <folding />
             </state>
@@ -170,9 +165,9 @@
         <option value="$PROJECT_DIR$/static/templates/search.html" />
         <option value="$PROJECT_DIR$/static/templates/results.html" />
         <option value="$PROJECT_DIR$/static/templates/input.html" />
-        <option value="$PROJECT_DIR$/src/eReg/views.py" />
         <option value="$PROJECT_DIR$/src/eReg/models.py" />
         <option value="$PROJECT_DIR$/src/eReg/forms.py" />
+        <option value="$PROJECT_DIR$/src/eReg/views.py" />
       </list>
     </option>
   </component>
@@ -181,10 +176,10 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-9" />
+    <option name="x" value="1911" />
     <option name="y" value="-9" />
     <option name="width" value="1938" />
-    <option name="height" value="1050" />
+    <option name="height" value="1098" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -212,7 +207,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -315,6 +309,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -659,7 +654,11 @@
       <created>1467034431516</created>
       <updated>1467034431516</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="Added anonymization code">
+      <created>1467201278835</created>
+      <updated>1467201278835</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -683,15 +682,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="-9" width="1938" height="1050" extended-state="6" />
-    <editor active="true" />
+    <frame x="1911" y="-9" width="1938" height="1098" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32914287" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30514285" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2881907" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32914287" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32994652" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24812834" sideWeight="0.4992785" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25454545" sideWeight="0.4992785" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.399137" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.16470589" sideWeight="0.5007215" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2537143" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
@@ -771,7 +770,8 @@
     <MESSAGE value="Fix search engine to support roles nurse&amp;doctor to access same patients that belong to the same hospital department." />
     <MESSAGE value="Update statistical correlations" />
     <MESSAGE value="Update proposed changes by Dr Angastiniotis" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update proposed changes by Dr Angastiniotis" />
+    <MESSAGE value="Added anonymization code" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added anonymization code" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1063,7 +1063,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="46" max-vertical-offset="986">
           <caret line="23" column="44" selection-start-line="23" selection-start-column="40" selection-end-line="23" selection-end-column="44" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1101,7 +1100,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/static/templates/module_selection.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.730769" vertical-offset="0" max-vertical-offset="2176">
+        <state vertical-scroll-proportion="0.0" vertical-offset="357" max-vertical-offset="2176">
           <caret line="21" column="21" selection-start-line="21" selection-start-column="21" selection-end-line="21" selection-end-column="21" />
           <folding />
         </state>
@@ -1109,7 +1108,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/static/templates/search.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.6153846" vertical-offset="850" max-vertical-offset="2142">
+        <state vertical-scroll-proportion="0.0" vertical-offset="918" max-vertical-offset="2142">
           <caret line="54" column="31" selection-start-line="54" selection-start-column="23" selection-end-line="54" selection-end-column="31" />
           <folding />
         </state>
@@ -1117,7 +1116,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/static/templates/input.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.8461537" vertical-offset="5185" max-vertical-offset="7599">
+        <state vertical-scroll-proportion="0.0" vertical-offset="5185" max-vertical-offset="7599">
           <caret line="317" column="149" selection-start-line="317" selection-start-column="149" selection-end-line="317" selection-end-column="149" />
           <folding />
         </state>
@@ -1125,17 +1124,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/eReg/forms.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.181818" vertical-offset="3232" max-vertical-offset="42143">
+        <state vertical-scroll-proportion="0.0" vertical-offset="3232" max-vertical-offset="42143">
           <caret line="206" column="79" selection-start-line="206" selection-start-column="79" selection-end-line="206" selection-end-column="79" />
-          <folding>
-            <element signature="e#0#24#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/eReg/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.151515" vertical-offset="0" max-vertical-offset="18377">
+        <state vertical-scroll-proportion="0.0" vertical-offset="357" max-vertical-offset="18564">
           <caret line="21" column="77" selection-start-line="21" selection-start-column="77" selection-end-line="21" selection-end-column="77" />
           <folding />
         </state>
@@ -1143,8 +1140,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/eReg/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.52551985" vertical-offset="4805" max-vertical-offset="60588">
-          <caret line="299" column="73" selection-start-line="299" selection-start-column="73" selection-end-line="299" selection-end-column="73" />
+        <state vertical-scroll-proportion="0.3615917" vertical-offset="59648" max-vertical-offset="60588">
+          <caret line="3521" column="17" selection-start-line="3521" selection-start-column="17" selection-end-line="3521" selection-end-column="17" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
