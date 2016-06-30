@@ -133,16 +133,16 @@ TEMPLATE_DIRS = (
 )
 
 #NOT FOR THE LIVE VERSION
-if DEBUG:
-    MEDIA_URL = '/media/'
-    STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static")
+#if DEBUG:
+MEDIA_URL = '/media/'
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static")
 
-    #FOR THE MEDIA UPLOADS
-    MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static", "media")
+#FOR THE MEDIA UPLOADS
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static", "media")
 
-    STATICFILES_DIRS = (
+STATICFILES_DIRS = (
          os.path.join(os.path.dirname(BASE_DIR), "static", "static"),
-    )
+   )
 
 
 
