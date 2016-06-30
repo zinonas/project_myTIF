@@ -26,9 +26,7 @@ DEBUG = False
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
-
-
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '213.7.247.244', 'www.enerca-tif.com']
 #Template crispy_template_pack
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
