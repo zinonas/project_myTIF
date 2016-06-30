@@ -404,9 +404,9 @@ class ClinicalDataForm(forms.ModelForm):
                      css_class='row',
                      ),
                 ),
-            Fieldset(
-                '<b>Family Tree</b>',
-                ),
+            #Fieldset(
+            #    '<b>Family Tree</b>',
+            #    ),
             Fieldset(
                 '<b>Transfusion history</b>',
                 Div(
