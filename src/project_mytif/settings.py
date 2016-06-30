@@ -22,9 +22,9 @@ AUTH_USER_MODEL = 'auth.User'
 SECRET_KEY = 'i*l-m!4z86a#9!o-y5za5nv)!wt#jicdqc($g-b#vg7ha6^u!$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-TEMPLATE_DEBUG = True
+TEMPLATE_DEBUG = False
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '213.7.247.244', 'www.enerca-tif.com']
 #Template crispy_template_pack
@@ -131,16 +131,16 @@ TEMPLATE_DIRS = (
 )
 
 #NOT FOR THE LIVE VERSION
-#if DEBUG:
-MEDIA_URL = '/media/'
-STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static")
+if DEBUG:
+    MEDIA_URL = '/media/'
+    STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static")
 
-#FOR THE MEDIA UPLOADS
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static", "media")
+    #FOR THE MEDIA UPLOADS
+    MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static", "media")
 
-STATICFILES_DIRS = (
-         os.path.join(os.path.dirname(BASE_DIR), "static", "static"),
-   )
+    STATICFILES_DIRS = (
+             os.path.join(os.path.dirname(BASE_DIR), "static", "static"),
+       )
 
 
 
