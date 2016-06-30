@@ -1103,9 +1103,14 @@ class DiagnosisForm(forms.ModelForm):
                 'diagnosis_option',
                 'record_of_genotype',
 
+                Div(
+                    #HTML(u'<div class="col-md-2"></div>'),
+                    Div('icd_10_desc',css_class='col-md-6'),
+                    Div('orpha_code',css_class="col-md-6"),
+                    css_class='row',
+                    ),
 
-                'icd_10_desc',
-                'orpha_code',
+
                 'comment',
                 ),
 

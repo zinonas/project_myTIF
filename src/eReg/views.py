@@ -44,7 +44,6 @@ def password_change_done(request, template_name="registration/password_change_do
 def about(request):
     return render(request,'index.html')
 
-@login_required(login_url='/login')
 def home(request):
     groups = Group.objects.all()
 
