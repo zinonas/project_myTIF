@@ -22,7 +22,7 @@ AUTH_USER_MODEL = 'auth.User'
 SECRET_KEY = 'i*l-m!4z86a#9!o-y5za5nv)!wt#jicdqc($g-b#vg7ha6^u!$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 TEMPLATE_DEBUG = False
 
