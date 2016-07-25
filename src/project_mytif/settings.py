@@ -24,7 +24,7 @@ SECRET_KEY = 'i*l-m!4z86a#9!o-y5za5nv)!wt#jicdqc($g-b#vg7ha6^u!$'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-TEMPLATE_DEBUG = False
+TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '213.7.247.244', 'www.enerca-tif.com']
 #Template crispy_template_pack
