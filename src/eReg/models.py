@@ -19,7 +19,7 @@ class Institution(models.Model):
     department = models.CharField(max_length=100)
 
 class Demographic(models.Model):
-    anonymisation_code = models.CharField('Anonymisation code',max_length=4, unique=True)
+    anonymisation_code = models.CharField('Anonymisation code',max_length=4,null=True,blank=True)
     patient_option = (
         ('','Please select'),
         ('I agree','I agree'),
