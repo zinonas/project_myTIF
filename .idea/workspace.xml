@@ -68,8 +68,8 @@
       <file leaf-file-name="settings.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/project_mytif/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.2577465" vertical-offset="1942" max-vertical-offset="3570">
-              <caret line="125" column="0" selection-start-line="125" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
+            <state vertical-scroll-proportion="2.2211268" vertical-offset="565" max-vertical-offset="3570">
+              <caret line="126" column="0" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -721,7 +721,11 @@
       <created>1469451347067</created>
       <updated>1469451347067</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="Remove family tree Fieldset from forms">
+      <created>1469453318889</created>
+      <updated>1469453318889</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1207,8 +1211,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/project_mytif/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2577465" vertical-offset="1942" max-vertical-offset="3570">
-          <caret line="125" column="0" selection-start-line="125" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
+        <state vertical-scroll-proportion="2.2211268" vertical-offset="565" max-vertical-offset="3570">
+          <caret line="126" column="0" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
           <folding />
         </state>
       </provider>
