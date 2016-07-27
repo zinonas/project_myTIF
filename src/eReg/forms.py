@@ -1112,6 +1112,7 @@ class DiagnosisForm(forms.ModelForm):
 
 
                 'comment',
+                'historyNotes',
                 ),
 
             Fieldset(
@@ -1138,7 +1139,8 @@ class DiagnosisForm(forms.ModelForm):
         list_display = ('patient', 'pub_date', 'author')
         widgets = {
         'icd_10_desc': autocomplete.ModelSelect2Multiple(url='icd10-autocomplete'),
-        'orpha_code': autocomplete.ModelSelect2Multiple(url='orpha-autocomplete')
+        'orpha_code': autocomplete.ModelSelect2Multiple(url='orpha-autocomplete'),
+        'historyNotes': forms.Textarea(attrs={'rows':4, 'cols':12}),
         }
         #widgets={'icd_10_desc' : autocomplete.ModelSelect2Multiple(url='icd10-autocomplete' )}
         # autocomplete_js_attribute={'name': 'icd_10_code'}
