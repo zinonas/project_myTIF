@@ -217,7 +217,7 @@ class Diagnosis(models.Model):
     icd_10_desc = models.ManyToManyField(icd_10)
     orpha_code = models.ManyToManyField(orphaCodes)
     comment = models.CharField(max_length=100,null=True,blank=True)
-    historyNotes = models.CharField("History/Notes",max_length=250,null=True,blank=True)
+    historyNotes = models.CharField("Family history/notes",max_length=250,null=True,blank=True)
     #diagnosis_genotype = models.CharField('Diagnosis genotype', max_length=100, null=True, blank=True)
 
     diagnosis_circumstances = models.CharField(max_length=150)
