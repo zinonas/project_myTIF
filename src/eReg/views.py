@@ -477,6 +477,8 @@ def search(request):
     if request.method == "POST":
         value = 1
         my_demographics = DemographicForm(request.POST, prefix="demo")
+        my_anonymized_demographics = Demographic.objects.filter(anonymisation_code=request.POST['id'])
+        print my_anonymized_demographics
         my_diagnosis = DiagnosisForm(request.POST, prefix='diag')
         my_a_b_sickle= A_b_sickle_thalForm(request.POST,prefix='a_b_s')
         my_redcell_enzyme = Redcell_enzyme_disForm(request.POST, prefix='rc_enz')
@@ -487,16 +489,22 @@ def search(request):
         if 'id' in request.POST and request.POST['id']:
             with transaction.atomic():
                 id = request.POST['id']
-                department = Institution.objects.filter(user=request.user).first().department
-                #print "dep"
-                #print department
-                patient = Demographic.objects.filter(patient_id__icontains=id, author__institution__department=department)
-                #print patient
-                #print patient.count()
-                # books = Book.objects.filter(title__icontains=q)
-                response =  render_to_response( 'search.html', {'patient': patient, 'query': id, 'option':value},context)
-                response.delete_cookie('no_patient')
-                return response
+                if not my_anonymized_demographics:
+                    department = Institution.objects.filter(user=request.user).first().department
+                    #print "dep"
+                    #print department
+                    patient = Demographic.objects.filter(patient_id__icontains=id, author__institution__department=department)
+                    #print patient
+                    #print patient.count()
+                    # books = Book.objects.filter(title__icontains=q)
+                    response =  render_to_response( 'search.html', {'patient': patient, 'query': id, 'option':value},context)
+                    response.delete_cookie('no_patient')
+                    return response
+
+                else:
+                    response =  render_to_response( 'search.html', {'patient_anomymized':my_anonymized_demographics , 'query': id, 'option':value},context)
+                    response.delete_cookie('no_patient')
+                    return response
 
 
         response =  redirect('results.html', {'frm':my_demographics, 'option': value, 'my_alert':my_alert}, context)
@@ -506,6 +514,77 @@ def search(request):
         response =  render_to_response('search.html', {'option': value, 'my_alert':my_alert}, context)
         response.delete_cookie('no_patient')
         return response
+
+@login_required(login_url='/login')
+def results_anonymised(request):
+    context = RequestContext(request)
+    my_ano_code = request.GET.get('anonymisation_code', '')
+    diag_option = 0
+
+    with transaction.atomic():
+        print "HERE ELSE"
+        try:
+            patient_ano = Demographic.objects.get(anonymisation_code=my_ano_code)
+            patient = Demographic.objects.get(patient_id=patient_ano.patient_id)
+            myid = patient.patient_id
+            print "patient"
+            print myid
+        except Demographic.DoesNotExist:
+            patient = None
+        if patient == None:
+            my_alert = "1"
+            return render_to_response('search.html', {'my_alert': my_alert}, context)
+
+        diag_patient = Diagnosis.objects.get(patient=myid)
+        # diag_val = diag_patient.diagnosis_option
+        a_b_s_patient = A_b_sickle_thal.objects.get(patient=myid)
+        r_c_e_patient = Redcell_enzyme_dis.objects.get(patient=myid)
+        r_c_m_patient = Redcell_membrane_dis.objects.get(patient=myid)
+        c_d_a_patient = Cong_dyseryth_anaemia.objects.get(patient=myid)
+        cln_dt_patient = Clinical_data.objects.get(patient=myid)
+        cln_dt_two_patient = Clinical_data_two.objects.get(patient=myid)
+        patient_reported_outcomes_patient = Patient_reported_outcome.objects.get(patient=myid)
+
+        my_demographics = DemographicForm(request.POST or None,prefix="demo",instance=patient)
+        # my_demographics = DemographicForm(initial=form_data,)
+
+        # my_demographics = DemographicForm(prefix='demo')
+
+        my_diagnosis = DiagnosisForm(request.POST or None,prefix='diag', instance=diag_patient)
+        print my_diagnosis
+        for fields in my_diagnosis.fields:
+            my_diagnosis.fields[fields].widget.attrs['disabled'] = "disabled"
+
+        my_a_b_sickle= A_b_sickle_thalForm(request.POST or None,prefix='a_b_s', instance=a_b_s_patient)
+        for fields in my_a_b_sickle.fields:
+            my_a_b_sickle.fields[fields].widget.attrs['disabled'] = "disabled"
+
+        my_redcell_enzyme = Redcell_enzyme_disForm(request.POST or None, prefix='rc_enz', instance=r_c_e_patient)
+        for fields in my_redcell_enzyme.fields:
+            my_redcell_enzyme.fields[fields].widget.attrs['disabled'] = "disabled"
+
+        my_redcell_membrane= Redcell_membrane_disForm(request.POST or None, prefix='rc_mbr',instance=r_c_m_patient)
+        for fields in my_redcell_membrane.fields:
+            my_redcell_membrane.fields[fields].widget.attrs['disabled'] = "disabled"
+
+        my_cong_dys = Cong_dyseryth_anaemiaForm(request.POST or None, prefix='cong_dys', instance=c_d_a_patient)
+        for fields in my_cong_dys.fields:
+            my_cong_dys.fields[fields].widget.attrs['disabled'] = "disabled"
+
+        my_cln_dt = ClinicalDataForm(request.POST or None, prefix='cln_dt', instance=cln_dt_patient)
+        for fields in my_cln_dt.fields:
+            my_cln_dt.fields[fields].widget.attrs['disabled'] = "disabled"
+
+        my_cln_dt_two = ClinicalDataTwo(request.POST or None, prefix='cln_dt_two', instance=cln_dt_two_patient)
+        for fields in  my_cln_dt_two.fields:
+             my_cln_dt_two.fields[fields].widget.attrs['disabled'] = "disabled"
+
+        my_patient_reported_outcomes = Patient_Reported_outcomeForm(request.POST or None, prefix='pat_rep_out', instance=patient_reported_outcomes_patient)
+        for fields in  my_patient_reported_outcomes.fields:
+             my_patient_reported_outcomes.fields[fields].widget.attrs['disabled'] = "disabled"
+
+    return render_to_response('results_anonymised.html', {'frm_d': my_diagnosis, 'frm_a_b_s': my_a_b_sickle, 'frm_rc_enz': my_redcell_enzyme, 'frm_rc_mbr': my_redcell_membrane, 'frm_cong_dys': my_cong_dys, 'diag_option': diag_option, 'frm_cln_dt':my_cln_dt,'frm_cln_dt_two': my_cln_dt_two, 'ptn_rep_out':my_patient_reported_outcomes}, context)
+
 
 @login_required(login_url='/login')
 def results(request):
