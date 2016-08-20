@@ -79,6 +79,11 @@ class DemographicForm(forms.ModelForm):
             Fieldset(
                 '<b>Personal information</b>',
                 Div(
+                    # HTML(u'<div class="col-md-2"></div>'),
+                    Div('anonymisation_code', css_class='col-md-6'),
+                    css_class='row',
+                ),
+                Div(
                     #HTML(u'<div class="col-md-2"></div>'),
                     Div('patient_id',css_class='col-md-6'),
                     Div('date_of_birth',css_class="col-md-6"),

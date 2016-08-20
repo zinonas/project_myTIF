@@ -478,7 +478,7 @@ def search(request):
         value = 1
         my_demographics = DemographicForm(request.POST, prefix="demo")
         my_anonymized_demographics = Demographic.objects.filter(anonymisation_code=request.POST['id'])
-        print my_anonymized_demographics
+        #print my_anonymized_demographics
         my_diagnosis = DiagnosisForm(request.POST, prefix='diag')
         my_a_b_sickle= A_b_sickle_thalForm(request.POST,prefix='a_b_s')
         my_redcell_enzyme = Redcell_enzyme_disForm(request.POST, prefix='rc_enz')
@@ -522,13 +522,13 @@ def results_anonymised(request):
     diag_option = 0
 
     with transaction.atomic():
-        print "HERE ELSE"
+        #print "HERE ELSE"
         try:
             patient_ano = Demographic.objects.get(anonymisation_code=my_ano_code)
             patient = Demographic.objects.get(patient_id=patient_ano.patient_id)
             myid = patient.patient_id
-            print "patient"
-            print myid
+            #print "patient"
+            #print myid
         except Demographic.DoesNotExist:
             patient = None
         if patient == None:
@@ -551,7 +551,7 @@ def results_anonymised(request):
         # my_demographics = DemographicForm(prefix='demo')
 
         my_diagnosis = DiagnosisForm(request.POST or None,prefix='diag', instance=diag_patient)
-        print my_diagnosis
+        #print my_diagnosis
         for fields in my_diagnosis.fields:
             my_diagnosis.fields[fields].widget.attrs['disabled'] = "disabled"
 

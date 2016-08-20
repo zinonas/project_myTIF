@@ -10,6 +10,7 @@ from .models import Redcell_enzyme_dis
 from .models import Redcell_membrane_dis
 from .models import Cong_dyseryth_anaemia
 from .models import icd_10
+from .models import orphaCodes
 from .models import Pregnancy
 from .models import Clinical_data
 from .models import Clinical_data_two
@@ -50,9 +51,14 @@ class cong_dyserAdmin(SimpleHistoryAdmin):
         model = Cong_dyseryth_anaemia
 
 class icd10Admin (SimpleHistoryAdmin):
-    list_display = ('pub_date','author')
+    list_display = ('pub_date', 'author')
     class Meta:
         model = icd_10
+
+class orphaAdmin (SimpleHistoryAdmin):
+    list_display = ('pub_date', 'author')
+    class Meta:
+        model = orphaCodes
 
 class pregnancyAdmin (SimpleHistoryAdmin):
     list_display = ('patient','pub_date', 'author')
@@ -98,6 +104,7 @@ admin.site.register(Redcell_enzyme_dis,redcell_enzAdmin)
 admin.site.register(Redcell_membrane_dis,redcell_memb_Admin)
 admin.site.register(Cong_dyseryth_anaemia,cong_dyserAdmin)
 admin.site.register(icd_10, icd10Admin)
+admin.site.register(orphaCodes, orphaAdmin)
 admin.site.register(Pregnancy,pregnancyAdmin)
 admin.site.register(Clinical_data,clinical_dataAdmin)
 admin.site.register(Clinical_data_two,clinical_data_twoAdmin)
