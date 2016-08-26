@@ -8,7 +8,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3dc3b258-7aa6-4de1-9034-27e990e0e1b6" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/static/media/Department_of_Computer_Science_en.jpg" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/templates/index.html" afterPath="$PROJECT_DIR$/static/templates/index.html" />
     </list>
@@ -56,8 +55,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/static/templates/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="34" column="84" selection-start-line="34" selection-start-column="84" selection-end-line="34" selection-end-column="84" />
+            <state relative-caret-position="56">
+              <caret line="21" column="71" selection-start-line="21" selection-start-column="71" selection-end-line="21" selection-end-column="71" />
               <folding />
             </state>
           </provider>
@@ -648,13 +647,6 @@
       <option name="presentableId" value="Default" />
       <updated>1409663873873</updated>
     </task>
-    <task id="LOCAL-00016" summary="Update statistics">
-      <created>1463570196833</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1463570196833</updated>
-    </task>
     <task id="LOCAL-00017" summary="Create DiagnosisOption model to support multivalues in diagnosis_option.">
       <created>1464031306230</created>
       <option name="number" value="00017" />
@@ -991,7 +983,14 @@
       <option name="project" value="LOCAL" />
       <updated>1472217710398</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="Update images">
+      <created>1472217903953</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1472217903953</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1078,7 +1077,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Update bootstrap 3 datetime picker. Now it's working properly." />
     <MESSAGE value="Fix html head scripts" />
     <MESSAGE value="Add server configurations" />
     <MESSAGE value="Fix modules and add &quot;extended&quot; checkboxes for diagnosis option" />
@@ -1103,7 +1101,8 @@
     <MESSAGE value="Add support to patient role" />
     <MESSAGE value="Update images paths" />
     <MESSAGE value="Correct index.html link" />
-    <option name="LAST_COMMIT_MESSAGE" value="Correct index.html link" />
+    <MESSAGE value="Update images" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update images" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1480,8 +1479,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/static/templates/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="34" column="84" selection-start-line="34" selection-start-column="84" selection-end-line="34" selection-end-column="84" />
+        <state relative-caret-position="56">
+          <caret line="21" column="71" selection-start-line="21" selection-start-column="71" selection-end-line="21" selection-end-column="71" />
           <folding />
         </state>
       </provider>
