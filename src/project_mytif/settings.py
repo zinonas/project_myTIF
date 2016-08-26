@@ -122,9 +122,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
-STATIC_URL = '/static/'
 STATIC_ROOT = '/var/www/enerca-tif/static'
 MEDIA_ROOT = '/var/www/enerca-tif/static/media'
+STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+
+
 #Template location
 TEMPLATE_DIRS = (
     os.path.join(os.path.dirname(BASE_DIR), "static", "templates"),
