@@ -131,7 +131,7 @@ TEMPLATE_DIRS = (
 )
 
 #NOT FOR THE LIVE VERSION
-if DEBUG:
+if True:
     MEDIA_URL = '/media/'
     STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static")
 
