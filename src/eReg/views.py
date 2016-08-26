@@ -14,7 +14,7 @@ import traceback
 from django.forms.models import formset_factory
 from django.forms.models import inlineformset_factory
 from django.contrib.auth.models import User
-from models import Demographic, Diagnosis, A_b_sickle_thal,Redcell_enzyme_dis, Redcell_membrane_dis, Cong_dyseryth_anaemia, icd_10, orphaCodes, Clinical_data, Clinical_data_two, Ext_centers,Patient_reported_outcome, DiagnosisOption, Institution
+from models import Demographic, Diagnosis,Patient_id, A_b_sickle_thal,Redcell_enzyme_dis, Redcell_membrane_dis, Cong_dyseryth_anaemia, icd_10, orphaCodes, Clinical_data, Clinical_data_two, Ext_centers,Patient_reported_outcome, DiagnosisOption, Institution
 from django.core import serializers
 import json
 from django.db import transaction
@@ -3576,6 +3576,89 @@ def external_centers(request):
 
         return render(request, 'external_centers.html', {'ext_centres': ext_cent, 'ext_centres_diag':ext_cent_diagnostic, 'ext_centres_out':ext_cent_outcomes, 'ext_centres_out2':ext_cent_outcomes2 })
 
+
+@login_required(login_url='/login')
+def patient(request):
+    context = RequestContext(request)
+    diag_option = 0
+    #myid = request.GET.get('id', '')
+    #myid="1"
+
+    with transaction.atomic():
+        try:
+            #print "HERE ELSE ELSE"
+            my_curr_id_dict = Patient_id.objects.filter(user=request.user).values_list('patient_id', flat=True)
+            myid=my_curr_id_dict[0]
+            #print "my user patient id=", my_curr_id_dict[0]
+
+            patient = Demographic.objects.get(patient_id=myid)
+        except Demographic.DoesNotExist:
+            patient = None
+        if patient == None:
+            my_alert = "1"
+            response = redirect('search')
+            response.set_cookie('no_patient', 'True')
+            return response
+
+        diag_patient = Diagnosis.objects.get(patient=myid)
+        a_b_s_patient = A_b_sickle_thal.objects.get(patient=myid)
+        r_c_e_patient = Redcell_enzyme_dis.objects.get(patient=myid)
+        r_c_m_patient = Redcell_membrane_dis.objects.get(patient=myid)
+        c_d_a_patient = Cong_dyseryth_anaemia.objects.get(patient=myid)
+        cln_dt_patient = Clinical_data.objects.get(patient=myid)
+        cln_dt_two_patient = Clinical_data_two.objects.get(patient=myid)
+        patient_reported_outcomes_patient = Patient_reported_outcome.objects.get(patient=myid)
+
+        # print "diag_val"
+        # for diag_opt in diag_val.all():
+        #     print diag_opt
+
+    # print "diag_option=", diag_option
+    my_demographics = DemographicForm(request.POST or None, prefix="demo", instance=patient)
+    for fields in my_demographics.fields:
+        my_demographics.fields[fields].widget.attrs['disabled'] = "disabled"
+
+    my_diagnosis = DiagnosisForm(request.POST or None, prefix='diag', instance=diag_patient)
+    # print my_diagnosis
+    for fields in my_diagnosis.fields:
+        my_diagnosis.fields[fields].widget.attrs['disabled'] = "disabled"
+
+    my_a_b_sickle = A_b_sickle_thalForm(request.POST or None, prefix='a_b_s', instance=a_b_s_patient)
+    for fields in my_a_b_sickle.fields:
+        my_a_b_sickle.fields[fields].widget.attrs['disabled'] = "disabled"
+
+    my_redcell_enzyme = Redcell_enzyme_disForm(request.POST or None, prefix='rc_enz', instance=r_c_e_patient)
+    for fields in my_redcell_enzyme.fields:
+        my_redcell_enzyme.fields[fields].widget.attrs['disabled'] = "disabled"
+
+    my_redcell_membrane = Redcell_membrane_disForm(request.POST or None, prefix='rc_mbr', instance=r_c_m_patient)
+    for fields in my_redcell_membrane.fields:
+        my_redcell_membrane.fields[fields].widget.attrs['disabled'] = "disabled"
+
+    my_cong_dys = Cong_dyseryth_anaemiaForm(request.POST or None, prefix='cong_dys', instance=c_d_a_patient)
+    for fields in my_cong_dys.fields:
+        my_cong_dys.fields[fields].widget.attrs['disabled'] = "disabled"
+
+    my_cln_dt = ClinicalDataForm(request.POST or None, prefix='cln_dt', instance=cln_dt_patient)
+    for fields in my_cln_dt.fields:
+        my_cln_dt.fields[fields].widget.attrs['disabled'] = "disabled"
+
+    my_cln_dt_two = ClinicalDataTwo(request.POST or None, prefix='cln_dt_two', instance=cln_dt_two_patient)
+    for fields in my_cln_dt_two.fields:
+        my_cln_dt_two.fields[fields].widget.attrs['disabled'] = "disabled"
+
+    my_patient_reported_outcomes = Patient_Reported_outcomeForm(request.POST or None, prefix='pat_rep_out',
+                                                                instance=patient_reported_outcomes_patient)
+    for fields in my_patient_reported_outcomes.fields:
+        my_patient_reported_outcomes.fields[fields].widget.attrs['disabled'] = "disabled"
+
+    return render_to_response('patient.html', {'frm': my_demographics, 'frm_d': my_diagnosis, 'frm_a_b_s': my_a_b_sickle,
+                                           'frm_rc_enz': my_redcell_enzyme, 'frm_rc_mbr': my_redcell_membrane,
+                                           'frm_cong_dys': my_cong_dys, 'diag_option': diag_option,
+                                           'frm_cln_dt': my_cln_dt, 'frm_cln_dt_two': my_cln_dt_two,
+                                           'ptn_rep_out': my_patient_reported_outcomes}, context)
+
+
 def login(request):
     context = RequestContext(request)
     username = request.POST.get('username', '')
@@ -3584,11 +3667,17 @@ def login(request):
     user = auth.authenticate(username = username, password = password)
     print 'user=', user
 
+
     if user is not None:
         auth.login(request, user)
+        user_group = request.user.groups.all()[0]
+        #print 'user_group=',user_group
+        if str(user_group) == 'Patient':
+            #print "here user group"
+            return redirect('eReg.views.patient')
         #user = User.objects.get(username=username)
-        print 'login'
-        return redirect('eReg.views.modules')
+        else:
+            return redirect('eReg.views.modules')
 
     else:
         print 'no login'
@@ -3635,3 +3724,4 @@ class OrphaAutocomplete(autocomplete.Select2QuerySetView):
              qs = qs.filter(orpha_desc__icontains=self.q)
         #
         return qs
+

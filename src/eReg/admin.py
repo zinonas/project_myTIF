@@ -17,6 +17,7 @@ from .models import Clinical_data_two
 from .models import Patient_reported_outcome
 from .models import DiagnosisOption
 from .models import Institution
+from .models import Patient_id
 
 from simple_history.admin import SimpleHistoryAdmin
 
@@ -90,12 +91,17 @@ class institutionAdmin (SimpleHistoryAdmin):
     class Meta:
         model = Institution
 
+class patientIdAdmin (SimpleHistoryAdmin):
+    list_display = ('user', 'patient_id')
+    class Meta:
+        model = Patient_id
 
 register(User, inherit=True)
 register(Group, inherit=True)
 
 #admin.site.register(User, SimpleHistoryAdmin)
 admin.site.register(Institution, institutionAdmin)
+admin.site.register(Patient_id, patientIdAdmin)
 admin.site.register(Demographic, DemographicsAdmin)
 admin.site.register(Diagnosis, DiagnosisAdmin)
 admin.site.register(DiagnosisOption,diag_optAdmin)

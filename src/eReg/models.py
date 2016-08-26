@@ -18,6 +18,10 @@ class Institution(models.Model):
     user =  models.OneToOneField(User, on_delete=models.CASCADE)
     department = models.CharField(max_length=100)
 
+class Patient_id(models.Model):
+    user =  models.OneToOneField(User, on_delete=models.CASCADE)
+    patient_id = models.CharField(max_length=100)
+
 class Demographic(models.Model):
     anonymisation_code = models.CharField('Anonymisation code',max_length=4,null=True,blank=True)
     patient_option = (
@@ -48,7 +52,7 @@ class Demographic(models.Model):
     national_health_care_pat_id = models.IntegerField('National Health Care patient id', null=True,blank=True)
     guid =  models.IntegerField('Global unique identifier', null=True,blank=True)
     patient_hospital_file_number = models.IntegerField(null=True,blank=True)
-    patient_id = models.IntegerField(unique= True ,primary_key=True)
+    patient_id = models.CharField(unique= True ,primary_key=True,max_length=15)
     given_name = models.CharField(max_length=30,null=True,blank=True)
     surname = models.CharField(max_length=30,null=True,blank=True)
     middle_name = models.CharField('Middle name',max_length=30,null=True,blank=True)

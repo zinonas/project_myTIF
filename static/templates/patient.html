@@ -1,0 +1,357 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+{% load bootstrap3 %}
+{% load static %}
+{% load staticfiles %}
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% block pagetitle %}Results{% endblock %}
+
+{% block head %}
+
+            <!--<link rel="stylesheet" type="text/css" href="{% static 'admin/css/global.css' %}"/>-->
+
+            <!--<script type="text/javascript" src="/admin/jsi18n/"></script>-->
+            <!--<script type="text/javascript" src="{% static 'admin/js/core.js' %}"></script>-->
+            <!--<script type="text/javascript" src="{% static 'admin/js/admin/RelatedObjectLookups.js' %}"></script>-->
+            <!--<script type="text/javascript" src="{% static 'admin/js/jquery.js' %}"></script>-->
+            <!--<script type="text/javascript" src="{% static 'admin/js/jquery.init.js' %}"></script>-->
+            <!--<script type="text/javascript" src="{% static 'admin/js/actions.js' %}"></script>-->
+            <!--<script type="text/javascript" src="{% static 'admin/js/calendar.js' %}"></script>-->
+            <!--<script type="text/javascript" src="/static/admin/js/admin/DateTimeShortcuts.js"></script>-->
+            <!--<script src="//code.jquery.com/jquery-1.10.2.js"></script>-->
+            <!--<script>
+                $(document).ready(function() {
+                    $('#my_option').each(function() {
+                        var option = $(this).val();
+
+                        if (option === '1'){
+                            $('#mytab a[href="#3"]').parent().removeClass("hide");
+//                            alert(option);
+                        }
+                        if (option === '2'){
+                            $('#mytab a[href="#4"]').parent().removeClass("hide");
+//                            alert(option);
+                        }
+                        if (option === '3'){
+                            $('#mytab a[href="#5"]').parent().removeClass("hide");
+//                            alert(option);
+                        }
+                        if (option === '4'){
+                            $('#mytab a[href="#6"]').parent().removeClass("hide");
+//                            alert(option);
+                        }
+                        if (option === '12'){
+                            $('#mytab a[href="#3"]').parent().removeClass("hide");
+                            $('#mytab a[href="#4"]').parent().removeClass("hide");
+//                            alert(option);
+                        }
+                        if (option === '13'){
+                            $('#mytab a[href="#3"]').parent().removeClass("hide");
+                            $('#mytab a[href="#5"]').parent().removeClass("hide");
+//                            alert(option);
+                        }
+                        if (option === '14'){
+                            $('#mytab a[href="#3"]').parent().removeClass("hide");
+                            $('#mytab a[href="#6"]').parent().removeClass("hide");
+//                            alert(option);
+                        }
+                        if (option === '23'){
+                            $('#mytab a[href="#4"]').parent().removeClass("hide");
+                            $('#mytab a[href="#5"]').parent().removeClass("hide");
+//                            alert(option);
+                        }
+                        if (option === '24'){
+                            $('#mytab a[href="#4"]').parent().removeClass("hide");
+                            $('#mytab a[href="#6"]').parent().removeClass("hide");
+//                            alert(option);
+                        }
+                        if (option === '34'){
+                            $('#mytab a[href="#5"]').parent().removeClass("hide");
+                            $('#mytab a[href="#6"]').parent().removeClass("hide");
+//                            alert(option);
+                        }
+                    });
+                });
+            </script>-->
+
+            <script>
+                $(document).ready(function() {
+                     var allcheckedValues = $('input:checkbox:checked').map(function() {
+                        return this.value;
+                        }).get();
+                        //alert(this)
+
+                        //Example
+                        //$("#id_diag-diagnosis_option_1").parent().append('<label><input class="extended" type="checkbox" id="extended" name="extended" value="1" checked>Laboratory tests</label>');
+
+                        if (allcheckedValues.indexOf('1') >= 0 | allcheckedValues.indexOf('2') >= 0 | allcheckedValues.indexOf('3') >= 0 | allcheckedValues.indexOf('4') >= 0 ) {
+                            $('#mytab a[href="#3"]').parent().removeClass("hide");
+                            if (allcheckedValues.indexOf('1') >= 0) {
+                                //alert($("#id_diag-diagnosis_option_1").val())
+                                $("#id_diag-diagnosis_option_1").parent().append('<label><input class="extended" type="checkbox" id="extended" name="extended" value="1" >Laboratory tests</label>');
+                            }
+                            if (allcheckedValues.indexOf('2') >= 0) {
+                                //alert($("#id_diag-diagnosis_option_2").val())
+                                $("#id_diag-diagnosis_option_2").parent().append('<label><input class="extended" type="checkbox" id="extended" name="extended" value="2" >Laboratory tests</label>');
+                            }
+                            if (allcheckedValues.indexOf('3') >= 0) {
+                                //alert($("#id_diag-diagnosis_option_3").val())
+                                $("#id_diag-diagnosis_option_3").parent().append('<label><input class="extended" type="checkbox" id="extended" name="extended" value="3" >Laboratory tests</label>');
+                            }
+                            if (allcheckedValues.indexOf('4') >= 0) {
+                                //alert($("#id_diag-diagnosis_option_4").val())
+                                $("#id_diag-diagnosis_option_4").parent().append('<label><input class="extended" type="checkbox" id="extended" name="extended" value="4" >Laboratory tests</label>');
+                            }
+
+                        }
+                       if (allcheckedValues.indexOf('5') >= 0) {
+                            $('#mytab a[href="#4"]').parent().removeClass("hide");
+                            if (allcheckedValues.indexOf('5') >= 0) {
+                                //alert($("#id_diag-diagnosis_option_5").val())
+                                $("#id_diag-diagnosis_option_5").parent().append('<label><input class="extended" type="checkbox" id="extended" name="extended" value="5" >Laboratory tests</label>');
+                            }
+                        }
+                       if (allcheckedValues.indexOf('6') >= 0) {
+                            $('#mytab a[href="#5"]').parent().removeClass("hide");
+                            if (allcheckedValues.indexOf('6') >= 0) {
+                                //alert($("#id_diag-diagnosis_option_6").val())
+                                $("#id_diag-diagnosis_option_6").parent().append('<label><input class="extended" type="checkbox" id="extended" name="extended" value="6" >Laboratory tests</label>');
+                            }
+                        }
+                       if (allcheckedValues.indexOf('7') >= 0) {
+                            $('#mytab a[href="#6"]').parent().removeClass("hide");
+                            if (allcheckedValues.indexOf('7') >= 0) {
+                                //alert($("#id_diag-diagnosis_option_1").val())
+                                $("#id_diag-diagnosis_option_7").parent().append('<label><input class="extended" type="checkbox" id="extended" name="extended" value="7" >Laboratory tests</label>');
+                            }
+                        }
+
+
+                });
+            </script>
+            <script>
+                $(document).ready(function() {
+                    $("input[name='diag-diagnosis_option']").change(function () {
+                        var $this = $(this)
+                        if ($(this).prop('checked')) {
+                            var option = $(this).val();
+                            //alert(unescape(escape($(this).attr('value'))));
+                            $(this).parent().append('<label><input class="extended" type="checkbox" id="extended" name="extended" value='+escape($(this).attr('value'))+'>Laboratory tests</label>');
+                        }
+                        else if( $this.siblings('label').length ) {
+                    $this.siblings('label').remove();
+                    }
+                    });
+                });
+        </script>
+         <script>
+                $(document).ready(function() {
+                    $(document).on('change','#extended',function () {
+                        var option = unescape($(this).val());
+                        //get all the extended selections
+                        var selected = $('.extended:checked').map(function () {
+                            return unescape($(this).attr('value'));
+                        }).get();
+                        //alert(selected);
+                        if (this.checked) {
+                            //alert(option);
+                            if (option == '1' | option == '2' | option == '3' | option == '4') {
+                                $('#mytab a[href="#3"]').parent().removeClass("hide");
+                            }
+                            if (option == '5') {
+                                $('#mytab a[href="#4"]').parent().removeClass("hide");
+                            }
+                            if (option == '6') {
+                                $('#mytab a[href="#5"]').parent().removeClass("hide");
+                            }
+                            if (option == '7') {
+                                $('#mytab a[href="#6"]').parent().removeClass("hide");
+                            }
+                        }
+                        else if (!(this.checked))
+                            {
+                                if (selected.indexOf('1') <0 & selected.indexOf('2') <0 & selected.indexOf('3') <0  & selected.indexOf('4') <0  )
+                                {
+                                    $('#mytab a[href="#3"]').parent().addClass("hide")
+                                }
+                                if (option == '5') {
+                                    $('#mytab a[href="#4"]').parent().addClass("hide");
+                                }
+                                if (option == '6') {
+                                    $('#mytab a[href="#5"]').parent().addClass("hide");
+                                }
+                                if (option == '7') {
+                                    $('#mytab a[href="#6"]').parent().addClass("hide");
+                                }
+                            }
+                    });
+                });
+            </script>
+         <script>
+                $(document).ready(function() {
+                    $('#id_demo-data_entered_by_name').attr('disabled', true);
+                    $('#id_demo-data_entered_by_relationship').attr('disabled', true);
+                    $('#id_demo-data_entered_by').change(function () {
+                        var value = $(this).val()
+                        //alert(value)
+                        if (value === 'Other'){
+                            $('#id_demo-data_entered_by_name').attr('disabled', false);
+                            $('#id_demo-data_entered_by_relationship').attr('disabled', false);
+                        }
+                        if (value != 'Other'){
+                            $('#id_demo-data_entered_by_name').attr('disabled', true);
+                            $('#id_demo-data_entered_by_relationship').attr('disabled', true);
+                        }
+                    });
+                });
+            </script>
+            <script>
+                 $(document).ready(function() {
+                     $('#id_diag-icd_10_desc').change(function () {
+                         alert($(this.value()));
+                     })
+                 })
+
+
+               $('select').select2({
+                      ajax: {
+                        url: "{% url 'icd10-autocomplete'  %}"
+                      }
+                    });
+           </script>
+         <script>
+             $(document).ready(function() {
+                $('#id_demo-anonymisation_code').attr('disabled', true);
+            });
+         </script>
+        <script>
+                 $(document).ready(function() {
+                    var inputs = document.getElementsByTagName("input");
+                    for (var i = 0; i < inputs.length; i++) {
+                        if (inputs[i].type === 'submit') {
+                            inputs[i].disabled = true;
+                        }
+                    }
+
+                 })
+
+           </script>
+            {{frm.media}}
+{% endblock %}
+
+{%block jumbotron_title %}Results and update{% endblock %}
+{%block jumbotron_info %}<div class="alert alert-warning" >
+        <strong>If you want to select different module(s) for this patient, you have to select modules firstly and then search this patient again</strong>.
+    </div>{% endblock %}
+{% block content %}
+
+<!-- Nav tabs -->
+<!--<ul class="nav nav-tabs">-->
+    <!--<li class="active"><a href="#demographics" role="tab" data-toggle="tab">Demographics</a></li>-->
+    <!--<li><a href="#diagnosis" role="tab" data-toggle="tab">Diagnosis</a></li>-->
+    <!--<li><a href="#a_b_sickle" role="tab" data-toggle="tab">A_b_sickle</a></li>-->
+    <!--<li><a href="#settings" role="tab" data-toggle="tab">Settings</a></li>-->
+<!--</ul>-->
+<!--<div class="tab-content">-->
+
+    <!-- Tab panes -->
+<input type="hidden" id="my_option" name='diagnosis_option' value="{{diag_option}}" />
+
+<form class="form-horizontal" method="post" id="input">
+    {% csrf_token %}
+
+    <div class="tab-pane" id="mytab">
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a href="#1" data-toggle="tab">Demographics</a>
+            </li>
+            <li>
+                <a href="#2" data-toggle="tab">Diagnosis</a>
+            </li>
+            <li class="hide">
+                <a href="#3" data-toggle="tab">Haemoglobin disorders diagnostic tests</a>
+            </li>
+            <li class="hide">
+                <a href="#4" data-toggle="tab">Red cell enzyme disorders</a>
+            </li>
+            <li class="hide">
+                <a href="#5" data-toggle="tab">Red cell membrane disorders</a>
+            </li>
+            <li class="hide">
+                <a href="#6" data-toggle="tab">Congenital desyrythropoietic anaemias</a>
+            </li>
+            <li class="hide">
+                <a href="#7" data-toggle="tab">Annual Summary of Thalassaemia and Severe Anaemias</a>
+            </li>
+            <li class="hide">
+                <a href="#8" data-toggle="tab">Annual Summary of Sickle Cell disease</a>
+            </li>
+            <li class="hide">
+                <a href="#9" data-toggle="tab">Patient reported outcomes</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane fade in active" id="1">
+                <!--<input type="hidden" name="form_id" value="demographics">-->
+                <div class="container"> {%crispy frm%}</div>
+
+            </div>
+            <div class="tab-pane fade" id="2">
+                <!-- form controls to be continued here -->
+                <!--<input type="hidden" name="form_id" value="diagnosis">-->
+                <div class="container">{%crispy frm_d%}</div>
+            </div>
+            <div class="tab-pane" id="3">
+                <!-- form controls to be continued here -->
+                <!--<input type="hidden" name="form_id" value="a_b_s">-->
+                <div class="container"> {%crispy frm_a_b_s%}</div>
+            </div>
+             <div class="tab-pane" id="4">
+                <!-- form controls to be continued here -->
+                <!--<input type="hidden" name="form_id" value="a_b_s">-->
+                <div class="container"> {%crispy frm_rc_enz%}</div>
+            </div>
+            <div class="tab-pane" id="5">
+                <!-- form controls to be continued here -->
+                <!--<input type="hidden" name="form_id" value="a_b_s">-->
+                <div class="container"> {%crispy frm_rc_mbr%}</div>
+            </div>
+            <div class="tab-pane" id="6">
+                <!-- form controls to be continued here -->
+                <!--<input type="hidden" name="form_id" value="a_b_s">-->
+                <div class="container"> {%crispy frm_cong_dys%}</div>
+            </div>
+            <div class="tab-pane fade" id="7">
+                <!-- form controls to be continued here -->
+                <!--<input type="hidden" name="form_id" value="a_b_s">-->
+                <div class="container"> {%crispy frm_cln_dt%}</div>
+            </div>
+            <div class="tab-pane fade" id="8">
+                <!-- form controls to be continued here -->
+                <!--<input type="hidden" name="form_id" value="a_b_s">-->
+                <div class="container">{%crispy frm_cln_dt_two%}</div>
+            </div>
+             <div class="tab-pane fade" id="9">
+                <!-- form controls to be continued here -->
+                <!--<input type="hidden" name="form_id" value="a_b_s">-->
+                <div class="container">{%crispy ptn_rep_out%}</div>
+             </div>
+            </div>
+        </div>
+    </div>
+    <!--<input type="submit" name='submit' value="Submit">-->
+</form>
+
+ {% block footer %}
+
+<script type="text/javascript" src="http://dal-yourlabs.rhcloud.com/static/collected/admin/js/vendor/jquery/jquery.js"></script>
+
+{{ frm_d.media }}
+
+{% endblock %}
+
+{% endblock %}

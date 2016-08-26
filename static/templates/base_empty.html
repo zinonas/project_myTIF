@@ -179,8 +179,13 @@
          <div class="header">
               <ul class="nav navbar-nav" role="navigation">
                 {% if user.is_authenticated %}
-                    <li {% if request.get_full_path == modules_url %} class="active"{% endif %}><a href="{% url 'modules' %}"><b  style="color:#ff9904;">Modules</b></a></li>
-                {% endif %}
+                  {% for group in user.groups.all %}
+                    {% if group.name != 'Patient' %}
+                    <li {% if request.get_full_path == modules_url %} class="active" {% else%} class="inactive"{% endif %}><a href="{% url 'modules' %}"><b  style="color:#ff9904;">Modules</b></a></li>
+
+                    {% endif %}
+                  {%endfor%}
+                  {% endif %}
                 <li {% if request.get_full_path == home_url %} class="active"{% endif %}><a href="{% url 'home' %}">Home</a></li>
 
                 {% if user.is_authenticated %}
