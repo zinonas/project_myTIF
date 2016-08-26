@@ -43,7 +43,7 @@ urlpatterns = patterns('',
     url(r'^login/', 'eReg.views.login', name='login'),
     #url(r'^logout/', 'eReg.views.logout_view', name='logout_view'),
     url(r'^admin/jsi18n/', 'django.views.i18n.javascript_catalog'),
-
+    url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
 
 
     #url(r'^cookies/', include('cookie_consent.urls')),
