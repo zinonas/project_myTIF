@@ -9,7 +9,6 @@
   <component name="ChangeListManager">
     <list default="true" id="3dc3b258-7aa6-4de1-9034-27e990e0e1b6" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/templates/index.html" afterPath="$PROJECT_DIR$/static/templates/index.html" />
     </list>
     <ignored path="project_myTIF.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -629,13 +628,6 @@
       <option name="presentableId" value="Default" />
       <updated>1409663873873</updated>
     </task>
-    <task id="LOCAL-00012" summary="Adding module 4 - patient reported outcomes form addition">
-      <created>1463400552689</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1463400552689</updated>
-    </task>
     <task id="LOCAL-00013" summary="Modular implementation">
       <created>1463438802220</created>
       <option name="number" value="00013" />
@@ -972,7 +964,14 @@
       <option name="project" value="LOCAL" />
       <updated>1472212098638</updated>
     </task>
-    <option name="localTasksCounter" value="61" />
+    <task id="LOCAL-00061" summary="Update images paths">
+      <created>1472212235021</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1472212235021</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
