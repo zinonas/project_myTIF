@@ -600,6 +600,8 @@ def results(request):
             try:
                 department = Institution.objects.filter(user=request.user).first().department
                 patient = Demographic.objects.get(patient_id=myid, author__institution__department=department)
+                patient_an_code = patient.anonymisation_code
+                print "patient anony code =", patient_an_code
             except Demographic.DoesNotExist:
                 patient = None
             if patient == None:
@@ -654,6 +656,8 @@ def results(request):
 
             my_demographics_object = my_demographics.save(commit=False)
             my_demographics_object.author = request.user
+            my_demographics_object.anonymisation_code = patient_an_code
+            print "patient_myANCODE=", patient_an_code
             my_demographics_object.save()
 
             mylist = diag_patient.diagnosis_option.all()
