@@ -66,7 +66,7 @@
         <entry file="file://$PROJECT_DIR$/src/eReg/models.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="374">
-              <caret line="54" column="74" selection-start-line="54" selection-start-column="74" selection-end-line="54" selection-end-column="74" />
+              <caret line="60" column="68" selection-start-line="60" selection-start-column="68" selection-end-line="60" selection-end-column="68" />
               <folding />
             </state>
           </provider>
@@ -647,13 +647,6 @@
       <option name="presentableId" value="Default" />
       <updated>1409663873873</updated>
     </task>
-    <task id="LOCAL-00021" summary="Fix search patient module regarding no patient found">
-      <created>1464359015897</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1464359015897</updated>
-    </task>
     <task id="LOCAL-00022" summary="Fix autocomplete for icd-10 and oprhacodes">
       <created>1464615477303</created>
       <option name="number" value="00022" />
@@ -990,7 +983,14 @@
       <option name="project" value="LOCAL" />
       <updated>1472907360334</updated>
     </task>
-    <option name="localTasksCounter" value="70" />
+    <task id="LOCAL-00070" summary="Change patient Id label as &quot;National identity card number or passport&quot;">
+      <created>1472907505924</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1472907505924</updated>
+    </task>
+    <option name="localTasksCounter" value="71" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1077,7 +1077,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Fix modules and add &quot;extended&quot; checkboxes for diagnosis option" />
     <MESSAGE value="Fix search engine to support roles nurse&amp;doctor to access same patients that belong to the same hospital department." />
     <MESSAGE value="Update statistical correlations" />
     <MESSAGE value="Update proposed changes by Dr Angastiniotis" />
@@ -1102,7 +1101,8 @@
     <MESSAGE value="Update images" />
     <MESSAGE value="Update images' paths in index.html" />
     <MESSAGE value="Make &quot;Country of birth&quot; field mandatory" />
-    <option name="LAST_COMMIT_MESSAGE" value="Make &quot;Country of birth&quot; field mandatory" />
+    <MESSAGE value="Change patient Id label as &quot;National identity card number or passport&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Change patient Id label as &quot;National identity card number or passport&quot;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1480,7 +1480,7 @@
     <entry file="file://$PROJECT_DIR$/src/eReg/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
-          <caret line="54" column="74" selection-start-line="54" selection-start-column="74" selection-end-line="54" selection-end-column="74" />
+          <caret line="60" column="68" selection-start-line="60" selection-start-column="68" selection-end-line="60" selection-end-column="68" />
           <folding />
         </state>
       </provider>
