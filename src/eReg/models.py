@@ -52,7 +52,7 @@ class Demographic(models.Model):
     national_health_care_pat_id = models.IntegerField('National Health Care patient id', null=True,blank=True)
     guid =  models.IntegerField('Global unique identifier', null=True,blank=True)
     patient_hospital_file_number = models.IntegerField(null=True,blank=True)
-    patient_id = models.CharField(unique= True ,primary_key=True,max_length=15)
+    patient_id = models.CharField('National Identity Card Number or Passport',unique= True ,primary_key=True,max_length=15)
     given_name = models.CharField(max_length=30,null=True,blank=True)
     surname = models.CharField(max_length=30,null=True,blank=True)
     middle_name = models.CharField('Middle name',max_length=30,null=True,blank=True)
