@@ -58,7 +58,7 @@ class Demographic(models.Model):
     middle_name = models.CharField('Middle name',max_length=30,null=True,blank=True)
     maiden_name = models.CharField('Maiden name',max_length=30,null=True,blank=True)
     date_of_birth= models.DateField('Date of birth',null=True,blank=True)
-    country_of_birth = models.CharField(max_length=30, default="Null")
+    country_of_birth = models.CharField(max_length=30, default="")
     date_of_input= models.DateField(null=True,blank=True)
     age = models.IntegerField(null=True,blank=True)
     # def __str__(self):
