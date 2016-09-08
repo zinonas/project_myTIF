@@ -29,16 +29,16 @@ class Demographic(models.Model):
         ('I agree','I agree'),
         ('I do not agree','I do not agree')
     )
-    patient_consent_for_data_storage= models.CharField('Data Storage', max_length=20,choices=patient_option, default=patient_option[0][0])
-    patient_consent_for_data_reusage= models.CharField('Data Reuse',max_length=20,choices=patient_option, default=patient_option[0][0])
-    creation_of_consent_form = models.DateField('Creation date')
+    patient_consent_for_data_storage= models.CharField('Data Storage', max_length=20,null=True,blank=True,choices=patient_option, default=patient_option[0][0])
+    patient_consent_for_data_reusage= models.CharField('Data Reuse',max_length=20,null=True,blank=True,choices=patient_option, default=patient_option[0][0])
+    creation_of_consent_form = models.DateField('Creation date',null=True,blank=True)
     data_provider = (
         ('','Please select'),
         #('Provider','Provider'),
         ('Patient','Patient'),
         ('Other', 'Other')
     )
-    data_entered_by = models.CharField('Entered by',max_length=15,choices=data_provider, default=data_provider[0][0])
+    data_entered_by = models.CharField('Entered by',max_length=15,null=True,blank=True,choices=data_provider, default=data_provider[0][0])
     data_entered_by_name = models.CharField('Consent given by', max_length=30,null=True,blank=True)
     relationship_options = (
         ('','Please select'),

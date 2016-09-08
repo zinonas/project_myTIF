@@ -32,7 +32,7 @@ class DemographicForm(forms.ModelForm):
                                        "pickTime": False,
                                        "startDate": "1900-01-01"}))
 
-        self.fields['creation_of_consent_form']= forms.DateField(label='Creation date',
+        self.fields['creation_of_consent_form']= forms.DateField(label='Creation date',required=False,
         widget=DateTimePicker(options={"format": "YYYY-MM-DD",
                                        "pickTime": False,
                                        "startDate": "1900-01-01"}))
@@ -44,24 +44,24 @@ class DemographicForm(forms.ModelForm):
         self.helper.label_class = 'col-md-3'
         # self.helper.form_class = 'forms-horizontal'
         self.helper.layout = Layout(
-            Fieldset(
-                '<b>Patient consent</b>',
-                Div(
-                    Div('patient_consent_for_data_storage', css_class='col-md-6'),
-                    Div('patient_consent_for_data_reusage', css_class='col-md-6'),
-                    css_class='row',
-                ),
-                Div(
-                    Div('creation_of_consent_form', css_class='col-md-6'),
-                    Div('data_entered_by', css_class='col-md-6'),
-                    css_class='row',
-                ),
-                Div(
-                    Div('data_entered_by_name', css_class='col-md-6'),
-                    Div('data_entered_by_relationship', css_class='col-md-6'),
-                    css_class='row',
-                ),
-            ),
+            # Fieldset(
+            #     '<b>Patient consent</b>',
+            #     Div(
+            #         Div('patient_consent_for_data_storage', css_class='col-md-6'),
+            #         Div('patient_consent_for_data_reusage', css_class='col-md-6'),
+            #         css_class='row',
+            #     ),
+            #     Div(
+            #         Div('creation_of_consent_form', css_class='col-md-6'),
+            #         Div('data_entered_by', css_class='col-md-6'),
+            #         css_class='row',
+            #     ),
+            #     Div(
+            #         Div('data_entered_by_name', css_class='col-md-6'),
+            #         Div('data_entered_by_relationship', css_class='col-md-6'),
+            #         css_class='row',
+            #     ),
+            # ),
             Fieldset(
                 '<b>Identification</b>',
                 Div(
@@ -208,7 +208,7 @@ class DemographicForm(forms.ModelForm):
 
     class Meta:
         model = Demographic
-        exclude = ['age', 'author']
+        exclude = ['age', 'author', 'patient_consent_for_data_storage','patient_consent_for_data_reusage','creation_of_consent_form','data_entered_by','data_entered_by_name', 'data_entered_by_relationship']
         list_display = ('patient_id', 'pub_date', 'author', 'anonymisation_code')
 
 class ClinicalDataForm(forms.ModelForm):
