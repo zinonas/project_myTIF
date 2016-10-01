@@ -2406,7 +2406,7 @@ def statistics(request):
     total_pat_vacc = Clinical_data_two.objects.filter(prophylactic_measures_vaccinations_pneumococcal_OCV_date__isnull = False)
 
     for vacc in total_pat_vacc:
-        t = Clinical_data_two.objects.get(patient=penic.patient.patient_id)
+        t = Clinical_data_two.objects.get(patient=vacc.patient.patient_id)
         #id = vacc.patient.patient_id
         dob = vacc.patient.date_of_birth
         vacc_date = vacc.prophylactic_measures_vaccinations_pneumococcal_OCV_date
@@ -2450,7 +2450,7 @@ def statistics(request):
     total_pat_liver = Clinical_data_two.objects.filter(monitoring_tests_annual_liver_profile__contains = 'Abnormal')
 
     for liver in total_pat_liver:
-        t = Clinical_data_two.objects.get(patient=penic.patient.patient_id)
+        t = Clinical_data_two.objects.get(patient=liver.patient.patient_id)
         #id = vacc.patient.patient_id
         dob = liver.patient.date_of_birth
         liver_date = liver.monitoring_tests_annual_liver_profile_date
@@ -2496,7 +2496,7 @@ def statistics(request):
     total_pat_creat = Clinical_data_two.objects.filter(monitoring_tests_annual_renal_profile_creatine_date__isnull = False)
 
     for urea in total_pat_urea:
-        t = Clinical_data_two.objects.get(patient=penic.patient.patient_id)
+        t = Clinical_data_two.objects.get(patient=urea.patient.patient_id)
         #id = vacc.patient.patient_id
         dob = urea.patient.date_of_birth
         urea_date = urea.monitoring_tests_annual_renal_profile_blood_urea_date
@@ -2505,7 +2505,7 @@ def statistics(request):
             t.save()
 
     for creat in total_pat_creat:
-        t = Clinical_data_two.objects.get(patient=penic.patient.patient_id)
+        t = Clinical_data_two.objects.get(patient=creat.patient.patient_id)
         #id = vacc.patient.patient_id
         dob = creat.patient.date_of_birth
         creat_date = creat.monitoring_tests_annual_renal_profile_creatine_date
@@ -2580,7 +2580,7 @@ def statistics(request):
     total_pat_proturea = Clinical_data_two.objects.filter(monitoring_tests_annual_renal_profile_proteiuria_date__isnull = False)
 
     for proturea in total_pat_urea:
-        t = Clinical_data_two.objects.get(patient=penic.patient.patient_id)
+        t = Clinical_data_two.objects.get(patient=proturea.patient.patient_id)
         #id = vacc.patient.patient_id
         dob = proturea.patient.date_of_birth
         proturea_date = proturea.monitoring_tests_annual_renal_profile_proteiuria_date
@@ -2625,7 +2625,7 @@ def statistics(request):
     total_pat_calc = Clinical_data_two.objects.filter( monitoring_tests_annual_calcium_metabolism_serum_calcium_date__isnull = False)
 
     for calc in total_pat_calc:
-        t = Clinical_data_two.objects.get(patient=penic.patient.patient_id)
+        t = Clinical_data_two.objects.get(patient=calc.patient.patient_id)
         #id = vacc.patient.patient_id
         dob = calc.patient.date_of_birth
         calc_date = calc. monitoring_tests_annual_calcium_metabolism_serum_calcium_date
@@ -2669,7 +2669,7 @@ def statistics(request):
     total_pat_parv = Clinical_data_two.objects.filter(monitoring_tests_annual_parvovirus_serology_date__isnull = False)
 
     for parv in total_pat_parv:
-        t = Clinical_data_two.objects.get(patient=penic.patient.patient_id)
+        t = Clinical_data_two.objects.get(patient=parv.patient.patient_id)
         #id = vacc.patient.patient_id
         dob = parv.patient.date_of_birth
         parv_date = parv.monitoring_tests_annual_parvovirus_serology_date
@@ -2714,7 +2714,7 @@ def statistics(request):
     total_pat_pulm = Clinical_data_two.objects.filter(monitoring_tests_annual_pulmonary_function_date__isnull = False)
 
     for pulm in total_pat_pulm:
-        t = Clinical_data_two.objects.get(patient=penic.patient.patient_id)
+        t = Clinical_data_two.objects.get(patient=pulm.patient.patient_id)
         #id = vacc.patient.patient_id
         dob = parv.patient.date_of_birth
         pulm_date = pulm.monitoring_tests_annual_pulmonary_function_date
@@ -2758,7 +2758,7 @@ def statistics(request):
     total_pat_hip = Clinical_data_two.objects.filter(monitoring_tests_annual_hip_radiology_date__isnull = False)
 
     for hip in total_pat_hip:
-        t = Clinical_data_two.objects.get(patient=penic.patient.patient_id)
+        t = Clinical_data_two.objects.get(patient=hip.patient.patient_id)
         #id = vacc.patient.patient_id
         dob = hip.patient.date_of_birth
         hip_date = hip.monitoring_tests_annual_hip_radiology_date
@@ -2802,7 +2802,7 @@ def statistics(request):
     total_pat_oph = Clinical_data_two.objects.filter(monitoring_tests_annual_ophthalmic_evaluation_date__isnull = False)
 
     for oph in total_pat_oph:
-        t = Clinical_data_two.objects.get(patient=penic.patient.patient_id)
+        t = Clinical_data_two.objects.get(patient=oph.patient.patient_id)
         #id = vacc.patient.patient_id
         dob = oph.patient.date_of_birth
         oph_date = oph.monitoring_tests_annual_ophthalmic_evaluation_date
@@ -2846,7 +2846,7 @@ def statistics(request):
     total_pat_dac = Clinical_data_two.objects.filter(complications_dactylitis_date__isnull = False)
 
     for dac in total_pat_dac:
-        t = Clinical_data_two.objects.get(patient=penic.patient.patient_id)
+        t = Clinical_data_two.objects.get(patient=dac.patient.patient_id)
         #id = vacc.patient.patient_id
         dob = dac.patient.date_of_birth
         dac_date = dac.complications_dactylitis_date
@@ -2890,7 +2890,7 @@ def statistics(request):
     total_pat_stroke = Clinical_data_two.objects.filter(complications_stroke_date__isnull = False)
 
     for stroke in total_pat_stroke:
-        t = Clinical_data_two.objects.get(patient=penic.patient.patient_id)
+        t = Clinical_data_two.objects.get(patient=stroke.patient.patient_id)
         #id = vacc.patient.patient_id
         dob = stroke.patient.date_of_birth
         stroke_date = stroke.complications_dactylitis_date
@@ -2934,7 +2934,7 @@ def statistics(request):
     total_pat_splen = Clinical_data_two.objects.filter(complications_splenic_sequestration_date__isnull = False)
 
     for splen in total_pat_splen:
-        t = Clinical_data_two.objects.get(patient=penic.patient.patient_id)
+        t = Clinical_data_two.objects.get(patient=splen.patient.patient_id)
         #id = vacc.patient.patient_id
         dob = splen.patient.date_of_birth
         splen_date = splen.complications_splenic_sequestration_date
@@ -2978,7 +2978,7 @@ def statistics(request):
     total_pat_aplastic = Clinical_data_two.objects.filter(complications_aplastic_crisis_date__isnull = False)
 
     for aplastic in total_pat_aplastic:
-        t = Clinical_data_two.objects.get(patient=penic.patient.patient_id)
+        t = Clinical_data_two.objects.get(patient=aplastic.patient.patient_id)
         #id = vacc.patient.patient_id
         dob = aplastic.patient.date_of_birth
         aplastic_date = aplastic.complications_aplastic_crisis_date
@@ -3022,7 +3022,7 @@ def statistics(request):
     total_pat_chest = Clinical_data_two.objects.filter(complications_acute_chest_syndrome_date__isnull = False)
 
     for chest in total_pat_chest:
-        t = Clinical_data_two.objects.get(patient=penic.patient.patient_id)
+        t = Clinical_data_two.objects.get(patient=chest.patient.patient_id)
         #id = vacc.patient.patient_id
         dob = chest.patient.date_of_birth
         chest_date = chest.complications_acute_chest_syndrome_date
@@ -3066,7 +3066,7 @@ def statistics(request):
     total_pat_mulorg = Clinical_data_two.objects.filter(complications_multi_organ_failure_syndrome_date__isnull = False)
 
     for mulorg in total_pat_mulorg:
-        t = Clinical_data_two.objects.get(patient=penic.patient.patient_id)
+        t = Clinical_data_two.objects.get(patient=mulorg.patient.patient_id)
         #id = vacc.patient.patient_id
         dob = mulorg.patient.date_of_birth
         mulorg_date = mulorg.complications_multi_organ_failure_syndrome_date
@@ -3110,7 +3110,7 @@ def statistics(request):
     total_pat_priap = Clinical_data_two.objects.filter(complications_priapism_date__isnull = False)
 
     for priap in total_pat_priap:
-        t = Clinical_data_two.objects.get(patient=penic.patient.patient_id)
+        t = Clinical_data_two.objects.get(patient=priap.patient.patient_id)
         #id = vacc.patient.patient_id
         dob = priap.patient.date_of_birth
         priap_date = priap.complications_priapism_date
@@ -3155,7 +3155,7 @@ def statistics(request):
     total_pat_hf_beta = Clinical_data_two.objects.filter(complications_heart_failure_date__isnull = False, patient__diagnosis__diagnosis_option='1')
 
     for hf_beta in total_pat_hf_beta:
-        t = Clinical_data_two.objects.get(patient=penic.patient.patient_id)
+        t = Clinical_data_two.objects.get(patient=hf_beta.patient.patient_id)
         #id = vacc.patient.patient_id
         dob = hf_beta.patient.date_of_birth
         hf_beta_date = hf_beta.complications_heart_failure_date
@@ -3199,9 +3199,9 @@ def statistics(request):
     total_pat_hf_aplha = Clinical_data_two.objects.filter(complications_heart_failure_date__isnull = False, patient__diagnosis__diagnosis_option='2')
 
     for hf_aplha in total_pat_hf_aplha:
-        t = Clinical_data_two.objects.get(patient=penic.patient.patient_id)
+        t = Clinical_data_two.objects.get(patient=hf_aplha.patient.patient_id)
         #id = vacc.patient.patient_id
-        dob = hf_beta.patient.date_of_birth
+        dob = hf_aplha.patient.date_of_birth
         hf_aplha_date = hf_aplha.complications_heart_failure_date
         if (t.complications_heart_failure is None):
             t.complications_heart_failure = ((hf_aplha_date-dob).days / days_in_year)
@@ -3243,9 +3243,9 @@ def statistics(request):
     total_pat_hf_sickle = Clinical_data_two.objects.filter(complications_heart_failure_date__isnull = False, patient__diagnosis__diagnosis_option='3')
 
     for hf_sickle in total_pat_hf_sickle:
-        t = Clinical_data_two.objects.get(patient=penic.patient.patient_id)
+        t = Clinical_data_two.objects.get(patient=hf_sickle.patient.patient_id)
         #id = vacc.patient.patient_id
-        dob = hf_beta.patient.date_of_birth
+        dob = hf_sickle.patient.date_of_birth
         hf_sickle_date = hf_sickle.complications_heart_failure_date
         if (t.complications_heart_failure is None):
             t.complications_heart_failure = ((hf_sickle_date-dob).days / days_in_year)
@@ -3287,9 +3287,9 @@ def statistics(request):
     total_pat_hf_other = Clinical_data_two.objects.filter(complications_heart_failure_date__isnull = False, patient__diagnosis__diagnosis_option='4')
 
     for hf_other in total_pat_hf_other:
-        t = Clinical_data_two.objects.get(patient=penic.patient.patient_id)
+        t = Clinical_data_two.objects.get(patient=hf_other.patient.patient_id)
         #id = vacc.patient.patient_id
-        dob = hf_beta.patient.date_of_birth
+        dob = hf_other.patient.date_of_birth
         hf_other_date = hf_other.complications_heart_failure_date
         if (t.complications_heart_failure is None):
             t.complications_heart_failure = ((hf_other_date-dob).days / days_in_year)
@@ -3331,9 +3331,9 @@ def statistics(request):
     total_pat_hf_membrane = Clinical_data_two.objects.filter(complications_heart_failure_date__isnull = False, patient__diagnosis__diagnosis_option='5')
 
     for hf_membrane in total_pat_hf_membrane:
-        t = Clinical_data_two.objects.get(patient=penic.patient.patient_id)
+        t = Clinical_data_two.objects.get(patient=hf_membrane.patient.patient_id)
         #id = vacc.patient.patient_id
-        dob = hf_beta.patient.date_of_birth
+        dob = hf_membrane.patient.date_of_birth
         hf_membrane_date = hf_membrane.complications_heart_failure_date
         if (t.complications_heart_failure is None):
             t.complications_heart_failure = ((hf_membrane_date-dob).days / days_in_year)
@@ -3375,9 +3375,9 @@ def statistics(request):
     total_pat_hf_enzyme = Clinical_data_two.objects.filter(complications_heart_failure_date__isnull = False, patient__diagnosis__diagnosis_option='6')
 
     for hf_enzyme in total_pat_hf_enzyme:
-        t = Clinical_data_two.objects.get(patient=penic.patient.patient_id)
+        t = Clinical_data_two.objects.get(patient=hf_enzyme.patient.patient_id)
         #id = vacc.patient.patient_id
-        dob = hf_beta.patient.date_of_birth
+        dob = hf_enzyme.patient.date_of_birth
         hf_enzyme_date = hf_enzyme.complications_heart_failure_date
         if (t.complications_heart_failure is None):
             t.complications_heart_failure = ((hf_enzyme_date-dob).days / days_in_year)
@@ -3419,9 +3419,9 @@ def statistics(request):
     total_pat_hf_cong = Clinical_data_two.objects.filter(complications_heart_failure_date__isnull = False, patient__diagnosis__diagnosis_option='7')
 
     for hf_cong in total_pat_hf_cong:
-        t = Clinical_data_two.objects.get(patient=penic.patient.patient_id)
+        t = Clinical_data_two.objects.get(patient=hf_cong.patient.patient_id)
         #id = vacc.patient.patient_id
-        dob = hf_beta.patient.date_of_birth
+        dob = hf_cong.patient.date_of_birth
         hf_cong_date = hf_cong.complications_heart_failure_date
         if (t.complications_heart_failure is None):
             t.complications_heart_failure = ((hf_cong_date-dob).days / days_in_year)
