@@ -3570,15 +3570,46 @@ def external_centers(request):
 
     if request.method == 'POST':
 
-        #TO DO: STORE
-        return render(request, 'external_centers.html')
+        ext_cent = ExternalCentersForm(request.POST, prefix='extcent')
+
+        if ext_cent.is_valid():
+            ext_cent_object = ext_cent.save(commit=False)
+            ext_cent_object.author = request.user
+            ext_cent_object.save()
+            ext_cent_stored = Ext_centers.objects.get(center_id=ext_cent_object.center_id)
+
+        ext_cent_diagnostic = ExternalCentersDiagnosticForm(request.POST, prefix='extcentDiagn', instance= ext_cent_stored)
+        if ext_cent_diagnostic.is_valid():
+            ext_cent_diagnostic.save()
+
+
+        ext_cent_outcomes = ExternalCentersOutcomesForm(request.POST, prefix='extcentOutcomes', instance= ext_cent_stored)
+        if ext_cent_outcomes.is_valid():
+            ext_cent_outcomes.save()
+
+        ext_cent_outcomes2 = ExternalCentersOutcomes2Form(request.POST, prefix='extcentOutcomesTwo', instance= ext_cent_stored)
+        if ext_cent_outcomes2.is_valid():
+            ext_cent_outcomes2.save()
+
+
+        #ext_cent = Ext_centers.objects.get(center_id=ext_cent_object.center_id)
+        #ext_cent_diagnostic_object = ext_cent.save(ext_cent_diagnostic)
+        # ext_cent_diagnostic_object.author = request.user
+        # ext_cent_diagnostic_object.save()
+        # ext_cent_outcomes_object = ext_cent_outcomes.save(commit=False)
+        # ext_cent_outcomes_object.author = request.user
+        # ext_cent_outcomes_object.save()
+        # ext_cent_outcomes2_object = ext_cent_outcomes2.save(commit=False)
+        # ext_cent_outcomes2_object.author = request.user
+        # ext_cent_outcomes2_object.save()
+
     else:
         ext_cent = ExternalCentersForm(prefix='extcent')
         ext_cent_diagnostic = ExternalCentersDiagnosticForm(prefix='extcentDiagn')
         ext_cent_outcomes = ExternalCentersOutcomesForm(prefix='extcentOutcomes')
         ext_cent_outcomes2 = ExternalCentersOutcomes2Form(prefix='extcentOutcomesTwo')
 
-        return render(request, 'external_centers.html', {'ext_centres': ext_cent, 'ext_centres_diag':ext_cent_diagnostic, 'ext_centres_out':ext_cent_outcomes, 'ext_centres_out2':ext_cent_outcomes2 })
+    return render(request, 'external_centers.html', {'ext_centres': ext_cent, 'ext_centres_diag':ext_cent_diagnostic, 'ext_centres_out':ext_cent_outcomes, 'ext_centres_out2':ext_cent_outcomes2 })
 
 
 @login_required(login_url='/login')

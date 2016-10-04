@@ -1088,5 +1088,5 @@ class Ext_centers(models.Model):
     history = HistoricalRecords()
 
 
-    def __str__(self):
-        return self.name_of_center
+    def __long__(self):
+        return self.center_id

@@ -18,6 +18,7 @@ from .models import Patient_reported_outcome
 from .models import DiagnosisOption
 from .models import Institution
 from .models import Patient_id
+from .models import Ext_centers
 
 from simple_history.admin import SimpleHistoryAdmin
 
@@ -96,6 +97,11 @@ class patientIdAdmin (SimpleHistoryAdmin):
     class Meta:
         model = Patient_id
 
+class aggregateAdmin (SimpleHistoryAdmin):
+    list_display = ('center_id','name_of_center', 'author', 'pub_date')
+    class Meta:
+        model = Ext_centers
+
 register(User, inherit=True)
 register(Group, inherit=True)
 
@@ -115,6 +121,7 @@ admin.site.register(Pregnancy,pregnancyAdmin)
 admin.site.register(Clinical_data,clinical_dataAdmin)
 admin.site.register(Clinical_data_two,clinical_data_twoAdmin)
 admin.site.register(Patient_reported_outcome,patient_rep_outAdmin)
+admin.site.register(Ext_centers,aggregateAdmin)
 
 
 
