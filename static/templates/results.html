@@ -228,12 +228,44 @@
                 $('#id_demo-anonymisation_code').attr('readonly',true);
             });
          </script>
+         <script>
+                 $(document).ready(function() {
+                     if ($("input[name='module_id_2']").change(function () {
+                        var $this = $(this)
+                        if ($this[0].checked) {
+                            //alert($this.val())
+                            $('#mytab a[href="#7"]').parent().removeClass("hide")
+                        }
+                     }));
+                     if ($("input[name='module_id_3']").change(function () {
+                        var $this = $(this)
+                        if ($this[0].checked) {
+                            //alert($this.val())
+                            $('#mytab a[href="#8"]').parent().removeClass("hide")
+                        }
+                     }));
+                     if ($("input[name='module_id_4']").change(function () {
+                        var $this = $(this)
+                        if ($this[0].checked) {
+                            //alert($this.val())
+                            $('#mytab a[href="#9"]').parent().removeClass("hide")
+                        }
+                     }));
+                 });
+
+            </script>
             {{frm.media}}
 {% endblock %}
 
 {%block jumbotron_title %}Results and update{% endblock %}
 {%block jumbotron_info %}<div class="alert alert-warning" >
         <strong>If you want to select different module(s) for this patient, you have to select modules firstly and then search this patient again</strong>.
+    </div>
+    <div class="alert alert-success">
+        <strong>Select extra modules for this patient:</strong><br/>
+        <strong><input type="checkbox" name="module_id_2" id="module_id_2" value="2">Module 2: Clinical Findings of Thalassaemia and Severe Anaemias<br/></strong>
+        <strong><input type="checkbox" name="module_id_3" id="module_id_3" value="3">Module 3: Clinical findings of Sickle Cell Disease<br/></strong>
+        <strong><input type="checkbox" name="module_id_4" id="module_id_4" value="4">Module 4: Patient reported outcomes</strong>
     </div>{% endblock %}
 {% block content %}
 
