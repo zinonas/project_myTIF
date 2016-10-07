@@ -1325,6 +1325,9 @@ class A_b_sickle_thalForm(forms.ModelForm):
         model = A_b_sickle_thal
         exclude = ['patient', 'author']
         list_display = ('patient', 'pub_date', 'author')
+        widgets = {
+            'red_cell_morphology': forms.Textarea(attrs={'rows': 4, 'cols': 12}),
+        }
 
 class Redcell_enzyme_disForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):

@@ -1,0 +1,19 @@
+{% extends "base_empty.html" %}
+{% load crispy_forms_tags %}
+{% load bootstrap3 %}
+{% load static %}
+{% load staticfiles %}
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% block pagetitle %}e-Registry{% endblock %}
+{%block jumbotron_title %}User Manual{% endblock %}
+{%block jumbotron_info %}
+
+{% endblock %}
+{% block content %}
+
+      <div>{%pdf%}</div>
+{% endblock %}
+

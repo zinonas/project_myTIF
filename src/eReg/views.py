@@ -41,8 +41,13 @@ from collections import Counter
 def password_change_done(request, template_name="registration/password_change_done.html"):
     return render_to_response(template_name,(),context_instance= RequestContext(request))
 
-def about(request):
-    return render(request,'index.html')
+def userManual(request):
+    with open('/home/enerca/project_myTIF/static/media/eRegistry_userManual.pdf', 'r') as pdf:
+        response = HttpResponse(pdf.read(), mime_type='application/pdf')
+        response['Content-Disposition'] = 'inline;filename=some_file.pdf'
+        return response
+    pdf.closed
+    #return render(request,'userManual.html',{'pdf':pdf.read()})
 
 def home(request):
     groups = Group.objects.all()

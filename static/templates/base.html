@@ -170,7 +170,7 @@
   {% url 'input' as input_url %}
   {% url 'search' as search_url %}
   {% url 'results' as results_url %}
-  {% url 'about' as about_url %}
+  {% url 'userManual' as userManual_url %}
   {% url 'statistics' as statistics_url %}
   {% url 'extcenters' as extcenters_url %}
   {% url 'login_view' as login_url %}
@@ -222,7 +222,7 @@
                 {%endif%}
                 {%endif%}
 
-                <li{% if request.get_full_path == about_url %} class="active"{% endif %}><a href="{% url 'about'  %}">About</a></li>
+                <li{% if request.get_full_path == userManual_url %} class="active"{% endif %}><a href="{% url 'userManual'  %}" target="_blank">User Manual</a></li>
               </ul>
           </div>
           <ul class="nav navbar-nav navbar-right" role="navigation">

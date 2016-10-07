@@ -84,7 +84,7 @@ class Demographic(models.Model):
     address_country = models.CharField('Country',max_length=25,null=True,blank=True)
     telephone = models.IntegerField(null=True,blank=True)
     email = models.EmailField('E-mail',null=True,blank=True)
-    legal_org_clinic=models.CharField('Hospital/Clinic',max_length=25,null=True,blank=True)
+    legal_org_clinic=models.CharField('Hospital/Clinic',max_length=100,null=True,blank=True)
     legal_org_name = models.CharField('Name',max_length=30,null=True,blank=True)
     legal_org_phone = models.IntegerField('Telephone',null=True,blank=True)
     legal_org_email = models.EmailField('E-mail',null=True,blank=True)
@@ -117,6 +117,7 @@ class Demographic(models.Model):
         ('Full time','Full time'),
         ('Part time', 'Part time'),
         ('Unemployed','Unemployed'),
+        ('Student', 'Student'),
     )
     profession= models.CharField('Professional situation (work)',max_length=20,null=True,blank=True, choices=profession_option, default=profession_option[0][0])
     family_situation_option = (
@@ -221,7 +222,7 @@ class Diagnosis(models.Model):
     icd_10_desc = models.ManyToManyField(icd_10)
     orpha_code = models.ManyToManyField(orphaCodes)
     comment = models.CharField(max_length=100,null=True,blank=True)
-    historyNotes = models.CharField("Family history/notes",max_length=250,null=True,blank=True)
+    historyNotes = models.CharField("Family history/notes",max_length=1000,null=True,blank=True)
     #diagnosis_genotype = models.CharField('Diagnosis genotype', max_length=100, null=True, blank=True)
 
     diagnosis_circumstances = models.CharField(max_length=150)
@@ -480,7 +481,7 @@ class A_b_sickle_thal (models.Model):
 
     nrbc  = models.CharField('NRBC', max_length=3, null=True, blank=True)
     reticulocytes = models.CharField('Reticulocytes', max_length=3, null=True, blank=True)
-    red_cell_morphology  = models.CharField('Red cell morphology', max_length=20, null=True, blank=True)
+    red_cell_morphology  = models.CharField('Red cell morphology', max_length=1000, null=True, blank=True)
 
     cell_acetate_electr  = models.CharField('Performed',max_length=3, choices =thal_option,null=True, blank=True)
     cell_acetate_electr_comment = models.CharField('Comment',max_length=25, null=True, blank=True)
@@ -491,7 +492,7 @@ class A_b_sickle_thal (models.Model):
     hlpc_cap_elect = models.CharField('Performed',max_length=3, choices =thal_option,null=True, blank=True)
     hlpc_cap_elect_comment= models.CharField('Comment',max_length=25, null=True, blank=True)
 
-    quant_hba2  = models.IntegerField('HbA<sub>2</sub>',  null=True, blank=True)
+    quant_hba2  = models.DecimalField('HbA<sub>2</sub>',  null=True, blank=True, max_digits=3, decimal_places=3)
     quant_hbh  = models.IntegerField('HbH', null=True, blank=True)
     quant_hbf  = models.IntegerField('HbF', null=True, blank=True)
     quant_other_var  = models.CharField('Other variant',max_length=15, null=True, blank=True)
