@@ -105,8 +105,8 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/eReg/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-13801">
-              <caret line="448" column="51" selection-start-line="448" selection-start-column="51" selection-end-line="448" selection-end-column="51" />
+            <state relative-caret-position="348">
+              <caret line="845" column="0" selection-start-line="845" selection-start-column="0" selection-end-line="845" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -637,13 +637,6 @@
       <option name="presentableId" value="Default" />
       <updated>1409663873873</updated>
     </task>
-    <task id="LOCAL-00035" summary="Debug false">
-      <created>1467288343412</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1467288343412</updated>
-    </task>
     <task id="LOCAL-00036" summary="Debug false">
       <created>1467288835050</created>
       <option name="number" value="00036" />
@@ -980,7 +973,14 @@
       <option name="project" value="LOCAL" />
       <updated>1475849720629</updated>
     </task>
-    <option name="localTasksCounter" value="84" />
+    <task id="LOCAL-00084" summary="Make ages' fields DecimalFields to support age in months">
+      <created>1475852204966</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1475852204966</updated>
+    </task>
+    <option name="localTasksCounter" value="85" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1067,7 +1067,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Set static" />
     <MESSAGE value="disable debug" />
     <MESSAGE value="enable debug" />
     <MESSAGE value="Fix ananymization code bug" />
@@ -1092,7 +1091,8 @@
     <MESSAGE value="Fix select extra modules in /input and /results" />
     <MESSAGE value="Add user manual and fix bugs" />
     <MESSAGE value="Add user manual and fix bugs. Debug=False" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add user manual and fix bugs. Debug=False" />
+    <MESSAGE value="Make ages' fields DecimalFields to support age in months" />
+    <option name="LAST_COMMIT_MESSAGE" value="Make ages' fields DecimalFields to support age in months" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1388,7 +1388,7 @@
         <state relative-caret-position="1716">
           <caret line="100" column="49" selection-start-line="100" selection-start-column="49" selection-end-line="100" selection-end-column="49" />
           <folding>
-            <element signature="e#0#32#0" expanded="true" />
+            <element signature="e#0#32#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1471,8 +1471,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/eReg/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-13801">
-          <caret line="448" column="51" selection-start-line="448" selection-start-column="51" selection-end-line="448" selection-end-column="51" />
+        <state relative-caret-position="348">
+          <caret line="845" column="0" selection-start-line="845" selection-start-column="0" selection-end-line="845" selection-end-column="0" />
           <folding />
         </state>
       </provider>
