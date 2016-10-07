@@ -43,7 +43,7 @@ def password_change_done(request, template_name="registration/password_change_do
 
 def userManual(request):
     with open('/home/enerca/project_myTIF/static/media/eRegistry_userManual.pdf', 'r') as pdf:
-        response = HttpResponse(pdf.read(), mime_type='application/pdf')
+        response = HttpResponse(pdf.read(), content_type='application/pdf')
         response['Content-Disposition'] = 'inline;filename=some_file.pdf'
         return response
     pdf.closed
