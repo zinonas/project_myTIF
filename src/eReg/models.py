@@ -424,7 +424,7 @@ class Clinical_data_two(models.Model):
     onitoring_tests_annual_ophthalmic_evaluation_age = models.DecimalField(null=True,blank=True, max_digits=3, decimal_places=3)
     complications_dactylitis = models.DecimalField('Age', null=True, blank=True, max_digits=3, decimal_places=3)
     complications_dactylitis_date = models.DateField('Date',null=True,blank=True)
-    complications_stroke = models.DecimalField('Age', null=True, blank=True)
+    complications_stroke = models.DecimalField('Age', null=True, blank=True, max_digits=3, decimal_places=3)
     complications_stroke_date = models.DateField('Date',null=True,blank=True)
     complications_splenic_sequestration = models.DecimalField('Age', null=True, blank=True, max_digits=3, decimal_places=3)
     complications_splenic_sequestration_date = models.DateField('Date',null=True,blank=True)
