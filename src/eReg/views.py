@@ -3523,6 +3523,59 @@ def statistics(request):
                     'title': {
                        'text': 'Age distribution'}}}
     )
+
+    #Gender
+    #1
+    Male_b_thal = Demographic.objects.filter(diagnosis__diagnosis_option='1', gender__icontains="M").count()
+    Female_b_thal = Demographic.objects.filter(diagnosis__diagnosis_option='1', gender__icontains="F").count()
+    Male_a_thal = Demographic.objects.filter(diagnosis__diagnosis_option='2', gender__icontains="M").count()
+    Female_a_thal = Demographic.objects.filter(diagnosis__diagnosis_option='2', gender__icontains="F").count()
+    Male_scd = Demographic.objects.filter(diagnosis__diagnosis_option='3', gender__icontains="M").count()
+    Female_scd= Demographic.objects.filter(diagnosis__diagnosis_option='3', gender__icontains="F").count()
+    Male_other = Demographic.objects.filter(diagnosis__diagnosis_option='4', gender__icontains="M").count()
+    Female_other = Demographic.objects.filter(diagnosis__diagnosis_option='4', gender__icontains="F").count()
+    Male_mem = Demographic.objects.filter(diagnosis__diagnosis_option='5', gender__icontains="M").count()
+    Female_mem = Demographic.objects.filter(diagnosis__diagnosis_option='5', gender__icontains="F").count()
+    Male_enz = Demographic.objects.filter(diagnosis__diagnosis_option='6', gender__icontains="M").count()
+    Female_enz = Demographic.objects.filter(diagnosis__diagnosis_option='6', gender__icontains="F").count()
+    Male_cong = Demographic.objects.filter(diagnosis__diagnosis_option='7', gender__icontains="M").count()
+    Female_cong = Demographic.objects.filter(diagnosis__diagnosis_option='7', gender__icontains="F").count()
+
+    Male_b_thal = round(Male_b_thal/males.count(),4)*100
+    Female_b_thal = round(Female_b_thal/females.count(),4)*100
+    Male_a_thal = round(Male_a_thal/males.count(), 4)*100
+    Female_a_thal = round(Female_a_thal/females.count(), 4)*100
+    Male_scd = round(Male_scd/males.count(), 4)*100
+    Female_scd = round(Female_scd/females.count(), 4)*100
+    Male_other = round(Male_other/males.count(), 4)*100
+    Female_other = round(Female_other/females.count(), 4)*100
+    Male_mem = round(Male_mem/males.count(), 4)*100
+    Female_mem = round(Female_mem/females.count(), 4)*100
+    Male_enz = round(Male_enz/males.count(), 4)*100
+    Female_enz = round(Female_enz/females.count(), 4)*100
+    Male_cong = round(Male_cong/males.count(),4)*100
+    Female_cong = round(Female_cong/females.count(), 4)*100
+
+    #2 Educational level
+    Male_primary_edu = Demographic.objects.filter(diagnosis__diagnosis_option='1', education="Primary").count()
+    Female_primary_edu = Demographic.objects.filter(diagnosis__diagnosis_option='1', education="Primary").count()
+    Male_secondary_edu = Demographic.objects.filter(diagnosis__diagnosis_option='2', education="Secondary").count()
+    Female_secondary_edu = Demographic.objects.filter(diagnosis__diagnosis_option='2', education="Secondary").count()
+    Male_university_edu = Demographic.objects.filter(diagnosis__diagnosis_option='3', education="University").count()
+    Female_university_edu = Demographic.objects.filter(diagnosis__diagnosis_option='3', education="University").count()
+    Male_other_edu = Demographic.objects.filter(diagnosis__diagnosis_option='4', education="Other").count()
+    Female_other_edu = Demographic.objects.filter(diagnosis__diagnosis_option='4', education="Other").count()
+
+    Male_primary_edu = round(Male_primary_edu/males.count(),4)*100
+    Female_primary_edu = round(Female_primary_edu/females.count(), 4)*100
+    Male_secondary_edu = round(Male_secondary_edu/males.count(), 4)*100
+    Female_secondary_edu = round(Female_secondary_edu/females.count(), 4)*100
+    Male_university_edu = round(Male_university_edu/males.count(), 4)*100
+    Female_university_edu = round(Female_university_edu/females.count(),4)*100
+    Male_other_edu = round(Male_other_edu/males.count(),4)*100
+    Female_other_edu = round(Female_other_edu/females.count(), 4)*100
+
+
     value=0
     if request.method == "POST":
         value = 1
@@ -3549,6 +3602,22 @@ def statistics(request):
                                                   #'total_patients_country_orig':total_patients_country_orig,'total_patients_country_ethnic_orig':total_patients_country_ethnic_orig,
                                                   'data_reuse':signed_data_reusage,'data_both':signed_data_both,
                                                   'prop_married':prop_married, 'prop_parents':prop_parents,
+                                                  'Male_b_thal': Male_b_thal, 'Female_b_thal': Female_b_thal,
+                                                  'Male_a_thal': Male_a_thal, 'Female_a_thal': Female_a_thal,
+                                                  'Male_scd': Male_scd,
+                                                  'Female_scd': Female_scd, 'Male_other': Male_other,
+                                                  'Female_other': Female_other, 'Male_mem': Male_mem,
+                                                  'Female_mem': Female_mem,
+                                                  'Male_enz': Male_enz, 'Female_enz': Female_enz,
+                                                  'Male_cong': Male_cong, 'Female_cong': Female_cong,
+                                                  'Male_primary_edu': Male_primary_edu,
+                                                  'Female_primary_edu': Female_primary_edu,
+                                                  'Male_secondary_edu': Male_secondary_edu,
+                                                  'Female_secondary_edu': Female_secondary_edu,
+                                                  'Male_university_edu': Male_university_edu,
+                                                  'Female_university_edu': Female_university_edu,
+                                                  'Male_other_edu': Male_other_edu,
+                                                  'Female_other_edu': Female_other_edu,
                                                   # 'age_dist_per_diag':age_dist_per_diag,
                                                   #'total_patients_beta':total_patients_beta, 'total_patients_alpha':total_patients_alpha,
                                                   #'total_patients_sickle':total_patients_sickle,'total_patients_other_haem':total_patients_other_haem,
