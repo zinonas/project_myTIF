@@ -37,7 +37,7 @@
 
 
             {% load chartit %}
-            {{ charts|load_charts:"c1, c2, c3, c4 ,c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30, c31, c32, c33, c34, c35, c36, c37, c38, c39, c40, c41, c42, c43, c44, c45, c46, c47, c48, c49, c50, c51, c52, c53, c54, c55, c56, c57, c58, c59, c60, c61, c62, c63, c64" }}
+            {{ charts|load_charts:"c1, c2, c3, c4 ,c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30, c31, c32, c33, c34, c35, c36, c37, c38, c39, c40, c41, c42, c43, c44, c45, c46, c47, c48, c49, c50, c51, c52, c53, c54, c55, c56, c57, c58, c59, c60, c61, c62, c63, c64, c65,c66, c67, c68, c69, c70,c71,c72,c73,c74,c75,c76,c77,c78,c79, c80,c81,c82,c83,c84,c85, c86, c87,c88,c89,c90, c91, c92, c93, c94, c95, c96, c97, c98, c99, c100, c101,c102, c103,c104,c105, c106,c107,c108,c109,c110, c111,c112, c113, c114, c115, c116, c117" }}
 
 
 
@@ -116,13 +116,13 @@
             <li>
                 <a href="#9" data-toggle="tab">Diagnostic circumstances</a>
             </li>
-            <li>
+            <!--<li>
                 <a href="#10" data-toggle="tab">Complications not already listed</a>
-            </li>
-            <li>
+            </li>-->
+            <!--<li>
                 <a href="#11" data-toggle="tab">Hydroxyurea HU</a>
-            </li>
-            <li>
+            </li>-->
+            <!--<li>
                 <a href="#12" data-toggle="tab">Erythropoetin EPO</a>
             </li>
             <li>
@@ -130,7 +130,7 @@
             </li>
             <li>
                 <a href="#14" data-toggle="tab">Mortality</a>
-            </li>
+            </li>-->
 
             <!--<li>-->
                 <!--<a href="#7" data-toggle="tab">Clinical Data</a>-->
@@ -289,6 +289,9 @@
                     <center><div id="c37" style="width: auto; height: auto " > Chart will be rendered here </div>
                     </br>
                     </center>
+                    <center><div id="c63" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
                     <p>&#9632 <b>Proportion of adult patients who are married</b>: {{ prop_married }}%</p>
                     <p>&#9632 <b>Proportion of adult patients who are parents</b>: {{ prop_parents }}%</p>
                     <br/>
@@ -370,10 +373,14 @@
 
 
 
+
                 </div>
             </div>
              <div class="tab-pane" id="4">
-                 <h2>Gender proportions in each diagnostic group</h2>
+                 <!-- form controls to be continued here -->
+                <!--<input type="hidden" name="form_id" value="a_b_s">-->
+                <div class="container">
+                    <h2>Gender proportions in each diagnostic group</h2>
                  </br>
                  <p>&#9632 <b>b-thalassaemia</b>:
                      <ul>
@@ -444,11 +451,58 @@
                         <li><p><b>Proportion of females</b>: {{Female_other_edu}}%</p></li>
                      </ul>
                  </p>
-
-
-                <!-- form controls to be continued here -->
-                <!--<input type="hidden" name="form_id" value="a_b_s">-->
-                <div class="container">
+                 <h2>Gender proportions according to employment/unemployment</h2>
+                 </br>
+                 <p>&#9632 <b>Full time employment</b>:
+                     <ul>
+                        <li><p><b>Proportion of males</b>: {{ Male_full_time }}%</p></li>
+                        <li><p><b>Proportion of females</b>: {{Female_full_time}}%</p></li>
+                     </ul>
+                 </p>
+                 <p>&#9632 <b>Part time employment</b>:
+                     <ul>
+                        <li><p><b>Proportion of males</b>: {{ Male_part_time }}%</p></li>
+                        <li><p><b>Proportion of females</b>: {{Female_part_time}}%</p></li>
+                     </ul>
+                 </p>
+                 <p>&#9632 <b>Unemployment</b>:
+                     <ul>
+                        <li><p><b>Proportion of males</b>: {{ Male_unemployed }}%</p></li>
+                        <li><p><b>Proportion of females</b>: {{Female_unemployed}}%</p></li>
+                     </ul>
+                 </p>
+                 <p>&#9632 <b>Student</b>:
+                     <ul>
+                        <li><p><b>Proportion of males</b>: {{ Male_student }}%</p></li>
+                        <li><p><b>Proportion of females</b>: {{Female_student}}%</p></li>
+                     </ul>
+                 </p>
+                  <h2>Gender proportions according marital status category</h2>
+                 </br>
+                 <p>&#9632 <b>Single</b>:
+                     <ul>
+                        <li><p><b>Proportion of males</b>: {{ Male_single }}%</p></li>
+                        <li><p><b>Proportion of females</b>: {{Female_single}}%</p></li>
+                     </ul>
+                 </p>
+                 <p>&#9632 <b>Married</b>:
+                     <ul>
+                        <li><p><b>Proportion of males</b>: {{ Male_married }}%</p></li>
+                        <li><p><b>Proportion of females</b>: {{Female_married}}%</p></li>
+                     </ul>
+                 </p>
+                 <p>&#9632 <b>Marital cohabitation</b>:
+                     <ul>
+                        <li><p><b>Proportion of males</b>: {{ Male_marital_coh }}%</p></li>
+                        <li><p><b>Proportion of females</b>: {{Female_marital_coh}}%</p></li>
+                     </ul>
+                 </p>
+                 <p>&#9632 <b>Divorced</b>:
+                     <ul>
+                        <li><p><b>Proportion of males</b>: {{ Male_divorced }}%</p></li>
+                        <li><p><b>Proportion of females</b>: {{Female_divorced}}%</p></li>
+                     </ul>
+                 </p>
 
                 </div>
             </div>
@@ -456,10 +510,108 @@
                 <!-- form controls to be continued here -->
                 <!--<input type="hidden" name="form_id" value="a_b_s">-->
                 <div class="container">
-
+                    <h2>Totals</h2>
+                 <p>&#9632 <b>Total number of patients covered by National Health Insurance</b>: {{ tot_num_public_health_ins }}</p>
+                 <p>&#9632 <b>Total number of patients covered by Private Health Insurance</b>: {{ tot_num_private_health_ins }}</p>
+                 <p>&#9632 <b>Total number of patients having both national and private Health insurance</b>: {{ tot_num_both_health_ins }}</p>
+                 <p>&#9632 <b>Total number of patients where national insurance is proviced by country</b>: {{ tot_num_national_health_ins }}</p>
                 </div>
             </div>
             <div class="tab-pane" id="6">
+                <!--LOCATION-->
+                <p>&#9632 <b>Educational level per diagnosis
+                </b>:</p>
+                    <center><div id="c64" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c79" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c80" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c81" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c82" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c83" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c84" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                <p>&#9632 <b>Educational level per country of origin
+                </b>:</p>
+                    <center><div id="c85" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c86" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c87" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c88" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                <p>&#9632 <b>Educational level per country of residence
+                </b>:</p>
+                    <center><div id="c89" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c90" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c91" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c92" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                <p>&#9632 <b>Educational level by educational level of father
+                </b>:</p>
+                    <center><div id="c93" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c94" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c95" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c96" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                <p>&#9632 <b>Educational level by educational level of mother
+                </b>:</p>
+                    <center><div id="c97" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c98" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c99" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c100" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                <p>&#9632 <b>Educational level by family situation
+                </b>:</p>
+                    <center><div id="c101" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c102" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c103" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c104" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
                 <!-- form controls to be continued here -->
                 <!--<input type="hidden" name="form_id" value="a_b_s">-->
                 <div class="container">
@@ -470,13 +622,79 @@
                 <!-- form controls to be continued here -->
                 <!--<input type="hidden" name="form_id" value="a_b_s">-->
                 <div class="container">
-
+                <p>&#9632 <b>Total number of patients by country of residence per diagnosis</b>:</p>
+                    <center><div id="c65" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c66" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c67" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c68" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c69" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c70" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c71" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <p>&#9632 <b>Total number of patients by country of origin per diagnosis</b>:</p>
+                    <center><div id="c72" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c73" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c74" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c75" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c76" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c77" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c78" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
                 </div>
             </div>
             <div class="tab-pane fade" id="8">
                 <!-- form controls to be continued here -->
                 <!--<input type="hidden" name="form_id" value="a_b_s">-->
                 <div class="container">
+                    <!--Molecular epidemiology-->
+                    <p>&#9632 <b>List of genotypes per diagnosic group</b>:</p>
+                    <center><div id="c105" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c106" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c107" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c108" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c109" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c110" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <center><div id="c111" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
 
                 </div>
             </div>
@@ -485,6 +703,26 @@
                 <!--<input type="hidden" name="form_id" value="a_b_s">-->
                 <div class="container">
 
+                    <p>&#9632 <b>Number of patients detected in Antenatal diagnosis per diagnostic group</b>:</p>
+                    <center><div id="c112" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <p>&#9632 <b>Number of patients detected in Neonatal diagnosis per diagnostic group</b>:</p>
+                    <center><div id="c113" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <p>&#9632 <b>Number of patients detected because of affected relatives per diagnostic group (e.g. through family studies)</b>:</p>
+                    <center><div id="c114" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <p>&#9632 <b>Number of patients detected because of clinical manifestations per diagnostic group</b>:</p>
+                    <center><div id="c115" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>
+                    <!--<p>&#9632 <b>versus</b>:</p>
+                    <center><div id="c116" style="width: auto; height: auto " > Chart will be rendered here </div>
+                    </br>
+                    </center>-->
                 </div>
              </div>
 

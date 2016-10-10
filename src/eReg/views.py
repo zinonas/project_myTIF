@@ -27,6 +27,7 @@ from django.contrib.auth import logout
 from dal import autocomplete
 from django.core.cache import cache
 from datetime import date
+from datetime import *
 from django.utils import formats
 import collections
 from chartit import PivotDataPool, PivotChart
@@ -2344,6 +2345,39 @@ def statistics(request):
                        'text': 'Age distribution'}}}
     )
 
+    student_age = Demographic.objects.filter(profession='Student')
+
+    student_age_dist = PivotDataPool(
+        series=[
+            {'options': {
+                'source': student_age,
+                'categories': ['age'],
+            },
+                'terms': {
+                    'Number_of_patients': Count('profession'),
+
+                }
+            }
+        ]
+    )
+
+    student_age_dist1 = PivotChart(
+        datasource=student_age_dist,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'Student'},
+            'xAxis': {
+                'title': {
+                    'text': 'Age distribution'}}}
+    )
+
     #4 Age by marriage
     adults_all = Demographic.objects.filter(Q(age__gte=18)).count()
 
@@ -3526,20 +3560,20 @@ def statistics(request):
 
     #Gender
     #1
-    Male_b_thal = Demographic.objects.filter(diagnosis__diagnosis_option='1', gender__icontains="M").count()
-    Female_b_thal = Demographic.objects.filter(diagnosis__diagnosis_option='1', gender__icontains="F").count()
-    Male_a_thal = Demographic.objects.filter(diagnosis__diagnosis_option='2', gender__icontains="M").count()
-    Female_a_thal = Demographic.objects.filter(diagnosis__diagnosis_option='2', gender__icontains="F").count()
-    Male_scd = Demographic.objects.filter(diagnosis__diagnosis_option='3', gender__icontains="M").count()
-    Female_scd= Demographic.objects.filter(diagnosis__diagnosis_option='3', gender__icontains="F").count()
-    Male_other = Demographic.objects.filter(diagnosis__diagnosis_option='4', gender__icontains="M").count()
-    Female_other = Demographic.objects.filter(diagnosis__diagnosis_option='4', gender__icontains="F").count()
-    Male_mem = Demographic.objects.filter(diagnosis__diagnosis_option='5', gender__icontains="M").count()
-    Female_mem = Demographic.objects.filter(diagnosis__diagnosis_option='5', gender__icontains="F").count()
-    Male_enz = Demographic.objects.filter(diagnosis__diagnosis_option='6', gender__icontains="M").count()
-    Female_enz = Demographic.objects.filter(diagnosis__diagnosis_option='6', gender__icontains="F").count()
-    Male_cong = Demographic.objects.filter(diagnosis__diagnosis_option='7', gender__icontains="M").count()
-    Female_cong = Demographic.objects.filter(diagnosis__diagnosis_option='7', gender__icontains="F").count()
+    Male_b_thal = Demographic.objects.filter(diagnosis__diagnosis_option='1', gender="Male").count()
+    Female_b_thal = Demographic.objects.filter(diagnosis__diagnosis_option='1', gender="Female").count()
+    Male_a_thal = Demographic.objects.filter(diagnosis__diagnosis_option='2', gender="Male").count()
+    Female_a_thal = Demographic.objects.filter(diagnosis__diagnosis_option='2', gender="Female").count()
+    Male_scd = Demographic.objects.filter(diagnosis__diagnosis_option='3', gender="Male").count()
+    Female_scd= Demographic.objects.filter(diagnosis__diagnosis_option='3', gender="Female").count()
+    Male_other = Demographic.objects.filter(diagnosis__diagnosis_option='4', gender="Male").count()
+    Female_other = Demographic.objects.filter(diagnosis__diagnosis_option='4', gender="Female").count()
+    Male_mem = Demographic.objects.filter(diagnosis__diagnosis_option='5', gender="Male").count()
+    Female_mem = Demographic.objects.filter(diagnosis__diagnosis_option='5', gender="Female").count()
+    Male_enz = Demographic.objects.filter(diagnosis__diagnosis_option='6', gender="Male").count()
+    Female_enz = Demographic.objects.filter(diagnosis__diagnosis_option='6', gender="Female").count()
+    Male_cong = Demographic.objects.filter(diagnosis__diagnosis_option='7', gender="Male").count()
+    Female_cong = Demographic.objects.filter(diagnosis__diagnosis_option='7', gender="Female").count()
 
     Male_b_thal = round(Male_b_thal/males.count(),4)*100
     Female_b_thal = round(Female_b_thal/females.count(),4)*100
@@ -3557,14 +3591,14 @@ def statistics(request):
     Female_cong = round(Female_cong/females.count(), 4)*100
 
     #2 Educational level
-    Male_primary_edu = Demographic.objects.filter(diagnosis__diagnosis_option='1', education="Primary").count()
-    Female_primary_edu = Demographic.objects.filter(diagnosis__diagnosis_option='1', education="Primary").count()
-    Male_secondary_edu = Demographic.objects.filter(diagnosis__diagnosis_option='2', education="Secondary").count()
-    Female_secondary_edu = Demographic.objects.filter(diagnosis__diagnosis_option='2', education="Secondary").count()
-    Male_university_edu = Demographic.objects.filter(diagnosis__diagnosis_option='3', education="University").count()
-    Female_university_edu = Demographic.objects.filter(diagnosis__diagnosis_option='3', education="University").count()
-    Male_other_edu = Demographic.objects.filter(diagnosis__diagnosis_option='4', education="Other").count()
-    Female_other_edu = Demographic.objects.filter(diagnosis__diagnosis_option='4', education="Other").count()
+    Male_primary_edu = Demographic.objects.filter(gender="Male", education="Primary").count()
+    Female_primary_edu = Demographic.objects.filter(gender="Female", education="Primary").count()
+    Male_secondary_edu = Demographic.objects.filter(gender="Male", education="Secondary").count()
+    Female_secondary_edu = Demographic.objects.filter(gender="Female", education="Secondary").count()
+    Male_university_edu = Demographic.objects.filter(gender="Male", education="University").count()
+    Female_university_edu = Demographic.objects.filter(gender="Female", education="University").count()
+    Male_other_edu = Demographic.objects.filter(gender="Male", education="Other").count()
+    Female_other_edu = Demographic.objects.filter(gender="Female", education="Other").count()
 
     Male_primary_edu = round(Male_primary_edu/males.count(),4)*100
     Female_primary_edu = round(Female_primary_edu/females.count(), 4)*100
@@ -3575,8 +3609,1370 @@ def statistics(request):
     Male_other_edu = round(Male_other_edu/males.count(),4)*100
     Female_other_edu = round(Female_other_edu/females.count(), 4)*100
 
+    #3 Employment
+    Male_full_time = Demographic.objects.filter(gender="Male", profession__icontains="Full time").count()
+    Female_full_time = Demographic.objects.filter(gender="Female", profession__icontains="Full time").count()
+    Male_part_time = Demographic.objects.filter(gender="Male", profession__icontains="Part time").count()
+    Female_part_time = Demographic.objects.filter(gender="Female", profession__icontains="Part time").count()
+    Male_unemployed  = Demographic.objects.filter(gender="Male", profession__icontains="Unemployed").count()
+    Female_unemployed = Demographic.objects.filter(gender="Female", profession__icontains="Unemployed").count()
+    Male_student = Demographic.objects.filter(gender="Male", profession__icontains="Student").count()
+    Female_student = Demographic.objects.filter(gender="Female", profession__icontains="Student").count()
 
+    Male_full_time = round(Male_full_time/males.count(), 4)*100
+    Female_full_time = round(Female_full_time/females.count(), 4)*100
+    Male_part_time =round(Male_part_time/males.count(), 4)*100
+    Female_part_time =round(Female_part_time/females.count(), 4)*100
+    Male_unemployed =round(Male_unemployed/males.count(), 4)*100
+    Female_unemployed =round(Female_unemployed/females.count(), 4)*100
+    Male_student =round(Male_student/males.count(), 4)*100
+    Female_student =round(Female_student/females.count(), 4)*100
+
+    #4 Marital status
+    Male_single = Demographic.objects.filter(gender="Male", family_situation="single").count()
+    Female_single= Demographic.objects.filter(gender="Female", family_situation="single").count()
+    Male_married = Demographic.objects.filter(gender="Male", family_situation="married").count()
+    Female_married  = Demographic.objects.filter(gender="Female", family_situation="married").count()
+    Male_marital_coh  = Demographic.objects.filter(gender="Male", family_situation="marital cohabitation").count()
+    Female_marital_coh  = Demographic.objects.filter(gender="Female", family_situation="marital cohabitation").count()
+    Male_divorced = Demographic.objects.filter(gender="Male", family_situation="divorced").count()
+    Female_divorced = Demographic.objects.filter(gender="Female", family_situation="divorced").count()
+
+    Male_single = round(Male_single/males.count(), 4)*100
+    Female_single = round(Female_single/females.count(), 4)*100
+    Male_married = round(Male_married/males.count(), 4)*100
+    Female_married = round(Female_married/females.count(), 4)*100
+    Male_marital_coh = round(Male_marital_coh/males.count(), 4)*100
+    Female_marital_coh = round(Female_marital_coh/females.count(), 4)*100
+    Male_divorced =round(Male_divorced/males.count(), 4)*100
+    Female_divorced = round(Female_divorced/females.count(), 4)*100
+
+    #Health insurance
+    #1
+    tot_num_public_health_ins = Demographic.objects.filter(insurance_no_public__isnull=False).count()
+    #2
+    tot_num_private_health_ins = Demographic.objects.filter(insurance_no_private__isnull=False).count()
+    #3
+    tot_num_both_health_ins = Demographic.objects.filter(insurance_no_public__isnull=False,insurance_no_private__isnull=False).count()
+    #4
+    tot_num_national_health_ins = Demographic.objects.filter(national_health_care_pat_id__isnull=False).count()
     value=0
+
+
+    #Education
+    #Educational_level_per_diagnosis
+    edu_diag_opt = Demographic.objects.filter(diagnosis__diagnosis_option='1')
+
+    edu_diag_thalb_con_or = PivotDataPool(
+        series=[
+            {'options': {
+                'source': edu_diag_opt,
+                'categories': ['education'],
+            },
+                'terms': {
+                    'Number_of_patients': Count('diagnosis__diagnosis_option'),
+
+                }
+            }
+        ]
+    )
+
+    edu_diag_thalb_con_or1 = PivotChart(
+        datasource=edu_diag_thalb_con_or,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'b-thalassaemia syndromes'},
+            'xAxis': {
+                'title': {
+                    'text': 'By educational level'}}}
+    )
+
+    edu_diag_opt = Demographic.objects.filter(diagnosis__diagnosis_option='2')
+
+    edu_diag_thala_con_or = PivotDataPool(
+        series=[
+            {'options': {
+                'source': edu_diag_opt,
+                'categories': ['education'],
+            },
+                'terms': {
+                    'Number_of_patients': Count('diagnosis__diagnosis_option'),
+
+                }
+            }
+        ]
+    )
+
+    edu_diag_thala_con_or1 = PivotChart(
+        datasource=edu_diag_thala_con_or,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'a-thalassaemia syndromes'},
+            'xAxis': {
+                'title': {
+                    'text': 'By educational level'}}}
+    )
+
+    edu_diag_opt = Demographic.objects.filter(diagnosis__diagnosis_option='3')
+
+    edu_diag_scd_con_or = PivotDataPool(
+        series=[
+            {'options': {
+                'source': edu_diag_opt,
+                'categories': ['education'],
+            },
+                'terms': {
+                    'Number_of_patients': Count('diagnosis__diagnosis_option'),
+
+                }
+            }
+        ]
+    )
+
+    edu_diag_scd_con_or1 = PivotChart(
+        datasource=edu_diag_scd_con_or,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'Sickle cell syndromes'},
+            'xAxis': {
+                'title': {
+                    'text': 'By educational level'}}}
+    )
+
+    edu_diag_opt = Demographic.objects.filter(diagnosis__diagnosis_option='4')
+
+    edu_diag_other_con_or = PivotDataPool(
+        series=[
+            {'options': {
+                'source': edu_diag_opt,
+                'categories': ['education'],
+            },
+                'terms': {
+                    'Number_of_patients': Count('diagnosis__diagnosis_option'),
+
+                }
+            }
+        ]
+    )
+
+    edu_diag_other_con_or1 = PivotChart(
+        datasource=edu_diag_other_con_or,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'Other haemoglobin variants'},
+            'xAxis': {
+                'title': {
+                    'text': 'By educational level'}}}
+    )
+
+    edu_diag_opt = Demographic.objects.filter(diagnosis__diagnosis_option='5')
+
+    edu_diag_mem_con_or = PivotDataPool(
+        series=[
+            {'options': {
+                'source': edu_diag_opt,
+                'categories': ['education'],
+            },
+                'terms': {
+                    'Number_of_patients': Count('diagnosis__diagnosis_option'),
+
+                }
+            }
+        ]
+    )
+
+    edu_diag_mem_con_or1 = PivotChart(
+        datasource=edu_diag_mem_con_or,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'Rare cell membrane disorders'},
+            'xAxis': {
+                'title': {
+                    'text': 'By educational level'}}}
+    )
+
+    edu_diag_opt = Demographic.objects.filter(diagnosis__diagnosis_option='6')
+
+    edu_diag_enz_con_or = PivotDataPool(
+        series=[
+            {'options': {
+                'source': edu_diag_opt,
+                'categories': ['education'],
+            },
+                'terms': {
+                    'Number_of_patients': Count('diagnosis__diagnosis_option'),
+
+                }
+            }
+        ]
+    )
+
+    edu_diag_enz_con_or1 = PivotChart(
+        datasource=edu_diag_enz_con_or,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'Rare cell enzyme disorders'},
+            'xAxis': {
+                'title': {
+                    'text': 'By educational level'}}}
+    )
+
+    edu_diag_opt = Demographic.objects.filter(diagnosis__diagnosis_option='7')
+
+    edu_diag_cong_con_or = PivotDataPool(
+        series=[
+            {'options': {
+                'source': edu_diag_opt,
+                'categories': ['education'],
+            },
+                'terms': {
+                    'Number_of_patients': Count('diagnosis__diagnosis_option'),
+
+                }
+            }
+        ]
+    )
+
+    edu_diag_cong_con_or1 = PivotChart(
+        datasource=edu_diag_cong_con_or,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'Congenital dyserythropoietic anaemias'},
+            'xAxis': {
+                'title': {
+                    'text': 'By educational level'}}}
+    )
+
+    edu_corig_opt = Demographic.objects.filter(education="Primary")
+
+    edu_corig_prim = PivotDataPool(
+        series=[
+            {'options': {
+                'source': edu_corig_opt,
+                'categories': ['country_of_birth'],
+            },
+                'terms': {
+                    'Number_of_patients': Count('country_of_birth'),
+
+                }
+            }
+        ]
+    )
+
+    edu_corig_prim1 = PivotChart(
+        datasource=edu_corig_prim,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'Primary'},
+            'xAxis': {
+                'title': {
+                    'text': 'By country of origin'}}}
+    )
+
+    edu_corig_opt = Demographic.objects.filter(education="Secondary")
+
+    edu_corig_sec = PivotDataPool(
+        series=[
+            {'options': {
+                'source': edu_corig_opt,
+                'categories': ['country_of_birth'],
+            },
+                'terms': {
+                    'Number_of_patients': Count('country_of_birth'),
+
+                }
+            }
+        ]
+    )
+
+    edu_corig_sec1 = PivotChart(
+        datasource=edu_corig_sec,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'Secondary'},
+            'xAxis': {
+                'title': {
+                    'text': 'By country of origin'}}}
+    )
+
+    edu_corig_opt = Demographic.objects.filter(education="University")
+
+    edu_corig_uni = PivotDataPool(
+        series=[
+            {'options': {
+                'source': edu_corig_opt,
+                'categories': ['country_of_birth'],
+            },
+                'terms': {
+                    'Number_of_patients': Count('country_of_birth'),
+
+                }
+            }
+        ]
+    )
+
+    edu_corig_uni1 = PivotChart(
+        datasource=edu_corig_uni,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'University'},
+            'xAxis': {
+                'title': {
+                    'text': 'By country of origin'}}}
+    )
+
+    edu_corig_opt = Demographic.objects.filter(education="Other")
+
+    edu_corig_other = PivotDataPool(
+        series=[
+            {'options': {
+                'source': edu_corig_opt,
+                'categories': ['country_of_birth'],
+            },
+                'terms': {
+                    'Number_of_patients': Count('country_of_birth'),
+
+                }
+            }
+        ]
+    )
+
+    edu_corig_other1 = PivotChart(
+        datasource=edu_corig_other,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'Other'},
+            'xAxis': {
+                'title': {
+                    'text': 'By country of origin'}}}
+    )
+
+    edu_resid_opt = Demographic.objects.filter(education="Primary")
+
+    edu_resid_prim = PivotDataPool(
+        series=[
+            {'options': {
+                'source': edu_resid_opt,
+                'categories': ['address_country'],
+            },
+                'terms': {
+                    'Number_of_patients': Count('address_country'),
+
+                }
+            }
+        ]
+    )
+
+    edu_resid_prim1 = PivotChart(
+        datasource=edu_resid_prim,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'Primary'},
+            'xAxis': {
+                'title': {
+                    'text': 'By country of residence'}}}
+    )
+
+    edu_resid_opt = Demographic.objects.filter(education="Secondary")
+
+    edu_resid_sec = PivotDataPool(
+        series=[
+            {'options': {
+                'source': edu_resid_opt,
+                'categories': ['address_country'],
+            },
+                'terms': {
+                    'Number_of_patients': Count('address_country'),
+
+                }
+            }
+        ]
+    )
+
+    edu_resid_sec1 = PivotChart(
+        datasource=edu_resid_sec,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'Secondary'},
+            'xAxis': {
+                'title': {
+                    'text': 'By country of residence'}}}
+    )
+
+    edu_resid_opt = Demographic.objects.filter(education="University")
+
+    edu_resid_uni = PivotDataPool(
+        series=[
+            {'options': {
+                'source': edu_resid_opt,
+                'categories': ['address_country'],
+            },
+                'terms': {
+                    'Number_of_patients': Count('address_country'),
+
+                }
+            }
+        ]
+    )
+
+    edu_resid_uni1 = PivotChart(
+        datasource=edu_resid_uni,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'University'},
+            'xAxis': {
+                'title': {
+                    'text': 'By country of residence'}}}
+    )
+
+    edu_resid_opt = Demographic.objects.filter(education="Other")
+
+    edu_resid_other = PivotDataPool(
+        series=[
+            {'options': {
+                'source': edu_resid_opt,
+                'categories': ['address_country'],
+            },
+                'terms': {
+                    'Number_of_patients': Count('address_country'),
+
+                }
+            }
+        ]
+    )
+
+    edu_resid_other1 = PivotChart(
+        datasource=edu_resid_other,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'Other'},
+            'xAxis': {
+                'title': {
+                    'text': 'By country of residence'}}}
+    )
+
+    edu_father_opt = Demographic.objects.filter(education="Primary")
+
+    edu_father_prim = PivotDataPool(
+        series=[
+            {'options': {
+                'source': edu_father_opt,
+                'categories': ['father_education'],
+            },
+                'terms': {
+                    'Number_of_patients': Count('father_education'),
+
+                }
+            }
+        ]
+    )
+
+    edu_father_prim1 = PivotChart(
+        datasource=edu_father_prim,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'Primary'},
+            'xAxis': {
+                'title': {
+                    'text': 'Educational level of father'}}}
+    )
+
+    edu_father_opt = Demographic.objects.filter(education="Secondary")
+
+    edu_father_sec = PivotDataPool(
+        series=[
+            {'options': {
+                'source': edu_father_opt,
+                'categories': ['father_education'],
+            },
+                'terms': {
+                    'Number_of_patients': Count('father_education'),
+
+                }
+            }
+        ]
+    )
+
+    edu_father_sec1 = PivotChart(
+        datasource=edu_father_sec,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'Secondary'},
+            'xAxis': {
+                'title': {
+                    'text': 'Educational level of father'}}}
+    )
+
+    edu_father_opt = Demographic.objects.filter(education="University")
+
+    edu_father_uni = PivotDataPool(
+        series=[
+            {'options': {
+                'source': edu_father_opt,
+                'categories': ['father_education'],
+            },
+                'terms': {
+                    'Number_of_patients': Count('father_education'),
+
+                }
+            }
+        ]
+    )
+
+    edu_father_uni1 = PivotChart(
+        datasource=edu_father_uni,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'University'},
+            'xAxis': {
+                'title': {
+                    'text': 'Educational level of father'}}}
+    )
+
+    edu_father_opt = Demographic.objects.filter(education="Other")
+
+    edu_father_other = PivotDataPool(
+        series=[
+            {'options': {
+                'source': edu_father_opt,
+                'categories': ['father_education'],
+            },
+                'terms': {
+                    'Number_of_patients': Count('father_education'),
+
+                }
+            }
+        ]
+    )
+
+    edu_father_other1 = PivotChart(
+        datasource=edu_father_other,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'Other'},
+            'xAxis': {
+                'title': {
+                    'text': 'Educational level of father'}}}
+    )
+
+    edu_mother_opt = Demographic.objects.filter(education="Primary")
+
+    edu_mother_prim = PivotDataPool(
+        series=[
+            {'options': {
+                'source': edu_mother_opt,
+                'categories': ['mother_education'],
+            },
+                'terms': {
+                    'Number_of_patients': Count('mother_education'),
+
+                }
+            }
+        ]
+    )
+
+    edu_mother_prim1 = PivotChart(
+        datasource=edu_mother_prim,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'Primary'},
+            'xAxis': {
+                'title': {
+                    'text': 'Educational level of mother'}}}
+    )
+
+    edu_mother_opt = Demographic.objects.filter(education="Secondary")
+
+    edu_mother_sec = PivotDataPool(
+        series=[
+            {'options': {
+                'source': edu_mother_opt,
+                'categories': ['mother_education'],
+            },
+                'terms': {
+                    'Number_of_patients': Count('mother_education'),
+
+                }
+            }
+        ]
+    )
+
+    edu_mother_sec1 = PivotChart(
+        datasource=edu_mother_sec,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'Secondary'},
+            'xAxis': {
+                'title': {
+                    'text': 'Educational level of mother'}}}
+    )
+
+    edu_mother_opt = Demographic.objects.filter(education="University")
+
+    edu_mother_uni = PivotDataPool(
+        series=[
+            {'options': {
+                'source': edu_mother_opt,
+                'categories': ['mother_education'],
+            },
+                'terms': {
+                    'Number_of_patients': Count('mother_education'),
+
+                }
+            }
+        ]
+    )
+
+    edu_mother_uni1 = PivotChart(
+        datasource=edu_mother_uni,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'University'},
+            'xAxis': {
+                'title': {
+                    'text': 'Educational level of mother'}}}
+    )
+
+    edu_mother_opt = Demographic.objects.filter(education="Other")
+
+    edu_mother_other = PivotDataPool(
+        series=[
+            {'options': {
+                'source': edu_mother_opt,
+                'categories': ['mother_education'],
+            },
+                'terms': {
+                    'Number_of_patients': Count('mother_education'),
+
+                }
+            }
+        ]
+    )
+
+    edu_mother_other1 = PivotChart(
+        datasource=edu_mother_other,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'Other'},
+            'xAxis': {
+                'title': {
+                    'text': 'Educational level of mother'}}}
+    )
+
+    edu_family_situation_opt = Demographic.objects.filter(education="Primary")
+
+    edu_family_situation_prim = PivotDataPool(
+        series=[
+            {'options': {
+                'source': edu_family_situation_opt,
+                'categories': ['family_situation'],
+            },
+                'terms': {
+                    'Number_of_patients': Count('family_situation'),
+
+                }
+            }
+        ]
+    )
+
+    edu_family_situation_prim1 = PivotChart(
+        datasource=edu_family_situation_prim,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'Primary'},
+            'xAxis': {
+                'title': {
+                    'text': 'Family situation'}}}
+    )
+
+    edu_family_situation_opt = Demographic.objects.filter(education="Secondary")
+
+    edu_family_situation_sec = PivotDataPool(
+        series=[
+            {'options': {
+                'source': edu_family_situation_opt,
+                'categories': ['family_situation'],
+            },
+                'terms': {
+                    'Number_of_patients': Count('family_situation'),
+
+                }
+            }
+        ]
+    )
+
+    edu_family_situation_sec1 = PivotChart(
+        datasource=edu_family_situation_sec,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'Secondary'},
+            'xAxis': {
+                'title': {
+                    'text': 'Family situation'}}}
+    )
+
+    edu_family_situation_opt = Demographic.objects.filter(education="University")
+
+    edu_family_situation_uni = PivotDataPool(
+        series=[
+            {'options': {
+                'source': edu_family_situation_opt,
+                'categories': ['family_situation'],
+            },
+                'terms': {
+                    'Number_of_patients': Count('family_situation'),
+
+                }
+            }
+        ]
+    )
+
+    edu_family_situation_uni1 = PivotChart(
+        datasource=edu_family_situation_uni,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'University'},
+            'xAxis': {
+                'title': {
+                    'text': 'Family situation'}}}
+    )
+
+    edu_family_situation_opt = Demographic.objects.filter(education="Other")
+
+    edu_family_situation_other = PivotDataPool(
+        series=[
+            {'options': {
+                'source': edu_family_situation_opt,
+                'categories': ['family_situation'],
+            },
+                'terms': {
+                    'Number_of_patients': Count('family_situation'),
+
+                }
+            }
+        ]
+    )
+
+    edu_family_situation_other1 = PivotChart(
+        datasource=edu_family_situation_other,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'Other'},
+            'xAxis': {
+                'title': {
+                    'text': 'Family situation'}}}
+    )
+
+    #Molecular epidemiology
+    #1
+    geno_diag_opt = Diagnosis.objects.filter(diagnosis_option='1')
+
+    geno_diag_thalb_con_or = PivotDataPool(
+        series=[
+            {'options': {
+                'source': geno_diag_opt,
+                'categories': ['record_of_genotype'],
+            },
+                'terms': {
+                    'Number_of_patients': Count('diagnosis_option'),
+
+                }
+            }
+        ]
+    )
+
+    geno_diag_thalb_con_or1 = PivotChart(
+        datasource=geno_diag_thalb_con_or,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'b-thalassaemia syndromes'},
+            'xAxis': {
+                'title': {
+                    'text': 'List of genotypes'}}}
+    )
+
+    geno_diag_opt = Diagnosis.objects.filter(diagnosis_option='2')
+
+    geno_diag_thala_con_or = PivotDataPool(
+        series=[
+            {'options': {
+                'source': geno_diag_opt,
+                'categories': ['record_of_genotype'],
+            },
+                'terms': {
+                    'Number_of_patients': Count('diagnosis_option'),
+
+                }
+            }
+        ]
+    )
+
+    geno_diag_thala_con_or1 = PivotChart(
+        datasource=geno_diag_thala_con_or,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'a-thalassaemia syndromes'},
+            'xAxis': {
+                'title': {
+                    'text': 'List of genotypes'}}}
+    )
+
+    geno_diag_opt = Diagnosis.objects.filter(diagnosis_option='3')
+
+    geno_diag_scd_con_or = PivotDataPool(
+        series=[
+            {'options': {
+                'source': geno_diag_opt,
+                'categories': ['record_of_genotype'],
+            },
+                'terms': {
+                    'Number_of_patients': Count('diagnosis_option'),
+
+                }
+            }
+        ]
+    )
+
+    geno_diag_scd_con_or1 = PivotChart(
+        datasource=geno_diag_scd_con_or,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'Sickle cell syndromes'},
+            'xAxis': {
+                'title': {
+                    'text': 'List of genotypes'}}}
+    )
+
+    geno_diag_opt = Diagnosis.objects.filter(diagnosis_option='4')
+
+    geno_diag_other_con_or = PivotDataPool(
+        series=[
+            {'options': {
+                'source': geno_diag_opt,
+                'categories': ['record_of_genotype'],
+            },
+                'terms': {
+                    'Number_of_patients': Count('diagnosis_option'),
+
+                }
+            }
+        ]
+    )
+
+    geno_diag_other_con_or1 = PivotChart(
+        datasource=geno_diag_other_con_or,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'Other haemoglobin variants'},
+            'xAxis': {
+                'title': {
+                    'text': 'List of genotypes'}}}
+    )
+
+    geno_diag_opt = Diagnosis.objects.filter(diagnosis_option='5')
+
+    geno_diag_mem_con_or = PivotDataPool(
+        series=[
+            {'options': {
+                'source': geno_diag_opt,
+                'categories': ['record_of_genotype'],
+            },
+                'terms': {
+                    'Number_of_patients': Count('diagnosis_option'),
+
+                }
+            }
+        ]
+    )
+
+    geno_diag_mem_con_or1 = PivotChart(
+        datasource=geno_diag_mem_con_or,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'Rare cell membrane disorders'},
+            'xAxis': {
+                'title': {
+                    'text': 'List of genotypes'}}}
+    )
+
+    geno_diag_opt = Diagnosis.objects.filter(diagnosis_option='6')
+
+    geno_diag_enz_con_or = PivotDataPool(
+        series=[
+            {'options': {
+                'source': geno_diag_opt,
+                'categories': ['record_of_genotype'],
+            },
+                'terms': {
+                    'Number_of_patients': Count('diagnosis_option'),
+
+                }
+            }
+        ]
+    )
+
+    geno_diag_enz_con_or1 = PivotChart(
+        datasource=geno_diag_enz_con_or,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'Rare cell enzyme disorders'},
+            'xAxis': {
+                'title': {
+                    'text': 'List of genotypes'}}}
+    )
+
+    geno_diag_opt = Diagnosis.objects.filter(diagnosis_option='7')
+
+    geno_diag_cong_con_or = PivotDataPool(
+        series=[
+            {'options': {
+                'source': geno_diag_opt,
+                'categories': ['record_of_genotype'],
+            },
+                'terms': {
+                    'Number_of_patients': Count('diagnosis_option'),
+
+                }
+            }
+        ]
+    )
+
+    geno_diag_cong_con_or1 = PivotChart(
+        datasource=geno_diag_cong_con_or,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'Congenital dyserythropoietic anaemias'},
+            'xAxis': {
+                'title': {
+                    'text': 'List of genotypes'}}}
+    )
+
+    #Diagnostic circumstances
+    #1
+    antenatal_diag_opt = Diagnosis.objects.filter(diagnosis_circumstances__icontains='antenatal')
+
+    antenatal_diag = PivotDataPool(
+        series=[
+            {'options': {
+                'source': antenatal_diag_opt,
+                'categories': ['diagnosis_option__diag_option'],
+            },
+                'terms': {
+                    'Number_of_patients': Count('diagnosis_option'),
+
+                }
+            }
+        ]
+    )
+
+    antenatal_diag1 = PivotChart(
+        datasource=antenatal_diag,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'Antenatal Diagnosis'},
+            'xAxis': {
+                'title': {
+                    'text': 'Diagnostic groups'}}}
+    )
+
+    neonatal_diag_opt = Diagnosis.objects.filter(diagnosis_circumstances__icontains='neonatal')
+
+    neonatal_diag = PivotDataPool(
+        series=[
+            {'options': {
+                'source': neonatal_diag_opt,
+                'categories': ['diagnosis_option__diag_option'],
+            },
+                'terms': {
+                    'Number_of_patients': Count('diagnosis_option'),
+
+                }
+            }
+        ]
+    )
+
+    neonatal_diag1 = PivotChart(
+        datasource=neonatal_diag,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'Neonatal Diagnosis'},
+            'xAxis': {
+                'title': {
+                    'text': 'Diagnostic groups'}}}
+    )
+
+    affected_diag_opt = Diagnosis.objects.filter(diagnosis_circumstances__icontains='affected')
+
+    affected_diag = PivotDataPool(
+        series=[
+            {'options': {
+                'source': affected_diag_opt,
+                'categories': ['diagnosis_option__diag_option'],
+            },
+                'terms': {
+                    'Number_of_patients': Count('diagnosis_option'),
+
+                }
+            }
+        ]
+    )
+
+    affected_diag1 = PivotChart(
+        datasource=affected_diag,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'By the presence of affected related'},
+            'xAxis': {
+                'title': {
+                    'text': 'Diagnostic groups'}}}
+    )
+
+    clinical_diag_opt = Diagnosis.objects.filter(diagnosis_circumstances__icontains='clinical')
+
+    clinical_diag = PivotDataPool(
+        series=[
+            {'options': {
+                'source': clinical_diag_opt,
+                'categories': ['diagnosis_option__diag_option'],
+            },
+                'terms': {
+                    'Number_of_patients': Count('diagnosis_option'),
+
+                }
+            }
+        ]
+    )
+
+    clinical_diag1 = PivotChart(
+        datasource=clinical_diag,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'Clinical diagnosis'},
+            'xAxis': {
+                'title': {
+                    'text': 'Diagnostic groups'}}}
+    )
+
+    #6
+    # diag_birth_diag_opt = Diagnosis.objects.filter(patient__date_of_birth__isnull=False,
+    #                                                diagnosis_circumstances_date__isnull=False)
+    #
+    # diag_birth_diag = PivotDataPool(
+    #     series=[
+    #         {'options': {
+    #             'source': diag_birth_diag_opt,
+    #             'categories': ['diagnosis_circumstances_date'],
+    #         },
+    #             'terms': {
+    #                 #'Number_of_patients': Count('age_of_diagnosis'),
+    #                 'Date_of_diagnosis': Count('diagnosis_circumstances_date'),
+    #
+    #             }
+    #         },
+    #         {'options': {
+    #             'source': diag_birth_diag_opt,
+    #             'categories': ['patient__date_of_birth'],
+    #         },
+    #             'terms': {
+    #                 # 'Number_of_patients': Count('age_of_diagnosis'),
+    #                 'Date_of_birth': Count('patient__date_of_birth'),
+    #
+    #             }
+    #         }
+    #
+    #     ]
+    # )
+
+    # diag_birth_diag1 = PivotChart(
+    #     datasource= diag_birth_diag,
+    #     series_options=
+    #     [{'options': {
+    #         'type': 'line',
+    #         'stacking': True
+    #     },
+    #         'terms': ['Date_of_diagnosis']
+    #     },
+    #          {'options': {
+    #              'type': 'line',
+    #              'stacking': True
+    #          },
+    #              'terms': ['Date_of_birth']
+    #          }
+    #     ],
+    #     chart_options=
+    #     {'title': {
+    #         'text': 'Age of diagnosis'},
+    #         'xAxis': {
+    #             'title': {
+    #                 'text': 'Age'}}}
+    # )
+
     if request.method == "POST":
         value = 1
 
@@ -3618,6 +5014,23 @@ def statistics(request):
                                                   'Female_university_edu': Female_university_edu,
                                                   'Male_other_edu': Male_other_edu,
                                                   'Female_other_edu': Female_other_edu,
+                                                  'Male_full_time': Male_full_time,
+                                                  'Female_full_time': Female_full_time,
+                                                  'Male_part_time': Male_part_time,
+                                                  'Female_part_time': Female_part_time,
+                                                  'Male_unemployed': Male_unemployed,
+                                                  'Female_unemployed': Female_unemployed,
+                                                  'Male_student': Male_student, 'Female_student': Female_student,
+                                                  'Male_single': Male_single, 'Female_single': Female_single,
+                                                  'Male_married': Male_married, 'Female_married': Female_married,
+                                                  'Male_marital_coh': Male_marital_coh,
+                                                  'Female_marital_coh': Female_marital_coh,
+                                                  'Male_divorced': Male_divorced,
+                                                  'Female_divorced': Female_divorced,
+                                                  'tot_num_national_health_ins':tot_num_national_health_ins,
+                                                  'tot_num_private_health_ins':tot_num_private_health_ins,
+                                                  'tot_num_both_health_ins':tot_num_both_health_ins,
+                                                  'tot_num_public_health_ins':tot_num_public_health_ins,
                                                   # 'age_dist_per_diag':age_dist_per_diag,
                                                   #'total_patients_beta':total_patients_beta, 'total_patients_alpha':total_patients_alpha,
                                                   #'total_patients_sickle':total_patients_sickle,'total_patients_other_haem':total_patients_other_haem,
@@ -3634,8 +5047,19 @@ def statistics(request):
                                                             edu_by_age_uni1, edu_by_age_oth1, employ_age_dist1, unemploy_age_dist1, penic_dist1, vacc_dist1, liver_dist1, urea_dist1, creat_dist1,
                                                             proturea_dist1,calc_dist1, parv_dist1, pulm_dist1, hip_dist1, oph_dist1, dac_dist1, stroke_dist1, splen_dist1, aplastic_dist1,
                                                             chest_dist1, mulorg_dist1, priap_dist1, hf_beta_dist1, hf_aplha_dist1, hf_sickle_dist1, hf_other_dist1, hf_membrane_dist1, hf_enzyme_dist1,
-                                                            hf_cong_dist1,
-                                                            pvcht, pvcht_age ]},
+                                                            hf_cong_dist1, student_age_dist1,edu_diag_thalb_con_or1,tot_diag_thalb1, tot_diag_thala1, tot_diag_sck1, tot_diag_other1, tot_diag_mem1,
+                                                            tot_diag_enz1, tot_diag_cong1,tot_diag_thalb_con_or1, tot_diag_thala_con_or1, tot_diag_sck_con_or1, tot_diag_other_con_or1,
+                                                            tot_diag_mem_con_or1, tot_diag_enz_con_or1, tot_diag_cong_con_or1 ,
+                                                            edu_diag_thala_con_or1, edu_diag_scd_con_or1,edu_diag_other_con_or1, edu_diag_mem_con_or1,
+                                                            edu_diag_enz_con_or1,edu_diag_cong_con_or1,edu_corig_prim1,edu_corig_sec1,edu_corig_uni1,edu_corig_other1,
+                                                            edu_resid_prim1, edu_resid_sec1, edu_resid_uni1,edu_resid_other1,
+                                                            edu_father_prim1, edu_father_sec1, edu_father_uni1, edu_father_other1,
+                                                            edu_mother_prim1, edu_mother_sec1, edu_mother_uni1, edu_mother_other1,
+                                                            edu_family_situation_prim1, edu_family_situation_sec1,edu_family_situation_uni1, edu_family_situation_other1,
+                                                            geno_diag_thalb_con_or1, geno_diag_thala_con_or1, geno_diag_scd_con_or1,
+                                                            geno_diag_other_con_or1, geno_diag_mem_con_or1, geno_diag_enz_con_or1, geno_diag_cong_con_or1,
+                                                            antenatal_diag1, neonatal_diag1,affected_diag1,clinical_diag1, #diag_birth_diag1,
+                                                            pvcht, pvcht_age]},
                               context_instance=context)
 
 @login_required(login_url='/login')
