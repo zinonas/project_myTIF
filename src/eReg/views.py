@@ -4793,16 +4793,16 @@ def statistics(request):
 
     #Diagnostic circumstances
     #1
-    antenatal_diag_opt = Diagnosis.objects.filter(diagnosis_circumstances__icontains='antenatal')
+    antenatal_diag_opt = DiagnosisOption.objects.filter(diagnosis__diagnosis_circumstances__icontains='antenatal')
 
     antenatal_diag = PivotDataPool(
         series=[
             {'options': {
                 'source': antenatal_diag_opt,
-                'categories': ['diagnosis_option__diag_option'],
+                'categories': ['diag_option'],
             },
                 'terms': {
-                    'Number_of_patients': Count('diagnosis_option__diag_option'),
+                    'Number_of_patients': Count('diagnosis'),
 
                 }
             }
@@ -4826,16 +4826,16 @@ def statistics(request):
                     'text': 'Diagnostic groups'}}}
     )
 
-    neonatal_diag_opt = Diagnosis.objects.filter(diagnosis_circumstances__icontains='neonatal')
+    neonatal_diag_opt = DiagnosisOption.objects.filter(diagnosis__diagnosis_circumstances__icontains='neonatal')
 
     neonatal_diag = PivotDataPool(
         series=[
             {'options': {
                 'source': neonatal_diag_opt,
-                'categories': ['diagnosis_option__diag_option'],
+                'categories': ['diag_option'],
             },
                 'terms': {
-                    'Number_of_patients': Count('diagnosis_option__diag_option'),
+                    'Number_of_patients': Count('diagnosis'),
 
                 }
             }
@@ -4859,16 +4859,16 @@ def statistics(request):
                     'text': 'Diagnostic groups'}}}
     )
 
-    affected_diag_opt = Diagnosis.objects.filter(diagnosis_circumstances__icontains='affected')
+    affected_diag_opt = DiagnosisOption.objects.filter(diagnosis__diagnosis_circumstances__icontains='affected')
 
     affected_diag = PivotDataPool(
         series=[
             {'options': {
                 'source': affected_diag_opt,
-                'categories': ['diagnosis_option__diag_option'],
+                'categories': ['diag_option'],
             },
                 'terms': {
-                    'Number_of_patients': Count('diagnosis_option__diag_option'),
+                    'Number_of_patients': Count('diagnosis'),
 
                 }
             }
@@ -4892,16 +4892,16 @@ def statistics(request):
                     'text': 'Diagnostic groups'}}}
     )
 
-    clinical_diag_opt = Diagnosis.objects.filter(diagnosis_circumstances__icontains='clinical')
+    clinical_diag_opt = DiagnosisOption.objects.filter(diagnosis__diagnosis_circumstances__icontains='clinical')
 
     clinical_diag = PivotDataPool(
         series=[
             {'options': {
                 'source': clinical_diag_opt,
-                'categories': ['diagnosis_option__diag_option'],
+                'categories': ['diag_option'],
             },
                 'terms': {
-                    'Number_of_patients': Count('diagnosis_option__diag_option'),
+                    'Number_of_patients': Count('diagnosis'),
 
                 }
             }

@@ -33,8 +33,8 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/eReg/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1874">
-              <caret line="4903" column="78" selection-start-line="4903" selection-start-column="78" selection-end-line="4903" selection-end-column="78" />
+            <state relative-caret-position="314">
+              <caret line="4899" column="44" selection-start-line="4899" selection-start-column="44" selection-end-line="4899" selection-end-column="44" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -590,13 +590,6 @@
       <option name="presentableId" value="Default" />
       <updated>1409663873873</updated>
     </task>
-    <task id="LOCAL-00042" summary="Remove family tree Fieldset from forms">
-      <created>1467294843502</created>
-      <option name="number" value="00042" />
-      <option name="presentableId" value="LOCAL-00042" />
-      <option name="project" value="LOCAL" />
-      <updated>1467294843502</updated>
-    </task>
     <task id="LOCAL-00043" summary="Remove family tree Fieldset from forms">
       <created>1469451347067</created>
       <option name="number" value="00043" />
@@ -933,7 +926,14 @@
       <option name="project" value="LOCAL" />
       <updated>1476265629749</updated>
     </task>
-    <option name="localTasksCounter" value="91" />
+    <task id="LOCAL-00091" summary="Changed statistics view to support charts from many_to_many">
+      <created>1476266503218</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1476266503218</updated>
+    </task>
+    <option name="localTasksCounter" value="92" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -966,9 +966,11 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32994652" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32861635" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32243517" sideWeight="0.4726101" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16470589" sideWeight="0.5007215" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.399137" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32914287" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -976,12 +978,10 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.399137" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32991362" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24973261" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.399137" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32914287" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1020,7 +1020,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Support anonymized patient search" />
     <MESSAGE value="Add support to patient role" />
     <MESSAGE value="Update images paths" />
     <MESSAGE value="Correct index.html link" />
@@ -1045,7 +1044,8 @@
     <MESSAGE value="Finalised /statistics" />
     <MESSAGE value="Fixed problems suggested by Dr Angastiniotis regarding fields decimal digits and max length.&#10;Also I added an alert box so if a new user is added to the system, it gives the option to the user to add another one." />
     <MESSAGE value="Debug True" />
-    <option name="LAST_COMMIT_MESSAGE" value="Debug True" />
+    <MESSAGE value="Changed statistics view to support charts from many_to_many" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed statistics view to support charts from many_to_many" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1422,8 +1422,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/eReg/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1874">
-          <caret line="4903" column="78" selection-start-line="4903" selection-start-column="78" selection-end-line="4903" selection-end-column="78" />
+        <state relative-caret-position="314">
+          <caret line="4899" column="44" selection-start-line="4899" selection-start-column="44" selection-end-line="4899" selection-end-column="44" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
