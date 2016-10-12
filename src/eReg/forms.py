@@ -1057,7 +1057,6 @@ class DiagnosisForm(forms.ModelForm):
         widget=DateTimePicker(options={"format": "YYYY-MM-DD",
                                        "pickTime": False,
                                        "startDate": "1900-01-01"}))
-
         self.helper=FormHelper(form=self)
 
         # self.fields['icd_10_desc']= forms.ModelChoiceField(queryset=icd_10.objects.all(),
@@ -1091,9 +1090,18 @@ class DiagnosisForm(forms.ModelForm):
         self.helper.field_class = 'col-md-8'
         self.helper.label_class = 'col-md-3'
 
-        #self.helper.form_class = 'forms-horizontal'
+        # self.helper.form_class = 'forms-horizontal'
         self.helper.layout = Layout(
-            Fieldset (
+            # Fieldset(
+            #     'Last patient data entry',
+            #     Div(
+            #         Div('pub_date', css_class='col-md-12'),
+            #         css_class='row',
+            #     ),
+            # ),
+
+
+            Fieldset(
                 # 'patient',
                 '<b>Diagnosis information</b>',
                 Div(
@@ -1140,7 +1148,6 @@ class DiagnosisForm(forms.ModelForm):
     class Meta:
         model = Diagnosis
         exclude = ['patient', 'author']
-
         list_display = ('patient', 'pub_date', 'author')
         widgets = {
         'icd_10_desc': autocomplete.ModelSelect2Multiple(url='icd10-autocomplete'),

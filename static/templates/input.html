@@ -11,11 +11,7 @@
 {% block pagetitle %}Add patient information{% endblock %}
 
 {% block head %}
-
-
-
-
-            <script>
+              <script>
                 $(document).ready(function() {
                     $('#id_demo-data_entered_by_name').attr('disabled', true);
                     $('#id_demo-data_entered_by_relationship').attr('disabled', true);
@@ -253,6 +249,7 @@
 
         </script>
 
+
         <script>
                 $(document).ready(function() {
                     $("input[name='diag-diagnosis_option']").change(function () {
@@ -349,6 +346,21 @@
                  });
 
             </script>
+            <script>
+                function myFunction() {
+                    var r = confirm("Patient added successfully!\nIf you want to add another patient click OK!");
+                    if (r == true) {
+                        window.location = "{% url 'input' %}";
+                    } else {
+                        txt = "You pressed Cancel!";
+                    }
+                }
+            </script>
+            {%if added_patient == 1 %}
+                <script>window.onload = myFunction();</script>
+            {%endif%}
+
+
 
 
             <!--Needed for calendar-->
@@ -358,6 +370,7 @@
 
 {%block jumbotron_title %}Add new patient to the eRegistry{% endblock %}
 {%block jumbotron_info %}Insert patient's demographics and diagnosis data.
+
     <div class="alert alert-warning" >
         <strong>If you want to select different module(s) for this patient, you have to select modules firstly and then add new patient to the system</strong>.
     </div>
@@ -482,6 +495,7 @@
  {% block footer %}
 
 <script type="text/javascript" src="http://dal-yourlabs.rhcloud.com/static/collected/admin/js/vendor/jquery/jquery.js"></script>
+
 
 {{ frm_d.media }}
 

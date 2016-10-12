@@ -113,6 +113,7 @@ def input(request):
 
     #diagnosis option for saving purposes. In order to save only specific tables in db.
     diag_option = 0
+    added_patient=0
 
     if request.method == 'POST':
 
@@ -365,6 +366,7 @@ def input(request):
             my_patient_reported_outcomes_object.author = request.user
             my_patient_reported_outcomes_object.patient = my_demographics_object
             my_patient_reported_outcomes_object.save()
+            added_patient=1
 
 
         # submitted = request.POST.get('form_id', '')
@@ -430,12 +432,12 @@ def input(request):
         my_patient_reported_outcomes = Patient_Reported_outcomeForm(prefix='ptn_rep_out')
     #HERE CACHE
     if ret is None:
-        ret = render_to_response('input.html', {'frm':my_demographics, 'frm_d': my_diagnosis, 'frm_a_b_s': my_a_b_sickle, 'frm_rc_enz': my_redcell_enzyme, 'frm_rc_mbr': my_redcell_membrane, 'frm_cong_dys': my_cong_dys, 'diag_option': diag_option, 'frm_cln_dt': my_cln_dt, 'frm_cln_dt_two': my_cln_dt_two, 'ptn_rep_out':my_patient_reported_outcomes}, context)
+        ret = render_to_response('input.html', {'frm':my_demographics, 'frm_d': my_diagnosis, 'frm_a_b_s': my_a_b_sickle, 'frm_rc_enz': my_redcell_enzyme, 'frm_rc_mbr': my_redcell_membrane, 'frm_cong_dys': my_cong_dys, 'diag_option': diag_option, 'frm_cln_dt': my_cln_dt, 'frm_cln_dt_two': my_cln_dt_two, 'ptn_rep_out':my_patient_reported_outcomes, 'added_patient':added_patient}, context)
         cache.set('input-rendered', ret)
     if ret is not None and request.method != 'POST':
         return ret
     else:
-        return render_to_response('input.html', {'frm':my_demographics, 'frm_d': my_diagnosis, 'frm_a_b_s': my_a_b_sickle, 'frm_rc_enz': my_redcell_enzyme, 'frm_rc_mbr': my_redcell_membrane, 'frm_cong_dys': my_cong_dys, 'diag_option': diag_option, 'frm_cln_dt': my_cln_dt, 'frm_cln_dt_two': my_cln_dt_two, 'ptn_rep_out':my_patient_reported_outcomes}, context)
+        return render_to_response('input.html', {'frm':my_demographics, 'frm_d': my_diagnosis, 'frm_a_b_s': my_a_b_sickle, 'frm_rc_enz': my_redcell_enzyme, 'frm_rc_mbr': my_redcell_membrane, 'frm_cong_dys': my_cong_dys, 'diag_option': diag_option, 'frm_cln_dt': my_cln_dt, 'frm_cln_dt_two': my_cln_dt_two, 'ptn_rep_out':my_patient_reported_outcomes,'added_patient':added_patient}, context)
         # submitted = request.POST.get('form_id', '')
         #
         # if submitted == 'demographics':
@@ -615,6 +617,7 @@ def results(request):
                 return render_to_response('search.html',{'my_alert':my_alert}, context)
 
             diag_patient = Diagnosis.objects.get(patient=myid, author__institution__department=department)
+            latest_update = diag_patient.pub_date
             #diag_val = diag_patient.diagnosis_option
             a_b_s_patient = A_b_sickle_thal.objects.get(patient=myid, author__institution__department=department)
             r_c_e_patient = Redcell_enzyme_dis.objects.get(patient=myid, author__institution__department=department)
@@ -792,6 +795,9 @@ def results(request):
                 return response
 
             diag_patient = Diagnosis.objects.get(patient=myid, author__institution__department=department)
+            latest_update = diag_patient.pub_date
+            #print "latest update"
+            #print latest_update
             a_b_s_patient = A_b_sickle_thal.objects.get(patient=myid, author__institution__department=department)
             r_c_e_patient = Redcell_enzyme_dis.objects.get(patient=myid,author__institution__department=department)
             r_c_m_patient = Redcell_membrane_dis.objects.get(patient=myid, author__institution__department=department)
@@ -824,7 +830,7 @@ def results(request):
         my_patient_reported_outcomes = Patient_Reported_outcomeForm(request.POST or None, prefix='pat_rep_out', instance=patient_reported_outcomes_patient)
 
 
-    return render_to_response('results.html', {'frm':my_demographics, 'frm_d': my_diagnosis, 'frm_a_b_s': my_a_b_sickle, 'frm_rc_enz': my_redcell_enzyme, 'frm_rc_mbr': my_redcell_membrane, 'frm_cong_dys': my_cong_dys, 'diag_option': diag_option, 'frm_cln_dt':my_cln_dt,'frm_cln_dt_two': my_cln_dt_two, 'ptn_rep_out':my_patient_reported_outcomes}, context)
+    return render_to_response('results.html', {'frm':my_demographics, 'frm_d': my_diagnosis, 'frm_a_b_s': my_a_b_sickle, 'frm_rc_enz': my_redcell_enzyme, 'frm_rc_mbr': my_redcell_membrane, 'frm_cong_dys': my_cong_dys, 'diag_option': diag_option, 'frm_cln_dt':my_cln_dt,'frm_cln_dt_two': my_cln_dt_two, 'ptn_rep_out':my_patient_reported_outcomes, 'latest_update': latest_update}, context)
 
 
 # @login_required(login_url='/login')
