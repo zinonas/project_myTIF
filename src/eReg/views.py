@@ -1251,6 +1251,22 @@ def statistics(request):
                     'title': {
                        'text': 'By country of residence'}}}
     )
+    tot_diag_thalb1b = PivotChart(
+        datasource=tot_diag_thalb,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'b-thalassaemia syndromes'},
+            'xAxis': {
+                'title': {
+                    'text': 'By country of residence'}}}
+    )
 
     Diag_opt = Demographic.objects.filter(diagnosis__diagnosis_option='2')
 
@@ -1283,6 +1299,22 @@ def statistics(request):
                'xAxis': {
                     'title': {
                        'text': 'By country of residence'}}}
+    )
+    tot_diag_thala1b = PivotChart(
+        datasource=tot_diag_thala,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'a-thalassaemia syndromes'},
+            'xAxis': {
+                'title': {
+                    'text': 'By country of residence'}}}
     )
 
     Diag_opt = Demographic.objects.filter(diagnosis__diagnosis_option='3')
@@ -1318,6 +1350,23 @@ def statistics(request):
                        'text': 'By country of residence'}}}
     )
 
+    tot_diag_sck1b = PivotChart(
+        datasource=tot_diag_sck,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'Sickle cell syndromes'},
+            'xAxis': {
+                'title': {
+                    'text': 'By country of residence'}}}
+    )
+
     Diag_opt = Demographic.objects.filter(diagnosis__diagnosis_option='4')
 
     tot_diag_other = PivotDataPool(
@@ -1349,6 +1398,23 @@ def statistics(request):
                'xAxis': {
                     'title': {
                        'text': 'By country of residence'}}}
+    )
+
+    tot_diag_other1b = PivotChart(
+        datasource=tot_diag_other,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'Other haemoglobin variants'},
+            'xAxis': {
+                'title': {
+                    'text': 'By country of residence'}}}
     )
 
     Diag_opt = Demographic.objects.filter(diagnosis__diagnosis_option='5')
@@ -1384,6 +1450,23 @@ def statistics(request):
                        'text': 'By country of residence'}}}
     )
 
+    tot_diag_mem1b = PivotChart(
+        datasource=tot_diag_mem,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'Rare cell membrane disorders'},
+            'xAxis': {
+                'title': {
+                    'text': 'By country of residence'}}}
+    )
+
     Diag_opt = Demographic.objects.filter(diagnosis__diagnosis_option='6')
 
     tot_diag_enz = PivotDataPool(
@@ -1417,6 +1500,23 @@ def statistics(request):
                        'text': 'By country of residence'}}}
     )
 
+    tot_diag_enz1b = PivotChart(
+        datasource=tot_diag_enz,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'Rare cell enzyme disorders'},
+            'xAxis': {
+                'title': {
+                    'text': 'By country of residence'}}}
+    )
+
     Diag_opt = Demographic.objects.filter(diagnosis__diagnosis_option='7')
 
     tot_diag_cong = PivotDataPool(
@@ -1448,6 +1548,23 @@ def statistics(request):
                'xAxis': {
                     'title': {
                        'text': 'By country of residence'}}}
+    )
+
+    tot_diag_cong1b = PivotChart(
+        datasource=tot_diag_cong,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'Congenital dyserythropoietic anaemias'},
+            'xAxis': {
+                'title': {
+                    'text': 'By country of residence'}}}
     )
 
 
@@ -1485,6 +1602,23 @@ def statistics(request):
                        'text': 'By country of origin'}}}
     )
 
+    tot_diag_thalb_con_or1b = PivotChart(
+        datasource=tot_diag_thalb_con_or,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'b-thalassaemia syndromes'},
+            'xAxis': {
+                'title': {
+                    'text': 'By country of origin'}}}
+    )
+
     Diag_opt = Demographic.objects.filter(diagnosis__diagnosis_option='2')
 
     tot_diag_thala_con_or = PivotDataPool(
@@ -1516,6 +1650,22 @@ def statistics(request):
                'xAxis': {
                     'title': {
                        'text': 'By country of origin'}}}
+    )
+    tot_diag_thala_con_or1b = PivotChart(
+        datasource=tot_diag_thala_con_or,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'a-thalassaemia syndromes'},
+            'xAxis': {
+                'title': {
+                    'text': 'By country of origin'}}}
     )
 
     Diag_opt = Demographic.objects.filter(diagnosis__diagnosis_option='3')
@@ -1551,6 +1701,23 @@ def statistics(request):
                        'text': 'By country of origin'}}}
     )
 
+    tot_diag_sck_con_or1b = PivotChart(
+        datasource=tot_diag_sck_con_or,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'Sickle cell syndromes'},
+            'xAxis': {
+                'title': {
+                    'text': 'By country of origin'}}}
+    )
+
     Diag_opt = Demographic.objects.filter(diagnosis__diagnosis_option='4')
 
     tot_diag_other_con_or = PivotDataPool(
@@ -1582,6 +1749,23 @@ def statistics(request):
                'xAxis': {
                     'title': {
                        'text': 'By country of origin'}}}
+    )
+
+    tot_diag_other_con_or1b = PivotChart(
+        datasource=tot_diag_other_con_or,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'Other haemoglobin variants'},
+            'xAxis': {
+                'title': {
+                    'text': 'By country of origin'}}}
     )
 
     Diag_opt = Demographic.objects.filter(diagnosis__diagnosis_option='5')
@@ -1617,6 +1801,23 @@ def statistics(request):
                        'text': 'By country of origin'}}}
     )
 
+    tot_diag_mem_con_or1b = PivotChart(
+        datasource=tot_diag_mem_con_or,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'Rare cell membrane disorders'},
+            'xAxis': {
+                'title': {
+                    'text': 'By country of origin'}}}
+    )
+
     Diag_opt = Demographic.objects.filter(diagnosis__diagnosis_option='6')
 
     tot_diag_enz_con_or = PivotDataPool(
@@ -1650,6 +1851,23 @@ def statistics(request):
                        'text': 'By country of origin'}}}
     )
 
+    tot_diag_enz_con_or1b = PivotChart(
+        datasource=tot_diag_enz_con_or,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'Rare cell enzyme disorders'},
+            'xAxis': {
+                'title': {
+                    'text': 'By country of origin'}}}
+    )
+
     Diag_opt = Demographic.objects.filter(diagnosis__diagnosis_option='7')
 
     tot_diag_cong_con_or = PivotDataPool(
@@ -1681,6 +1899,23 @@ def statistics(request):
                'xAxis': {
                     'title': {
                        'text': 'By country of origin'}}}
+    )
+
+    tot_diag_cong_con_or1b = PivotChart(
+        datasource=tot_diag_cong_con_or,
+        series_options=
+        [{'options': {
+            'type': 'column',
+            'stacking': True
+        },
+            'terms': ['Number_of_patients']
+        }],
+        chart_options=
+        {'title': {
+            'text': 'Congenital dyserythropoietic anaemias'},
+            'xAxis': {
+                'title': {
+                    'text': 'By country of origin'}}}
     )
 
 
@@ -5053,9 +5288,16 @@ def statistics(request):
                                                             edu_by_age_uni1, edu_by_age_oth1, employ_age_dist1, unemploy_age_dist1, penic_dist1, vacc_dist1, liver_dist1, urea_dist1, creat_dist1,
                                                             proturea_dist1,calc_dist1, parv_dist1, pulm_dist1, hip_dist1, oph_dist1, dac_dist1, stroke_dist1, splen_dist1, aplastic_dist1,
                                                             chest_dist1, mulorg_dist1, priap_dist1, hf_beta_dist1, hf_aplha_dist1, hf_sickle_dist1, hf_other_dist1, hf_membrane_dist1, hf_enzyme_dist1,
-                                                            hf_cong_dist1, student_age_dist1,edu_diag_thalb_con_or1,tot_diag_thalb1, tot_diag_thala1, tot_diag_sck1, tot_diag_other1, tot_diag_mem1,
-                                                            tot_diag_enz1, tot_diag_cong1,tot_diag_thalb_con_or1, tot_diag_thala_con_or1, tot_diag_sck_con_or1, tot_diag_other_con_or1,
-                                                            tot_diag_mem_con_or1, tot_diag_enz_con_or1, tot_diag_cong_con_or1 ,
+                                                            hf_cong_dist1, student_age_dist1,edu_diag_thalb_con_or1,
+                                                            tot_diag_thalb1b, tot_diag_thala1b, tot_diag_sck1b, tot_diag_other1b, tot_diag_mem1b,
+                                                            tot_diag_enz1b, tot_diag_cong1b,tot_diag_thalb_con_or1b, tot_diag_thala_con_or1b, tot_diag_sck_con_or1b, tot_diag_other_con_or1b,
+                                                            tot_diag_mem_con_or1b, tot_diag_enz_con_or1b, tot_diag_cong_con_or1b,
+
+                                                            #tot_diag_thalb1b, tot_diag_thala1b, tot_diag_sck1b,
+                                                            #tot_diag_other1b, tot_diag_mem1b, tot_diag_enz1b, tot_diag_cong1b, tot_diag_thalb_con_or1b,
+                                                            #tot_diag_thala_con_or1b, tot_diag_sck_con_or1b,
+                                                            #tot_diag_mem_con_or1b, tot_diag_enz_con_or1b,tot_diag_cong_con_or1b,
+
                                                             edu_diag_thala_con_or1, edu_diag_scd_con_or1,edu_diag_other_con_or1, edu_diag_mem_con_or1,
                                                             edu_diag_enz_con_or1,edu_diag_cong_con_or1,edu_corig_prim1,edu_corig_sec1,edu_corig_uni1,edu_corig_other1,
                                                             edu_resid_prim1, edu_resid_sec1, edu_resid_uni1,edu_resid_other1,
