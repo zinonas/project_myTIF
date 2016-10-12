@@ -4802,7 +4802,7 @@ def statistics(request):
                 'categories': ['diagnosis_option__diag_option'],
             },
                 'terms': {
-                    'Number_of_patients': Count('diagnosis_option'),
+                    'Number_of_patients': Count('diagnosis_option__diag_option'),
 
                 }
             }
@@ -4835,7 +4835,7 @@ def statistics(request):
                 'categories': ['diagnosis_option__diag_option'],
             },
                 'terms': {
-                    'Number_of_patients': Count('diagnosis_option'),
+                    'Number_of_patients': Count('diagnosis_option__diag_option'),
 
                 }
             }
@@ -4868,7 +4868,7 @@ def statistics(request):
                 'categories': ['diagnosis_option__diag_option'],
             },
                 'terms': {
-                    'Number_of_patients': Count('diagnosis_option'),
+                    'Number_of_patients': Count('diagnosis_option__diag_option'),
 
                 }
             }
@@ -4901,7 +4901,7 @@ def statistics(request):
                 'categories': ['diagnosis_option__diag_option'],
             },
                 'terms': {
-                    'Number_of_patients': Count('diagnosis_option'),
+                    'Number_of_patients': Count('diagnosis_option__diag_option'),
 
                 }
             }

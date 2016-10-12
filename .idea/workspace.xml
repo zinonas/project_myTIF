@@ -9,7 +9,7 @@
   <component name="ChangeListManager">
     <list default="true" id="3dc3b258-7aa6-4de1-9034-27e990e0e1b6" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/project_mytif/settings.py" afterPath="$PROJECT_DIR$/src/project_mytif/settings.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/eReg/views.py" afterPath="$PROJECT_DIR$/src/eReg/views.py" />
     </list>
     <ignored path="project_myTIF.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -30,11 +30,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/eReg/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="438" column="4" selection-start-line="438" selection-start-column="4" selection-end-line="438" selection-end-column="4" />
+            <state relative-caret-position="-1874">
+              <caret line="4903" column="78" selection-start-line="4903" selection-start-column="78" selection-end-line="4903" selection-end-column="78" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -95,7 +95,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/project_mytif/settings.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="491">
@@ -168,8 +168,8 @@
         <option value="$PROJECT_DIR$/src/eReg/forms.py" />
         <option value="$PROJECT_DIR$/static/templates/results.html" />
         <option value="$PROJECT_DIR$/static/templates/input.html" />
-        <option value="$PROJECT_DIR$/src/eReg/views.py" />
         <option value="$PROJECT_DIR$/src/project_mytif/settings.py" />
+        <option value="$PROJECT_DIR$/src/eReg/views.py" />
       </list>
     </option>
   </component>
@@ -590,13 +590,6 @@
       <option name="presentableId" value="Default" />
       <updated>1409663873873</updated>
     </task>
-    <task id="LOCAL-00041" summary="Edited main page">
-      <created>1467291583258</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
-      <option name="project" value="LOCAL" />
-      <updated>1467291583258</updated>
-    </task>
     <task id="LOCAL-00042" summary="Remove family tree Fieldset from forms">
       <created>1467294843502</created>
       <option name="number" value="00042" />
@@ -933,7 +926,14 @@
       <option name="project" value="LOCAL" />
       <updated>1476264462941</updated>
     </task>
-    <option name="localTasksCounter" value="90" />
+    <task id="LOCAL-00090" summary="Debug True">
+      <created>1476265629748</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1476265629749</updated>
+    </task>
+    <option name="localTasksCounter" value="91" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1020,7 +1020,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add history/notes field" />
     <MESSAGE value="Support anonymized patient search" />
     <MESSAGE value="Add support to patient role" />
     <MESSAGE value="Update images paths" />
@@ -1045,7 +1044,8 @@
     <MESSAGE value="Update Gender statistics" />
     <MESSAGE value="Finalised /statistics" />
     <MESSAGE value="Fixed problems suggested by Dr Angastiniotis regarding fields decimal digits and max length.&#10;Also I added an alert box so if a new user is added to the system, it gives the option to the user to add another one." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed problems suggested by Dr Angastiniotis regarding fields decimal digits and max length.&#10;Also I added an alert box so if a new user is added to the system, it gives the option to the user to add another one." />
+    <MESSAGE value="Debug True" />
+    <option name="LAST_COMMIT_MESSAGE" value="Debug True" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1412,21 +1412,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/eReg/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="438" column="4" selection-start-line="438" selection-start-column="4" selection-end-line="438" selection-end-column="4" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/project_mytif/settings.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="491">
           <caret line="24" column="12" selection-start-line="24" selection-start-column="12" selection-end-line="24" selection-end-column="12" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/eReg/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1874">
+          <caret line="4903" column="78" selection-start-line="4903" selection-start-column="78" selection-end-line="4903" selection-end-column="78" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
