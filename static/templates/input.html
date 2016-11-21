@@ -379,8 +379,12 @@
         {% if 'module_2' not in  request.COOKIES %}<strong><input type="checkbox" name="module_id_2" id="module_id_2" value="2">Module 2: Clinical Findings of Thalassaemia and Severe Anaemias<br/></strong>{%endif%}
         {% if 'module_3' not in  request.COOKIES %}<strong><input type="checkbox" name="module_id_3" id="module_id_3" value="3">Module 3: Clinical findings of Sickle Cell Disease<br/></strong>{%endif%}
         {% if 'module_4' not in  request.COOKIES %}<strong><input type="checkbox" name="module_id_4" id="module_id_4" value="4">Module 4: Patient reported outcomes</strong>{%endif%}
-    {% if 'module_2' not in  request.COOKIES or 'module_3' not in  request.COOKIES or 'module_4' not in  request.COOKIES %}</div>{%endif%}
+        {% if 'module_2' not in  request.COOKIES or 'module_3' not in  request.COOKIES or 'module_4' not in  request.COOKIES %}</div>{%endif%}
 
+    <div class="alert alert-warning" >
+        <strong>
+        {% if request.get_full_path == patientConsent_url %} class="active"{% endif %}Please print <a href="{% url 'patientConsent'  %}" target="_blank">Patient Consent form</a> and give to patient to sign it. It's obligatory</strong>.
+    </div>
         {% endblock %}
 {% block content %}
 

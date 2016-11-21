@@ -43,12 +43,19 @@ def password_change_done(request, template_name="registration/password_change_do
     return render_to_response(template_name,(),context_instance= RequestContext(request))
 
 def userManual(request):
-    with open('/home/enerca/project_myTIF/static/media/eRegistry_userManual.pdf', 'r') as pdf:
+    with open('/home/enerca/project_myTIF/static/media/ENERCA_TIF_patient_consent_form.pdf', 'r') as pdf:
         response = HttpResponse(pdf.read(), content_type='application/pdf')
         response['Content-Disposition'] = 'inline;filename=some_file.pdf'
         return response
     pdf.closed
     #return render(request,'userManual.html',{'pdf':pdf.read()})
+
+def patientConsent(request):
+    with open('/home/enerca/project_myTIF/static/media/eRegistry_patientConsent.pdf', 'r') as pdf:
+        response = HttpResponse(pdf.read(), content_type='application/pdf')
+        response['Content-Disposition'] = 'inline;filename=some_file.pdf'
+        return response
+    pdf.closed
 
 def home(request):
     groups = Group.objects.all()
