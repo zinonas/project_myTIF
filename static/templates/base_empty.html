@@ -182,8 +182,9 @@
                 {% if user.is_authenticated %}
                   {% for group in user.groups.all %}
                     {% if group.name != 'Patient' %}
+                      {% if forloop.counter < 2 %}
                     <li {% if request.get_full_path == modules_url %} class="active" {% else%} class="inactive"{% endif %}><a href="{% url 'modules' %}"><b  style="color:#ff9904;">Modules</b></a></li>
-
+                      {% endif %}
                     {% endif %}
                   {%endfor%}
                   {% endif %}
